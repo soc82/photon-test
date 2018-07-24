@@ -5271,7 +5271,14 @@ input, textarea {
                   border: none;
                   box-shadow: none;
                   font-size: 14px;
-                  color: #FFFFFF; }
+                  color: #FFFFFF;
+                  padding: 4px 5px 4px 0;
+                  width: 50px;
+                  /* Expands on click */
+                  -webkit-transition-duration: 700ms;
+                  -moz-transition-duration: 700ms;
+                  -o-transition-duration: 700ms;
+                  transition-duration: 700ms; }
                   .top-header-bar .top-navigation-wrapper ul li.menu-item-search form input::-webkit-input-placeholder {
                     /* Chrome/Opera/Safari */
                     color: white; }
@@ -5284,6 +5291,11 @@ input, textarea {
                   .top-header-bar .top-navigation-wrapper ul li.menu-item-search form input:-moz-placeholder {
                     /* Firefox 18- */
                     color: white; }
+            .top-header-bar .top-navigation-wrapper ul li.menu-item-search.active input {
+              width: 200px;
+              /* Expands on click */
+              background: rgba(255, 255, 255, 0.2);
+              padding: 4px 5px 4px 8px; }
             .top-header-bar .top-navigation-wrapper ul li .sub-menu {
               position: absolute;
               background: #72a330;

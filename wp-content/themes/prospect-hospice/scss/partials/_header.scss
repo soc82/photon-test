@@ -45,7 +45,7 @@
                 font-family: 'Font Awesome 5 Pro';
                 color: #FFFFFF;
                 font-size: 13px;
-                padding-right: 5px;
+                padding-right:5px;
               }
               input {
                 background: transparent;
@@ -53,6 +53,12 @@
                 box-shadow: none;
                 font-size: 14px;
                 color: #FFFFFF;
+                padding: 4px 5px 4px 0;
+                width: 50px; /* Expands on click */
+                -webkit-transition-duration: 700ms;
+                -moz-transition-duration: 700ms;
+                -o-transition-duration: 700ms;
+                transition-duration: 700ms;
 
                 &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
                   color: white;
@@ -67,6 +73,13 @@
                   color: white;
                 }
               }
+            }
+          }
+          &.menu-item-search.active {
+            input {
+              width: 200px; /* Expands on click */
+              background: rgba(255,255,255,0.2);
+              padding: 4px 5px 4px 8px;
             }
           }
           .sub-menu {
