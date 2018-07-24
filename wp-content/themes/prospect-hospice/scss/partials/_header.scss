@@ -1,0 +1,115 @@
+.top-header-bar {
+  display: none;
+  @include media-breakpoint-up(md) {
+    background: $green;
+    display: block;
+    .top-navigation-wrapper {
+      text-align: right;
+      height: 40px;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        line-height: 24px;
+        li {
+          display: inline-block;
+          line-height: 30px;
+          a {
+            display: block;
+            color:#FFFFFF;
+            font-size: 14px;
+            padding:0 10px;
+            margin: 5px 0;
+            border-left: 1px solid rgba(255,255,255,0.25);
+          }
+          &:last-of-type {
+            a {
+              padding-right: 0;
+            }
+          }
+          &.header-shop-link {
+            a {
+              &:before {
+                content: '\f3c5';
+                font-family: 'Font Awesome 5 Pro';
+                padding-right: 5px;
+              }
+            }
+          }
+          &.menu-item-search {
+            padding-right: 10px;
+            form {
+              position: relative;
+              &:before {
+                content: '\f002';
+                font-family: 'Font Awesome 5 Pro';
+                color: #FFFFFF;
+                font-size: 13px;
+                padding-right: 5px;
+              }
+              input {
+                background: transparent;
+                border:none;
+                box-shadow: none;
+                font-size: 14px;
+                color: #FFFFFF;
+
+                &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                  color: white;
+                }
+                &::-moz-placeholder { /* Firefox 19+ */
+                  color: white;
+                }
+                &:-ms-input-placeholder { /* IE 10+ */
+                  color: white;
+                }
+                &:-moz-placeholder { /* Firefox 18- */
+                  color: white;
+                }
+              }
+            }
+          }
+          .sub-menu {
+            position: absolute;
+            background: darken($green, 10%);
+            min-width: 150px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            right: 0;
+            z-index: 10;
+            display: none;
+            li {
+              display: block;
+              line-height: 30px;
+              a {
+                display: block;
+                color: #FFFFFF;
+                padding: 4px 15px;
+                border-bottom: 1px solid darken($green, 5%);
+                border-left: none;
+                &:hover {
+                  color: lighten($green, 40%);
+                }
+              }
+              &:last-of-type {
+                a {
+                  border-bottom: none;
+                }
+              }
+            }
+          }
+          &:hover {
+            a {
+              color: darken($green,20%);
+            }
+            .sub-menu {
+              display: block;
+            }
+          }
+
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+//
+// Typography
+// --------------------------------------------------
+
+body {
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 22px;
+  padding: 0;
+  margin: 0;
+  font-family: $font-paragraph;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: $font-heading;
+  font-weight: 300;
+}
+
+p, ul, ol, time {
+
+}
+
+ul, ol {
+  margin:0 0 20px 0;
+  padding: 0 0 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: $green;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  &:hover, &:active, &:focus {
+    color: darekn($green, 10%);
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+  }
+}

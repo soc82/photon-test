@@ -1,0 +1,6 @@
+{
+  "name": "bosonweb/plugin-boson-clientinfo",
+  "type": "wordpress-plugin",
+  "require": {
+  }
+}

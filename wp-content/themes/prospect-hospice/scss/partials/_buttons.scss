@@ -1,0 +1,25 @@
+//
+// Buttons
+// --------------------------------------------------
+
+/*
+** Starter button class
+*/
+.btn {
+  padding: 12px 25px;
+  background: #888888;
+  border:2px solid #888888;
+  color: #FFFFFF;
+  text-decoration: none;
+  @include border-radius-separate(20px, 20px, 20px, 20px);
+  @include transition(all 0.3s ease-in-out);
+  &:hover, &:focus, &:active {
+    outline: none;
+    text-decoration: none;
+    background: transparent;
+    border-color: #888888;
+    color: #888888;
+  }
+  // .btn-outline { }
+
+}

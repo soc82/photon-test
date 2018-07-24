@@ -1,0 +1,6 @@
+{
+  "name": "bosonweb/plugin-boson-admin",
+  "type": "wordpress-plugin",
+  "require": {
+  }
+}
