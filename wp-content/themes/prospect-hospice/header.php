@@ -35,12 +35,12 @@
 	<header class="site-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-3 col-lg-2">
+				<div class="col-12 col-lg-3">
 					<a href="<?php echo home_url(); ?>" class="header-logo">
 						<img src="<?php echo get_stylesheet_directory_uri() . '/img/prospect-hospice.png'; ?>" alt="<?php echo get_bloginfo('name'); ?>" class="img-fluid" />
 					</a>
 				</div>
-				<div class="col-9 col-lg-10">
+				<div class="col-12 col-lg-9">
 					<?php wp_nav_menu(array(
 						'container_class' => 'main-navigation-wrapper',
 						'theme_location'	=> 'main-navigation',

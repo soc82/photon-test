@@ -113,3 +113,12 @@
     }
   }
 }
+
+.site-header {
+  @include media-breakpoint-up(xl) {
+    padding: 15px 0;
+  }
+  img {
+    max-height: 110px;
+  }
+}
