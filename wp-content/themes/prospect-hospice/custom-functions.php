@@ -4,7 +4,9 @@
 ** Custom functions to be add below
 **************************************/
 
-
+/*
+** Add search form to top navigation
+*/
 function prospect_search_form_to_menu ( $items, $args ) {
 	if( 'top-navigation' === $args->theme_location ) {
     $search_form = '';
@@ -15,4 +17,14 @@ function prospect_search_form_to_menu ( $items, $args ) {
 	}
   return $items;
 }
-add_filter('wp_nav_menu_items','prospect_search_form_to_menu',10,2);  
+add_filter('wp_nav_menu_items','prospect_search_form_to_menu',10,2);
+
+
+/*
+** Gets the Donate page id
+*/
+function prospect_get_donate_page_ID() {
+		$page = get_field('donate_page', 'options');
+		if($page)
+			return $page->ID;
+}

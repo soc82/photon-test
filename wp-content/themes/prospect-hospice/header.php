@@ -13,39 +13,62 @@
 	<link rel="icon" type="image/png" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicons/favicon-16x16.png" sizes="16x16">
 	<link rel="manifest" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicons/manifest.json">
 	<link rel="mask-icon" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
+	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/modernizr.custom.js"></script>
+
 	<meta name="theme-color" content="#c25cc3">
 	<?php wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
 
-<div class="page-wrapper">
-	<div class="top-header-bar">
-		<div class="container">
-			<div class="row">
-				<div class="col-12">
-					<?php wp_nav_menu(array(
-						'container_class' => 'top-navigation-wrapper',
-						'theme_location'	=> 'top-navigation',
-						'menu_class' => 'top-navigiation'));?>
-				</div>
-			</div>
+	<!-- Push Wrapper -->
+	<div class="mobile-pusher" id="mobile-pusher">
+
+	<!-- mobile-menu -->
+	<nav id="mobile-menu" class="mobile-menu">
+		<div class="menu-level">
+			<?php wp_nav_menu(array(
+				'container_class' => false,
+				'theme_location'	=> 'main-navigation',
+				'menu_class' => false,
+				'menu_id'	=> false,
+				'walker'  => new wp_bootstrap_navwalker() //use our custom walker
+			));?>
+
 		</div>
-	</div>
-	<header class="site-header">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-lg-3">
-					<a href="<?php echo home_url(); ?>" class="header-logo">
-						<img src="<?php echo get_stylesheet_directory_uri() . '/img/prospect-hospice.png'; ?>" alt="<?php echo get_bloginfo('name'); ?>" class="img-fluid" />
-					</a>
+	</nav>
+	<!-- /mobile-menu -->
+	<div class="scroller"><!-- this is for emulating position fixed of the nav -->
+		<div class="scroller-inner">
+
+				<div class="top-header-bar">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<?php wp_nav_menu(array(
+									'container_class' => 'top-navigation-wrapper',
+									'theme_location'	=> 'top-navigation',
+									'menu_class' => 'top-navigiation'));?>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="col-12 col-lg-9">
-					<?php wp_nav_menu(array(
-						'container_class' => 'main-navigation-wrapper',
-						'theme_location'	=> 'main-navigation',
-						'menu_class' => 'main-navigiation'));?>
-				</div>
-			</div>
-		</div>
-	</header>
+				<header class="site-header">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12 col-md-3">
+								<a href="<?php echo home_url(); ?>" class="header-logo">
+									<img src="<?php echo get_stylesheet_directory_uri() . '/img/prospect-hospice.png'; ?>" alt="<?php echo get_bloginfo('name'); ?>" class="img-fluid desktop-logo" />
+									<img src="<?php echo get_stylesheet_directory_uri() . '/img/prospect-hospice-white.png'; ?>" alt="<?php echo get_bloginfo('name'); ?>" class="img-fluid mobile-logo" />
+								</a>
+							</div>
+							<a href="#" id="trigger" class="menu-trigger"><i class="far fa-bars"></i></a>
+							<div class="col-12 col-md-9 desktop-navigation">
+								<?php wp_nav_menu(array(
+									'container_class' => 'main-navigation-wrapper',
+									'theme_location'	=> 'main-navigation',
+									'menu_class' => 'main-navigiation'));?>
+							</div>
+						</div>
+					</div>
+				</header>

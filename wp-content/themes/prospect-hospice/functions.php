@@ -68,7 +68,8 @@ function startline_enqueue_scripts() {
   // Main theme stylesheet
 	wp_enqueue_style('main-css', get_stylesheet_directory_uri() . '/css/main.min.css', [], $currentTheme->get('Version'), 'screen');
 
-  // Main theme script
+  wp_enqueue_script( 'classie', get_stylesheet_directory_uri() . '/js/classie.js', array( 'jquery' ), $currentTheme->get('Version'), true);
+  wp_enqueue_script( 'mlpushmenu', get_stylesheet_directory_uri() . '/js/mlpushmenu.js', array( 'jquery' ), $currentTheme->get('Version'), true);
   wp_enqueue_script( 'custom-js', get_stylesheet_directory_uri() . '/js/custom.js', array( 'jquery' ), null, true);
 
   // Fonts.com
@@ -79,8 +80,6 @@ function startline_enqueue_scripts() {
 
 }
 add_action('wp_enqueue_scripts', 'startline_enqueue_scripts');
-
-
 
 /**********************************************
 ** Navigation

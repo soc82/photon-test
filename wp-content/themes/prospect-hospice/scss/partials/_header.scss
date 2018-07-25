@@ -125,13 +125,198 @@
       }
     }
   }
+  .container-fluid {
+    max-width: 1140px;
+  }
 }
 
 .site-header {
-  @include media-breakpoint-up(xl) {
-    padding: 15px 0;
+  background: $green;
+  padding: 15px 0;
+  @include media-breakpoint-up(md) {
+    background: none;
   }
-  img {
-    max-height: 110px;
+  .container-fluid {
+    max-width: 1140px;
+  }
+  .header-logo {
+    display: block;
+    .desktop-logo {
+      display: none;
+      @include media-breakpoint-up(md) {
+        width:165px;
+        display: block;
+      }
+      @include media-breakpoint-up(lg) {
+        width:220px;
+      }
+    }
+    .mobile-logo {
+      display: block;
+      width: 130px;
+      @include media-breakpoint-up(md) {
+        display: none;
+      }
+    }
+  }
+  .desktop-navigation {
+    display: none;
+    @include media-breakpoint-up(md) {
+      display: block;
+      .main-navigation-wrapper {
+        text-align: right;
+        margin-top: 20px;
+        @include media-breakpoint-up(lg) {
+        //margin-top: 30px;
+        }
+      	ul.main-navigiation {
+      		margin:0;
+      		padding: 0;
+          line-height: 50px;
+          @include media-breakpoint-up(lg) {
+            line-height: 75px;
+          }
+      		li {
+      			display: inline-block;
+            height: 100%;
+            font-size: 15px;
+      			margin-right: 13px;
+            @include media-breakpoint-up(lg) {
+              font-size: 16px;
+            }
+      			@include media-breakpoint-up(xl) {
+      				margin-right: 30px;
+      			}
+      			a {
+      				color:$black;
+              display: block;
+      			}
+            &:hover {
+        			a {
+        				color:$yellow;
+        			}
+        		}
+            &.menu-item-has-children {
+              & > a {
+                &:after {
+                  content: '\f0d7';
+                  font-family: 'Font Awesome 5 Pro';
+                  font-weight: 600;
+                  color: $yellow;
+                  padding-left: 5px;
+                }
+                &:before {
+                  content: '';
+                  width: 0;
+                  height: 0;
+                  border-left: 20px solid transparent;
+                  border-right: 20px solid transparent;
+                  border-bottom: 20px solid transparent;
+                  content: '';
+                  position: absolute;
+                  top: 65px;
+                  opacity: 0;
+                  visibility: hidden;
+                  @include media-breakpoint-up(lg) {
+                    top: 85px;
+                  }
+                }
+              }
+              &:hover {
+                a {
+                  &:before {
+                    border-bottom: 20px solid $yellow;
+                    opacity: 1;
+                    visibility: visible;
+                  }
+                }
+                & > ul.sub-menu {
+                  display: block;
+                }
+              }
+            }
+            &.donate {
+              margin-right: 0;
+              line-height: 22px;
+              display: none;
+              @include media-breakpoint-up(lg) {
+                display: inline;
+              }
+        			a {
+        				color:#fff;
+                background: $pink;
+                padding: 15px 25px;
+                border-radius: 50px;
+                color:#fff;
+        				font-family: $font-paragraph;
+        				font-weight: bold;
+                display: inline-block;
+                &:before {
+            			padding-right: 10px;
+                  content: '\f004';
+                  font-family: 'Font Awesome 5 Pro';
+                  font-weight: 400;
+            		}
+        			}
+              &:hover {
+                a  {
+                  background: $yellow;
+                  cursor: default;
+                }
+              }
+        		}
+            ul.sub-menu {
+              display: none;
+              position: fixed;
+              background: $yellow;
+              left: 0;
+              right: 0;
+              top: 140px;
+              @include media-breakpoint-up(lg) {
+                top:160px;
+              }
+            }
+      		}
+      	}
+      }
+    }
+  }
+}
+
+/*
+** For displaying sticky donate button on smaller devices
+*/
+.static-donate {
+  z-index: 10;
+  position: fixed;
+  right: -48px;
+  top: 60%;
+  min-width: 140px;
+  padding: 0 12px 0 8px;
+  height: 45px;
+  font-size: 16px;
+  line-height: 38px;
+  background: $pink;
+  text-align: center;
+  border-radius: 0 0 15px 15px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  @include media-breakpoint-up(lg) {
+    display: none;
+  }
+  a {
+    color: #FFFFFF;
+    i {
+      padding-right: 5px;
+      font-size: 15px;
+    }
+    &:hover {
+      color: #FFFFFF;
+    }
   }
 }

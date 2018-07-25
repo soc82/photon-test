@@ -29,9 +29,9 @@ if( function_exists('acf_add_options_page') ) {
 
     // Shop Settings
     acf_add_options_page(array(
-        'page_title'    => 'Shop Settings',
-        'menu_title'    => 'Shop Settings',
-        'menu_slug'     => 'shop-settings',
+        'page_title'    => 'Utility Settings',
+        'menu_title'    => 'Utility Settings',
+        'menu_slug'     => 'utility-settings',
         'capability'    => 'edit_posts',
         'parent_slug'   => '',
         'position'      => false,
