@@ -18,12 +18,11 @@
   }
   .footer-heading {
     font-size: 1em;
-    line-height: 26px;
+    line-height: 1.625em;
     margin: 0 0 10px 0;
     color: $grey;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       font-size: 1.2em;
-      line-height: 28px;
       margin: 0 0 15px 0;
     }
   }
@@ -42,7 +41,7 @@
   .footer-hashtag {
     font-family: $font-heading;
     font-size: 1em;
-    line-height: 26px;
+    line-height: 1.625em;
   }
   .footer-menu {
     margin:10px 0;
@@ -55,10 +54,8 @@
         padding: 0 0 6px 0;
         color: $grey;
         font-size: 0.8em;
-        line-height: 22px;
-        @include media-breakpoint-up(lg) {
-          font-size: 0.9em;
-          line-height: 23px;
+        line-height: 1.5em;
+        @include media-breakpoint-up(md) {
           padding: 0 0 10px 0;
         }
         &:hover {
@@ -71,10 +68,9 @@
     color: $light-grey;
     margin: 0 0 10px 0;
     font-size: 0.75em;
-    line-height: 23px;
-    @include media-breakpoint-up(lg) {
+    line-height: 1.5em;
+    @include media-breakpoint-up(md) {
       font-size: 0.85em;
-      line-height: 25px;
     }
   }
   .footer-accreditations-section {
@@ -86,10 +82,9 @@
       color: $light-grey;
       margin: 0 0 10px 0;
       font-size: 0.75em;
-      line-height: 23px;
-      @include media-breakpoint-up(lg) {
+      line-height: 1.5em;
+      @include media-breakpoint-up(md) {
         font-size: 0.85em;
-        line-height: 25px;
       }
     }
     .footer-accreditions-logos {
@@ -103,33 +98,34 @@
 .copyright-footer {
   background: rgb(240,240,240);
   padding: 30px 0 20px 0;
-  @include media-breakpoint-up(lg) {
+  @include media-breakpoint-up(md) {
     padding: 40px 0;
   }
   .footer-copyright {
     font-size: 0.8em;
-    line-height: 24px;
+    line-height: 1.6em;
     margin: 0 0 15px 0;
     color: $grey;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       font-size: 0.85em;
-      line-height: 24px;
     }
   }
   .footer-disclaimer {
     color: $light-grey;
     font-size: 0.6em;
-    line-height: 20px;
+    line-height: 1.6em;
     margin: 0 0 10px 0;
-    @include media-breakpoint-up(lg) {
+    @include media-breakpoint-up(md) {
       font-size: 0.65em;
-      line-height: 20px;
     }
   }
   .footer-accessibility {
-    margin: 0;
+    margin: 10px 0 0 0;
     padding: 0;
     list-style: none;
+    @include media-breakpoint-up(md) {
+      margin: 0;
+    }
     li {
       display: inline-block;
       vertical-align: top;

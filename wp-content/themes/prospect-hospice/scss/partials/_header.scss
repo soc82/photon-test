@@ -10,10 +10,10 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        line-height: 24px;
+        line-height: 1.3em;
         li {
           display: inline-block;
-          line-height: 30px;
+          line-height: 1.3em;
           a {
             display: block;
             color:#FFFFFF;
@@ -100,7 +100,7 @@
             display: none;
             li {
               display: block;
-              line-height: 30px;
+              line-height: 1.3em;
               a {
                 display: block;
                 color: #FFFFFF;
@@ -172,13 +172,16 @@
       display: block;
       .main-navigation-wrapper {
         text-align: right;
-        margin-top: 20px;
+        margin-top: 10px;
+        @include media-breakpoint-up(lg) {
+          margin-top: 20px;
+        }
       	ul.main-navigiation {
       		margin:0;
       		padding: 0;
-          line-height: 50px;
+          line-height: 3em;
           @include media-breakpoint-up(lg) {
-            line-height: 75px;
+            line-height: 4em;
           }
       		li {
       			display: inline-block;
@@ -223,7 +226,7 @@
                   opacity: 0;
                   visibility: hidden;
                   @include media-breakpoint-up(lg) {
-                    top: 128px;
+                    top: 140px;
                   }
                 }
               }
@@ -245,7 +248,7 @@
             }
             &.donate {
               margin-right: 0;
-              line-height: 22px;
+              line-height: 1.5em;
               display: none;
               @include media-breakpoint-up(lg) {
                 display: inline;
@@ -296,13 +299,13 @@
                   text-align: left;
                   h6 {
                     font-size: 1.6em;
-                    line-height: 37px;
+                    line-height: 1.8em;
                     color: #FFFFFF;
                     margin: 0 0 15px 0;
                   }
                   p {
                     font-size: 0.95em;
-                    line-height: 23px;
+                    line-height: 1.6em;
                     color: #FFFFFF;
                     margin: 0;
                   }
@@ -318,7 +321,7 @@
                     width: 50%;
                     display: inline-block;
                     font-size: 1.3em;
-                    line-height: 26px;
+                    line-height: 1.6em;
                     margin-right: -4px;
                     height: auto;
                     padding: 5px 5px;
@@ -355,10 +358,10 @@
   right: -48px;
   top: 60%;
   min-width: 140px;
-  padding: 0 12px 0 8px;
+  padding: 5px 12px 0 8px;
   height: 45px;
   font-size: 0.9em;
-  line-height: 38px;
+  line-height: 1.6em;
   background: $pink;
   text-align: center;
   border-radius: 0 0 15px 15px;
