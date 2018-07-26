@@ -12,7 +12,9 @@
   color: #FFFFFF;
   text-decoration: none;
   @include border-radius-separate(20px, 20px, 20px, 20px);
-  @include transition(all 0.3s ease-in-out);
+  @include transition('color' 0.3s ease-in-out);
+  @include transition('background' 0.3s ease-in-out);
+  @include transition('background-color' 0.3s ease-in-out);
   &:hover, &:focus, &:active {
     outline: none;
     text-decoration: none;

@@ -1,0 +1,22 @@
+/*
+** Used for footer accessibility buttons to increase/decrease sizing
+*/
+
+body.accessibility-large {
+  p, h1, h2, h3, h4, h5, h6, ul, ol, a {
+    font-size:110%;
+    transition: none !important;
+  }
+}
+
+body.accessibility-normal {
+  p, h1, h2, h3, h4, h5, h6, ul, ol, a {
+    font-size:100%;
+    transition: none !important;
+  }
+}
+
+body.accessibility-small {
+  font-size:90%;
+  transition: none !important;
+}

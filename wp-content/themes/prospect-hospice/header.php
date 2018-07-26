@@ -67,7 +67,9 @@
 								<?php wp_nav_menu(array(
 									'container_class' => 'main-navigation-wrapper',
 									'theme_location'	=> 'main-navigation',
-									'menu_class' => 'main-navigiation'));?>
+									'menu_class' => 'main-navigiation',
+									'walker' => new prospect_desktop_walker()
+								));?>
 							</div>
 						</div>
 					</div>

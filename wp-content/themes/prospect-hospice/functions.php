@@ -2,7 +2,7 @@
 
 // Nav walker for Bootstrap friendly navs.
 require 'inc/walker.php';
-
+require 'inc/modified-wp-walker.php';
 
 /*
 ** Hide the admin bar.
@@ -68,6 +68,9 @@ function startline_enqueue_scripts() {
   // Main theme stylesheet
 	wp_enqueue_style('main-css', get_stylesheet_directory_uri() . '/css/main.min.css', [], $currentTheme->get('Version'), 'screen');
 
+  // Cookie js
+  wp_enqueue_script( 'cookie-js', 'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js', array( 'jquery' ), null, true);
+
   wp_enqueue_script( 'classie', get_stylesheet_directory_uri() . '/js/classie.js', array( 'jquery' ), $currentTheme->get('Version'), true);
   wp_enqueue_script( 'mlpushmenu', get_stylesheet_directory_uri() . '/js/mlpushmenu.js', array( 'jquery' ), $currentTheme->get('Version'), true);
   wp_enqueue_script( 'custom-js', get_stylesheet_directory_uri() . '/js/custom.js', array( 'jquery' ), null, true);
@@ -92,7 +95,6 @@ function startline_custom_new_menu() {
   register_nav_menu('main-navigation',__( 'Main Navigation' ));
   register_nav_menu('footer-navigation',__( 'Footer Navigation' ));
   register_nav_menu('top-navigation',__( 'Top Navigation' ));
-
 }
 add_action( 'init', 'startline_custom_new_menu' );
 
