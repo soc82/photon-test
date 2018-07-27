@@ -18,6 +18,7 @@
 <?php get_footer(); ?>
 
 <script>
+
 jQuery(document).ready(function() {
     jQuery('#event-calendar').fullCalendar({
       header: {
@@ -28,10 +29,12 @@ jQuery(document).ready(function() {
       weekends: true,
       events: <?php echo prospect_events_calendar_query(); ?>,
       eventLimit: true,
-      //defaultView: function getCalendarView(),
+      defaultView: 'month',
       displayEventTime: false,
       eventLimitClick: "popover",
       eventColor: '#FFFFFF',
+      handleWindowResize: true,
+      editable: false,
       eventTextColor: '#FFFFFF',
       eventBackgroundColor: '$primaryColor',
       eventClick: function(event, element) {
@@ -40,6 +43,18 @@ jQuery(document).ready(function() {
             return false;
         }
       },
+      windowResize: function (view) {
+        if(jQuery(window).width() > 500) {
+          jQuery('#event-calendar').fullCalendar('changeView', 'month');
+        } else {
+          jQuery('#event-calendar').fullCalendar('changeView', 'listWeek', { duration: { days: 90 } });
+        }
+      },
     })
+    if(jQuery(window).width() > 500) {
+      jQuery('#event-calendar').fullCalendar('changeView', 'month');
+    } else {
+      jQuery('#event-calendar').fullCalendar('changeView', 'listWeek', { duration: { days: 90 } });
+    }
 });
 </script>
