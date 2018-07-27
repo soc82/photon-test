@@ -1,0 +1,141 @@
+// Hero block
+.hero-banner {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+	.hero-banner-content {
+		padding: 50px;
+		h2 {
+
+		}
+		h1 {
+
+		}
+	}
+}
+
+// Latest news block
+.latest-news-content-block {
+	.intro {
+		h2 {
+
+		}
+		p {
+
+		}
+	}
+	.post-image {
+		.image {
+			img {
+				max-width: 100%;
+			}
+			.image-overlay {
+				h4 {
+
+				}
+				p {
+
+				}
+			}
+		}
+	}
+}
+
+// CTA block
+.cta-block {
+	padding: 50px;
+	background-position: right center;
+    background-repeat: no-repeat;
+    h2 {
+
+    }
+    p {
+
+    }
+}
+
+
+// Two col image/video left
+.two-column-image-left {
+	.left {
+		img {
+			max-width: 100%;
+		}
+	}
+	.right {
+
+	}
+}
+
+// Two col image/video right
+.two-column-image-right {
+	.left {
+		
+	}
+	.right {
+		img {
+			max-width: 100%;
+		}
+	}
+}
+
+// Enquiry form
+.enquiry-form-block {
+
+}
+
+// Image gallery
+.image-gallery-block {
+
+}
+
+// Tiles
+.tile-block {
+	.image-tile {
+		display: block;
+		height: 350px;
+		background-position: center center;
+    	background-size: cover;
+    	background-repeat: no-repeat;
+		.overlay {
+			display: block;
+		    width: 100%;
+		    height: 100%;
+		    transition: all 0.4s ease-in-out;
+		    &:hover {
+		    	background-color: rgba(141, 198, 64, 0.4);
+		    }
+			h4 {
+				position: absolute;
+				bottom: 0;
+				left: 45px;
+				color: #fff;
+			}
+		}
+	}
+}
+
+// FAQs
+.faqs-block {
+	.accordion {
+		margin-bottom: 10px;
+		.question {
+			padding: 25px;
+			background-color: $yellow;
+			color: #fff;
+		}
+		.answer {
+			display: none;
+			background-color: #f0f0f0;
+			padding: 25px;
+		}
+		&.active {
+			.question {
+				background-color: $green;
+			}
+			.answer {
+				display: block;
+			}
+		}
+	}
+}

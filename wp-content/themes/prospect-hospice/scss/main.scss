@@ -17,6 +17,9 @@
 @import "partials/fullcalendar";
 
 
+@import "slick/slick";
+@import "slick/slick-theme";
+
 @import "partials/fonts";
 @import "partials/variables";
 @import "partials/mixins";
@@ -27,6 +30,7 @@
 @import "partials/mobile-menu";
 @import "partials/header";
 @import "partials/footer";
+@import "partials/flexible-content";
 
 @import "partials/home";
 @import "partials/events";

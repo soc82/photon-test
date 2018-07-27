@@ -1,5 +1,23 @@
 jQuery( document ).ready(function($) {
   /*
+  ** FAQ accordions
+  */
+  jQuery('.accordion .question').click(function() {
+    if(jQuery(this).parent().hasClass('active')) {
+      jQuery(this).parent().removeClass('active');
+    } else {
+      jQuery(this).parent().addClass('active');
+    }
+  });
+
+
+  jQuery('.testimonials').slick({
+    dots: true,
+    arrows: true,
+  });
+
+
+  /*
   ** Setting cookie for font size accessibility options
   */
   if(Cookies.get('prospect_font_size')) {
