@@ -73,6 +73,10 @@ function startline_enqueue_scripts() {
 
   wp_enqueue_script( 'classie', get_stylesheet_directory_uri() . '/js/classie.js', array( 'jquery' ), $currentTheme->get('Version'), true);
   wp_enqueue_script( 'mlpushmenu', get_stylesheet_directory_uri() . '/js/mlpushmenu.js', array( 'jquery' ), $currentTheme->get('Version'), true);
+
+  wp_enqueue_script( 'moment-js', get_stylesheet_directory_uri() . '/js/moment.min.js', array( 'jquery' ), null, true);
+  wp_enqueue_script( 'fullcalendar-js', get_stylesheet_directory_uri() . '/js/fullcalendar.js', array( 'jquery' ), null, true);
+
   wp_enqueue_script( 'custom-js', get_stylesheet_directory_uri() . '/js/custom.js', array( 'jquery' ), null, true);
 
   // Fonts.com
@@ -201,10 +205,8 @@ function startline_woo_wrapper_end() {
 
 
 /**********************************************
-** Custom Functioj
+** Custom Functions
 **********************************************/
 
-/*
-** Custom functions file. Any additional functions should be added in there not here.
-*/
-require_once 'custom-functions.php';
+require_once 'functions-custom.php';
+require_once 'functions-woocommerce.php';

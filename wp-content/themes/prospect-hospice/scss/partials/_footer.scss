@@ -27,21 +27,38 @@
     }
   }
   .footer-social {
-    margin: 10px 0;
+    margin: 10px 0 5px 0;
     padding: 0;
     list-style: none;
     li {
       display: inline-block;
-      margin-right: 10px;
+      margin-right: 7px;
+      margin-bottom: 2px;
+      width: 50px;
       a {
         display: block;
+        img {
+          width: 100%;
+          display:block;
+          border:none;
+        }
       }
+    }
+  }
+  .footer-username {
+    margin: 0;
+    a {
+      font-family: $font-heading;
+      font-size: 0.8em;
+      line-height: 1.45em;
+      color: $grey;
     }
   }
   .footer-hashtag {
     font-family: $font-heading;
-    font-size: 1em;
-    line-height: 1.625em;
+    font-size: 0.8em;
+    line-height: 1.45em;
+    color: $grey;
   }
   .footer-menu {
     margin:10px 0;

@@ -1,6 +1,7 @@
 <?php
 $footer_logo = get_field('footer_logo', 'options');
 $social_heading = get_field('footer_social_heading', 'options');
+$username = get_field('username', 'options');
 $hashtag = get_field('hashtag', 'options');
 $corp_content = get_field('footer_corporate_content', 'options');
 $acred = get_field('footer_accreditations', 'options');
@@ -18,16 +19,23 @@ $tel = get_field('config_telephone_number', 'options');
 						<div class="col-12 col-md-3">
 							<?php if($footer_logo) echo '<a href="' . home_url() . '" class="footer-logo"><img src="' . $footer_logo['sizes']['medium'] . '" class="img-fluid" alt="Prospect Hospice" /></a>'; ?>
 							<?php if($social_heading) echo '<h6 class="footer-heading">' . $social_heading . '</h6>'; ?>
+							<?php if($username['username_text'] || $username['username_link']):
+									echo '<p class="footer-username">';
+									if($username['username_link']) echo '<a href="' . $username['username_link'] . '" target="_blank" >';
+										if($username['username_text']) echo $username['username_text'];
+									if($username['username_link']) echo '</a>';
+									echo '</p>';
+							 endif; ?>
 							<?php
 							if($facebook_url || $twitter_username || $linkedin_url || $instagram_url):
 								echo '<ul class="footer-social">';
-									if($facebook_url) echo '<li><a href="' . $facebook_url . '"><img src="' . get_stylesheet_directory_uri() . '/img/facebook.png" alt="Facebook" /></a></li>';
-									if($twitter_username) echo '<li><a href="https://twitter.com/' . $twitter_username . '"><img src="' . get_stylesheet_directory_uri() . '/img/twitter.png" alt="Twitter" /></a></li>';
-									if($instagram_url) echo '<li><a href="' . $instagram_url . '"></a><img src="' . get_stylesheet_directory_uri() . '/img/instagram.png" alt="Instagram" /></li>';
-									if($linkedin_url) echo '<li><a href="' . $linkedin_url . '"></a><img src="' . get_stylesheet_directory_uri() . '/img/linkedin.png" alt="Linkedin" /></li>';
+									if($facebook_url) echo '<li><a href="' . $facebook_url . '" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/img/facebook.png" alt="Facebook" /></a></li>';
+									if($twitter_username) echo '<li><a href="https://twitter.com/' . $twitter_username . '" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/img/twitter.png" alt="Twitter" /></a></li>';
+									if($instagram_url) echo '<li><a href="' . $instagram_url . '" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/img/instagram.png" alt="Instagram" /></a></li>';
+									if($linkedin_url) echo '<li><a href="' . $linkedin_url . '" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/img/linkedin.png" alt="Linkedin" /></a></li>';
 								echo '</ul>';
 							endif; ?>
-							<?php if($hashtag['hashtag_text'] && $hashtag['hashtag_link']) echo '<a href="' . $hashtag['hashtag_link'] . '" class="footer-hashtag">' . $hashtag['hashtag_text'] . '</a>'; ?>
+							<?php if($hashtag['hashtag_text'] && $hashtag['hashtag_link']) echo '<a href="' . $hashtag['hashtag_link'] . '" class="footer-hashtag" target="_blank">' . $hashtag['hashtag_text'] . '</a>'; ?>
 
 						</div>
 						<div class="col-12 col-md-3">

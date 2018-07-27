@@ -30,6 +30,20 @@ jQuery( document ).ready(function() {
 		jQuery('.menu-item-search').addClass('active');
 	});
 
+  function getCalendarView(){
+    var viewportWidth = $(window).width();
+    var view = 'month';
+    $(window).resize(function() {
+      var viewportWidth = $(window).width();
+      if(viewportWidth < 500) {
+         var view = 'basicDay';
+      } else {
+        var view = 'month';
+      }
+    });
+    return view;
+  }
+
 
 
 });
