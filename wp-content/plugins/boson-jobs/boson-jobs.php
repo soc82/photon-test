@@ -80,6 +80,21 @@ function create_jobtype_tax() {
 
 add_action( 'init', 'create_jobtype_tax' );
 
+
+function create_jobsection_tax() {
+  register_taxonomy(
+    'jobsection',
+    'jobs',
+    array(
+      'label' => __( 'Job Section' ),
+      'rewrite' => array( 'slug' => 'jobsection' ),
+      'hierarchical' => true,
+    )
+  );
+}
+
+add_action( 'init', 'create_jobsection_tax' );
+
 /****************************
 LOAD SINGLE TEMPLATE
 *****************************/

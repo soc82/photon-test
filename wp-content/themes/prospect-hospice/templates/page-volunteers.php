@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Vacant Positions Template
+ * Template Name: Voluntary Positions Template
 **/
 
 $query_args = array(
@@ -22,15 +22,16 @@ if (isset($_GET['type']) && $_GET['type'] && $_GET['type'] != 'all') {
       	
 	];
 }
+
 $query_args['tax_query'][] = [
       		'taxonomy' => 'jobsection',
           	'field'    => 'slug',
-          	'terms'    => 'paid',
+          	'terms'    => 'volunteer',
       	];
 
 $items = new WP_Query($query_args);
 
-$terms = prospect_get_jobs_filters('paid');
+$terms = prospect_get_jobs_filters('volunteer');
 
 get_header(); ?>
 
@@ -59,23 +60,24 @@ get_header(); ?>
 			</form>
 		</div>
 	</div>
-
+		
 	<?php if ( $items->posts ) : ?>
 		<div class="row jobs-list">
 			<?php foreach ($items->posts as $item) : ?>
+				<?php
+				$closing_date = get_field('closing_date', $item->ID);
+				?>
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div class="item">
 						<a href="<?php the_permalink($item);?>"><h5><?php echo $item->post_title;?></h5></a>
 						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
 						<div class="introduction"><small><?php echo get_field('introduction_content', $item->ID);?></small></div>
 						<div class="row">
-							<div class="col-6">
-								<span>Salary</span>
-								<div class="salary"><?php echo get_field('salary', $item->ID);?></div>
-							</div>
-							<div class="col-6">
+							<div class="col-12">
+							<?php if ($closing_date) : ?>
 								<span>Closing date</span>
-								<div class="closing-date"><?php echo get_field('closing_date', $item->ID); ?></div>
+								<div class="closing-date"><?php echo $closing_date; ?></div>
+							<?php endif; ?>
 							</div>
 						</div>
 						<div class="row actions">
