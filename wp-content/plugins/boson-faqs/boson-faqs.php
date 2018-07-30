@@ -38,7 +38,7 @@ function custom_post_type_faqs() {
     'description'         => __( 'Some of the projects you provide', 'vanilla' ),
     'labels'              => $labels_faqs,
     'supports'            => array( 'title', 'editor', 'thumbnail' ),
-    'taxonomies'            => array( 'development' ),
+    // 'taxonomies'            => array( 'section' ),
     'public'              => true,
     'show_ui'             => true,
     'show_in_menu'        => true,
@@ -66,6 +66,20 @@ function custom_post_type_faqs() {
 * unnecessarily executed.
 */
 add_action( 'init', 'custom_post_type_faqs', 0 );
+
+function create_section_tax() {
+  register_taxonomy(
+    'section',
+    ['post', 'faqs'],
+    array(
+      'label' => __( 'Section' ),
+      'rewrite' => array( 'slug' => 'section' ),
+      'hierarchical' => true,
+    )
+  );
+}
+
+add_action( 'init', 'create_section_tax' );
 
 
 /****************************
