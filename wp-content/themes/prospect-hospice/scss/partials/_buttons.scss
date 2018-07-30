@@ -6,6 +6,7 @@
 ** Starter button class
 */
 .btn {
+  display: inline-block;
   padding: 12px 25px;
   background: #888888;
   border:2px solid #888888;
@@ -23,5 +24,9 @@
     color: #888888;
   }
   // .btn-outline { }
+  &.btn-yellow {
+    background-color: $yellow;
+    border: 2px solid $yellow;
+  }
 
 }
