@@ -75,7 +75,12 @@ function startline_enqueue_scripts() {
   wp_enqueue_script( 'mlpushmenu', get_stylesheet_directory_uri() . '/js/mlpushmenu.js', array( 'jquery' ), $currentTheme->get('Version'), true);
 
   wp_enqueue_script( 'moment-js', get_stylesheet_directory_uri() . '/js/moment.min.js', array( 'jquery' ), null, true);
-  wp_enqueue_script( 'fullcalendar-js', get_stylesheet_directory_uri() . '/js/fullcalendar.js', array( 'jquery' ), null, true);
+
+  if(is_page_template('page-events-calendar.php')):
+    wp_enqueue_script( 'fullcalendar-js', get_stylesheet_directory_uri() . '/js/fullcalendar.js', array( 'jquery' ), null, true);
+    wp_enqueue_script( 'bootstrap-js', get_stylesheet_directory_uri() . '/js/bootstrap.min.js', array( 'jquery' ), null, true);
+  endif;
+
 
   wp_enqueue_script( 'custom-js', get_stylesheet_directory_uri() . '/js/custom.js', array( 'jquery' ), null, true);
 

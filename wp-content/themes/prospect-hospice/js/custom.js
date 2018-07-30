@@ -4,7 +4,6 @@ jQuery( document ).ready(function($) {
   */
   if(Cookies.get('prospect_font_size')) {
     var currentSize = Cookies.get('prospect_font_size');
-    console.log(currentSize);
     jQuery('body').addClass(currentSize);
     jQuery('.footer-accessibility a').each(function() {
       if(jQuery(this).parent('li').hasClass(currentSize)) {

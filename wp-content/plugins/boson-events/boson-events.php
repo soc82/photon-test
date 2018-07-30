@@ -40,14 +40,19 @@ require_once('acf-fields.php');
        foreach($result->posts as $post) {
          // Convert ACF date fields for output
 
-         $start = new DateTime(get_post_meta($post->ID, 'event_start_date', true) . ' ' . get_post_meta($post->ID, 'start_time', true));
-         $end = new DateTime(get_post_meta($post->ID, 'event_end_date', true) . ' ' . get_post_meta($post->ID, 'end_time', true));
+         $start = new DateTime(get_post_meta($post->ID, 'event_start_date', true) . ' ' . get_post_meta($post->ID, 'event_start_time', true));
+         $end = new DateTime(get_post_meta($post->ID, 'event_end_date', true) . ' ' . get_post_meta($post->ID, 'event_end_time', true));
 
          $location = get_post_meta( $post->ID, 'event_location', true);
          $link = get_permalink($post->ID);
+         $category = wp_get_post_terms( $post->ID, '' );
 
          $events[] = array(
            'title'   => $post->post_title,
+           'startDate' => date("d/m/Y", strtotime(get_post_meta($post->ID, 'event_start_date', true))),
+           'endDate' => date("d/m/Y", strtotime(get_post_meta($post->ID, 'event_end_date', true))),
+           'startTime' => get_post_meta($post->ID, 'event_start_time', true),
+           'endTime'  => get_post_meta($post->ID, 'event_end_time', true),
            'start'   => $start->format('Y-m-d h:i:s'),
            'end'     => $end->format('Y-m-d h:i:s'),
            'location'  => $location,
@@ -56,6 +61,7 @@ require_once('acf-fields.php');
        }
 
        $events = json_encode($events);
+
        return $events;
        wp_reset_postdata();
 
