@@ -16,8 +16,23 @@
 </div>
 
 <?php get_footer(); ?>
-<?php echo prospect_events_calendar_query(); ?>
 <script>
+
+function fullCalendar_resize(config) {
+  var config = '';
+  if(jQuery(window).width() > 550) {
+    config = jQuery('#event-calendar').fullCalendar('changeView', 'month');
+  } else {
+    config = jQuery('#event-calendar').fullCalendar('changeView', 'listWeek', { duration: { days: 90 } });
+    jQuery('.popover').remove();
+    jQuery('.fc-list-item').hover(function() {
+      jQuery('.popover').hide();
+    });
+
+  }
+  return config;
+}
+
 jQuery(document).ready(function() {
     jQuery('#event-calendar').fullCalendar({
       header: {
@@ -27,18 +42,17 @@ jQuery(document).ready(function() {
       },
       weekends: true,
       events: <?php echo prospect_events_calendar_query(); ?>,
-      eventRender: function(event, element) {
-          element.find('.fc-title').append("<span class='event-location'>" + event.location + "</span>");
-      },
       eventLimit: true,
       defaultView: 'month',
       displayEventTime: false,
       eventLimitClick: "popover",
-      eventColor: '#FFFFFF',
       handleWindowResize: true,
       editable: false,
-      eventTextColor: '#FFFFFF',
       eventRender: function(event, $el) {
+        console.log($el);
+        $el.find('.fc-title').append("<span class='event-location'>" + event.location + "</span>");
+        $el.addClass(event.type);
+        $el.css('background-color', event.color);
         $el.popover({
           title: event.title,
           content: '<span class="tooltip-location"><strong>Location: </strong>' + event.location + '</span>' + '<span class="tooltip-date"><strong>Start: </strong>' + event.startDate + ' - ' + event.startTime + '</span>' + '<span class="tooltip-date"><strong>End: </strong>' + event.endDate  + ' - ' + event.endTime +  '</span>',
@@ -46,7 +60,7 @@ jQuery(document).ready(function() {
           placement: 'top',
           container: 'body',
           html: true,
-          template: '<div class="popover"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+          template: '<div class="popover ' + event.type + '" style="background:' + event.color + '"><div class="arrow"><div class="arrow-inner" style="border-top-color:' + event.color + '"></div></div><div class="popover-title"></div><div class="popover-content"></div></div>'
         });
       },
       eventClick: function(event, element) {
@@ -56,17 +70,11 @@ jQuery(document).ready(function() {
         }
       },
       windowResize: function (view) {
-        if(jQuery(window).width() > 550) {
-          jQuery('#event-calendar').fullCalendar('changeView', 'month');
-        } else {
-          jQuery('#event-calendar').fullCalendar('changeView', 'listWeek', { duration: { days: 90 } });
-        }
+        fullCalendar_resize();
       },
     })
-    if(jQuery(window).width() > 550) {
-      jQuery('#event-calendar').fullCalendar('changeView', 'month');
-    } else {
-      jQuery('#event-calendar').fullCalendar('changeView', 'listWeek', { duration: { days: 90 } });
-    }
+    fullCalendar_resize();
 });
+
+
 </script>

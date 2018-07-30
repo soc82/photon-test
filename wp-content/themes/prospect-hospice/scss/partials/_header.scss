@@ -17,7 +17,7 @@
           a {
             display: block;
             color:#FFFFFF;
-            font-size: 0.7em;
+            font-size: 0.8em;
             padding:0 10px;
             margin: 5px 0;
             border-left: 1px solid rgba(255,255,255,0.25);
@@ -55,7 +55,7 @@
                 background: transparent;
                 border:none;
                 box-shadow: none;
-                font-size: 0.7em;
+                font-size: 0.8em;
                 color: #FFFFFF;
                 padding: 4px 5px 4px 0;
                 width: 50px; /* Expands on click */
@@ -97,6 +97,7 @@
             padding: 0;
             right: 0;
             z-index: 10;
+            top: 40px;
             display: none;
             li {
               display: block;
@@ -186,14 +187,14 @@
       		li {
       			display: inline-block;
             height: 100%;
-            font-size: 0.78em;
+            font-size: 0.85em;
       			margin-right: 13px;
             @include media-breakpoint-up(lg) {
-              font-size: 0.8em;
+              font-size: 0.9em;
               margin-right: 16px;
             }
       			@include media-breakpoint-up(xl) {
-              font-size: 0.85em;
+              font-size: 0.95em;
       			}
       			a {
       				color:$black;
@@ -304,7 +305,7 @@
                     margin: 0 0 15px 0;
                   }
                   p {
-                    font-size: 0.95em;
+                    font-size: 0.9em;
                     line-height: 1.6em;
                     color: #FFFFFF;
                     margin: 0;
@@ -320,7 +321,7 @@
                   li {
                     width: 50%;
                     display: inline-block;
-                    font-size: 1.3em;
+                    font-size: 1.2em;
                     line-height: 1.6em;
                     margin-right: -4px;
                     height: auto;
@@ -360,7 +361,7 @@
   min-width: 140px;
   padding: 5px 12px 0 8px;
   height: 45px;
-  font-size: 0.9em;
+  font-size: 1em;
   line-height: 1.6em;
   background: $pink;
   text-align: center;

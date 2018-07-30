@@ -53,7 +53,7 @@ function remove_width_attribute($html) {
 /*
 ** Register image sizes
 */
-add_image_size( 'slider', 1400, 500, false );
+add_image_size( 'slider', 1700, 600, false );
 
 
 

@@ -4,11 +4,15 @@
 
 body {
   font-weight: 300;
-  font-size: 1.231em;
-  line-height: 22px;
+  font-size: 0.95em;
+  line-height: 1.4em;
   padding: 0;
   margin: 0;
   font-family: $font-paragraph;
+  color: $grey;
+  @include media-breakpoint-up(md) {
+    font-size: 1.1em;
+  }
 }
 
 h1,h2,h3,h4,h5,h6 {
