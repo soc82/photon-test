@@ -4,12 +4,12 @@ $title = get_sub_field('title');
 $text = get_sub_field('text');
 $link_text = get_sub_field('link_text');
 $link_url = get_sub_field('link_url');
-
-// This will need updating when all of the custom post types and taxonomies are in, right now it doesn't query based on category
+$section = get_sub_field('section');
 
 $args = [
 	'numberposts' => 3,
 	'offset' => 0,
+	'category' => 0,
 	'orderby' => 'post_date',
 	'order' => 'DESC',
 	'include' => '',
@@ -20,14 +20,26 @@ $args = [
 	'suppress_filters' => true
 ];
 
-$args['category'] = 0;
+
+if ($section) {
+	$args['tax_query'] = [
+		[
+			'taxonomy' => 'section',
+			'field' => 'id',
+			'terms' => $section,
+			'operator' => 'IN',
+		],
+	];
+}
+
 $args['post_type'] = 'post';
 
 $recent_posts = wp_get_recent_posts( $args, ARRAY_A );
 
 // If we get less than 3 posts, we can query again (without a specific category)
 if (count($recent_posts) < 3) {
-
+	unset($args['tax_query']);
+	$recent_posts = wp_get_recent_posts( $args, ARRAY_A );
 }
 ?>
 
@@ -50,7 +62,7 @@ if (count($recent_posts) < 3) {
 			<?php foreach ($recent_posts as $post) : ?>
 				<div class="col-4 post-image">
 					<div class="image">
-						<?php the_post_thumbnail($post['id']); ?>
+						<?php the_post_thumbnail($post['ID']); ?>
 						<div class="image-overlay">
 							<h4><?php echo $post['post_title']; ?></h4>
 							<p><?php echo $post['post_excerpt']; ?></p>
