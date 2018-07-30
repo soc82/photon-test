@@ -10,12 +10,20 @@ jQuery( document ).ready(function($) {
     }
   });
 
-
+  /*
+  ** Init slick for testimonials
+  */
   jQuery('.testimonials').slick({
     dots: true,
     arrows: true,
   });
 
+  /*
+  ** Form Autosubmitter
+  */
+  jQuery('.autosubmit-field').change(function() {
+    jQuery(this).parent().submit();
+  });
 
   /*
   ** Setting cookie for font size accessibility options

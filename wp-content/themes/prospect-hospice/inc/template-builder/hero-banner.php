@@ -1,7 +1,7 @@
 <?php
-$image = get_sub_field('background_image');
-$heading = get_sub_field('heading');
-$second_heading = get_sub_field('second_heading');
+$image = (get_sub_field('background_image') ? get_sub_field('background_image') : get_field('hero_banner_image'));
+$heading = (get_sub_field('heading') ? get_sub_field('heading') : get_field('hero_banner_heading'));
+$second_heading = (get_sub_field('second_heading') ? get_sub_field('second_heading') : get_field('hero_banner_second_heading'));
 ?>
 <div class="hero-banner block"  <?php if($image) echo 'style="background:url(' . $image . ');"'; ?>>
     <?php if($heading || $second_heading): ?>

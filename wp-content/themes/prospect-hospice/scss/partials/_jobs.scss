@@ -1,0 +1,58 @@
+.intro {
+	h2 {
+		margin: 0 auto;
+	}
+	p {
+		color: $grey;
+		font-size: 0.8em;
+	}
+}
+
+.filters {
+	margin: 25px 0;
+	form {
+		select {
+			display: block;
+			margin: 0 auto;
+			font-size: 0.8em;
+		}
+	}
+}
+
+.jobs-list {
+	.item {
+		.row {
+			margin-top: 15px;
+		}
+		h5 {
+			margin-bottom: 5px;
+		}
+		.reference {
+			font-size: 0.8em;
+		}
+		.introduction {
+
+		}
+		.salary {
+			font-size: 0.8em;
+		}
+		.closing-date {
+			font-size: 0.8em;
+		}
+		.actions {
+			padding: 15px;
+			a {
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
+.benefits {
+	h3 {
+		text-align: center;
+	}
+	.benefits-item {
+		margin: 25px 0;
+	}
+}
