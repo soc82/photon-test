@@ -43,7 +43,7 @@ if (count($recent_posts) < 3) {
 }
 ?>
 
-<div class="latest-news-content-block">
+<div class="latest-news-content-block block">
 	<div class="container">
 		<div class="row">
 			<div class="col-12 intro">

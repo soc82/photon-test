@@ -4,6 +4,9 @@
 require 'inc/walker.php';
 require 'inc/modified-wp-walker.php';
 
+require_once('inc/template-builder/acf-fields.php');
+
+
 /*
 ** Hide the admin bar.
 */

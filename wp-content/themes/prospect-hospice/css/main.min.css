@@ -6694,6 +6694,7 @@ a {
 ** Starter button class
 */
 .btn {
+  display: inline-block;
   padding: 12px 25px;
   background: #888888;
   border: 2px solid #888888;
@@ -6735,6 +6736,9 @@ a {
     background: transparent;
     border-color: #888888;
     color: #888888; }
+  .btn.btn-yellow {
+    background-color: #f3cc30;
+    border: 2px solid #f3cc30; }
 
 input, textarea, select {
   font-family: "Glypha LT Pro W01 Regular", "sans-serif"; }
@@ -7453,15 +7457,17 @@ html, body, .container, .scroller {
       .copyright-footer .footer-accessibility li.active-size a {
         background: #999999; }
 
-.hero-banner {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center; }
-  .hero-banner .hero-banner-content {
-    padding: 50px; }
-
-.latest-news-content-block .post-image .image img {
-  max-width: 100%; }
+.block {
+  margin: 20px 0; }
+  .block.hero-banner {
+    margin-top: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; }
+    .block.hero-banner .hero-banner-content {
+      padding: 50px; }
+  .block .latest-news-content-block .post-image .image img {
+    max-width: 100%; }
 
 .cta-block {
   padding: 50px;
@@ -7498,7 +7504,8 @@ html, body, .container, .scroller {
   .faqs-block .accordion .question {
     padding: 25px;
     background-color: #f3cc30;
-    color: #fff; }
+    color: #fff;
+    transition: all 0.3s ease-in-out; }
   .faqs-block .accordion .answer {
     display: none;
     background-color: #f0f0f0;
@@ -7507,6 +7514,42 @@ html, body, .container, .scroller {
     background-color: #8dc73f; }
   .faqs-block .accordion.active .answer {
     display: block; }
+
+.testimonial-block {
+  padding: 20px 0; }
+  .testimonial-block .testimonials .testimonial p {
+    color: #666666;
+    font-size: 0.9em; }
+  .testimonial-block .testimonials .slick-prev:before {
+    font-family: FontAwesome;
+    font-size: 40px;
+    margin-right: 5px;
+    content: "\f104";
+    color: black; }
+  .testimonial-block .testimonials .slick-next:before {
+    font-family: FontAwesome;
+    font-size: 40px;
+    margin-left: 5px;
+    content: "\f105";
+    color: black; }
+
+.upcoming-events-content-block .upcoming-events .upcoming-event {
+  background-image: linear-gradient(to right, #999999 33%, rgba(255, 255, 255, 0) 0%);
+  background-position: bottom;
+  background-size: 20px 2px;
+  background-repeat: repeat-x; }
+  .upcoming-events-content-block .upcoming-events .upcoming-event .start_date {
+    color: #999999;
+    font-size: 0.9em; }
+  .upcoming-events-content-block .upcoming-events .upcoming-event h3 {
+    margin-top: 5px; }
+
+.icon_block .icon-item {
+  text-align: center; }
+  .icon_block .icon-item p {
+    color: #666666; }
+  .icon_block .icon-item .icon {
+    font-size: 4em; }
 
 .homepage-blocks .homepage-item {
   height: 250px;

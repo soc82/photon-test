@@ -4,7 +4,7 @@ $background_colour = get_sub_field('background_colour');
 $title = get_sub_field('title');
 ?>
 
-<div class="enquiry-form-block" style="
+<div class="enquiry-form-block block" style="
 	<?php if ($background_colour) { echo 'background-color: ' . $background_colour . '; '; } ?>
 	">
 	<div class="container">

@@ -1,8 +1,9 @@
 <?php
 $testimonial_items = get_sub_field('testimonial_items');
+$background_colour = get_sub_field('background_colour');
 ?>
 
-<div class="testimonial-block">
+<div class="testimonial-block block" style="background-color: <?php echo $background_colour; ?>" >
 	<div class="container">
 		<div class="row">
 			<div class="col-12">

@@ -1,45 +1,53 @@
-// Hero block
-.hero-banner {
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-	.hero-banner-content {
-		padding: 50px;
-		h2 {
+.block {
+	margin: 20px 0;
 
+	// Hero block
+	&.hero-banner {
+		margin-top: 0;
+	    background-repeat: no-repeat;
+	    background-size: cover;
+	    background-position: center center;
+		.hero-banner-content {
+			padding: 50px;
+			h2 {
+
+			}
+			h1 {
+
+			}
 		}
-		h1 {
+	}
+	// Latest news block
+	.latest-news-content-block {
+		.intro {
+			h2 {
 
+			}
+			p {
+
+			}
+		}
+		.post-image {
+			.image {
+				img {
+					max-width: 100%;
+				}
+				.image-overlay {
+					h4 {
+
+					}
+					p {
+
+					}
+				}
+			}
 		}
 	}
 }
 
-// Latest news block
-.latest-news-content-block {
-	.intro {
-		h2 {
 
-		}
-		p {
 
-		}
-	}
-	.post-image {
-		.image {
-			img {
-				max-width: 100%;
-			}
-			.image-overlay {
-				h4 {
 
-				}
-				p {
-
-				}
-			}
-		}
-	}
-}
 
 // CTA block
 .cta-block {
@@ -123,6 +131,7 @@
 			padding: 25px;
 			background-color: $yellow;
 			color: #fff;
+			transition: all 0.3s ease-in-out;
 		}
 		.answer {
 			display: none;
@@ -136,6 +145,66 @@
 			.answer {
 				display: block;
 			}
+		}
+	}
+}
+
+.testimonial-block {
+	padding: 20px 0;
+	.testimonials {
+		.testimonial {
+			p {
+				color: $grey;
+				font-size: 0.9em;
+			}
+		}
+		.slick-prev:before {
+			font-family: FontAwesome;
+			font-size: 40px;
+			margin-right: 5px;
+			content: "\f104";
+			color: black;
+		}
+		.slick-next:before {
+			font-family: FontAwesome;
+			font-size: 40px;
+			margin-left: 5px;
+			content: "\f105";
+			color: black;
+		}
+	}
+}
+
+// Upcoming events
+.upcoming-events-content-block {
+	.upcoming-events {
+		.upcoming-event {
+			background-image: linear-gradient(to right, $light-grey 33%, rgba(255,255,255,0) 0%);
+			background-position: bottom;
+			background-size: 20px 2px;
+			background-repeat: repeat-x;
+			.start_date {
+				color: $light-grey;
+				font-size: 0.9em;
+			}
+			h3 {
+				margin-top: 5px;
+			}
+		}
+	}
+}
+// Icon block
+.icon_block {
+	.icon-item {
+		text-align: center;
+		h3 {
+
+		}
+		p {
+			color: $grey;
+		}
+		.icon {
+			font-size: 4em;
 		}
 	}
 }

@@ -3,7 +3,7 @@
 $tile_items = get_sub_field('tile_items');
 
 ?>
-<div class="tile-block">
+<div class="tile-block block">
 	<div class="row no-gutters">
 		<?php foreach ($tile_items as $tile_item) : ?>
 			<?php

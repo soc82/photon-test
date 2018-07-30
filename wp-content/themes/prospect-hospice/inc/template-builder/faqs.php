@@ -2,7 +2,7 @@
 $faq_items = get_sub_field('faq_items');
 ?>
 
-<div class="faqs-block">
+<div class="faqs-block block">
 	<div class="container">
 		<div class="row">
 		<?php foreach ($faq_items as $faq_item) : ?>

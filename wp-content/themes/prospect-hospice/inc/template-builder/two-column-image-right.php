@@ -9,7 +9,7 @@ $button_url = get_sub_field('button_url');
 $background_colour = get_sub_field('background_colour');
 ?>
 
-<div class="two-column-image-right" <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
+<div class="two-column-image-right block" <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
 	<div class="container">
 		<div class="row">
 			<div class="col-6 left">
