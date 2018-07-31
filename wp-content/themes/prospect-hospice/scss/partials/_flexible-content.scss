@@ -78,7 +78,7 @@
 // Two col image/video right
 .two-column-image-right {
 	.left {
-		
+
 	}
 	.right {
 		img {
@@ -94,7 +94,25 @@
 
 // Image gallery
 .image-gallery-block {
-
+	a {
+		display: inline-block;
+		vertical-align: top;
+		@include background-image-cover();
+		height: 150px;
+		width: 50%;
+		margin-right: -4px;
+		@include media-breakpoint-up(sm) {
+			width: 33.3333333%;
+		}
+		@include media-breakpoint-up(md) {
+			width: 25%;
+			height: 200px;
+		}
+		@include media-breakpoint-up(lg) {
+			width: 20%;
+			height: 200px;
+		}
+	}
 }
 
 // Tiles

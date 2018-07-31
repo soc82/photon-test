@@ -40,12 +40,22 @@ jQuery( document ).ready(function($) {
     return false;
   });
 
+  /*
+  ** Mobile menu
+  */
   new mlPushMenu( document.getElementById( 'mobile-menu' ), document.getElementById( 'trigger' ) );
 
 	// Yop Menu Search
 	jQuery( ".menu-search-form input" ).click(function() {
 		jQuery('.menu-item-search').addClass('active');
 	});
+
+  /*
+  ** Lightbox image gallery
+  */
+  new LuminousGallery(document.querySelectorAll(".lightbox-gallery"));
+
+
 
 
 });

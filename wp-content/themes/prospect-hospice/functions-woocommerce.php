@@ -326,9 +326,15 @@ remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wra
 add_action('woocommerce_before_main_content', 'prospect_wrapper_start', 10);
 add_action('woocommerce_after_main_content', 'prospect_wrapper_end', 10);
 
-function prospect_wrapper_start() {
 
-  echo '<div class="page-inner-wrapper">';
+function prospect_wrapper_start() {
+ if(is_singular('product')):
+  	$product = wc_get_product( get_the_ID());
+  	$type = $product->product_type;
+  else:
+    $type = 'not-product';
+  endif;
+  echo '<div class="page-inner-wrapper ' . $type .'" >';
   echo '<div class="container">';
     echo '<div class="row">';
       echo '<div class="col-12">';
@@ -431,14 +437,33 @@ add_action( 'woocommerce_after_shop_loop_item', 'prospect_product_btn', 14 );
 ** Here we are bypassing the normal woocommerce single product template and using a custom one.
 ** (Just because there aren't many woocommerce product similarities for events)
 */
-add_filter( 'woocommerce_locate_template', 'prospect_event_template' );
+/*
+add_filter( 'template_include', 'prospect_event_template');
 function prospect_event_template( $template ) {
   $product = wc_get_product( get_the_ID());
   if ( is_singular('product') && $product->is_type( 'prospect_event' ) ) {
+    //echo 'test';
     $template = get_stylesheet_directory() . '/templates/event-template.php';
   }
   return $template;
 }
+*/
+
+
+/**
+ *
+ * Redirect to specific single product page template based on category
+ */
+
+function prospect_event_template($template, $slug, $name) {
+  $product = wc_get_product( get_the_ID());
+    if ( is_singular('product') && $product->is_type( 'prospect_event' ) ) {
+      $template = get_stylesheet_directory() . '/templates/event-template.php';
+    }
+    return $template;
+}
+
+add_filter('wc_get_template_part', 'prospect_event_template', 10, 3);
 
 
 

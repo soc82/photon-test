@@ -6,7 +6,10 @@
 get_header(); ?>
 
 <?php $event = prospect_get_event_info();
-$banner = get_field('event_banner', get_the_ID());
+$banner = get_field('event_banner');
+$gallery = get_field('image_gallery');
+$volunteering = get_field('volunteering?');
+$volunteering_block = get_field('volunteering_block');
 if($banner): ?>
       </div>
     </div>
@@ -43,11 +46,236 @@ if($banner): ?>
         </div>
       </div>
       <div class="col-12 col-md-4 col-lg-3">
+        <?php if($event['location']):
+          echo get_template_part('inc/event-map');
+        endif; ?>
       </div>
     </div>
   </div>
 </div>
 
 
+<?php if($gallery):
+    echo get_template_part('inc/template-builder/image-gallery');
+endif; ?>
+
+<?php if($volunteering): ?>
+  <?php if($volunteering_block && array_filter($volunteering_block)): ?>
+      <div class="event-volunteering-block block" <?php if($event['color']) echo 'style="background:' . $event['color'] . '"'; ?>>
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <?php if($volunteering_block['heading']) echo '<h3 class="section-heading">' . $volunteering_block['heading'] . '</h3>'; ?>
+              <?php if($volunteering_block['form_id']) gravity_form(1, false, false, false, '', true); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+  <?php endif; ?>
+<?php endif; ?>
+
 
 <?php get_footer(); ?>
+
+<?php if($event['location']):
+ $lat_long = prospect_get_location_long_lat($event['location']);
+ if($lat_long): ?>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC136X0oNRMn3rEvmB6FzNi8_e4I66o74A"></script>
+    <script>
+      function initMap() {
+        var uluru = {lat: <?php echo $lat_long['lat']; ?>, lng: <?php echo $lat_long['long']; ?>,};
+        var map = new google.maps.Map(document.getElementById('event-map'), {
+          zoom: 14,
+          center: uluru,
+          scrollwheel: false,
+          styles: [
+          {
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#e9e9e9"
+                  },
+                  {
+                      "lightness": 17
+                  }
+              ]
+          },
+          {
+              "featureType": "landscape",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#f5f5f5"
+                  },
+                  {
+                      "lightness": 20
+                  }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "lightness": 17
+                  }
+              ]
+          },
+          {
+              "featureType": "road.highway",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "lightness": 29
+                  },
+                  {
+                      "weight": 0.2
+                  }
+              ]
+          },
+          {
+              "featureType": "road.arterial",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "lightness": 18
+                  }
+              ]
+          },
+          {
+              "featureType": "road.local",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "lightness": 16
+                  }
+              ]
+          },
+          {
+              "featureType": "poi",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#f5f5f5"
+                  },
+                  {
+                      "lightness": 21
+                  }
+              ]
+          },
+          {
+              "featureType": "poi.park",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#dedede"
+                  },
+                  {
+                      "lightness": 21
+                  }
+              ]
+          },
+          {
+              "elementType": "labels.text.stroke",
+              "stylers": [
+                  {
+                      "visibility": "on"
+                  },
+                  {
+                      "color": "#ffffff"
+                  },
+                  {
+                      "lightness": 16
+                  }
+              ]
+          },
+          {
+              "elementType": "labels.text.fill",
+              "stylers": [
+                  {
+                      "saturation": 36
+                  },
+                  {
+                      "color": "#333333"
+                  },
+                  {
+                      "lightness": 40
+                  }
+              ]
+          },
+          {
+              "elementType": "labels.icon",
+              "stylers": [
+                  {
+                      "visibility": "off"
+                  }
+              ]
+          },
+          {
+              "featureType": "transit",
+              "elementType": "geometry",
+              "stylers": [
+                  {
+                      "color": "#f2f2f2"
+                  },
+                  {
+                      "lightness": 19
+                  }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "geometry.fill",
+              "stylers": [
+                  {
+                      "color": "#fefefe"
+                  },
+                  {
+                      "lightness": 20
+                  }
+              ]
+          },
+          {
+              "featureType": "administrative",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                  {
+                      "color": "#fefefe"
+                  },
+                  {
+                      "lightness": 17
+                  },
+                  {
+                      "weight": 1.2
+                  }
+              ]
+          }
+      ]
+
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map,
+          icon: {
+            url: "<?php echo get_stylesheet_directory_uri(); ?>/img/marker.png",
+            scaledSize: new google.maps.Size(50, 67)
+          }
+        });
+      }
+      initMap();
+    </script>
+<?php endif;
+endif; ?>

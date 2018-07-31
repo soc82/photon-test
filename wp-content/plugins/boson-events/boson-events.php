@@ -63,10 +63,10 @@ function prospect_events_calendar_query() {
          'color'  => $colour,
          );
      }
+     wp_reset_postdata();
 
      $events = json_encode($events);
      return $events;
-     wp_reset_postdata();
 
  }
 
@@ -95,6 +95,39 @@ function prospect_get_event_info() {
     'color' => $colour,
   );
   return $event;
+}
+
+function prospect_get_location_long_lat($address) {
+  // function to geocode address, it will return false if unable to geocode address
+
+    $address = urlencode($address);
+    $url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' . $address . '&key=AIzaSyC136X0oNRMn3rEvmB6FzNi8_e4I66o74A';
+
+    $resp_json = file_get_contents($url);
+    $resp = json_decode($resp_json, true);
+
+    // response status will be 'OK', if able to geocode given address
+    if($resp['status']=='OK'){
+
+        $lat = isset($resp['results'][0]['geometry']['location']['lat']) ? $resp['results'][0]['geometry']['location']['lat'] : "";
+        $long = isset($resp['results'][0]['geometry']['location']['lng']) ? $resp['results'][0]['geometry']['location']['lng'] : "";
+
+        if($lat && $long){
+
+          $lat_long = array(
+            'lat' => $lat,
+            'long'  => $long,
+          );
+          return $lat_long;
+
+        } else {
+            return false;
+        }
+
+    } else{
+        echo "<strong>ERROR: {$resp['status']}</strong>";
+        return false;
+    }
 }
 
 
