@@ -61,3 +61,28 @@ function prospect_get_jobs_filters($job_section) {
 
     return $terms;
 }
+
+/*
+** Returns list of taxonomies for filtering downloads pages
+*/
+function prospect_get_downloads_filters() {
+
+    $query_args = array(
+        'post_type' => 'downloads',
+        'posts_per_page'  => -1,
+        'order' => 'DESC',
+        'orderby' => 'date',
+    );
+
+    $items = new WP_Query($query_args);
+
+    $terms = [];
+
+    foreach ($items->posts as $post) {
+        $post_terms = wp_get_post_terms($post->ID, 'department');
+        foreach ($post_terms as $term) {
+            $terms[] = $term;
+        }
+    }
+    return $terms;
+}
