@@ -29,3 +29,35 @@ function prospect_get_donate_page_ID() {
 		if($page)
 			return $page->ID;
 }
+
+/*
+** Returns list of taxonomies for filtering job pages
+*/
+function prospect_get_jobs_filters($job_section) {
+
+    $query_args = array(
+        'post_type' => 'jobs',
+        'posts_per_page'  => -1,
+        'order' => 'DESC',
+        'orderby' => 'date',
+    );
+
+    $query_args['tax_query'][] = [
+        'taxonomy' => 'jobsection',
+        'field'    => 'slug',
+        'terms'    => $job_section,
+    ];
+
+    $items = new WP_Query($query_args);
+
+    $terms = [];
+
+    foreach ($items->posts as $post) {
+        $post_terms = wp_get_post_terms($post->ID, 'jobtype');
+        foreach ($post_terms as $term) {
+            $terms[] = $term;
+        }
+    }
+
+    return $terms;
+}

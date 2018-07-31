@@ -7173,6 +7173,39 @@ form {
     line-height: 28px;
     color: #84BD00; }
 
+.intro h2 {
+  margin: 0 auto; }
+.intro p {
+  color: #666666;
+  font-size: 0.8em; }
+
+.filters {
+  margin: 25px 0; }
+  .filters form select {
+    display: block;
+    margin: 0 auto;
+    font-size: 0.8em; }
+
+.jobs-list .item .row {
+  margin-top: 15px; }
+.jobs-list .item h5 {
+  margin-bottom: 5px; }
+.jobs-list .item .reference {
+  font-size: 0.8em; }
+.jobs-list .item .salary {
+  font-size: 0.8em; }
+.jobs-list .item .closing-date {
+  font-size: 0.8em; }
+.jobs-list .item .actions {
+  padding: 15px; }
+  .jobs-list .item .actions a {
+    margin: 0 auto; }
+
+.benefits h3 {
+  text-align: center; }
+.benefits .benefits-item {
+  margin: 25px 0; }
+
 *,
 *:after,
 *::before {
