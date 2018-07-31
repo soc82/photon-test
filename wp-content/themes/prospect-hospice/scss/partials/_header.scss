@@ -17,12 +17,12 @@
           a {
             display: block;
             color:#FFFFFF;
-            font-size: 0.8em;
+            font-size: 0.9em;
             padding:0 10px;
             margin: 5px 0;
             border-left: 1px solid rgba(255,255,255,0.25);
             @include media-breakpoint-up(lg) {
-              font-size: 0.8em;
+              font-size: 0.9em;
               padding:0 20px;
             }
           }
@@ -48,14 +48,14 @@
                 content: '\f002';
                 font-family: 'Font Awesome 5 Pro';
                 color: #FFFFFF;
-                font-size: 0.8em;
+                font-size: 0.9em;
                 padding-right:5px;
               }
               input {
                 background: transparent;
                 border:none;
                 box-shadow: none;
-                font-size: 0.8em;
+                font-size: 0.9em;
                 color: #FFFFFF;
                 padding: 4px 5px 4px 0;
                 width: 50px; /* Expands on click */
@@ -187,14 +187,14 @@
       		li {
       			display: inline-block;
             height: 100%;
-            font-size: 0.85em;
+            font-size: 0.9em;
       			margin-right: 13px;
             @include media-breakpoint-up(lg) {
               font-size: 0.9em;
               margin-right: 16px;
             }
       			@include media-breakpoint-up(xl) {
-              font-size: 0.95em;
+              font-size: 1em;
       			}
       			a {
       				color:$black;

@@ -991,6 +991,25 @@ acf_add_local_field_group(array(
 					'display' => 'block',
 					'sub_fields' => array(
 						array(
+							'key' => 'field_5b2ae7e906ec2',
+							'label' => 'Heading',
+							'name' => 'heading',
+							'type' => 'text',
+							'instructions' => '',
+							'required' => 0,
+							'conditional_logic' => 0,
+							'wrapper' => array(
+								'width' => '',
+								'class' => '',
+								'id' => '',
+							),
+							'default_value' => '',
+							'placeholder' => '',
+							'prepend' => '',
+							'append' => '',
+							'maxlength' => '',
+						),
+						array(
 							'key' => 'field_5b5b1fa32d3e2',
 							'label' => 'FAQ Items',
 							'name' => 'faq_items',

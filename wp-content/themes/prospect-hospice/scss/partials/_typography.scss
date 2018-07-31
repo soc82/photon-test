@@ -11,7 +11,8 @@ body {
   font-family: $font-paragraph;
   color: $grey;
   @include media-breakpoint-up(md) {
-    font-size: 1.1em;
+    font-size: 1.05em;
+    line-height: 1.5em; 
   }
 }
 
@@ -44,5 +45,14 @@ a {
     -ms-transition: color 0.2s ease-in-out;
     -o-transition: color 0.2s ease-in-out;
     transition: color 0.2s ease-in-out;
+  }
+}
+
+
+.section-heading {
+  margin: 0 0 20px 0;
+  font-size: 1.4em;
+  @include media-breakpoint-up(md) {
+    font-size: 1.8em;
   }
 }

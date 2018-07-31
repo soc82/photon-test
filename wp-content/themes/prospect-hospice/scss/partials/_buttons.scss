@@ -7,12 +7,12 @@
 */
 .btn {
   display: inline-block;
-  padding: 12px 25px;
-  background: #888888;
-  border:2px solid #888888;
+  padding: 15px 35px;
+  background: $green;
+  border:2px solid $green;
   color: #FFFFFF;
   text-decoration: none;
-  @include border-radius-separate(20px, 20px, 20px, 20px);
+  @include border-radius-separate(30px, 30px, 30px, 30px);
   @include transition('color' 0.3s ease-in-out);
   @include transition('background' 0.3s ease-in-out);
   @include transition('background-color' 0.3s ease-in-out);
@@ -20,8 +20,8 @@
     outline: none;
     text-decoration: none;
     background: transparent;
-    border-color: #888888;
-    color: #888888;
+    border-color: $green;
+    color: $green;
   }
   // .btn-outline { }
   &.btn-yellow {
@@ -29,4 +29,26 @@
     border: 2px solid $yellow;
   }
 
+  &.btn-arrow-right {
+    padding-right: 30px;
+    &:after {
+      content: '\f178';
+      font-family: 'Font Awesome 5 Pro';
+      padding-left: 10px;
+      color: rgba(255,255,255,0.7);
+    }
+    &:hover {
+      &:after {
+        color: $green;
+      }
+    }
+  }
+
+}
+
+.btn-set {
+  margin: 20px 0;
+  .btn {
+    margin: 0 10px 5px 0;
+  }
 }

@@ -67,6 +67,12 @@ jQuery( document ).ready(function($) {
   new LuminousGallery(document.querySelectorAll(".lightbox-gallery"));
 
 
+  jQuery('.faqs-block .faq-question').click(function () {
+      jQuery(this).next('.faq-answer').slideToggle();
+      jQuery(this).parent().siblings().children().next().slideUp();
+      return false;
+  });
+
 
 
 });

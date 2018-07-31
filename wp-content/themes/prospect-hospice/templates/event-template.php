@@ -10,6 +10,7 @@ $banner = get_field('event_banner');
 $gallery = get_field('image_gallery');
 $volunteering = get_field('volunteering?');
 $volunteering_block = get_field('volunteering_block');
+$sponsorship = get_field('sponsorship_block');
 if($banner): ?>
       </div>
     </div>
@@ -73,6 +74,31 @@ endif; ?>
       </div>
   <?php endif; ?>
 <?php endif; ?>
+
+<?php if($sponsorship): ?>
+  <?php if($sponsorship && array_filter($sponsorship)): ?>
+    <div class="event-sponsorship-block block">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-10 offset-md-1 text-center">
+              <?php if($sponsorship['heading']) echo '<h3 class="section-heading">' . $sponsorship['heading'] . '</h3>'; ?>
+              <?php if($sponsorship['content']) echo '<p class="content-block">' . $sponsorship['content']  . '</p>'; ?>
+              <?php if ($sponsorship['buttons']) :
+                echo '<div class="btn-set">';
+    					     foreach ($sponsorship['buttons'] as $button):
+                      if($button['button_text'] && $button['button_link'])
+  						            echo '<a href="' . $button['button_link'] . '" class="btn btn-arrow-right">' . $button['button_text'] . '</a>';
+    				      endforeach;
+                  echo '</div>';
+    				    endif; ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?php endif;
+endif; ?>
+
+<?php echo get_template_part('inc/template-builder/faqs'); ?>
 
 
 <?php get_footer(); ?>

@@ -17,7 +17,7 @@
     margin-bottom: 30px;
   }
   .footer-heading {
-    font-size: 1.2em;
+    font-size: 1.25em;
     line-height: 1.625em;
     margin: 0 0 10px 0;
     color: $grey;
@@ -49,14 +49,14 @@
     margin: 0;
     a {
       font-family: $font-heading;
-      font-size: 0.9em;
+      font-size: 0.95em;
       line-height: 1.45em;
       color: $grey;
     }
   }
   .footer-hashtag {
     font-family: $font-heading;
-    font-size: 0.9em;
+    font-size: 0.95em;
     line-height: 1.45em;
     color: $grey;
   }
@@ -70,7 +70,7 @@
         display: block;
         padding: 0 0 6px 0;
         color: $grey;
-        font-size: 0.95em;
+        font-size: 1em;
         line-height: 1.5em;
         @include media-breakpoint-up(md) {
           padding: 0 0 10px 0;
@@ -84,7 +84,7 @@
   .footer-corporate {
     color: $light-grey;
     margin: 0 0 10px 0;
-    font-size: 0.85em;
+    font-size: 0.9em;
     line-height: 1.6em;
     @include media-breakpoint-up(md) {
       font-size: 0.9em;
@@ -98,10 +98,10 @@
     p {
       color: $light-grey;
       margin: 0 0 10px 0;
-      font-size: 0.75em;
+      font-size: 0.9em;
       line-height: 1.6em;
       @include media-breakpoint-up(md) {
-        font-size: 0.85em;
+        font-size: 0.9em;
       }
     }
     .footer-accreditions-logos {
@@ -119,12 +119,12 @@
     padding: 40px 0;
   }
   .footer-copyright {
-    font-size: 0.9em;
+    font-size: 0.95em;
     line-height: 1.6em;
     margin: 0 0 15px 0;
     color: $grey;
     @include media-breakpoint-up(md) {
-      font-size: 1rem;
+      font-size: 1em;
     }
   }
   .footer-disclaimer {

@@ -1,5 +1,5 @@
 .block {
-	margin: 20px 0;
+	margin: 40px 0;
 
 	// Hero block
 	&.hero-banner {
@@ -143,26 +143,29 @@
 
 // FAQs
 .faqs-block {
-	.accordion {
-		margin-bottom: 10px;
-		.question {
-			padding: 25px;
-			background-color: $yellow;
-			color: #fff;
-			transition: all 0.3s ease-in-out;
-		}
-		.answer {
-			display: none;
-			background-color: #f0f0f0;
-			padding: 25px;
-		}
-		&.active {
-			.question {
-				background-color: $green;
+	.section-heading {
+		margin-bottom: 30px;
+	}
+	.faq-item {
+		.faq-question {
+			background: $green;
+			padding: 15px;
+			color: #FFFFFF;
+			margin: 0;
+			font-size: 1.2em;
+			&:after {
+				content: '\f107';
+				font-family: 'Font Awesome 5 Pro';
+				color: #FFFFFF;
+				float: right;
+				font-size: 1.4em;
 			}
-			.answer {
-				display: block;
-			}
+		}
+		.faq-answer {
+			font-size: 0.9em;
+			margin: 0;
+			background: rgba(240,240,240,0.5);
+			padding: 15px 20px;
 		}
 	}
 }
