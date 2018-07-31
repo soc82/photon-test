@@ -18,6 +18,9 @@ jQuery( document ).ready(function($) {
     arrows: true,
   });
 
+  jQuery(document).ready( function () {
+    jQuery('#applications-table').DataTable();
+  });
   /*
   ** Form Autosubmitter
   */
