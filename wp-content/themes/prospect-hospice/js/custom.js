@@ -70,6 +70,10 @@ jQuery( document ).ready(function($) {
   jQuery('.faqs-block .faq-question').click(function () {
       jQuery(this).next('.faq-answer').slideToggle();
       jQuery(this).parent().siblings().children().next().slideUp();
+      /*
+      ** Leaving this here to remind to finish off FAQ's accordion
+      */
+
       return false;
   });
 
