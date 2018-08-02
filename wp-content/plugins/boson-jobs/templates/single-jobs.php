@@ -9,15 +9,16 @@ $user = wp_get_current_user();
 $users_applications = get_field('applications', 'user_' . $user->ID);
 
 $applied = false;
-
 $job_id = get_the_ID();
 
 // Double check to make sure the user hasn't applied twice
-foreach ($users_applications as $application) {
-    if ($job_id == $application['job_id']) {
-        $applied = true;
-        break;
-    }
+if ($users_applications) {
+	foreach ($users_applications as $application) {
+	    if ($job_id == $application['job_id']) {
+	        $applied = true;
+	        break;
+	    }
+	}
 }
 
 get_header(); ?>
