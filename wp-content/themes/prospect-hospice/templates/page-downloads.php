@@ -38,7 +38,7 @@ get_header(); ?>
 		<div class="col-12">
 			<form method="get">
 				Search: 
-				<input value="<?php echo $_GET['downloads_search'] ?>" class="autosubmit-field" type="text" name="downloads_search">
+				<input value="<?php echo (isset($_GET['downloads_search']) ? $_GET['downloads_search'] : '') ?>" class="autosubmit-field" type="text" name="downloads_search">
 				<select class="autosubmit-field" name="department">
 					<option value="all">All</option>
 					<?php foreach($terms as $term) : ?>
