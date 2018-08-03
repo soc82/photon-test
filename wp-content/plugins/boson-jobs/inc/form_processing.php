@@ -66,16 +66,11 @@ function override_form_completed($confirmation, $form, $entry, $ajax) {
 
     // The job applied for
     $job_id = $entry[5];
+    $job = get_post($job_id);
+    $job_title = $job->post_title;
 
-    if ($users_applications) {
-        // Double check to make sure the user hasn't applied twice
-        foreach ($users_applications as $application) {
-            if ($job_id == $application['job_id']) {
-                $confirmation = "You have already applied for this position.";
-                return $confirmation;
-            }
-        }
-    }
+    $confirmation = str_replace('{job_title}', $job_title, $confirmation);
+
     return $confirmation;
 }
 
