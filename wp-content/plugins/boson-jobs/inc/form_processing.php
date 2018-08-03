@@ -41,7 +41,7 @@ function after_submission($entry, $form) {
         'job_reference' => get_field('reference', $job_id),
         'job_title' => get_the_title($job_id),
         'job_link' => get_permalink($job_id),
-        'application_date' => date('d/m/Y g:i a')
+        'application_date' => time()
     ];
 
     update_field('applications', $users_applications, 'user_' . $user->ID);

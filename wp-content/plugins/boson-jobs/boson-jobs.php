@@ -113,10 +113,28 @@ function jobs_single_template($single) {
 
 require_once('inc/form_processing.php');
 
+// Register new menu item(s) in woocommerce's my account area
+function prospect_account_menu_items( $items ) { 
+    $items['applications'] = __( 'Job Applications', 'prospect' );
+    return $items;
+}
+add_filter( 'woocommerce_account_menu_items', 'prospect_account_menu_items', 10, 1 );
+// Add new URL endpoint for job applications
+function prospect_add_my_account_endpoint() {
+    add_rewrite_endpoint( 'applications', EP_PAGES );
+}
+add_action( 'init', 'prospect_add_my_account_endpoint' );
+// Set the content for the new endpoint
+function prospect_applications_endpoint_content() {
+    include(plugin_dir_path( __FILE__ ) . 'templates/job-applications.php');
+}
+add_action( 'woocommerce_account_applications_endpoint', 'prospect_applications_endpoint_content' );
+
 
 /****************************
 LOAD ACF FIELDS
 *****************************/
 require_once('acf-fields.php');
+require_once('acf-fields-user.php');
 require_once('acf-fields-listing.php');
 

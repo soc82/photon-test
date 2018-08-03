@@ -578,22 +578,5 @@ function marketing_consent_option_update_user_meta( $order_id ) {
   endif;
 }
 
-function prospect_account_menu_items( $items ) { 
-    $items['applications'] = __( 'Job Applications', 'prospect' );
-    return $items;
-}
-add_filter( 'woocommerce_account_menu_items', 'prospect_account_menu_items', 10, 1 );
-
-
-function prospect_add_my_account_endpoint() {
-    add_rewrite_endpoint( 'applications', EP_PAGES );
-}
- 
-add_action( 'init', 'prospect_add_my_account_endpoint' );
-
-function prospect_applications_endpoint_content() {
-    get_template_part('template-parts/job-applications');
-}
-add_action( 'woocommerce_account_applications_endpoint', 'prospect_applications_endpoint_content' );
 
 
