@@ -79,7 +79,7 @@ get_header(); ?>
 							</div>
 						</div>
 						<div class="row actions">
-							<a href="<?php the_permalink($item);?>" class="btn">Apply</a>
+							<a href="<?php the_permalink($item);?>" class="btn"><?php echo get_field('view_job_button_text', 'option'); ?></a>
 						</div>
 					</div>
 				</div>

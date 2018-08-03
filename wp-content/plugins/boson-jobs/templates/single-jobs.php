@@ -46,9 +46,9 @@ get_header(); ?>
 				</div>
 
 				<?php if (!$applied) : ?>
-					<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>">Apply</a>
+					<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?></a>
 				<?php else : ?>
-					You've already applied for this position
+					<?php echo get_field('position_already_applied_for_text', 'option'); ?>
 				<?php endif; ?>
 
 			</article>

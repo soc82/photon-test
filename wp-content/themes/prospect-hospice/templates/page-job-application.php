@@ -17,11 +17,11 @@ get_header(); ?>
 			<?php else : ?>
 				<h1><?php the_title(); ?></h1>
 				<?php
-					$intro_text = get_field('registration_sign_in_intro_text');
+					$intro_text = get_field('registration_sign_in_intro_text', 'option');
 				?>
 				<h3><?php echo $job_title; ?></h3>
 				<p><?php echo $intro_text; ?></p>
-				<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>">Login/Register</a>
+				<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?></a>
 			<?php endif; ?>
 		</div>
 	</div>
