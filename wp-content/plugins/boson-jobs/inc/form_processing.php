@@ -37,10 +37,12 @@ function after_submission($entry, $form) {
     $job_id = $entry[5];
 
     // Double check to make sure the user hasn't applied twice
-    foreach ($users_applications as $application) {
-        if ($job_id == $application['job_id']) {
-            GFAPI::delete_entry( $entry['id'] );
-            return;
+    if ($users_applications) {
+        foreach ($users_applications as $application) {
+            if ($job_id == $application['job_id']) {
+                GFAPI::delete_entry( $entry['id'] );
+                return;
+            }
         }
     }
     // Apend the current application onto the list of previous applications
@@ -65,12 +67,39 @@ function override_form_completed($confirmation, $form, $entry, $ajax) {
     // The job applied for
     $job_id = $entry[5];
 
-    // Double check to make sure the user hasn't applied twice
-    foreach ($users_applications as $application) {
-        if ($job_id == $application['job_id']) {
-            $confirmation = "You have already applied for this position.";
-            return $confirmation;
+    if ($users_applications) {
+        // Double check to make sure the user hasn't applied twice
+        foreach ($users_applications as $application) {
+            if ($job_id == $application['job_id']) {
+                $confirmation = "You have already applied for this position.";
+                return $confirmation;
+            }
         }
     }
     return $confirmation;
+}
+
+// Form notification
+add_filter( 'gform_notification_2', 'form_notification', 10, 3 );
+
+function form_notification($notification, $form, $entry) {
+
+    if ($notification['id'] == '5b643d267c53a') {
+        $job_id = $entry[5];
+        $job = get_post($job_id);
+
+        $job_title = $job->post_title;
+        $job_content = $job->post_content;
+        $job_spec = $job_content;
+        $job_reference = get_field('reference', $job_id);
+        $job_salary = get_field('salary', $job_id);
+        $job_closing_date = get_field('closing_date', $job_id);
+
+        $notification['message'] = str_replace('{job_title}', $job_title, $notification['message']);
+        $notification['message'] = str_replace('{job_spec}', $job_spec, $notification['message']);
+        $notification['message'] = str_replace('{job_reference}', $job_reference, $notification['message']);
+        $notification['message'] = str_replace('{job_salary}', $job_salary, $notification['message']);
+        $notification['message'] = str_replace('{job_closing_date}', $job_closing_date, $notification['message']);
+    }
+
 }

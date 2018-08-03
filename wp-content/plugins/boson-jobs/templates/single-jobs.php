@@ -30,6 +30,17 @@ get_header(); ?>
 				<div class="page-header">
 					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 				</div>
+				<div class="job-spec">
+					<?php if ($reference) : ?>
+					<div>Reference: <?php echo $reference; ?></div>
+					<?php endif; ?>
+					<?php if ($salary) : ?>
+					<div>Salary: <?php echo $salary; ?></div>
+					<?php endif; ?>
+					<?php if ($closing_date) : ?>
+					<div>Closing Date: <?php echo $closing_date; ?></div>
+					<?php endif; ?>
+				</div>
 				<div class="entry-content">
 					<?php the_content();?>
 				</div>
