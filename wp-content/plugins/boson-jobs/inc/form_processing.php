@@ -4,29 +4,18 @@
 Job application form
 *****************************/
 
-add_filter( 'woocommerce_login_redirect', 'prospect_woocommerce_login_redirect', 10, 2 ); 
+// Redirect the user back to the form (with job_id) after login/register
+add_filter( 'woocommerce_login_redirect', 'prospect_woocommerce_login_reg_redirect', 10, 1 ); 
+add_filter( 'woocommerce_registration_redirect', 'prospect_woocommerce_login_reg_redirect', 10, 1 );      
 
-function prospect_woocommerce_login_redirect( $redirect, $user ) { 
+function prospect_woocommerce_login_reg_redirect( $redirect ) { 
 	if (isset($_GET['job_id'])) {
 	    $job_id = $_GET['job_id'];
-
 	    $redirect = '/job-application-form/?job_id=' . $job_id;
 	}
     return $redirect; 
 }; 
-
-add_filter( 'woocommerce_registration_redirect', 'prospect_woocommerce_registration_redirect', 10, 1 );      
-
-function prospect_woocommerce_registration_redirect( $redirect ) { 
-	if (isset($_GET['job_id'])) {
-	    $job_id = $_GET['job_id'];
-
-	    $redirect = '/job-application-form/?job_id=' . $job_id;
-	}
-    return $redirect; 
-}; 
-         
-// Form submission
+// Form submission         
 add_action( 'gform_after_submission_2', 'after_submission', 10, 2 );
 
 function after_submission($entry, $form) {
@@ -40,6 +29,7 @@ function after_submission($entry, $form) {
     if ($users_applications) {
         foreach ($users_applications as $application) {
             if ($job_id == $application['job_id']) {
+                // Delete any duplicate entries
                 GFAPI::delete_entry( $entry['id'] );
                 return;
             }
@@ -61,9 +51,6 @@ function after_submission($entry, $form) {
 add_filter( 'gform_confirmation_2', 'override_form_completed', 10, 4 );
 
 function override_form_completed($confirmation, $form, $entry, $ajax) {
-    $user = wp_get_current_user();
-    $users_applications = get_field('applications', 'user_' . $user->ID);
-
     // The job applied for
     $job_id = $entry[5];
     $job = get_post($job_id);
@@ -78,7 +65,6 @@ function override_form_completed($confirmation, $form, $entry, $ajax) {
 add_filter( 'gform_notification_2', 'form_notification', 10, 3 );
 
 function form_notification($notification, $form, $entry) {
-
     if ($notification['id'] == '5b643d267c53a') {
         $job_id = $entry[5];
         $job = get_post($job_id);
@@ -96,5 +82,4 @@ function form_notification($notification, $form, $entry) {
         $notification['message'] = str_replace('{job_salary}', $job_salary, $notification['message']);
         $notification['message'] = str_replace('{job_closing_date}', $job_closing_date, $notification['message']);
     }
-
 }
