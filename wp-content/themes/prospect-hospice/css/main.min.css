@@ -6994,7 +6994,17 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Arial W01 Rounded Bold", "sans-serif";
-  font-weight: 300; }
+  font-weight: 300;
+  color: #222222;
+  margin: 0 0 20px 0; }
+
+h1 {
+  font-size: 2.4em;
+  line-height: 1.4em; }
+
+p, ul, ol, time {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
 ul, ol {
   margin: 0 0 20px 0;
@@ -7050,7 +7060,18 @@ a {
     background: #f3cc30; }
 
 .inner-page-wrapper {
-  margin: 40px 0; }
+  margin: 20px 0; }
+  .inner-page-wrapper .intro p {
+    font-size: 1.5em;
+    line-height: 1.5em;
+    color: #666666; }
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0; }
+  .row.no-gutters > [class^="col-"], .row.no-gutters > [class*=" col-"] {
+    padding-right: 0;
+    padding-left: 0; }
 
 /*
 ** Starter button class
@@ -7594,7 +7615,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 
 .site-header {
   background: #84BD00;
-  padding: 15px 0; }
+  padding: 10px 0; }
   @media (min-width: 768px) {
     .site-header {
       background: none; } }
@@ -7606,11 +7627,16 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       display: none; }
       @media (min-width: 768px) {
         .site-header .header-logo .desktop-logo {
-          width: 165px;
+          width: 145px;
+          margin: 15px;
           display: block; } }
       @media (min-width: 992px) {
         .site-header .header-logo .desktop-logo {
-          width: 220px; } }
+          width: 174px;
+          margin: 30px; } }
+      @media (min-width: 1200px) {
+        .site-header .header-logo .desktop-logo {
+          margin: 30px 0; } }
     .site-header .header-logo .mobile-logo {
       display: block;
       width: 130px; }
@@ -8064,6 +8090,77 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .icon_block .icon-item .icon {
     font-size: 4em; }
 
+.grid-overlap .item {
+  position: relative;
+  margin-bottom: 70px; }
+  .grid-overlap .item a {
+    display: block;
+    min-height: 400px;
+    margin-bottom: 70px;
+    /* takes care of negative margin */ }
+    .grid-overlap .item a .image-wrapper {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden; }
+      .grid-overlap .item a .image-wrapper .image {
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        transition-duration: 1s;
+        width: 100%;
+        height: 100%; }
+    .grid-overlap .item a .caption {
+      background: #84BD00;
+      position: absolute;
+      width: 80%;
+      bottom: -40px;
+      left: 10%;
+      z-index: 2;
+      color: #fff;
+      text-align: center;
+      padding: 30px 20px;
+      transition-duration: 0.6s; }
+      .grid-overlap .item a .caption h2 {
+        color: white;
+        font-size: 1.3em;
+        line-height: 1.4em; }
+      .grid-overlap .item a .caption p {
+        font-size: 1.1em;
+        line-height: 1.2em;
+        color: rgba(255, 255, 255, 0.6);
+        font-family: "Arial W01 Rounded Bold", "sans-serif";
+        margin: 0; }
+.grid-overlap .item:hover .caption {
+  background-color: #f3cc30;
+  color: #222222; }
+.grid-overlap .item:hover .image {
+  transform: scale(1.05);
+  opacity: 0.8; }
+
+.pagination {
+  margin: 40px 0;
+  display: block;
+  text-align: center; }
+  .pagination a, .pagination span {
+    display: inline-block;
+    padding: 10px 15px;
+    background: #84BD00;
+    width: auto;
+    height: auto;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin: 0 3px; }
+  .pagination a:hover {
+    opacity: 0.5;
+    text-decoration: none; }
+  .pagination span {
+    background-color: #f3cc30;
+    color: #222222; }
+
 .homepage-blocks .homepage-item {
   height: 250px;
   display: block;
@@ -8448,7 +8545,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 /*
 ** Used for footer accessibility buttons to increase/decrease sizing
 */
-body.accessibility-large p, body.accessibility-large h1, body.accessibility-large h2, body.accessibility-large h3, body.accessibility-large h4, body.accessibility-large h5, body.accessibility-large h6, body.accessibility-large ul, body.accessibility-large ol, body.accessibility-large a {
+body.accessibility-large {
   font-size: 110%;
   transition: none !important; }
 

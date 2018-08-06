@@ -32,5 +32,23 @@
 
 
 .inner-page-wrapper {
-  margin:40px 0;
+  margin: 20px 0;
+  .intro p {
+    font-size: 1.5em;
+    line-height: 1.5em;
+    color:$grey;
+  }
+}
+
+
+
+.row.no-gutters {
+  margin-right: 0;
+  margin-left: 0;
+
+  & > [class^="col-"],
+  & > [class*=" col-"] {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }

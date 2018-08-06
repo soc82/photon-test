@@ -139,7 +139,7 @@
 
 .site-header {
   background: $green;
-  padding: 15px 0;
+  padding: 10px 0;
   @include media-breakpoint-up(md) {
     background: none;
   }
@@ -151,11 +151,16 @@
     .desktop-logo {
       display: none;
       @include media-breakpoint-up(md) {
-        width:165px;
+        width:145px;
+        margin:15px;
         display: block;
       }
       @include media-breakpoint-up(lg) {
-        width:220px;
+        width:174px;
+        margin:30px;
+      }
+      @include media-breakpoint-up(xl) {
+        margin:30px 0;
       }
     }
     .mobile-logo {
