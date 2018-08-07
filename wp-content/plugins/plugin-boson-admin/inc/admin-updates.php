@@ -131,7 +131,7 @@ function my_remove_sub_menus() {
 }
 // REMOVE POST META BOXES
 function remove_my_post_metaboxes() {
-remove_meta_box( 'categorydiv','post','normal' ); // Categories Metabox
+//remove_meta_box( 'categorydiv','post','normal' ); // Categories Metabox
 remove_meta_box( 'tagsdiv-post_tag','post','normal' ); // Tags Metabox
 }
 add_action('admin_menu','remove_my_post_metaboxes');

@@ -163,13 +163,13 @@ if (!function_exists('theme_get_post_thumbnail')){
 		if (is_singular()){
 			$base = '
 				<div class="post-thumbnail">
-					' . the_post_thumbnail() . '
+					' . the_post_thumbnail('large', array('class'=>'img-fluid')) . '
 				</div><!-- .post-thumbnail -->
 			';
 		}else{
 			$base = '
 				<a class="post-thumbnail" href="' . the_permalink() . '" aria-hidden="true">
-					' . the_post_thumbnail( 'post-thumbnail', array( 'alt' => the_title_attribute( 'echo=0' ) ) ) . '
+					' . the_post_thumbnail( 'post-thumbnail', array('class'=>'img-fluid', 'alt' => the_title_attribute( 'echo=0' ) ) ) . '
 				</a><!-- .post-thumbnail -->
 			';
 		}

@@ -13,25 +13,42 @@ get_header(); ?>
                 <div class="intro">
 
                     <?php
-                      // Start the loop.
-                      while ( have_posts() ) : the_post();
+                    // Start the loop.
+                    while ( have_posts() ) : the_post();
 
                         // Include the page content template.
                         get_template_part( 'template-parts/content', 'page' );
 
-                        // If comments are open or we have at least one comment, load up the comment template.
-                        if ( comments_open() || get_comments_number() ) {
-                          comments_template();
-                        }
+                    // End of the loop.
+                    endwhile;
+                    ?>
 
-                      // End of the loop.
-                      endwhile;
-                      ?>
+                    <!-- Filter -->
+                    <?php $terms = $terms = get_terms( array(
+                        'taxonomy' => 'category',
+                        'hide_empty' => false,
+                    )); ?>
+
+                    <div class="filter">        
+                        <form method="get" action="">
+                            <div class="dropdown">
+                                <select name="category" >
+                                    <option value="">Filter news by ...</option>
+                                    <?php foreach($terms as $term) : ?>
+                                        <?php if($term->name != 'Uncategorized') : ?>
+                                            <option <?php if(!empty($_GET['category']) && $_GET['category'] == sanitize_title($term->name)) echo 'selected';?> data-filter=".<?php echo sanitize_title($term->name);?>" value="<?php echo sanitize_title($term->name);?>"><?php echo $term->name;?></option>
+                                        <?php endif;?>
+                                    <?php endforeach;?>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- News -->
 <?php $query_args = array(
@@ -40,25 +57,29 @@ get_header(); ?>
     'order' => 'DESC',
     'orderby' => 'date',
     'posts_per_page' => 6,
-    'paged' => get_query_var('paged') ? get_query_var('paged') : 1
+    'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 );
-$items = new WP_Query($query_args);
 
+// If category is passed, add to query
+if(!empty($_GET['category'])) :
+    $query_args['tax_query'] = [[
+        'taxonomy' => 'category',
+        'field'    => 'slug',
+        'terms'    => $_GET['category'],
+    ]];
+endif;
+$items = new WP_Query($query_args);
 if ( $items->posts ) : ?>
     <div class="grid-overlap">
         <div class="row no-gutters">
 
             <?php // Start the loop.
             while ( $items->have_posts()) : $items->the_post();
-
                 get_template_part( 'template-parts/content', 'posts' );
-
             // End the loop.
             endwhile; ?>
         </div>
     </div>
-
-    
 
     <?php // Pagination
     $total_pages = $items->max_num_pages;

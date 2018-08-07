@@ -1,0 +1,32 @@
+.filter {
+	.dropdown {
+		position: relative;
+		width: auto;
+		margin: 10px 0 20px 0;
+		@include media-breakpoint-up(lg) {
+			margin: 10px 0 50px 0;
+		}
+	}
+	select {
+		-webkit-appearance: none;
+	    -moz-appearance: none;
+	    appearance: none;
+		padding: 20px 20px;
+		background-color: #ddd;
+		width: 100%;
+		border:none;
+		font-size: 1.3em;
+		
+	}
+	.dropdown:after {
+	    content: "";
+	    position: absolute;
+	    right: 30px;
+	    top: 27px;
+	    width: 0; 
+	    height: 0; 
+	    border-left: 10px solid transparent;
+	    border-right: 10px solid transparent;
+	    border-top: 10px solid $black;
+	}
+}

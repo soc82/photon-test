@@ -40,7 +40,12 @@
   }
 }
 
-
+.section {
+  margin: 20px 0;
+  @include media-breakpoint-up(lg) {
+    margin: 50px 0;
+  }
+}
 
 .row.no-gutters {
   margin-right: 0;
@@ -51,4 +56,17 @@
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.bg-yellow {
+  background-color: $yellow !important;
+  color: $black !important;
+}
+.bg-green {
+  background-color: $green !important;
+  color: white !important;
+}
+.bg-light-grey {
+  background-color: $light-grey !important;
+  color: $black !important;
 }

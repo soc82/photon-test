@@ -7033,6 +7033,16 @@ a {
     .section-heading {
       font-size: 1.8em; } }
 
+.title-block {
+  padding: 10px 30px;
+  display: inline-block;
+  width: auto;
+  transform: rotate(-2deg); }
+
+.entry-content p:first-child {
+  font-size: 1.4em;
+  line-height: 1.4em; }
+
 .img-fluid {
   max-width: 100%;
   height: auto; }
@@ -7066,12 +7076,30 @@ a {
     line-height: 1.5em;
     color: #666666; }
 
+.section {
+  margin: 20px 0; }
+  @media (min-width: 992px) {
+    .section {
+      margin: 50px 0; } }
+
 .row.no-gutters {
   margin-right: 0;
   margin-left: 0; }
   .row.no-gutters > [class^="col-"], .row.no-gutters > [class*=" col-"] {
     padding-right: 0;
     padding-left: 0; }
+
+.bg-yellow {
+  background-color: #f3cc30 !important;
+  color: #222222 !important; }
+
+.bg-green {
+  background-color: #84BD00 !important;
+  color: white !important; }
+
+.bg-light-grey {
+  background-color: #999999 !important;
+  color: #222222 !important; }
 
 /*
 ** Starter button class
@@ -7253,6 +7281,15 @@ form {
   text-align: center; }
 .benefits .benefits-item {
   margin: 25px 0; }
+
+/* Social sharing buttons */
+.social {
+  margin: 40px 0; }
+  .social h4, .social .addtoany_shortcode {
+    display: inline-block; }
+  .social .addtoany_shortcode a {
+    font-size: 50px;
+    margin: 0 3px; }
 
 *,
 *:after,
@@ -8092,7 +8129,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 
 .grid-overlap .item {
   position: relative;
-  margin-bottom: 70px; }
+  margin: 10px 0 70px 0; }
   .grid-overlap .item a {
     display: block;
     min-height: 400px;
@@ -8160,6 +8197,33 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .pagination span {
     background-color: #f3cc30;
     color: #222222; }
+
+.filter .dropdown {
+  position: relative;
+  width: auto;
+  margin: 10px 0 20px 0; }
+  @media (min-width: 992px) {
+    .filter .dropdown {
+      margin: 10px 0 50px 0; } }
+.filter select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 20px 20px;
+  background-color: #ddd;
+  width: 100%;
+  border: none;
+  font-size: 1.3em; }
+.filter .dropdown:after {
+  content: "";
+  position: absolute;
+  right: 30px;
+  top: 27px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #222222; }
 
 .homepage-blocks .homepage-item {
   height: 250px;

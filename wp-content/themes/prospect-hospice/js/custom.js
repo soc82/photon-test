@@ -1,4 +1,10 @@
 jQuery( document ).ready(function($) {
+
+  /* News form change */
+  jQuery('.filter select').change(function(){
+    jQuery(this).closest("form").submit();
+  });
+
   /*
   ** FAQ accordions
   */

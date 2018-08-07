@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.5.12 (2018-08-02)
+- Add EU endpoint for Mailgun HTTP API
+- Fix broken logo image on Lists page
+- Test plugin up to Wordpress 4.9.7
+
 1.5.11 (2018-05-30):
 - Fix an issue with authentication failing for newer API keys
 - Test plugin up to Wordpress 4.9.6

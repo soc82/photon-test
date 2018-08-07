@@ -55,11 +55,24 @@ a {
   }
 }
 
-
 .section-heading {
   margin: 0 0 20px 0;
   font-size: 1.4em;
   @include media-breakpoint-up(md) {
     font-size: 1.8em;
+  }
+}
+
+.title-block {
+  padding: 10px 30px;
+  display: inline-block;
+  width: auto;
+  transform: rotate(-2deg);
+}
+
+.entry-content {
+  p:first-child {
+    font-size: 1.4em;
+    line-height: 1.4em;
   }
 }
