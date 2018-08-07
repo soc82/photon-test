@@ -25,38 +25,75 @@
 
 .jobs-list {
 	.item {
+		display: block;
+		padding: 30px;
+		border-radius: 10px;
+		margin-bottom: 30px;
+		min-height: 438px;
+		@include media-breakpoint-up(md) {
+			min-height: 410px;
+		}
+		@include media-breakpoint-up(xl) {
+			min-height: 360px;
+		}
 		.row {
 			margin-top: 15px;
 		}
-		h5 {
+		h3 {
+			font-size: 1.5em;
+			line-height: 1.2em;
 			margin-bottom: 5px;
+			color: white;
 		}
 		.reference {
 			font-size: 0.8em;
+			opacity: 0.8;
+			margin-bottom: 5px;
 		}
 		.introduction {
-
+			line-height: 1.2em;
+			opacity: 0.8;
 		}
 		.salary {
-			font-size: 0.8em;
+			font-size: 1.1em;
+			line-height: 1.2em;
 		}
 		.closing-date {
-			font-size: 0.8em;
+			font-size: 1.1em;
+			line-height: 1.2em;
 		}
 		.actions {
 			padding: 15px;
 			a {
 				margin: 0 auto;
+				width: 80%;
+				text-align: center;
 			}
 		}
 	}
 }
 
 .benefits {
+	padding: 60px 10%;
+	@include media-breakpoint-up(xl) { 
+		padding: 60px 20%;
+	}
 	h3 {
 		text-align: center;
 	}
 	.benefits-item {
 		margin: 25px 0;
+		text-align: center;
+		i {
+			font-size: 50px;
+			clear: both;
+			display: block;
+			color:$grey;
+		}
+		.title {
+			font-size: 1.3em;
+			line-height: 1.2em;
+			margin: 10px 0;
+		}
 	}
 }

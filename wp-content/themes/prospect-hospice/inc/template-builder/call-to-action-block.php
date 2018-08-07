@@ -9,7 +9,8 @@ $buttons = get_sub_field('buttons');
 	<?php if ($background_colour) { echo 'background-color: ' . $background_colour . '; '; } ?>
 	<?php if ($background_image) { echo 'background-image: url(' . $background_image . ');'; } ?>
 	" >
-	<div class="container">
+	<div class="overlay"></div>
+	<div class="container cta-block-content text-center">
 		<div class="row">
 			<div class="col-12">
 				<h2><?php echo $heading; ?></h2>
@@ -18,7 +19,7 @@ $buttons = get_sub_field('buttons');
 				<?php endif; ?>
 				<?php if ($buttons) : ?>
 					<?php foreach ($buttons as $button) : ?>
-						<a href="<?php echo $button['button_link']; ?>" class="btn"><?php echo $button['button_text']; ?></a>
+						<a href="<?php echo $button['button_link']; ?>" class="btn"><?php echo $button['button_text']; ?> <i class="fa fa-angle-right"></i></a>
 					<?php endforeach; ?>
 				<?php endif; ?>
 			</div>

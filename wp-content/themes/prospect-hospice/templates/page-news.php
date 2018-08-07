@@ -32,7 +32,7 @@ get_header(); ?>
                     <div class="filter">        
                         <form method="get" action="">
                             <div class="dropdown">
-                                <select name="category" >
+                                <select name="category" class="autosubmit-field" >
                                     <option value="">Filter news by ...</option>
                                     <?php foreach($terms as $term) : ?>
                                         <?php if($term->name != 'Uncategorized') : ?>

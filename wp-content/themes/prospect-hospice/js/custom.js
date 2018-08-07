@@ -1,10 +1,5 @@
 jQuery( document ).ready(function($) {
-
-  /* News form change */
-  jQuery('.filter select').change(function(){
-    jQuery(this).closest("form").submit();
-  });
-
+  
   /*
   ** FAQ accordions
   */
@@ -31,7 +26,7 @@ jQuery( document ).ready(function($) {
   ** Form Autosubmitter
   */
   jQuery('.autosubmit-field').change(function() {
-    jQuery(this).parent().submit();
+    jQuery(this).closest("form").submit();
   });
 
   /*

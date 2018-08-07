@@ -119,7 +119,7 @@
               }
             }
           }
-          &:hover {
+          &:hover, .current-menu-item {
             a {
               color: darken($green,20%);
             }

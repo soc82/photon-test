@@ -7002,6 +7002,14 @@ h1 {
   font-size: 2.4em;
   line-height: 1.4em; }
 
+h2 {
+  font-size: 2em;
+  line-height: 1.2em; }
+
+h3 {
+  font-size: 1.8em;
+  line-height: 1.2em; }
+
 p, ul, ol, time {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -7101,12 +7109,28 @@ a {
   background-color: #999999 !important;
   color: #222222 !important; }
 
+.bg-very-light-grey {
+  background-color: #eaeaea !important;
+  color: #666666 !important; }
+
+.color-yellow {
+  color: #f3cc30 !important; }
+
+.color-green {
+  color: #84BD00 !important; }
+
+.color-light-grey {
+  color: #999999 !important; }
+
+.color-very-light-grey {
+  color: #eaeaea !important; }
+
 /*
 ** Starter button class
 */
 .btn, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button {
   display: inline-block;
-  padding: 15px 35px;
+  padding: 15px 45px;
   background: #84BD00;
   border: 2px solid #84BD00;
   color: #FFFFFF;
@@ -7149,7 +7173,12 @@ a {
     color: #84BD00; }
   .btn.btn-yellow, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button {
     background-color: #f3cc30;
-    border: 2px solid #f3cc30; }
+    border: 2px solid #f3cc30;
+    color: #222222; }
+  .btn.btn-yellow:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button:hover {
+    background-color: white;
+    border: 2px solid white;
+    color: #222222; }
   .btn.btn-arrow-right, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-arrow-right.gform_button {
     padding-right: 30px; }
     .btn.btn-arrow-right:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-arrow-right.gform_button:after {
@@ -7262,25 +7291,64 @@ form {
   .filters form select {
     font-size: 0.8em; }
 
-.jobs-list .item .row {
-  margin-top: 15px; }
-.jobs-list .item h5 {
-  margin-bottom: 5px; }
-.jobs-list .item .reference {
-  font-size: 0.8em; }
-.jobs-list .item .salary {
-  font-size: 0.8em; }
-.jobs-list .item .closing-date {
-  font-size: 0.8em; }
-.jobs-list .item .actions {
-  padding: 15px; }
-  .jobs-list .item .actions a {
-    margin: 0 auto; }
+.jobs-list .item {
+  display: block;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  min-height: 438px; }
+  @media (min-width: 768px) {
+    .jobs-list .item {
+      min-height: 410px; } }
+  @media (min-width: 1200px) {
+    .jobs-list .item {
+      min-height: 360px; } }
+  .jobs-list .item .row {
+    margin-top: 15px; }
+  .jobs-list .item h3 {
+    font-size: 1.5em;
+    line-height: 1.2em;
+    margin-bottom: 5px;
+    color: white; }
+  .jobs-list .item .reference {
+    font-size: 0.8em;
+    opacity: 0.8;
+    margin-bottom: 5px; }
+  .jobs-list .item .introduction {
+    line-height: 1.2em;
+    opacity: 0.8; }
+  .jobs-list .item .salary {
+    font-size: 1.1em;
+    line-height: 1.2em; }
+  .jobs-list .item .closing-date {
+    font-size: 1.1em;
+    line-height: 1.2em; }
+  .jobs-list .item .actions {
+    padding: 15px; }
+    .jobs-list .item .actions a {
+      margin: 0 auto;
+      width: 80%;
+      text-align: center; }
 
-.benefits h3 {
-  text-align: center; }
-.benefits .benefits-item {
-  margin: 25px 0; }
+.benefits {
+  padding: 60px 10%; }
+  @media (min-width: 1200px) {
+    .benefits {
+      padding: 60px 20%; } }
+  .benefits h3 {
+    text-align: center; }
+  .benefits .benefits-item {
+    margin: 25px 0;
+    text-align: center; }
+    .benefits .benefits-item i {
+      font-size: 50px;
+      clear: both;
+      display: block;
+      color: #666666; }
+    .benefits .benefits-item .title {
+      font-size: 1.3em;
+      line-height: 1.2em;
+      margin: 10px 0; }
 
 /* Social sharing buttons */
 .social {
@@ -7643,9 +7711,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                     color: #dcff8a; }
                 .top-header-bar .top-navigation-wrapper ul li .sub-menu li:last-of-type a {
                   border-bottom: none; }
-            .top-header-bar .top-navigation-wrapper ul li:hover a {
+            .top-header-bar .top-navigation-wrapper ul li:hover a, .top-header-bar .top-navigation-wrapper ul li .current-menu-item a {
               color: #3d5700; }
-            .top-header-bar .top-navigation-wrapper ul li:hover .sub-menu {
+            .top-header-bar .top-navigation-wrapper ul li:hover .sub-menu, .top-header-bar .top-navigation-wrapper ul li .current-menu-item .sub-menu {
               display: block; } }
   .top-header-bar .container-fluid {
     max-width: 1140px; }
@@ -8014,16 +8082,62 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     margin-top: 0;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center; }
+    background-position: center center;
+    position: relative; }
+    .block.hero-banner .overlay {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.25); }
     .block.hero-banner .hero-banner-content {
       padding: 50px; }
+      @media (min-width: 992px) {
+        .block.hero-banner .hero-banner-content {
+          padding: 140px 50px; } }
+      .block.hero-banner .hero-banner-content h1 {
+        color: white;
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 0px;
+        font-size: 3em;
+        line-height: 1.1em; }
+      .block.hero-banner .hero-banner-content h2 {
+        color: white;
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 10px; }
+  .block.cta-block {
+    margin-top: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    position: relative; }
+    .block.cta-block .overlay {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(34, 34, 34, 0.6); }
+    .block.cta-block .cta-block-content {
+      padding: 50px; }
+      @media (min-width: 992px) {
+        .block.cta-block .cta-block-content {
+          padding: 100px 20%; } }
+      .block.cta-block .cta-block-content h2 {
+        color: white;
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 0px;
+        font-size: 2.6em;
+        line-height: 1.1em; }
+      .block.cta-block .cta-block-content p {
+        color: rgba(255, 255, 255, 0.8);
+        text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
+        margin-bottom: 30px;
+        font-size: 1.4em;
+        line-height: 1.4em; }
+      .block.cta-block .cta-block-content .btn, .block.cta-block .cta-block-content .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .block.cta-block .cta-block-content .gform_button {
+        margin: 0 7px; }
   .block .latest-news-content-block .post-image .image img {
     max-width: 100%; }
-
-.cta-block {
-  padding: 50px;
-  background-position: right center;
-  background-repeat: no-repeat; }
 
 .two-column-image-left .left img {
   max-width: 100%; }
@@ -8210,7 +8324,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   -moz-appearance: none;
   appearance: none;
   padding: 20px 20px;
-  background-color: #ddd;
+  background-color: #eaeaea;
   width: 100%;
   border: none;
   font-size: 1.3em; }
@@ -8602,6 +8716,12 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     margin: 0 0 30px 0; }
   .prospect_event .event-sponsorship-block .btn-set {
     margin-top: 40px; }
+
+/* NEWS _detail */
+.single-post h1 {
+  margin-bottom: 10px; }
+.single-post h4 {
+  margin-bottom: 30px; }
 
 /*
 ** Used for footer accessibility buttons to increase/decrease sizing

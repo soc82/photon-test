@@ -20,4 +20,6 @@
 
 </div>
 
+<?php get_template_part('inc/flexible-content'); ?>
+
 <?php get_footer(); ?>

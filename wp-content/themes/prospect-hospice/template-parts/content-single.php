@@ -8,6 +8,7 @@
 
 <div class="col-12 col-md-6 col-xl-7">
 	<?php the_title( '<h1>', '</h1>' ); ?>
+	<h4 class="color-light-grey"><?php echo the_date('F Y');?></h4>
 	<!-- Categories -->
 	<?php $categories = get_the_category();
 	if($categories) : 
