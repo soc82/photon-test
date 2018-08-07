@@ -39,6 +39,7 @@
 	// CTA blocks
 	&.cta-block {
 		margin-top: 0;
+		margin-bottom: 0;
 	    background-repeat: no-repeat;
 	    background-size: cover;
 	    background-position: center center;
@@ -70,7 +71,10 @@
 				line-height: 1.4em;
 			}
 			.btn {
-				margin: 0 7px;
+				margin: 10px 7px;
+				@include media-breakpoint-up(md) {
+					margin: 0 7px;
+				}
 			}
 			
 		}

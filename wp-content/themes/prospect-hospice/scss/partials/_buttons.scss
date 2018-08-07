@@ -34,6 +34,16 @@
     border: 2px solid white;
     color:$black;
   }
+  &.btn-light-grey {
+    background-color: $light-grey;
+    border: 2px solid $light-grey;
+    color:white;
+  }
+  &.btn-light-grey:hover {
+    background-color: $yellow;
+    border: 2px solid $yellow;
+    color:$black;
+  }
 
   &.btn-arrow-right {
     padding-right: 30px;
@@ -50,6 +60,11 @@
     }
   }
 
+}
+.btn:hover {
+  background: $yellow;
+  border-color: $yellow;
+  color:$black;
 }
 
 .btn-set {

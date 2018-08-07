@@ -3,7 +3,7 @@ $image = (get_sub_field('background_image') ? get_sub_field('background_image') 
 $heading = (get_sub_field('heading') ? get_sub_field('heading') : get_field('hero_banner_heading'));
 $second_heading = (get_sub_field('second_heading') ? get_sub_field('second_heading') : get_field('hero_banner_second_heading'));
 ?>
-<div class="hero-banner block" <?php if($image) echo 'style="background:url(' . $image . ');"'; ?>>
+<div class="hero-banner block" <?php if($image) echo 'style="background-image:url(' . $image . ');"'; ?>>
     <div class="overlay"></div>
     <?php if($heading || $second_heading): ?>
         <div class="container hero-banner-content">

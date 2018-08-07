@@ -29,7 +29,7 @@
 		padding: 30px;
 		border-radius: 10px;
 		margin-bottom: 30px;
-		min-height: 438px;
+		
 		@include media-breakpoint-up(md) {
 			min-height: 410px;
 		}
@@ -55,18 +55,24 @@
 			opacity: 0.8;
 		}
 		.salary {
-			font-size: 1.1em;
+			font-size: 1em;
 			line-height: 1.2em;
 		}
 		.closing-date {
-			font-size: 1.1em;
+			font-size: 1em;
 			line-height: 1.2em;
 		}
 		.actions {
 			padding: 15px;
+			@include media-breakpoint-up(md) {
+				position: absolute;
+				bottom: 50px;
+				left:20%;
+				width: 70%;
+			}
 			a {
 				margin: 0 auto;
-				width: 80%;
+				width: 100%;
 				text-align: center;
 			}
 		}
@@ -94,6 +100,27 @@
 			font-size: 1.3em;
 			line-height: 1.2em;
 			margin: 10px 0;
+		}
+	}
+}
+
+.single-jobs {
+	.job-spec {
+		padding:40px;
+		border-radius: 10px;
+		font-size: 1.2em;
+		line-height: 1.5em;
+		@include media-breakpoint-up(lg) { 
+			div {
+				margin-bottom: 20px;
+			}
+		}
+		.btn {
+			margin-top: 20px;
+		}
+		.btn:hover {
+			background: white;
+			color:$black;
 		}
 	}
 }

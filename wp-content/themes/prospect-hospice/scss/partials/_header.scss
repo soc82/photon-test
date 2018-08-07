@@ -187,7 +187,7 @@
       		padding: 0;
           line-height: 3em;
           @include media-breakpoint-up(lg) {
-            line-height: 4em;
+            line-height: 5.25em;
           }
       		li {
       			display: inline-block;
@@ -306,13 +306,13 @@
                   h6 {
                     font-size: 1.6em;
                     line-height: 1.8em;
-                    color: #FFFFFF;
+                    color: $black;
                     margin: 0 0 15px 0;
                   }
                   p {
                     font-size: 0.9em;
                     line-height: 1.6em;
-                    color: #FFFFFF;
+                    color: $black;
                     margin: 0;
                   }
                   li {
@@ -332,13 +332,13 @@
                     height: auto;
                     padding: 5px 5px;
                     a {
-                      color: #FFFFFF;
+                      color: $black;
                       &:before {
                         content: '\f105';
                         font-family: 'Font Awesome 5 Pro';
                         font-weight: 300;
                         padding-right: 5px;
-                        color: rgba(255,255,255,0.8);
+                        color: rgba($black,0.3);
                       }
                       &:hover {
                         color: $black;
