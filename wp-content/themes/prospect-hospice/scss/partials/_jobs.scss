@@ -23,6 +23,20 @@
 	}
 }
 
+/* Volunteering */
+.page-template-page-volunteers {
+	.jobs-list {
+		.item {
+			@include media-breakpoint-up(md) {
+				min-height: 500px;
+			}
+			@include media-breakpoint-up(xl) {
+				min-height: 420px;
+			}
+		}
+	}
+}
+
 .jobs-list {
 	.item {
 		display: block;
@@ -45,6 +59,10 @@
 			margin-bottom: 5px;
 			color: white;
 		}
+		.voluntry {
+			margin-top: 10px;
+			margin-bottom: 15px;
+		}
 		.reference {
 			font-size: 0.8em;
 			opacity: 0.8;
@@ -64,13 +82,14 @@
 		.closing-date {
 			font-size: 1em;
 			line-height: 1.2em;
+			margin-bottom: 10px;
 		}
 		.actions {
 			padding: 15px;
 			@include media-breakpoint-up(md) {
 				position: absolute;
 				bottom: 50px;
-				left:20%;
+				left:19%;
 				width: 70%;
 			}
 			a {

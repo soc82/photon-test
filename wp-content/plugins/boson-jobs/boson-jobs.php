@@ -151,4 +151,5 @@ LOAD ACF FIELDS
 require_once('acf-fields.php');
 require_once('acf-fields-user.php');
 require_once('acf-fields-listing.php');
-
+require_once('acf-job-application-page.php');
+require_once('acf-job-settings.php');

@@ -22,6 +22,7 @@ if (isset($_GET['type']) && $_GET['type'] && $_GET['type'] != 'all') {
       	
 	];
 }
+
 $query_args['tax_query'][] = [
       		'taxonomy' => 'jobsection',
           	'field'    => 'slug',
