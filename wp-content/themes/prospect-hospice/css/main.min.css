@@ -7103,6 +7103,10 @@ a {
   background-color: #f3cc30 !important;
   color: #222222 !important; }
 
+.bg-pink {
+  background-color: #f50068 !important;
+  color: white !important; }
+
 .bg-green {
   background-color: #84BD00 !important;
   color: white !important; }
@@ -7120,6 +7124,12 @@ a {
 
 .color-green {
   color: #84BD00 !important; }
+
+.color-pink {
+  color: #f50068 !important; }
+
+.color-grey {
+  color: #666666 !important; }
 
 .color-light-grey {
   color: #999999 !important; }
@@ -7300,6 +7310,14 @@ form {
     .gform_confirmation_wrapper .gform_confirmation_message a {
       color: #84BD00; }
 
+/* Save & Continue */
+.gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+  padding: 10px !important; }
+
+div.form_saved_message div.form_saved_message_emailform form input[type=submit] {
+  text-transform: capitalize !important;
+  padding: 10px 30px !important; }
+
 /* Gravity Forms Wizard */
 .wizard .gform_heading {
   display: none; }
@@ -7327,6 +7345,14 @@ form {
   .filters form select {
     font-size: 0.8em; }
 
+/* Volunteering */
+@media (min-width: 768px) {
+  .page-template-page-volunteers .jobs-list .item {
+    min-height: 500px; } }
+@media (min-width: 1200px) {
+  .page-template-page-volunteers .jobs-list .item {
+    min-height: 420px; } }
+
 .jobs-list .item {
   display: block;
   padding: 30px;
@@ -7345,6 +7371,9 @@ form {
     line-height: 1.2em;
     margin-bottom: 5px;
     color: white; }
+  .jobs-list .item .voluntry {
+    margin-top: 10px;
+    margin-bottom: 15px; }
   .jobs-list .item .reference {
     font-size: 0.8em;
     opacity: 0.8;
@@ -7359,14 +7388,15 @@ form {
     line-height: 1.2em; }
   .jobs-list .item .closing-date {
     font-size: 1em;
-    line-height: 1.2em; }
+    line-height: 1.2em;
+    margin-bottom: 10px; }
   .jobs-list .item .actions {
     padding: 15px; }
     @media (min-width: 768px) {
       .jobs-list .item .actions {
         position: absolute;
         bottom: 50px;
-        left: 20%;
+        left: 19%;
         width: 70%; } }
     .jobs-list .item .actions a {
       margin: 0 auto;
@@ -7996,7 +8026,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                           padding-right: 5px;
                           color: rgba(34, 34, 34, 0.3); }
                         .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a:hover {
-                          color: #222222; } }
+                          color: #222222; }
+            .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.current-menu-item a {
+              color: #f3cc30;
+              font-weight: 700; } }
 
 /*
 ** For displaying sticky donate button on smaller devices
@@ -8221,7 +8254,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       padding: 50px; }
       @media (min-width: 992px) {
         .block.cta-block .cta-block-content {
-          padding: 100px 20%; } }
+          padding: 150px 20%; } }
       .block.cta-block .cta-block-content h2 {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);

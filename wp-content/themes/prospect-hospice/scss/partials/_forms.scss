@@ -111,6 +111,15 @@ form {
 	}
 }
 
+/* Save & Continue */
+.gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
+	padding: 10px !important;
+}
+div.form_saved_message div.form_saved_message_emailform form input[type=submit] {
+	text-transform: capitalize !important;
+	padding:10px 30px !important;
+}
+
 /* Gravity Forms Wizard */
 .wizard {
 	.gform_heading {

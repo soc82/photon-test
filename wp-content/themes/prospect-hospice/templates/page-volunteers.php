@@ -38,59 +38,59 @@ get_header(); ?>
 <?php get_template_part('inc/template-builder/hero-banner'); ?>
 
 <div class="container">
-	<div class="row intro">
-		<h2><?php echo get_field('intro_heading'); ?></h2>
-		<p><?php echo get_field('intro_text'); ?></p>
+	<div class="row">
+		<div class="col-12">
+			<h2><?php echo get_field('intro_heading'); ?></h2>
+			<p><?php echo get_field('intro_text'); ?></p>
+		</div>
 	</div>
 
-	<div class="row filters">
+	<div class="row filter">
 		<div class="col-12">
 			<form method="get">
-				<select class="autosubmit-field" name="type">
-					<option value="all">All</option>
-					<?php foreach($terms as $term) : ?>
-						<option 
-							value="<?php echo $term->slug; ?>"
-							<?php if (isset($_GET['type']) && $_GET['type'] == $term->slug) { echo ' selected '; } ?>
-							>
-							<?php echo $term->name; ?>	
-						</option>
-					<?php endforeach; ?>
-				</select>
+				<div class="dropdown">
+					<select class="autosubmit-field" name="type">
+						<option value="all">Filter by Type ...</option>
+						<?php foreach($terms as $term) : ?>
+							<option 
+								value="<?php echo $term->slug; ?>"
+								<?php if (isset($_GET['type']) && $_GET['type'] == $term->slug) { echo ' selected '; } ?>
+								>
+								<?php echo $term->name; ?>	
+							</option>
+						<?php endforeach; ?>
+					</select>
+				</div>
 			</form>
 		</div>
 	</div>
-		
+
 	<?php if ( $items->posts ) : ?>
-		<div class="row jobs-list">
+		<div class="row jobs-list section">
 			<?php foreach ($items->posts as $item) : ?>
-				<?php
-				$closing_date = get_field('closing_date', $item->ID);
-				?>
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div class="item">
-						<a href="<?php the_permalink($item);?>"><h5><?php echo $item->post_title;?></h5></a>
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="item bg-very-light-grey">
+						<a href="<?php the_permalink($item);?>"><h3 class="color-grey"><?php echo $item->post_title;?></h3></a>
+						<div class="voluntry title-block bg-yellow"><i class="fal fa-heart"></i> Voluntry</div>
 						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
+						<?php if(get_field('location', $item->ID)) : ?>
+							<div class="location"><span>Location:</span><?php echo get_field('location', $item->ID); ?></div>
+						<?php endif;?>
+						<div class="closing-date"><span>Closing date:</span> <?php echo get_field('closing_date', $item->ID); ?></div>
 						<div class="introduction"><small><?php echo get_field('introduction_content', $item->ID);?></small></div>
-						<div class="row">
-							<div class="col-12">
-							<?php if ($closing_date) : ?>
-								<span>Closing date</span>
-								<div class="closing-date"><?php echo $closing_date; ?></div>
-							<?php endif; ?>
-							</div>
-						</div>
 						<div class="row actions">
-							<a href="<?php the_permalink($item);?>" class="btn">Apply</a>
+							<a href="<?php the_permalink($item);?>" class="btn btn-green"><?php echo get_field('view_job_button_text', 'option'); ?></a>
 						</div>
 					</div>
 				</div>
 			<?php endforeach;?>
 		</div>
 	<?php endif; ?>
-
-	<?php get_template_part('template-parts/benefits-section'); ?>
 	
 </div>
+
+<?php get_template_part('template-parts/benefits-section'); ?>
+
+<?php get_template_part('inc/flexible-content'); ?>
 
 <?php get_footer(); ?>
