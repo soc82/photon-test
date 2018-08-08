@@ -187,7 +187,7 @@
     }
   }
   .desktop-navigation {
-    display: none;
+    display: none; 
     position: static;
     @include media-breakpoint-up(md) {
       display: block;
