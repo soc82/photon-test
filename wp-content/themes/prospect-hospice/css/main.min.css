@@ -7119,6 +7119,83 @@ a {
   background-color: #eaeaea !important;
   color: #666666 !important; }
 
+.bg-orange {
+  background-color: #ED8B00 !important;
+  color: white !important; }
+
+.bg-navy {
+  background-color: #002b5c !important;
+  color: white !important; }
+
+.bg-teal {
+  background-color: #008F96 !important;
+  color: white !important; }
+
+.bg-burgundy {
+  background-color: #B52555 !important;
+  color: white !important; }
+
+/* Nav colours */
+.nav-orange:hover a, .nav-orange:hover a:after {
+  color: #ED8B00 !important; }
+.nav-orange:hover a:before {
+  border-bottom: solid 20px #ED8B00 !important;
+  margin-left: 32px; }
+.nav-orange ul.sub-menu, .nav-orange h6, .nav-orange p {
+  background-color: #ED8B00 !important;
+  color: white !important; }
+
+.nav-orange.current-menu-item a, .nav-orange.current-menu-item a:after {
+  color: #ED8B00 !important; }
+
+.nav-navy:hover a:before {
+  border-bottom: solid 20px #002b5c !important;
+  margin-left: 40px; }
+.nav-navy:hover a, .nav-navy:hover a:after {
+  color: #002b5c !important; }
+.nav-navy ul.sub-menu, .nav-navy h6, .nav-navy p {
+  background-color: #002b5c !important;
+  color: white !important; }
+
+.nav-navy.current-menu-item a, .nav-navy.current-menu-item a:after {
+  color: #002b5c !important; }
+
+.nav-teal:hover a:before {
+  border-bottom: solid 20px #008F96 !important;
+  margin-left: 34px; }
+.nav-teal:hover a, .nav-teal:hover a:after {
+  color: #008F96 !important; }
+.nav-teal ul.sub-menu, .nav-teal h6, .nav-teal p {
+  background-color: #008F96 !important;
+  color: white !important; }
+
+.nav-teal.current-menu-item a, .nav-teal.current-menu-item a:after {
+  color: #008F96 !important; }
+
+.nav-burgundy:hover a:before {
+  border-bottom: solid 20px #B52555 !important;
+  margin-left: 23px; }
+.nav-burgundy:hover a, .nav-burgundy:hover a:after {
+  color: #B52555 !important; }
+.nav-burgundy ul.sub-menu, .nav-burgundy h6, .nav-burgundy p {
+  background-color: #B52555 !important;
+  color: white !important; }
+
+.nav-burgundy.current-menu-item a, .nav-burgundy.current-menu-item a:after {
+  color: #B52555 !important; }
+
+.nav-dark-green:hover a:before {
+  border-bottom: solid 20px #6A963B !important;
+  margin-left: 6px; }
+.nav-dark-green:hover a, .nav-dark-green:hover a:after {
+  color: #6A963B !important; }
+.nav-dark-green ul.sub-menu, .nav-dark-green h6, .nav-dark-green p {
+  background-color: #6A963B !important;
+  color: white !important; }
+
+.nav-dark-green.current-menu-item a, .nav-dark-green.current-menu-item a:after {
+  color: #6A963B !important; }
+
 .color-yellow {
   color: #f3cc30 !important; }
 
@@ -7908,14 +7985,15 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
               display: inline-block;
               height: 100%;
               font-size: 0.9em;
-              margin-right: 13px; } }
+              margin-right: 3px; } }
         @media (min-width: 768px) and (min-width: 992px) {
           .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
-            font-size: 0.9em;
-            margin-right: 16px; } }
+            margin-right: 10px;
+            font-size: 0.9em; } }
         @media (min-width: 768px) and (min-width: 1200px) {
           .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
-            font-size: 1em; } }
+            font-size: 1em;
+            margin-right: 16px; } }
     @media (min-width: 768px) {
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li a {
                 color: #222222;
@@ -7997,7 +8075,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                 .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid {
                   max-width: 1140px; }
                   .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper {
-                    padding: 40px 50px 50px 0;
+                    padding: 80px 50px 80px 0;
                     text-align: left; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper h6 {
                       font-size: 1.6em;
@@ -8012,7 +8090,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper li {
                       display: none; }
                   .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper {
-                    padding: 40px 0 50px 50px;
+                    padding: 80px 50px 80px 0;
                     text-align: left;
                     line-height: 24px; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li {
@@ -8022,7 +8100,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                       line-height: 1.6em;
                       margin-right: -4px;
                       height: auto;
-                      padding: 5px 5px; }
+                      padding: 5px 15px;
+                      vertical-align: top; }
                       .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a {
                         color: #222222; }
                         .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a:before {
@@ -8457,7 +8536,13 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 .filter .dropdown {
   position: relative;
   width: auto;
-  margin: 10px 0 20px 0; }
+  margin: 10px 0 20px 0;
+  padding: 0px 0px;
+  background-color: #eaeaea;
+  width: 100%;
+  border: none;
+  font-size: 1.3em;
+  border-radius: 10px; }
   @media (min-width: 992px) {
     .filter .dropdown {
       margin: 10px 0 20px 0; } }
@@ -8465,11 +8550,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding: 20px 20px;
-  background-color: #eaeaea;
   width: 100%;
+  height: 100%;
+  background: none;
   border: none;
-  font-size: 1.3em; }
+  padding: 15px 30px; }
 .filter .dropdown:after {
   content: "";
   position: absolute;

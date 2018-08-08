@@ -329,6 +329,7 @@ body.woocommerce-cart {
 						&:hover {
 							background: transparent !important;
 							color: $pink !important;
+							
 						}
 						@include media-breakpoint-up(md) {
 							display: inline-block;
