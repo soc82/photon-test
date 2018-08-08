@@ -105,18 +105,51 @@
 }
 
 .single-jobs {
+	.btn {
+		margin: 20px 10px 20px 0;
+		padding: 15px 25px;
+
+	}
 	.job-spec {
-		padding:40px;
+		padding:30px;
 		border-radius: 10px;
 		font-size: 1.2em;
 		line-height: 1.5em;
-		@include media-breakpoint-up(lg) { 
+		@include media-breakpoint-up(lg) {
 			div {
 				margin-bottom: 20px;
 			}
 		}
+		@include media-breakpoint-up(xl) {
+			width: 93%;
+			float: right; 
+		}
+		.register {
+			padding-top: 20px;
+		    margin-top: 20px;
+		    border-top: solid 2px rgba(0,0,0,0.1);
+			opacity: 0.6;
+			@include media-breakpoint-up(md) {
+				padding-top: 0px;
+			    margin-top: 0px;
+			    border-top: none;
+			}
+			@include media-breakpoint-up(lg) {
+				font-size: 0.7em;
+				line-height: 1.5em;
+			}
+		}
 		.btn {
+			font-size: 0.8em;
+			padding: 15px 45px;
 			margin-top: 20px;
+			margin-bottom: 0px;
+			@include media-breakpoint-up(lg) {
+				padding: 15px 10px;
+				width: 100%;
+				text-align: center;
+				margin: 0px;
+			}
 		}
 		.btn:hover {
 			background: white;
