@@ -3,9 +3,24 @@
   @include media-breakpoint-up(md) {
     background: $green;
     display: block;
+    text-align: right;
+    .top-bar-cart {
+      color: #FFFFFF;
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0.9em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      i {
+        padding-right: 5px;
+        margin-left: 30px;
+      }
+    }
     .top-navigation-wrapper {
       text-align: right;
       height: 40px;
+      display: inline-block;
+      vertical-align: middle;
       ul {
         margin: 0;
         padding: 0;

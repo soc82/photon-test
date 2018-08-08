@@ -265,7 +265,7 @@ add_action( 'woocommerce_product_query', 'prospect_exclude_events_query' );
 
 
 /**
-* Exclude any product categories which have been set as Event Category or Uncategroized
+* Exclude any product categories which have been set as Event Category
 */
 function get_subcategory_terms( $terms, $taxonomies, $args ) {
 
@@ -274,7 +274,7 @@ function get_subcategory_terms( $terms, $taxonomies, $args ) {
 	if ( in_array( 'product_cat', $taxonomies ) && !is_admin() && is_shop() ) {
 	    foreach ( $terms as $key => $term ) {
         $event_cal = get_field('event_category', 'product_cat_' . $term->term_id);
-        if($event_cal || $term->slug != 'uncategorized'){
+        if(!$event_cal){
           $new_terms[] = $term;
         }
 	    }
@@ -344,6 +344,21 @@ add_action( 'admin_init' , function() {
         return $columns;
     }, 100);
 });
+
+
+/**
+* Show cart contents / total Ajax
+*/
+add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment' );
+
+function woocommerce_header_add_to_cart_fragment( $fragments ) {
+	global $woocommerce;
+	ob_start(); ?>
+	<a class="top-bar-cart" href="<?php echo esc_url(wc_get_cart_url()); ?>" title="<?php _e('View your shopping cart', 'prospect'); ?>"><i class="fal fa-shopping-bag"></i><?php echo $woocommerce->cart->get_cart_total(); ?></a>
+	<?php
+	$fragments['a.cart-customlocation'] = ob_get_clean();
+	return $fragments;
+}
 
 
 /********************
@@ -479,7 +494,9 @@ function prospect_single_event_template_redirect($template, $slug, $name) {
 }
 
 
-
+/*
+** Add wrapper to single product images
+*/
 add_action('woocommerce_before_single_product_summary', 'prospect_single_product_image_wrapper_start', 19);
 function prospect_single_product_image_wrapper_start() {
   echo '<div class="single-product-images-wrapper">';
@@ -489,6 +506,11 @@ function prospect_single_product_image_wrapper_end() {
   echo '</div>';
 }
 
+
+/*
+** Remove product data from product page
+*/
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
 
 
 /*
@@ -512,7 +534,7 @@ add_filter( 'woocommerce_output_related_products_args', 'prospect_related_produc
 */
 add_filter( 'woocommerce_product_tabs', 'prospect_remove_reviews_tab', 98 );
 function prospect_remove_reviews_tab( $tabs ) {
-    unset( $tabs['reviews'] );
+    //unset( $tabs['reviews'] );
     unset($tabs['additional_information']);
     return $tabs;
 }

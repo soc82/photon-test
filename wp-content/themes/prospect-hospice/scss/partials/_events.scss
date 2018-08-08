@@ -319,6 +319,7 @@
               font-size: 0.9em;
               padding:3px !important;
               padding:5px 0 !important;
+              border-radius: 0;
               color: #FFFFFF;
               &:focus, &:active {
                 border-color: $green;
@@ -368,7 +369,7 @@
           margin:0;
           @include media-breakpoint-up(md) {
             width: 90% !important;
-            padding: 20px 35px !important;
+            padding: 20px 15px !important;
           }
           &:hover {
             background: $green !important;

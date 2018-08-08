@@ -49,6 +49,7 @@
 									'container_class' => 'top-navigation-wrapper',
 									'theme_location'	=> 'top-navigation',
 									'menu_class' => 'top-navigiation'));?>
+									<a class="top-bar-cart" href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>"><i class="fal fa-shopping-bag"></i><?php echo WC()->cart->get_cart_total(); ?></a>
 							</div>
 						</div>
 					</div>

@@ -7203,6 +7203,11 @@ input, textarea, select {
 input, textarea {
   outline: none !important; }
 
+select {
+  font-size: 1em;
+  line-height: 1.6em;
+  height: 35px; }
+
 /*
 ** Gravity Forms
 */
@@ -7700,10 +7705,23 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   @media (min-width: 768px) {
     .top-header-bar {
       background: #84BD00;
-      display: block; }
+      display: block;
+      text-align: right; }
+      .top-header-bar .top-bar-cart {
+        color: #FFFFFF;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 0.9em;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale; }
+        .top-header-bar .top-bar-cart i {
+          padding-right: 5px;
+          margin-left: 30px; }
       .top-header-bar .top-navigation-wrapper {
         text-align: right;
-        height: 40px; }
+        height: 40px;
+        display: inline-block;
+        vertical-align: middle; }
         .top-header-bar .top-navigation-wrapper ul {
           margin: 0;
           padding: 0;
@@ -8756,6 +8774,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
             font-size: 0.9em;
             padding: 3px !important;
             padding: 5px 0 !important;
+            border-radius: 0;
             color: #FFFFFF; }
             .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield .ginput_container input[type="text"]:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield .ginput_container input[type="text"]:active, .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield .ginput_container input[type="tel"]:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield .ginput_container input[type="tel"]:active, .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield .ginput_container input[type="email"]:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield .ginput_container input[type="email"]:active {
               border-color: #84BD00; }
@@ -8798,7 +8817,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           @media (min-width: 768px) {
             .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button {
               width: 90% !important;
-              padding: 20px 35px !important; } }
+              padding: 20px 15px !important; } }
           .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover {
             background: #84BD00 !important;
             border-color: #84BD00 !important;
@@ -8819,12 +8838,13 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 /*
 ** Woocommerce Generic
 */
-.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
+button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled] {
   display: inline-block;
-  padding: 15px 45px;
+  padding: 15px 30px;
   background: #84BD00 !important;
   border: 2px solid #84BD00 !important;
   color: #FFFFFF;
+  font-weight: bold;
   text-decoration: none;
   margin-right: 10px;
   -webkit-border-top-left-radius: 30px;
@@ -8857,7 +8877,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   -ms-transition: background-color 0.3s ease-in-out;
   -o-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out; }
-  .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce #respond input#submit:active, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce a.button:active, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce button.button:active, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce input.button:active {
+  @media (min-width: 768px) {
+    button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled] {
+      padding: 15px 45px; } }
+  button:hover, button:focus, button:active, .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce #respond input#submit:active, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce a.button:active, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce button.button:active, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce input.button:active, .woocommerce #respond input#submit.disabled:hover, .woocommerce #respond input#submit.disabled:focus, .woocommerce #respond input#submit.disabled:active, .woocommerce #respond input#submit:disabled:hover, .woocommerce #respond input#submit:disabled:focus, .woocommerce #respond input#submit:disabled:active, .woocommerce #respond input#submit:disabled[disabled]:hover, .woocommerce #respond input#submit:disabled[disabled]:focus, .woocommerce #respond input#submit:disabled[disabled]:active, .woocommerce a.button.disabled:hover, .woocommerce a.button.disabled:focus, .woocommerce a.button.disabled:active, .woocommerce a.button:disabled:hover, .woocommerce a.button:disabled:focus, .woocommerce a.button:disabled:active, .woocommerce a.button:disabled[disabled]:hover, .woocommerce a.button:disabled[disabled]:focus, .woocommerce a.button:disabled[disabled]:active, .woocommerce button.button.disabled:hover, .woocommerce button.button.disabled:focus, .woocommerce button.button.disabled:active, .woocommerce button.button:disabled:hover, .woocommerce button.button:disabled:focus, .woocommerce button.button:disabled:active, .woocommerce button.button:disabled[disabled]:hover, .woocommerce button.button:disabled[disabled]:focus, .woocommerce button.button:disabled[disabled]:active, .woocommerce input.button.disabled:hover, .woocommerce input.button.disabled:focus, .woocommerce input.button.disabled:active, .woocommerce input.button:disabled:hover, .woocommerce input.button:disabled:focus, .woocommerce input.button:disabled:active, .woocommerce input.button:disabled[disabled]:hover, .woocommerce input.button:disabled[disabled]:focus, .woocommerce input.button:disabled[disabled]:active {
     outline: none;
     text-decoration: none;
     background: transparent !important;
@@ -8883,57 +8906,166 @@ body.post-type-archive-product .page-inner-wrapper, body.tax-product_cat .page-i
     font-size: 0.85em;
     height: 27px; }
 
+.woocommerce-message {
+  border-top-color: #84BD00; }
+
 /*
 ** Product/Category Listing
 */
-body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product {
+body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product, body.single-product ul.products li.product {
   width: 100% !important;
   float: none !important;
   margin: 0 0 30px 0 !important; }
   @media screen and (min-width: 480px) {
-    body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product {
+    body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product, body.single-product ul.products li.product {
       display: inline-block;
       vertical-align: top;
       width: 48% !important;
       margin: 0 0.7% 30px 0.7% !important; } }
   @media (min-width: 768px) {
-    body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product {
+    body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product, body.single-product ul.products li.product {
       width: 31% !important;
       margin: 0 0.8% 30px 0.8% !important; } }
   @media (min-width: 992px) {
-    body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product {
+    body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.products li.product, body.single-product ul.products li.product {
       width: 23% !important;
       margin: 0 0.8% 30px 0.8% !important; } }
-  body.post-type-archive-product ul.products li.product a, body.tax-product_cat ul.products li.product a {
+  body.post-type-archive-product ul.products li.product a, body.tax-product_cat ul.products li.product a, body.single-product ul.products li.product a {
     text-align: center;
     display: block; }
-    body.post-type-archive-product ul.products li.product a .product-content-wrapper, body.tax-product_cat ul.products li.product a .product-content-wrapper {
+    body.post-type-archive-product ul.products li.product a .product-content-wrapper, body.tax-product_cat ul.products li.product a .product-content-wrapper, body.single-product ul.products li.product a .product-content-wrapper {
       margin-bottom: 15px; }
-      body.post-type-archive-product ul.products li.product a .product-content-wrapper h2, body.tax-product_cat ul.products li.product a .product-content-wrapper h2 {
+      body.post-type-archive-product ul.products li.product a .product-content-wrapper h2, body.tax-product_cat ul.products li.product a .product-content-wrapper h2, body.single-product ul.products li.product a .product-content-wrapper h2 {
         padding: 0;
         margin: 0;
         font-size: 1.1em;
         line-height: 1.4em; }
-      body.post-type-archive-product ul.products li.product a .product-content-wrapper .count, body.tax-product_cat ul.products li.product a .product-content-wrapper .count {
+      body.post-type-archive-product ul.products li.product a .product-content-wrapper .price, body.tax-product_cat ul.products li.product a .product-content-wrapper .price, body.single-product ul.products li.product a .product-content-wrapper .price {
+        font-family: "Arial W01 Rounded Bold", "sans-serif";
+        color: #f50068;
+        font-size: 1.1em;
+        line-height: 1.6em;
+        display: block; }
+      body.post-type-archive-product ul.products li.product a .product-content-wrapper .count, body.tax-product_cat ul.products li.product a .product-content-wrapper .count, body.single-product ul.products li.product a .product-content-wrapper .count {
         display: none !important; }
-    body.post-type-archive-product ul.products li.product a .btn, body.post-type-archive-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.post-type-archive-product ul.products li.product a .gform_button, body.tax-product_cat ul.products li.product a .btn, body.tax-product_cat ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.tax-product_cat ul.products li.product a .gform_button {
+    body.post-type-archive-product ul.products li.product a .btn, body.post-type-archive-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.post-type-archive-product ul.products li.product a .gform_button, body.tax-product_cat ul.products li.product a .btn, body.tax-product_cat ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.tax-product_cat ul.products li.product a .gform_button, body.single-product ul.products li.product a .btn, body.single-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.single-product ul.products li.product a .gform_button {
       font-size: 1em;
       padding: 12px 20px;
-      margin: 0 auto; }
+      margin: 0 auto;
+      font-weight: bold; }
       @media (min-width: 768px) {
-        body.post-type-archive-product ul.products li.product a .btn, body.post-type-archive-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.post-type-archive-product ul.products li.product a .gform_button, body.tax-product_cat ul.products li.product a .btn, body.tax-product_cat ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.tax-product_cat ul.products li.product a .gform_button {
+        body.post-type-archive-product ul.products li.product a .btn, body.post-type-archive-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.post-type-archive-product ul.products li.product a .gform_button, body.tax-product_cat ul.products li.product a .btn, body.tax-product_cat ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.tax-product_cat ul.products li.product a .gform_button, body.single-product ul.products li.product a .btn, body.single-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.single-product ul.products li.product a .gform_button {
           font-size: 0.85em;
           padding: 11px 20px; } }
 
 /*
 ** Single Product
 */
-body.single-product .product .summary .product_title {
-  font-size: 1.8em;
-  line-height: 1.5em; }
+body.single-product .product .single-product-images-wrapper {
+  margin-bottom: 40px; }
   @media (min-width: 768px) {
-    body.single-product .product .summary .product_title {
-      font-size: 2em; } }
+    body.single-product .product .single-product-images-wrapper {
+      width: 43% !important;
+      float: left; } }
+  body.single-product .product .single-product-images-wrapper .woocommerce-product-gallery {
+    width: 100% !important;
+    float: none !important; }
+    body.single-product .product .single-product-images-wrapper .woocommerce-product-gallery .flex-viewport {
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      border: 1px solid #cccccc; }
+      body.single-product .product .single-product-images-wrapper .woocommerce-product-gallery .flex-viewport .woocommerce-product-gallery__image {
+        width: 100%; }
+    body.single-product .product .single-product-images-wrapper .woocommerce-product-gallery .flex-control-thumbs {
+      margin-top: 18px;
+      text-align: left; }
+      body.single-product .product .single-product-images-wrapper .woocommerce-product-gallery .flex-control-thumbs li {
+        border: 1px solid #cccccc;
+        padding: 5px !important;
+        float: none !important;
+        display: inline-block !important;
+        vertical-align: top !important;
+        width: 30% !important;
+        margin-right: -4px !important;
+        margin-left: 6% !important;
+        margin-bottom: 10px !important; }
+        body.single-product .product .single-product-images-wrapper .woocommerce-product-gallery .flex-control-thumbs li:nth-child(3n+1) {
+          margin-left: 0 !important; }
+body.single-product .product .summary {
+  margin-bottom: 40px;
+  margin-bottom: 30px; }
+  @media (min-width: 768px) {
+    body.single-product .product .summary {
+      width: 53% !important; } }
+  body.single-product .product .summary .product_title {
+    font-size: 1.8em;
+    line-height: 1.4em;
+    margin: 0 0 15px 0; }
+    @media (min-width: 768px) {
+      body.single-product .product .summary .product_title {
+        font-size: 2.2em;
+        line-height: 1.5em; } }
+  body.single-product .product .summary .price {
+    margin: 0;
+    font-size: 1.7em;
+    line-height: 1.5em;
+    color: #f50068;
+    font-family: "Arial W01 Rounded Bold", "sans-serif"; }
+  body.single-product .product .summary .woocommerce-product-details__short-description {
+    margin: 15px 0; }
+    body.single-product .product .summary .woocommerce-product-details__short-description p {
+      margin: 0 0 15px 0;
+      font-size: 0.9em;
+      line-height: 1.5em; }
+      @media (min-width: 768px) {
+        body.single-product .product .summary .woocommerce-product-details__short-description p {
+          font-size: 1em; } }
+  body.single-product .product .summary form.cart {
+    margin: 25px 0; }
+    body.single-product .product .summary form.cart table.variations {
+      margin-bottom: 20px; }
+      body.single-product .product .summary form.cart table.variations label {
+        color: #222222; }
+    body.single-product .product .summary form.cart .single_variation_wrap .single_variation {
+      margin-bottom: 15px;
+      margin-top: -10px; }
+      body.single-product .product .summary form.cart .single_variation_wrap .single_variation .woocommerce-variation-price .price {
+        font-size: 1.9em;
+        line-height: 1.6em; }
+body.single-product .product .woocommerce-tabs {
+  margin-bottom: 20px; }
+  body.single-product .product .woocommerce-tabs ul.tabs {
+    margin: 0 0 10px 0; }
+    body.single-product .product .woocommerce-tabs ul.tabs:before {
+      border-bottom: 1px solid #f3cc30 !important; }
+    body.single-product .product .woocommerce-tabs ul.tabs li {
+      background: #f3cc30 !important;
+      color: #222222;
+      border-color: #f3cc30 !important;
+      opacity: 0.6;
+      margin: 0 -5px 0 0; }
+      body.single-product .product .woocommerce-tabs ul.tabs li:before {
+        box-shadow: 2px 2px 0 #f3cc30 !important; }
+      body.single-product .product .woocommerce-tabs ul.tabs li:after {
+        box-shadow: -2px 2px 0 #f3cc30 !important; }
+      body.single-product .product .woocommerce-tabs ul.tabs li.active {
+        background: #f3cc30 !important;
+        border-color: #f3cc30 !important;
+        opacity: 1; }
+  body.single-product .product .woocommerce-tabs .panel {
+    padding: 20px; }
+    body.single-product .product .woocommerce-tabs .panel h2 {
+      font-size: 1.7em;
+      line-height: 1.4em;
+      margin: 0 0 15px 0; }
+    body.single-product .product .woocommerce-tabs .panel p {
+      margin: 0 0 15px 0; }
+body.single-product .product .up-sells, body.single-product .product .related {
+  border-top: 1px solid rgba(230, 230, 230, 0.8);
+  padding-top: 40px; }
+  body.single-product .product .up-sells > h2, body.single-product .product .related > h2 {
+    font-size: 1.5em;
+    line-height: 1.5em; }
 
 /*
 ** Used for footer accessibility buttons to increase/decrease sizing
