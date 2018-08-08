@@ -546,6 +546,15 @@ function prospect_remove_reviews_tab( $tabs ) {
 ** Cart
 ***************************************/
 
+
+/*
+** Swap up-sells around with cart totals so up-sells is lower priority
+*/
+remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );
+add_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display', 15 );
+
+
+
 // Hide other shipping options if Free Delivery is available
 function prospect_hide_other_shipping_if_free( $rates ) {
 	$free = array();

@@ -2,14 +2,15 @@
 ** Woocommerce Generic
 */
 
-button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled] {
+button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled], #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button {
 	display: inline-block;
 	padding: 15px 30px;
 	background: $green !important;
 	border:2px solid $green !important;
 	color: #FFFFFF;
-	font-weight: bold;
+	font-family:$font-paragraph;
 	text-decoration: none;
+	font-weight: bold;
 	margin-right: 10px;
 	@include border-radius-separate(30px, 30px, 30px, 30px);
 	@include transition('color' 0.3s ease-in-out);
@@ -37,7 +38,7 @@ body.woocommerce-page {
 }
 
 // Add other body classes here where needed
-body.post-type-archive-product, body.tax-product_cat, body.single-product {
+body.post-type-archive-product, body.tax-product_cat, body.single-product, body.woocommerce-cart {
   .page-inner-wrapper {
     padding: 30px 0;
   }
@@ -73,7 +74,7 @@ body.post-type-archive-product, body.tax-product_cat, body.single-product {
 /*
 ** Product/Category Listing
 */
-body.post-type-archive-product, body.tax-product_cat, body.single-product {
+body.post-type-archive-product, body.tax-product_cat, body.single-product, body.woocommerce-cart {
   ul.products {
     li.product {
       width: 100% !important;
@@ -211,8 +212,11 @@ body.single-product {
 				margin: 25px 0;
 				table.variations {
 					margin-bottom: 20px;
-					label {
-						color: $black;
+					td.label {
+						line-height: 1.5em;
+						label {
+							color: $black;
+						}
 					}
 				}
 				.single_variation_wrap {
@@ -273,6 +277,75 @@ body.single-product {
 			& > h2 {
 				font-size: 1.5em;
 				line-height: 1.5em;
+			}
+		}
+	}
+}
+
+/*
+** Cart
+*/
+body.woocommerce-cart {
+	.entry-title {
+		display: none;
+	}
+	.woocommerce {
+		margin-top: 40px;
+		form.woocommerce-cart-form {
+			table.shop_table {
+				margin-bottom: 50px;
+				button {
+					font-size: 0.9em;
+					padding: 10px 25px;
+				}
+				.coupon {
+					.input-text {
+							height: 38px;
+							width: 100%;
+							font-size: 0.9em;
+							margin-bottom: 5px;
+							@include media-breakpoint-up(md) {
+								width: 130px;
+								margin-bottom: 0;
+							}
+					}
+				}
+			}
+		}
+		.cart-collaterals {
+			.cross-sells, .cart_totals {
+				& > h2 {
+					font-size: 1.4em;
+					line-height: 1.4em;
+					margin: 0 0 20px 0;
+				}
+			}
+			.cart_totals {
+				.wc-proceed-to-checkout {
+					.checkout-button {
+						font-size: 1em;
+						background: $pink !important;
+						border-color: $pink !important;
+						&:hover {
+							background: transparent !important;
+							color: $pink !important;
+						}
+						@include media-breakpoint-up(md) {
+							display: inline-block;
+							padding: 18px 35px;
+						}
+					}
+				}
+			}
+			.cross-sells {
+				ul.products {
+					li.product {
+						@include media-breakpoint-up(md) {
+			        width: 48% !important;
+			        margin: 0 0.7% 30px 0.7% !important;
+			      }
+			    }
+				}
 			}
 		}
 	}
