@@ -11,19 +11,26 @@ input, textarea {
 /*
 ** Gravity Forms
 */
-
-
 form {
 	width: 100%;
 	.validation_error {
 		color: #cc0000 !important;
-    font-size: 0.9em !important;
-    margin-bottom: 10px !important;
-    border-top: none !important;
-    border-bottom: none !important;
-    padding: 5px 0 !important;
-    text-align: left !important;
+	    font-size: 0.9em !important;
+	    margin-bottom: 10px !important;
+	    border-top: none !important;
+	    border-bottom: none !important;
+	    padding: 5px 0 !important;
+	    text-align: left !important;
 	}
+
+	input {
+		padding: 10px;
+		border: solid 1px #ccc;
+		border-radius: 5px;
+		font-size: 1.1em;
+		margin: 3px 0;
+	}
+
 	.gform_body {
 		.gfield {
 			.ginput_container {
@@ -96,6 +103,27 @@ form {
 	.gform_confirmation_message {
 		font-size: 20px;
 		line-height: 28px;
-		color: $green;
+		color: $black;
+		a {
+			color:$green;
+		}
+	}
+}
+
+/* Gravity Forms Wizard */
+.wizard {
+	.gform_heading {
+		display: none;
+	}
+	.gform_wrapper .percentbar_blue {
+		background-color: $green;
+	}
+	.gform_previous_button {
+		background-color: $light-grey;
+		border-color: $light-grey;
+	}
+	.gform_wrapper .gform_page_footer {
+		padding: 40px 0;
+		margin: 40px 0;
 	}
 }

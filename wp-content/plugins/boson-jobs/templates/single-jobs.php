@@ -45,26 +45,26 @@ get_header(); ?>
 									<div>Closing Date: <?php echo $closing_date; ?></div>
 								</div>
 								<div class="col-12 col-md-6">
-									<?php if (!$applied) : // If Applied ?>
+									<?php if (!$applied) : // If not Applied ?>
 
-									<?php if (is_user_logged_in()) : // If user logged in, apply ?>
-										<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
-									
-									<?php else : // else, explain they need to register / login ?>
+										<?php if (is_user_logged_in()) : // If user logged in, apply ?>
+											<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 										
-										<?php $intro_text = get_field('registration_sign_in_intro_text', 'option');
-										if($intro_text) echo '<div class="register">' . $intro_text .'</div>';?>
-										
-										<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+										<?php else : // else, explain they need to register / login ?>
+											
+											<?php $intro_text = get_field('registration_sign_in_intro_text', 'option');
+											if($intro_text) echo '<div class="register">' . $intro_text .'</div>';?>
+											
+											<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+										<?php endif; ?>
+									<?php else : // else, tell user they have already applied  ?>
+										<?php echo get_field('position_already_applied_for_text', 'option'); ?>
 									<?php endif; ?>
 								</div>
 							</div>
 
-						<?php else : // else, tell user they have already applied  ?>
-							<?php echo get_field('position_already_applied_for_text', 'option'); ?>
-						<?php endif; ?>
+						<?php endif;?>
 
-						<?php endif; ?>
 					</div>
 					<div class="entry-content">
 						<?php the_content();?>
