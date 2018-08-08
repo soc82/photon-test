@@ -234,24 +234,55 @@ add_action( 'woocommerce_process_product_meta_prospect_event', 'prospect_save_ev
 
 
 /**
-** Exclude event product type from shop query
+** Exclude event products from displaying in shop
 */
 function prospect_exclude_events_query( $q ) {
 
-    $tax_query = (array) $q->get( 'tax_query' );
-    $tax_query[] = array(
-           'taxonomy' => 'product_cat',
-           'field' => 'slug',
-           'terms' => array( 'clothing' ), // Don't display products in the clothing category on the shop page.
-           'operator' => 'NOT IN'
-    );
-
-    $q->set( 'tax_query', $tax_query );
+    // Loop through product categories and find any that have event category set to true
+    $categories = get_terms('product_cat');
+    if($categories){
+      $event_cats = array();
+      foreach($categories as $cat){
+        if(get_field('event_category', 'product_cat_' . $cat->term_id)){
+          $event_cats[] = $cat->term_id;
+        }
+      }
+    }
+    // If any found, filter them out of the normal Woocommerce proudct query
+    if(!empty($event_cats)) {
+      $tax_query = (array) $q->get( 'tax_query' );
+      $tax_query[] = array(
+             'taxonomy' => 'product_cat',
+             'field' => 'term_id',
+             'terms' => $event_cats,
+             'operator' => 'NOT IN'
+      );
+      $q->set( 'tax_query', $tax_query );
+    }
 
 }
 add_action( 'woocommerce_product_query', 'prospect_exclude_events_query' );
 
 
+/**
+* Exclude any product categories which have been set as Event Category or Uncategroized
+*/
+function get_subcategory_terms( $terms, $taxonomies, $args ) {
+
+	$new_terms 	= array();
+
+	if ( in_array( 'product_cat', $taxonomies ) && !is_admin() && is_shop() ) {
+	    foreach ( $terms as $key => $term ) {
+        $event_cal = get_field('event_category', 'product_cat_' . $term->term_id);
+        if($event_cal || $term->slug != 'uncategorized'){
+          $new_terms[] = $term;
+        }
+	    }
+	    $terms = $new_terms;
+	}
+  return $terms;
+}
+add_filter( 'get_terms', 'get_subcategory_terms', 10, 3 );
 
 
 /*******************************

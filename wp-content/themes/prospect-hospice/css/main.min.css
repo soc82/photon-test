@@ -8822,8 +8822,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
   display: inline-block;
   padding: 15px 45px;
-  background: #84BD00;
-  border: 2px solid #84BD00;
+  background: #84BD00 !important;
+  border: 2px solid #84BD00 !important;
   color: #FFFFFF;
   text-decoration: none;
   margin-right: 10px;
@@ -8860,9 +8860,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce #respond input#submit:active, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce a.button:active, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce button.button:active, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce input.button:active {
     outline: none;
     text-decoration: none;
-    background: transparent;
-    border-color: #84BD00;
-    color: #84BD00; }
+    background: transparent !important;
+    border-color: #84BD00 !important;
+    color: #84BD00 !important; }
 
 @media (min-width: 768px) {
   body.woocommerce-page .site-header {
@@ -8924,6 +8924,16 @@ body.post-type-archive-product ul.products li.product, body.tax-product_cat ul.p
         body.post-type-archive-product ul.products li.product a .btn, body.post-type-archive-product ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.post-type-archive-product ul.products li.product a .gform_button, body.tax-product_cat ul.products li.product a .btn, body.tax-product_cat ul.products li.product a .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer body.tax-product_cat ul.products li.product a .gform_button {
           font-size: 0.85em;
           padding: 11px 20px; } }
+
+/*
+** Single Product
+*/
+body.single-product .product .summary .product_title {
+  font-size: 1.8em;
+  line-height: 1.5em; }
+  @media (min-width: 768px) {
+    body.single-product .product .summary .product_title {
+      font-size: 2em; } }
 
 /*
 ** Used for footer accessibility buttons to increase/decrease sizing

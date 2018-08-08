@@ -40,11 +40,7 @@ if( function_exists('acf_add_local_field_group') ):
 					'operator' => '==',
 					'value' => 'product',
 				),
-				array(
-					'param' => 'post_taxonomy',
-					'operator' => '==',
-					'value' => 'product_type:prospect_event',
-				),
+				
 			),
 		),
 		'menu_order' => 0,
@@ -373,11 +369,7 @@ if( function_exists('acf_add_local_field_group') ):
 					'operator' => '==',
 					'value' => 'product',
 				),
-				array(
-					'param' => 'post_taxonomy',
-					'operator' => '==',
-					'value' => 'product_type:prospect_event',
-				),
+
 			),
 		),
 		'menu_order' => 5,

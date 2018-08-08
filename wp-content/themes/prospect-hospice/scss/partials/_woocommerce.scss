@@ -5,8 +5,8 @@
 .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
 	display: inline-block;
 	padding: 15px 45px;
-	background: $green;
-	border:2px solid $green;
+	background: $green !important;
+	border:2px solid $green !important;
 	color: #FFFFFF;
 	text-decoration: none;
 	margin-right: 10px;
@@ -17,9 +17,9 @@
 	&:hover, &:focus, &:active {
 	    outline: none;
 	    text-decoration: none;
-	    background: transparent;
-	    border-color: $green;
-	    color: $green;
+	    background: transparent !important;
+	    border-color: $green !important;
+	    color: $green !important;
 	}
 }
 
@@ -38,7 +38,7 @@ body.post-type-archive-product, body.tax-product_cat, body.single-product {
     padding: 30px 0;
   }
 }
- 
+
 .woocommerce {
   .woocommerce-breadcrumb {
     a {
@@ -112,4 +112,24 @@ body.post-type-archive-product, body.tax-product_cat {
       }
     }
   }
+}
+
+/*
+** Single Product
+*/
+body.single-product {
+	.product {
+		.single-product-images-wrapper {
+
+		}
+		.summary {
+			.product_title {
+				font-size: 1.8em;
+				line-height: 1.5em;
+				@include media-breakpoint-up(md) {
+					font-size: 2em;
+				}
+			}
+		}
+	}
 }
