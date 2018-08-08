@@ -161,7 +161,7 @@ function create_event_type_taxonomies() {
 
 	$labels = array(
 		'name'              => _x( 'Event Types', 'taxonomy general name', 'prospect' ),
-		'singular_name'     => _x( 'Genre', 'taxonomy singular name', 'prospect' ),
+		'singular_name'     => _x( 'Event Type', 'taxonomy singular name', 'prospect' ),
 		'search_items'      => __( 'Search Event Types', 'prospect' ),
 		'all_items'         => __( 'All Event Types', 'prospect' ),
 		'parent_item'       => __( 'Parent Event Type', 'prospect' ),

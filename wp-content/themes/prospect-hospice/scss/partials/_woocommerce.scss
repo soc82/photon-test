@@ -1,8 +1,12 @@
+/*
+** Woocommerce Generic
+*/
+
 .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
 	display: inline-block;
 	padding: 15px 45px;
-	background: $green;
-	border:2px solid $green;
+	background: $green !important;
+	border:2px solid $green !important;
 	color: #FFFFFF;
 	text-decoration: none;
 	margin-right: 10px;
@@ -13,8 +17,119 @@
 	&:hover, &:focus, &:active {
 	    outline: none;
 	    text-decoration: none;
-	    background: transparent;
-	    border-color: $green;
-	    color: $green;
+	    background: transparent !important;
+	    border-color: $green !important;
+	    color: $green !important;
+	}
+}
+
+// Add other body classes here where needed
+body.woocommerce-page {
+  .site-header {
+    @include media-breakpoint-up(md) {
+      box-shadow: 0 3px 2px -2px rgba(200,200,200,0.5);
+    }
+  }
+}
+
+// Add other body classes here where needed
+body.post-type-archive-product, body.tax-product_cat, body.single-product {
+  .page-inner-wrapper {
+    padding: 30px 0;
+  }
+}
+
+.woocommerce {
+  .woocommerce-breadcrumb {
+    a {
+      color: $yellow;
+    }
+  }
+  .woocommerce-products-header {
+    h1 {
+      font-size: 2em;
+      line-height: 1.5em;
+      margin-bottom: 10px;
+    }
+  }
+  .woocommerce-ordering {
+    margin-bottom: 30px;
+    select {
+      font-size: 0.85em;
+      height: 27px;
+    }
+  }
+}
+
+
+/*
+** Product/Category Listing
+*/
+body.post-type-archive-product, body.tax-product_cat {
+  ul.products {
+    li.product {
+      width: 100% !important;
+      float: none !important;
+      margin: 0 0 30px 0 !important;
+      @media screen and (min-width:480px) {
+        display: inline-block;
+        vertical-align: top;
+        width: 48% !important;
+        margin: 0 0.7% 30px 0.7% !important;
+      }
+      @include media-breakpoint-up(md) {
+        width: 31% !important;
+        margin: 0 0.8% 30px 0.8% !important;
+      }
+      @include media-breakpoint-up(lg) {
+        width: 23% !important;
+        margin: 0 0.8% 30px 0.8% !important;
+      }
+      a {
+        text-align: center;
+        display: block;
+        .product-content-wrapper {
+          margin-bottom: 15px;
+          h2 {
+            padding: 0;
+            margin: 0;
+            font-size: 1.1em;
+            line-height: 1.4em;
+          }
+          .count {
+            display: none !important;
+          }
+        }
+        .btn {
+          font-size: 1em;
+          padding: 12px 20px;
+          margin: 0 auto;
+          @include media-breakpoint-up(md) {
+            font-size: 0.85em;
+            padding: 11px 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+** Single Product
+*/
+body.single-product {
+	.product {
+		.single-product-images-wrapper {
+
+		}
+		.summary {
+			.product_title {
+				font-size: 1.8em;
+				line-height: 1.5em;
+				@include media-breakpoint-up(md) {
+					font-size: 2em;
+				}
+			}
+		}
 	}
 }
