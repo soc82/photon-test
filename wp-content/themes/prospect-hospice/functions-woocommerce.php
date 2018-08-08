@@ -1,7 +1,7 @@
 <?php
 
 /*************************************
-** Woocommerce specific functions
+** Event Functions
 **************************************/
 
 /*
@@ -50,7 +50,6 @@ function prospect_add_event_data_tab( $product_data_tabs ) {
 }
 
 
-
 function prospect_product_admin_js() {
 
     if ('product' != get_post_type()) :
@@ -80,14 +79,6 @@ function prospect_product_admin_js() {
 				} );
     </script>
 		<script>
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
       function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -33.8688, lng: 151.2195},
@@ -168,12 +159,11 @@ function prospect_product_admin_js() {
 add_action('admin_footer', 'prospect_product_admin_js');
 
 
-
-
-// functions you can call to output text boxes, select boxes, etc.
-add_action('woocommerce_product_data_panels', 'woocom_custom_product_data_fields');
-
-function woocom_custom_product_data_fields() {
+/*
+** Custom woocommerce data panels for event product type
+*/
+add_action('woocommerce_product_data_panels', 'prospect_custom_product_data_fields');
+function prospect_custom_product_data_fields() {
     global $post;
 
     // Note the 'id' attribute needs to match the 'target' parameter set above
@@ -214,7 +204,6 @@ function woocom_custom_product_data_fields() {
 
 function prospect_save_event_custom_fields($post_id) {
 
-
     $start_date = $_POST['event_start_date'];
     if (!empty($start_date)) {
         update_post_meta($post_id, 'event_start_date', esc_attr($start_date));
@@ -243,9 +232,27 @@ function prospect_save_event_custom_fields($post_id) {
 add_action( 'woocommerce_process_product_meta_prospect_event', 'prospect_save_event_custom_fields'  );
 
 
-/***********************************************
-** Woocommerce Templating
-************************************************/
+
+/**
+** Exclude event product type from shop query
+*/
+function prospect_exclude_events_query( $q ) {
+
+    $tax_query = (array) $q->get( 'tax_query' );
+    $tax_query[] = array(
+           'taxonomy' => 'product_cat',
+           'field' => 'slug',
+           'terms' => array( 'clothing' ), // Don't display products in the clothing category on the shop page.
+           'operator' => 'NOT IN'
+    );
+
+    $q->set( 'tax_query', $tax_query );
+
+}
+add_action( 'woocommerce_product_query', 'prospect_exclude_events_query' );
+
+
+
 
 /*******************************
 ** Generic Woocommerce functions
@@ -324,7 +331,7 @@ add_action('woocommerce_after_main_content', 'prospect_wrapper_end', 10);
 function prospect_wrapper_start() {
  if(is_singular('product')):
   	$product = wc_get_product( get_the_ID());
-  	$type = $product->product_type;
+  	$type = $product->get_type();
   else:
     $type = 'not-product';
   endif;
@@ -352,12 +359,6 @@ add_action( 'after_setup_theme', 'prospect_woocommerce_theme_support' );
 // Remove category descriptions & title (included in banner instead)
 remove_action( 'woocommerce_archive_description', 'woocommerce_product_archive_description', 10, 2 );
 remove_action( 'woocommerce_archive_description', 'woocommerce_taxonomy_archive_description', 10, 2 );
-add_filter( 'woocommerce_show_page_title' , 'prospect_product_cat_heading_removed' );
-function prospect_product_cat_heading_removed() {
-	return false;
-}
-
-
 
 // Wrap product category listings
 function prospect_product_cat_thumbnail_wrapper_start( ) {
@@ -431,34 +432,20 @@ add_action( 'woocommerce_after_shop_loop_item', 'prospect_product_btn', 14 );
 ** Here we are bypassing the normal woocommerce single product template and using a custom one.
 ** (Just because there aren't many woocommerce product similarities for events)
 */
-/*
-add_filter( 'template_include', 'prospect_event_template');
-function prospect_event_template( $template ) {
-  $product = wc_get_product( get_the_ID());
-  if ( is_singular('product') && $product->is_type( 'prospect_event' ) ) {
-    //echo 'test';
-    $template = get_stylesheet_directory() . '/templates/event-template.php';
-  }
-  return $template;
-}
-*/
 
-
-/**
- *
- * Redirect to specific single product page template based on category
- */
-
-function prospect_event_template($template, $slug, $name) {
-  $product = wc_get_product( get_the_ID());
-    if ( is_singular('product') && $product->is_type( 'prospect_event' ) ) {
-      $template = get_stylesheet_directory() . '/templates/event-template.php';
+add_filter('wc_get_template_part', 'prospect_single_event_template_redirect', 10, 3);
+function prospect_single_event_template_redirect($template, $slug, $name) {
+    if ($name === 'single-product' && $slug === 'content') {
+        $product = wc_get_product( get_the_ID());
+        if ( $product->get_type() == 'prospect_event' ) {
+          $temp = get_stylesheet_directory() . '/templates/event-template.php';
+          if($temp) {
+             $template = $temp;
+          }
+        }
     }
     return $template;
 }
-
-add_filter('wc_get_template_part', 'prospect_event_template', 10, 3);
-
 
 
 
@@ -577,6 +564,3 @@ function marketing_consent_option_update_user_meta( $order_id ) {
     }
   endif;
 }
-
-
-
