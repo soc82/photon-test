@@ -6,8 +6,8 @@
 $query_args = array(
 	'post_type' => 'jobs',
 	'posts_per_page'  => -1,
-	'order' => 'DESC',
-	'orderby' => 'date',
+	'order' => 'ASC',
+	'orderby' => 'menu_order',
 );
 // Use a tax_query if the user has specified a jobtype
 if (isset($_GET['type']) && $_GET['type'] && $_GET['type'] != 'all') {
@@ -71,14 +71,17 @@ get_header(); ?>
 					<div class="item bg-green">
 						<a href="<?php the_permalink($item);?>"><h3><?php echo $item->post_title;?></h3></a>
 						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
+						<?php if(get_field('location', $item->ID)) : ?>
+							<div class="location"><span>Location:</span><?php echo get_field('location', $item->ID); ?></div>
+						<?php endif;?>
 						<div class="introduction"><small><?php echo get_field('introduction_content', $item->ID);?></small></div>
 						<div class="row">
 							<div class="col-6">
-								<span>Salary</span>
+								<span>Salary:</span>
 								<div class="salary"><?php echo get_field('salary', $item->ID);?></div>
 							</div>
 							<div class="col-6">
-								<span>Closing date</span>
+								<span>Closing date:</span>
 								<div class="closing-date"><?php echo get_field('closing_date', $item->ID); ?></div>
 							</div>
 						</div>
