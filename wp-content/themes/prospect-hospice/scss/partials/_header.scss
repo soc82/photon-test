@@ -208,14 +208,15 @@
       			display: inline-block;
             height: 100%;
             font-size: 0.9em;
-      			margin-right: 13px;
+      			margin-right: 3px;
             @include media-breakpoint-up(lg) {
+              margin-right: 10px;
               font-size: 0.9em;
+            }
+            @include media-breakpoint-up(xl) {
+              font-size: 1em;
               margin-right: 16px;
             }
-      			@include media-breakpoint-up(xl) {
-              font-size: 1em;
-      			}
       			a {
       				color:$black;
               display: block;
@@ -316,7 +317,7 @@
               .container-fluid {
                 max-width: 1140px;
                 .mega-menu-content-wrapper {
-                  padding: 40px 50px 50px 0;
+                  padding: 80px 50px 80px 0;
                   text-align: left;
                   h6 {
                     font-size: 1.6em;
@@ -335,7 +336,7 @@
                   }
                 }
                 .mega-menu-links-wrapper {
-                  padding: 40px 0 50px 50px;
+                  padding: 80px 50px 80px 0;
                   text-align: left;
                   line-height: 24px;
                   li {
@@ -345,7 +346,8 @@
                     line-height: 1.6em;
                     margin-right: -4px;
                     height: auto;
-                    padding: 5px 5px;
+                    padding: 5px 15px;
+                    vertical-align: top;
                     a {
                       color: $black;
                       &:before {
