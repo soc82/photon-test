@@ -24,7 +24,7 @@ form {
 	}
 
 	input {
-		padding: 10px;
+		padding: 12px;
 		border: solid 1px #ccc;
 		border-radius: 5px;
 		font-size: 1.1em;
@@ -40,9 +40,10 @@ form {
 				}
 				input, textarea {
 					border-radius: 0;
-					border: solid 1px #bbb;
-					padding:7px !important;
+					border: solid 1px #ccc;
+					padding:12px !important;
 					width: 100% !important;
+					border-radius: 10px;
 					margin-bottom: 10px;
 					&:focus, &:active {
 						outline: none !important;

@@ -7229,7 +7229,7 @@ form {
     padding: 5px 0 !important;
     text-align: left !important; }
   form input {
-    padding: 10px;
+    padding: 12px;
     border: solid 1px #ccc;
     border-radius: 5px;
     font-size: 1.1em;
@@ -7240,9 +7240,10 @@ form {
       margin-top: 0px !important; }
     form .gform_body .gfield .ginput_container input, form .gform_body .gfield .ginput_container textarea {
       border-radius: 0;
-      border: solid 1px #bbb;
-      padding: 7px !important;
+      border: solid 1px #ccc;
+      padding: 12px !important;
       width: 100% !important;
+      border-radius: 10px;
       margin-bottom: 10px; }
       form .gform_body .gfield .ginput_container input:focus, form .gform_body .gfield .ginput_container input:active, form .gform_body .gfield .ginput_container textarea:focus, form .gform_body .gfield .ginput_container textarea:active {
         outline: none !important;
@@ -7394,7 +7395,12 @@ form {
 
 .single-jobs .btn, .single-jobs .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-jobs .gform_button {
   margin: 20px 10px 20px 0;
-  padding: 15px 25px; }
+  padding: 15px 25px;
+  width: 100%;
+  text-align: center; }
+  @media (min-width: 768px) {
+    .single-jobs .btn, .single-jobs .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-jobs .gform_button {
+      width: auto; } }
 
 .job-spec {
   padding: 30px;
@@ -8435,6 +8441,51 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 10px solid #222222; }
+
+.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button {
+  display: inline-block;
+  padding: 15px 45px;
+  background: #84BD00;
+  border: 2px solid #84BD00;
+  color: #FFFFFF;
+  text-decoration: none;
+  margin-right: 10px;
+  -webkit-border-top-left-radius: 30px;
+  -webkit-border-top-right-radius: 30px;
+  -webkit-border-bottom-right-radius: 30px;
+  -webkit-border-bottom-left-radius: 30px;
+  -moz-border-radius-topleft: 30px;
+  -moz-border-radius-topright: 30px;
+  -moz-border-radius-bottomright: 30px;
+  -moz-border-radius-bottomleft: 30px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  -webkit-transition: color 0.3s ease-in-out;
+  -khtml-transition: color 0.3s ease-in-out;
+  -moz-transition: color 0.3s ease-in-out;
+  -ms-transition: color 0.3s ease-in-out;
+  -o-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out;
+  -webkit-transition: background 0.3s ease-in-out;
+  -khtml-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  -ms-transition: background 0.3s ease-in-out;
+  -o-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+  -webkit-transition: background-color 0.3s ease-in-out;
+  -khtml-transition: background-color 0.3s ease-in-out;
+  -moz-transition: background-color 0.3s ease-in-out;
+  -ms-transition: background-color 0.3s ease-in-out;
+  -o-transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out; }
+  .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce #respond input#submit:active, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce a.button:active, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce button.button:active, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce input.button:active {
+    outline: none;
+    text-decoration: none;
+    background: transparent;
+    border-color: #84BD00;
+    color: #84BD00; }
 
 .homepage-blocks .homepage-item {
   height: 250px;
