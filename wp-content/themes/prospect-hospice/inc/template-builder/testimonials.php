@@ -10,13 +10,12 @@ $background_colour = get_sub_field('background_colour');
 				<div class="testimonials">
 				<?php foreach ($testimonial_items as $testimonial_item) : ?>
 					<?php
-						$id = $testimonial_item->ID;
-						$name = get_field('name', $id);
-						$testimonial = get_field('testimonial', $id);
+						$name = get_field('name', $testimonial_item->ID);
+						$testimonial = get_field('testimonial', $testimonial_item->ID);
 					?>
 					<div class="testimonial">
-						<p><?php echo $testimonial; ?></p>
-						<span class="name"><?php echo $name; ?></span>
+						<?php if($testimonial) echo '<p>' . $testimonial . '</p>'; ?>
+						<?php if($name) echo '<span class="name">' . $name . "</span>"; ?>
 					</div>
 				<?php endforeach; ?>
 				</div>

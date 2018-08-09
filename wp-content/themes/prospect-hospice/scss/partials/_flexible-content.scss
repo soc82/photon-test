@@ -314,31 +314,57 @@
 		margin-bottom: 30px;
 	}
 	.faq-item {
+		margin: 0 0 5px 0;
 		.faq-question {
 			background: $green;
-			padding: 15px;
+			padding: 15px 30px;
 			color: #FFFFFF;
 			margin: 0;
-			font-size: 1.2em;
+			font-size: 1.1em;
+			line-height: 1.4em;
+			cursor: pointer;
+			position: relative;
+			@include media-breakpoint-up(md){
+				font-size: 1.2em;
+			}
 			&:after {
 				content: '\f107';
 				font-family: 'Font Awesome 5 Pro';
 				color: #FFFFFF;
-				float: right;
 				font-size: 1.4em;
+				display: inline-block;
+				vertical-align: top;
+				position: absolute;
+				right: 15px;
+				top: 15px;
 			}
 		}
 		.faq-answer {
 			font-size: 0.9em;
+			line-height: 1.5em;
 			margin: 0;
 			background: rgba(240,240,240,0.5);
-			padding: 15px 20px;
+			padding: 25px;
+			display: none;
+			@include media-breakpoint-up(md){
+				font-size: 1em;
+			}
+		}
+		&.active-faq {
+			.faq-question {
+				&:after {
+					content: '\f106';
+				}
+			}
+			.faq-answer {
+				display: block;
+			}
 		}
 	}
 }
 
 .testimonial-block {
-	padding: 20px 0;
+	padding: 40px 0;
 	.testimonials {
 		.testimonial {
 			p {

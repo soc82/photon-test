@@ -1,15 +1,16 @@
 jQuery( document ).ready(function($) {
-  
+
   /*
   ** FAQ accordions
   */
-  jQuery('.accordion .question').click(function() {
-    if(jQuery(this).parent().hasClass('active')) {
-      jQuery(this).parent().removeClass('active');
+  jQuery('.faqs-block .faq-question').click(function() {
+    if(jQuery(this).parent().hasClass('active-faq')) {
+      jQuery(this).parent().removeClass('active-faq');
     } else {
-      jQuery(this).parent().addClass('active');
+      jQuery(this).parent().addClass('active-faq');
     }
   });
+
 
   /*
   ** Init slick for testimonials
@@ -68,15 +69,7 @@ jQuery( document ).ready(function($) {
   new LuminousGallery(document.querySelectorAll(".lightbox-gallery"));
 
 
-  jQuery('.faqs-block .faq-question').click(function () {
-      jQuery(this).next('.faq-answer').slideToggle();
-      jQuery(this).parent().siblings().children().next().slideUp();
-      /*
-      ** Leaving this here to remind to finish off FAQ's accordion
-      */
 
-      return false;
-  });
 
 
 
