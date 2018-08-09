@@ -595,6 +595,7 @@ acf_add_local_field_group(array(
 					'label' => 'Call To Action Block',
 					'display' => 'block',
 					'sub_fields' => array(
+						/*
 						array(
 							'key' => 'field_5b59eb03b844a',
 							'label' => 'Background Colour',
@@ -627,6 +628,7 @@ acf_add_local_field_group(array(
 							'ajax' => 0,
 							'placeholder' => '',
 						),
+						*/
 						array(
 							'key' => 'field_5a9fc3da4f5ff',
 							'label' => 'Background Image',
