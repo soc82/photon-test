@@ -8432,24 +8432,45 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       width: 20%;
       height: 200px; } }
 
-.tile-block .image-tile {
-  display: block;
-  height: 350px;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat; }
-  .tile-block .image-tile .overlay {
+.tile-block {
+  margin: 0; }
+  .tile-block .image-tile {
     display: block;
-    width: 100%;
-    height: 100%;
-    transition: all 0.4s ease-in-out; }
-    .tile-block .image-tile .overlay:hover {
-      background-color: rgba(141, 198, 64, 0.4); }
-    .tile-block .image-tile .overlay h4 {
-      position: absolute;
-      bottom: 0;
-      left: 45px;
-      color: #fff; }
+    height: 350px;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat; }
+    .tile-block .image-tile .overlay {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease-in-out; }
+      .tile-block .image-tile .overlay:hover {
+        background-color: rgba(141, 198, 64, 0.4); }
+      .tile-block .image-tile .overlay h4 {
+        padding: 0 0 35px 35px;
+        color: #FFFFFF;
+        position: absolute;
+        z-index: 3;
+        bottom: 0;
+        width: 70%;
+        margin: 0;
+        font-size: 1.65em;
+        line-height: 1.2em;
+        max-width: 430px; }
+        @media (min-width: 768px) {
+          .tile-block .image-tile .overlay h4 {
+            font-size: 1.7em; } }
+      .tile-block .image-tile .overlay .circle-arrow {
+        position: absolute;
+        z-index: 3;
+        bottom: 35px;
+        right: 35px;
+        background: none;
+        padding: 0;
+        height: auto;
+        line-height: 1.5em; }
 
 .faqs-block .section-heading {
   margin-bottom: 30px; }
@@ -8500,12 +8521,31 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .upcoming-events-content-block .upcoming-events .upcoming-event h3 {
     margin-top: 5px; }
 
-.icon_block .icon-item {
-  text-align: center; }
-  .icon_block .icon-item p {
-    color: #666666; }
-  .icon_block .icon-item .icon {
-    font-size: 4em; }
+.icon_block {
+  padding: 30px 0; }
+  .icon_block .icon-item {
+    text-align: center;
+    margin-bottom: 30px; }
+    @media (min-width: 768px) {
+      .icon_block .icon-item {
+        margin-bottom: 0; } }
+    .icon_block .icon-item h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.4em;
+      line-height: 1.3em; }
+      @media (min-width: 768px) {
+        .icon_block .icon-item h3 {
+          font-size: 1.5em;
+          line-height: 1.5em; } }
+    .icon_block .icon-item p {
+      color: #666666;
+      font-size: 1.1em;
+      line-height: 1.4em;
+      margin: 0 0 15px 0; }
+    .icon_block .icon-item .icon {
+      font-size: 5em;
+      margin-bottom: 10px;
+      display: block; }
 
 .grid-overlap .item {
   position: relative;

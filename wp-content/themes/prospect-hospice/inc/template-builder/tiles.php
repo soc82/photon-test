@@ -11,15 +11,14 @@ $tile_items = get_sub_field('tile_items');
 				$heading = $tile_item['heading'];
 				$link = $tile_item['link'];
 			?>
-			<div class="col-4">
+			<div class="col-12 col-sm-4">
 				<a class="image-tile" href="<?php echo $link; ?>" style="background-image: url(<?php echo $image; ?>)">
 					<div class="overlay">
-						<h4><?php echo $heading; ?></h4>
+						<?php if($heading) echo '<h4>' . $heading . '</h4>'; ?>
+						<span class="circle-arrow"><i class="far fa-long-arrow-right"></i></span>
 					</div>
 				</a>
 			</div>
 		<?php endforeach; ?>
 	</div>
 </div>
-
-
