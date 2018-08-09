@@ -113,12 +113,22 @@ function jobs_single_template($single) {
 
 require_once('inc/form_processing.php');
 
-// Register new menu item(s) in woocommerce's my account area
-function prospect_account_menu_items( $items ) { 
-    $items['applications'] = __( 'Job Applications', 'prospect' );
-    return $items;
+// Register new menu item(s) in woocommerce's my account area and re-order
+function prospect_woo_account_menu() {
+	$myorder = array(
+		'dashboard'          => __( 'Dashboard', 'prospect' ),
+    'edit-account'       => __( 'Account Details', 'prospect' ),
+    'edit-address'       => __( 'Addresses', 'prospect' ),
+    //'payment-methods'    => __( 'Payment Methods', 'prospect' ),
+		'orders'             => __( 'Orders', 'prospect' ),
+    'applications' => __( 'Job Applications', 'prospect' ),
+		//'downloads'          => __( 'Download', 'prospect' ),
+		'customer-logout'    => __( 'Logout', 'prospect' ),
+	);
+	return $myorder;
 }
-add_filter( 'woocommerce_account_menu_items', 'prospect_account_menu_items', 10, 1 );
+add_filter ( 'woocommerce_account_menu_items', 'prospect_woo_account_menu' );
+
 // Add new URL endpoint for job applications
 function prospect_add_my_account_endpoint() {
     add_rewrite_endpoint( 'applications', EP_PAGES );
@@ -130,10 +140,13 @@ function prospect_applications_endpoint_content() {
 }
 add_action( 'woocommerce_account_applications_endpoint', 'prospect_applications_endpoint_content' );
 
+
+
+
 // Register new ACF options page
 
 if( function_exists('acf_add_options_page') ) {
-  
+
   acf_add_options_page(array(
     'page_title'  => 'Jobs Settings',
     'menu_title'  => 'Jobs Settings',
@@ -141,8 +154,8 @@ if( function_exists('acf_add_options_page') ) {
     'capability'  => 'edit_posts',
     'redirect'    => false
   ));
-  
-  
+
+
 }
 
 /****************************

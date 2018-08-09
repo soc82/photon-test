@@ -20,7 +20,6 @@ function prospect_search_form_to_menu ( $items, $args ) {
 add_filter('wp_nav_menu_items','prospect_search_form_to_menu',10,2);
 
 
-
 /*
 ** Gets the Donate page id
 */

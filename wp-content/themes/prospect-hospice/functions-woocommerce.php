@@ -535,7 +535,7 @@ add_filter( 'woocommerce_output_related_products_args', 'prospect_related_produc
 add_filter( 'woocommerce_product_tabs', 'prospect_remove_reviews_tab', 98 );
 function prospect_remove_reviews_tab( $tabs ) {
     //unset( $tabs['reviews'] );
-    unset($tabs['additional_information']);
+    //unset($tabs['additional_information']);
     return $tabs;
 }
 
@@ -596,7 +596,7 @@ add_action( 'woocommerce_review_order_before_submit', 'custom_checkout_field_wit
 function custom_checkout_field_with_markketing_consent_option( $checkout ) {
 
   $user = wp_get_current_user();
-  $consent_meta = get_user_meta($user->id, 'marketing_consent');
+  $consent_meta = get_user_meta($user->ID, 'marketing_consent');
   // Only show marketing consent if not already checked
   if($consent_meta == 'no'):
       woocommerce_form_field('newsletter_checkbox', array(

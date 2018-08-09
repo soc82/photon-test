@@ -25,10 +25,11 @@
         margin: 0;
         padding: 0;
         list-style: none;
-        line-height: 1.3em;
+        line-height: 40px;
         li {
           display: inline-block;
-          line-height: 1.55em;
+          line-height: 30px;
+          position: relative;
           a {
             display: block;
             color:#FFFFFF;
@@ -105,23 +106,25 @@
           }
           .sub-menu {
             position: absolute;
-            background: darken($green, 10%);
-            min-width: 150px;
+            background: darken($green, 5%);
+            min-width: 180px;
             list-style: none;
             margin: 0;
             padding: 0;
-            right: 0;
+            right: -15px;
             z-index: 10;
             top: 40px;
             display: none;
             li {
               display: block;
+              padding: 0 5px;
               line-height: 1.3em;
+              font-size: 0.9em;
               a {
                 display: block;
                 color: #FFFFFF;
-                padding: 4px 15px;
-                border-bottom: 1px solid darken($green, 5%);
+                padding: 4px 10px;
+                border-bottom: 1px solid darken($green, 2%);
                 border-left: none;
                 &:hover {
                   color: lighten($green, 40%);
@@ -162,7 +165,8 @@
     max-width: 1140px;
   }
   .header-logo {
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
     .desktop-logo {
       display: none;
       @include media-breakpoint-up(md) {
@@ -186,8 +190,31 @@
       }
     }
   }
+  .mobile-cart {
+    color: #FFFFFF;
+    display: inline-block;
+    vertical-align: middle;
+    position: absolute;
+    right: 75px;
+    top: 7px;
+    @include media-breakpoint-up(md) {
+      display: none !important;
+    }
+    i {
+      font-size: 1.9em;
+      display: inline-block;
+      vertical-align: middle;
+      padding-right: 5px;
+    }
+    span.amount {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 0.95em;
+      color: rgba(255,255,255,0.8);
+    }
+  }
   .desktop-navigation {
-    display: none; 
+    display: none;
     position: static;
     @include media-breakpoint-up(md) {
       display: block;

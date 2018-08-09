@@ -329,7 +329,7 @@ body.woocommerce-cart {
 						&:hover {
 							background: transparent !important;
 							color: $pink !important;
-							
+
 						}
 						@include media-breakpoint-up(md) {
 							display: inline-block;
@@ -347,6 +347,246 @@ body.woocommerce-cart {
 			      }
 			    }
 				}
+			}
+		}
+	}
+}
+
+
+
+/*
+** Checkout
+*/
+.woocommerce-checkout {
+	.entry-title {
+		display: none;
+	}
+	.woocommerce {
+		margin-top: 40px;
+		#customer_details {
+			margin: 30px 0 20px 0;
+			.col-1, .col-2 {
+				max-width: none;
+				margin-bottom: 20px;
+			}
+			.woocommerce-shipping-fields {
+				h3 {
+					font-size: 20px;
+					line-height: 27px;
+				}
+			}
+		}
+		.woocommerce-checkout-review-order {
+			margin-bottom: 40px;
+			table.shop_table {
+				border-radius: 0;
+				thead {
+					th {
+						color: $black;
+					}
+				}
+				.cart-subtotal, .shipping {
+					color: $black;
+				}
+				.order-total {
+					color: $green;
+				}
+			}
+		}
+	}
+}
+
+
+/*
+** Order Confirmation
+*/
+
+.woocommerce-order-received {
+	ul.order_details {
+		margin:10px 0;
+		padding: 0;
+		li {
+			float: none;
+			border-bottom: 1px dashed #d3ced2;
+			border-right:none;
+			padding: 6px 0;
+			@include media-breakpoint-up(md) {
+				float: left;
+				border-bottom: none;
+				border-right: 1px dashed #d3ced2;
+				padding: 0 15px 0 0;
+				margin-right: 15px;
+				margin-bottom: 15px;
+			}
+		}
+	}
+	.woocommerce-order-details {
+		.woocommerce-order-details__title {
+			margin: 0 0 20px 0;
+			font-size: 1.6em;
+		}
+		.shop_table {
+			border-radius: 0;
+			thead {
+				th {
+					color: $black;
+				}
+			}
+			.cart-subtotal, .shipping {
+				color: $black;
+			}
+			.order-total {
+				color: $green;
+			}
+		}
+	}
+	.woocommerce-customer-details {
+		margin-bottom: 50px;
+		.woocommerce-column__title {
+			margin:0 0 20px 0;
+			font-size: 1.6em;
+		}
+		address {
+			padding: 0;
+			border:none;
+			font-size: 17px;
+			line-height: 24px;
+			.woocommerce-customer-details--phone, .woocommerce-customer-details--email {
+				display: block;
+				margin: 3px 0 0 0;
+				color: $black;
+			}
+		}
+	}
+}
+
+/*
+** Login/Register
+*/
+
+.woocommerce-account {
+	article.type-page {
+		margin:40px 0;
+	}
+	#customer_login {
+		.col-1, .col-2 {
+			max-width: none;
+			& > h2 {
+				font-size: 27px;
+				line-height: 34px;
+				margin: 0 0 15px 0;
+			}
+			&.col-2 h2 {
+				color: $black;
+			}
+			form.login, form.register {
+				margin: 0;
+				border:none;
+				padding: 25px;
+				border-radius: 0;
+				background: rgba(240,240,240,0.7);
+			}
+			form.login {
+				margin-bottom: 30px;
+			}
+			form.register {
+				background: $black;
+				label, label span {
+					color: #FFFFFF;
+				}
+				.button {
+					background-color: $green;
+					color: #FFFFFF !important;
+					&:hover {
+						background-color: #FFFFFF;
+						color: $black !important;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*
+** My Account
+*/
+
+.woocommerce-account {
+	.entry-title {
+		font-size: 35px;
+		line-height:42px;
+		@include media-breakpoint-up(md) {
+			font-size: 40px;
+			line-height:48px;
+		}
+	}
+	.woocommerce {
+		margin-bottom: 30px;
+	}
+	.woocommerce-MyAccount-navigation {
+		@include media-breakpoint-up(lg) {
+    	width: 25%;
+		}
+		ul {
+			background-color: $yellow;
+			margin: 0 0 40px 0;
+			padding:20px 0;
+			list-style: none;
+			position: relative;
+			@include media-breakpoint-up(md) {
+				margin: 0;
+			}
+			li {
+				a {
+					display: block;
+					padding: 7px 5px;
+					margin: 0 15px;
+					border-bottom: 1px dashed rgba(255,255,255,0.3);
+					color: $black;
+					font-family: $font-heading;
+					&:before {
+						content: '\f105';
+						font-family: 'Font Awesome 5 Pro';
+						color: rgba($black, 0.3);
+						padding-right:5px;
+					}
+					&:hover {
+						color: rgba($black, 0.8);
+					}
+				}
+				&:last-of-type {
+					a {
+						border: none;
+					}
+				}
+				&.is-active {
+					a {
+						color: rgba($black, 0.8);
+					}
+				}
+			}
+		}
+	}
+	.account-orders-table {
+		.woocommerce-orders-table__header-order-status, .woocommerce-orders-table__cell-order-status {
+			display: none;
+		}
+	}
+	.woocommerce-MyAccount-content {
+		@include media-breakpoint-up(lg) {
+			width: 73%;
+		}
+		.woocommerce-Addresses {
+			.col-1, .col-2 {
+				max-width: none;
+			}
+		}
+		.woocommerce-EditAccountForm {
+			fieldset {
+				border:none;
+				padding: 0;
+				margin:20px 0;
 			}
 		}
 	}

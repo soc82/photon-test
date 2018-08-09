@@ -62,6 +62,9 @@
 									<img src="<?php echo get_stylesheet_directory_uri() . '/img/prospect-hospice.png'; ?>" alt="<?php echo get_bloginfo('name'); ?>" class="img-fluid desktop-logo" />
 									<img src="<?php echo get_stylesheet_directory_uri() . '/img/prospect-hospice-white.png'; ?>" alt="<?php echo get_bloginfo('name'); ?>" class="img-fluid mobile-logo" />
 								</a>
+								<?php if( WC()->cart->get_cart_contents_count() > 0 ) { ?>
+									<a class="top-bar-cart mobile-cart" href="<?php echo wc_get_cart_url(); ?>" title="<?php _e( 'View your shopping cart' ); ?>"><i class="fal fa-shopping-bag"></i><?php echo WC()->cart->get_cart_total(); ?></a>
+								<?php } ?>
 							</div>
 							<a href="#" id="trigger" class="menu-trigger"><i class="far fa-bars"></i></a>
 							<div class="col-12 col-md-9 desktop-navigation">

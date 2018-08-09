@@ -28,11 +28,12 @@ form {
 	    text-align: left !important;
 	}
 
-	input {
+	input, textarea {
 		padding: 12px;
 		border: solid 1px #ccc;
 		border-radius: 5px;
-		font-size: 1.1em;
+		font-size: 1.05em;
+    line-height: 1.5em;
 		margin: 3px 0;
 	}
 
