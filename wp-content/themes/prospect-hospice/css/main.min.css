@@ -7246,28 +7246,51 @@ a {
   -ms-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out; }
+  .btn:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:after, .button:after {
+    -webkit-transition: all 0.2s ease-in-out;
+    -khtml-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; }
   .btn:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover, .btn:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:focus, .btn:active, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:active, .button:hover, .button:focus, .button:active {
     outline: none;
     text-decoration: none;
-    background: transparent;
-    border-color: #84BD00;
-    color: #84BD00; }
+    background: #72a400;
+    border: 2px solid #72a400;
+    color: #FFFFFF; }
   .btn.btn-yellow, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button, .button.btn-yellow {
     background-color: #f3cc30;
     border: 2px solid #f3cc30;
     color: #222222; }
-  .btn.btn-yellow:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button:hover, .button.btn-yellow:hover {
-    background-color: white;
-    border: 2px solid white;
-    color: #222222; }
+    .btn.btn-yellow:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button:after, .button.btn-yellow:after {
+      color: #222222 !important; }
+    .btn.btn-yellow:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button:hover, .button.btn-yellow:hover {
+      background-color: #f2c618 !important;
+      border: 2px solid #f2c618 !important;
+      color: white; }
+      .btn.btn-yellow:hover:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button:hover:after, .button.btn-yellow:hover:after {
+        color: white !important; }
   .btn.btn-light-grey, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-light-grey.gform_button, .button.btn-light-grey {
     background-color: #999999;
     border: 2px solid #999999;
     color: white; }
-  .btn.btn-light-grey:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-light-grey.gform_button:hover, .button.btn-light-grey:hover {
-    background-color: #f3cc30;
-    border: 2px solid #f3cc30;
-    color: #222222; }
+    .btn.btn-light-grey:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-light-grey.gform_button:hover, .button.btn-light-grey:hover {
+      background-color: #8c8c8c;
+      border: 2px solid #8c8c8c;
+      color: white; }
+      .btn.btn-light-grey:hover:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-light-grey.gform_button:hover:after, .button.btn-light-grey:hover:after {
+        color: white; }
+  .btn.btn-white, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-white.gform_button, .button.btn-white {
+    background-color: white;
+    border: 2px solid white;
+    color: #84BD00; }
+    .btn.btn-white:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-white.gform_button:hover, .button.btn-white:hover {
+      background-color: transparent;
+      border-color: white;
+      color: white; }
+      .btn.btn-white:hover:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-white.gform_button:hover:after, .button.btn-white:hover:after {
+        color: white; }
   .btn.btn-arrow-right:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-arrow-right.gform_button:after, .button.btn-arrow-right:after {
     content: '\f178';
     font-family: 'Font Awesome 5 Pro';
@@ -7275,11 +7298,6 @@ a {
     color: rgba(255, 255, 255, 0.7); }
   .btn.btn-arrow-right:hover:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-arrow-right.gform_button:hover:after, .button.btn-arrow-right:hover:after {
     color: #84BD00; }
-
-.btn:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover {
-  background: #f3cc30;
-  border-color: #f3cc30;
-  color: #222222; }
 
 .btn-set {
   margin: 20px 0; }
@@ -8421,11 +8439,79 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .block .latest-news-content-block .post-image .image img {
     max-width: 100%; }
 
-.two-column-image-left .left img {
-  max-width: 100%; }
+.two-column-block {
+  padding: 50px 0; }
+  @media (min-width: 768px) {
+    .two-column-block {
+      padding: 60px 0; } }
+  @media (min-width: 768px) {
+    .two-column-block .two-column-content {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      padding-right: 20px; } }
+  .two-column-block .two-column-content h3 {
+    font-size: 1.6em;
+    line-height: 1.3em; }
+    @media (min-width: 768px) {
+      .two-column-block .two-column-content h3 {
+        font-size: 1.7em; } }
+    @media (min-width: 992px) {
+      .two-column-block .two-column-content h3 {
+        font-size: 2em; } }
+  .two-column-block .two-column-content p {
+    font-size: 1.1em;
+    line-height: 1.4em; }
+    @media (min-width: 992px) {
+      .two-column-block .two-column-content p {
+        font-size: 1.25em;
+        line-height: 1.6em; } }
+  .two-column-block .two-column-image {
+    position: relative; }
+    .two-column-block .two-column-image a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 1;
+      text-align: center; }
+      .two-column-block .two-column-image a span {
+        background: #f3cc30;
+        height: 70px;
+        width: 70px;
+        border-radius: 50%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        text-align: center;
+        margin: auto;
+        -webkit-transition: all 0.3s ease-in-out;
+        -khtml-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        font-size: 2em;
+        display: inline-block; }
+        .two-column-block .two-column-image a span i {
+          color: white;
+          margin-right: -4px;
+          line-height: 70px; }
+      .two-column-block .two-column-image a:hover span {
+        background: #84BD00; }
 
-.two-column-image-right .right img {
-  max-width: 100%; }
+.two-column-image-right .two-column-content {
+  margin: 0 0 20px 0; }
+  @media (min-width: 768px) {
+    .two-column-image-right .two-column-content {
+      margin: 0; } }
+
+.two-column-image-left .two-column-content {
+  margin: 20px 0 0 0; }
+  @media (min-width: 768px) {
+    .two-column-image-left .two-column-content {
+      margin: 0; } }
 
 .enquiry-form-block {
   margin: 0;
@@ -8473,7 +8559,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       background-color: rgba(0, 0, 0, 0.3);
       transition: all 0.4s ease-in-out; }
       .tile-block .image-tile .overlay:hover {
-        background-color: rgba(141, 198, 64, 0.4); }
+        background-color: rgba(141, 198, 64, 0.6); }
       .tile-block .image-tile .overlay h4 {
         padding: 0 0 35px 35px;
         color: #FFFFFF;
@@ -8496,7 +8582,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         background: none;
         padding: 0;
         height: auto;
-        line-height: 1.5em; }
+        line-height: 1em;
+        font-size: 1.5em; }
 
 .faqs-block .section-heading {
   margin-bottom: 30px; }
@@ -8538,6 +8625,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 
 .upcoming-events-content-block {
   margin: 50px 0; }
+  @media (min-width: 768px) {
+    .upcoming-events-content-block {
+      margin: 60px 0; } }
   .upcoming-events-content-block .intro {
     margin-bottom: 20px; }
     @media (min-width: 768px) {

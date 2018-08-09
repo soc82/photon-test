@@ -14,36 +14,58 @@
   text-decoration: none;
   @include border-radius-separate(30px, 30px, 30px, 30px);
   @include transition('all' 0.3s ease-in-out);
-
+  &:after {
+    @include transition('all' 0.2s ease-in-out);
+  }
   &:hover, &:focus, &:active {
     outline: none;
     text-decoration: none;
-    background: transparent;
-    border-color: $green;
-    color: $green;
+    background: darken($green, 5%);
+    border:2px solid darken($green, 5%);
+    color: #FFFFFF;
   }
-  // .btn-outline { }
   &.btn-yellow {
     background-color: $yellow;
     border: 2px solid $yellow;
     color:$black;
-  }
-  &.btn-yellow:hover {
-    background-color: white;
-    border: 2px solid white;
-    color:$black;
+    &:after {
+      color:$black !important;
+    }
+    &:hover {
+      background-color: darken($yellow, 5%) !important;
+      border: 2px solid darken($yellow, 5%) !important;
+      color:white;
+      &:after {
+        color:white !important;
+      }
+    }
   }
   &.btn-light-grey {
     background-color: $light-grey;
     border: 2px solid $light-grey;
     color:white;
+    &:hover {
+      background-color: darken($light-grey, 5%);
+      border: 2px solid darken($light-grey, 5%);
+      color:white;
+      &:after {
+        color:white ;
+      }
+    }
   }
-  &.btn-light-grey:hover {
-    background-color: $yellow;
-    border: 2px solid $yellow;
-    color:$black;
+  &.btn-white {
+    background-color: white;
+    border: 2px solid white;
+    color:$green;
+    &:hover {
+      background-color: transparent;
+      border-color: white;
+      color:white;
+      &:after {
+        color:white ;
+      }
+    }
   }
-
   &.btn-arrow-right {
     &:after {
       content: '\f178';
@@ -57,12 +79,6 @@
       }
     }
   }
-
-}
-.btn:hover {
-  background: $yellow;
-  border-color: $yellow;
-  color:$black;
 }
 
 .btn-set {

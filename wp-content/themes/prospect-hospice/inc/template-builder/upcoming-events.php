@@ -18,42 +18,45 @@ $events_args = array(
       	),
   	),
 );
-$result = new WP_Query($events_args); ?>
+$result = new WP_Query($events_args);
+if($result->have_posts()): ?>
 
-<div class="upcoming-events-content-block block">
-	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-10 offset-md-1 intro">
-				<?php if ($title) : ?>
-					<h2 class="section-heading"><?php echo $title; ?></h2>
-				<?php endif; ?>
-				<?php if ($text) : ?>
-					<p><?php echo $text; ?></p>
-				<?php endif; ?>
+	<div class="upcoming-events-content-block block">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-10 offset-md-1 intro">
+					<?php if ($title) : ?>
+						<h2 class="section-heading"><?php echo $title; ?></h2>
+					<?php endif; ?>
+					<?php if ($text) : ?>
+						<p><?php echo $text; ?></p>
+					<?php endif; ?>
+				</div>
 			</div>
-		</div>
-		<?php foreach ($result->posts as $post) : ?>
-			<?php
-			$icon = get_field('event_icon', $post->ID);
-			$start = new DateTime(get_post_meta($post->ID, 'event_start_date', true) . ' ' . get_post_meta($post->ID, 'start_time', true));
-   		$end = new DateTime(get_post_meta($post->ID, 'event_end_date', true) . ' ' . get_post_meta($post->ID, 'end_time', true));
-			?>
-			<div class="upcoming-event">
-				<div class="col-12 col-md-10 offset-md-1">
-					<div class="row">
-						<div class="d-none d-md-block col-md-1">
-							<?php if($icon) echo '<div class="event-icon">' . $icon . '</div>'; ?>
-						</div>
-						<div class="col-12 col-md-7 col-lg-8">
-							<span class="start-date"><?php echo $start->format('d/m/Y'); ?></span>
-							<h3><?php echo  $post->post_title; ?></h3>
-						</div>
-						<div class="col-12 col-md-4 col-lg-3">
-							<a class="btn btn-arrow-right" href="<?php echo get_permalink($post); ?>">Register</a>
+			<?php while($result->have_posts()): $result->the_post(); ?>
+				<?php
+				$icon = get_field('event_icon', $post->ID);
+				$start = new DateTime(get_post_meta($post->ID, 'event_start_date', true) . ' ' . get_post_meta($post->ID, 'start_time', true));
+	   		$end = new DateTime(get_post_meta($post->ID, 'event_end_date', true) . ' ' . get_post_meta($post->ID, 'end_time', true));
+				?>
+				<div class="upcoming-event">
+					<div class="col-12 col-md-10 offset-md-1">
+						<div class="row">
+							<div class="d-none d-md-block col-md-1">
+								<?php if($icon) echo '<div class="event-icon">' . $icon . '</div>'; ?>
+							</div>
+							<div class="col-12 col-md-7 col-lg-8">
+								<span class="start-date"><?php echo $start->format('d/m/Y'); ?></span>
+								<h3><?php echo  $post->post_title; ?></h3>
+							</div>
+							<div class="col-12 col-md-4 col-lg-3">
+								<a class="btn btn-arrow-right" href="<?php echo get_permalink($post); ?>">Register</a>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		<?php endforeach; ?>
+			<?php endwhile;
+			wp_reset_postdata(); ?>
+		</div>
 	</div>
-</div>
+<?php endif; ?>

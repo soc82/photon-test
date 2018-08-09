@@ -232,23 +232,14 @@ acf_add_local_field_group(array(
 							'label' => 'Image',
 							'name' => 'image',
 							'type' => 'image',
-							'instructions' => '',
+							'instructions' => 'Image is needed whether image or video is set above. If Video, image is used as thumbnail.',
 							'required' => 0,
-							'conditional_logic' => array(
-								array(
-									array(
-										'field' => 'field_5b59de39cc1fc',
-										'operator' => '==',
-										'value' => 'image',
-									),
-								),
-							),
 							'wrapper' => array(
 								'width' => '',
 								'class' => '',
 								'id' => '',
 							),
-							'return_format' => 'url',
+							'return_format' => 'array',
 							'preview_size' => 'thumbnail',
 							'library' => 'all',
 							'min_width' => '',
@@ -428,23 +419,15 @@ acf_add_local_field_group(array(
 							'label' => 'Image',
 							'name' => 'image',
 							'type' => 'image',
-							'instructions' => '',
+							'instructions' => 'Image is needed whether image or video is set above. If Video, image is used as thumbnail.',
 							'required' => 0,
-							'conditional_logic' => array(
-								array(
-									array(
-										'field' => 'field_5b59e89830c8c',
-										'operator' => '==',
-										'value' => 'image',
-									),
-								),
-							),
+
 							'wrapper' => array(
 								'width' => '',
 								'class' => '',
 								'id' => '',
 							),
-							'return_format' => 'url',
+							'return_format' => 'array',
 							'preview_size' => 'thumbnail',
 							'library' => 'all',
 							'min_width' => '',

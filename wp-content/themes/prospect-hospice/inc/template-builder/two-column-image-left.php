@@ -9,22 +9,35 @@ $button_url = get_sub_field('button_url');
 $background_colour = get_sub_field('background_colour');
 ?>
 
-<div class="two-column-image-left block" <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
+<div class="two-column-block two-column-image-left " <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
 	<div class="container">
 		<div class="row">
-			<div class="col-6 left">
-				<?php if ($content_type == 'image'): ?>
-					<img src="<?php echo $image; ?>">
-				<?php elseif ($content_type == 'video'): ?>
-
-				<?php endif; ?>
-			</div>
-			<div class="col-6 right">
-				<h3><?php echo $heading; ?></h3>
-				<p><?php echo $content; ?></p>
-				<?php if ($button_url && $button_text) : ?>
-					<a class="btn" href="<?php echo $button_url; ?>"><?php echo $button_text; ?></a>
-				<?php endif; ?>
+			<div class="col-12 col-md-10 offset-md-1">
+				<div class="row">
+					<div class="col-12 col-md-5">
+						<div class="two-column-image">
+							<?php if ($content_type == 'video'): ?>
+								<?php if($video_url): ?>
+								<a href="<?php echo $video_url; ?>" target="_blank">
+									<span><i class="fas fa-play"></i></span>
+								</a>
+								<?php endif; ?>
+							<?php endif; ?>
+							<?php if($image): ?>
+								<img src="<?php echo $image['sizes']['large']; ?>" alt="<?php echo $image['alt']; ?>" class="img-fluid">
+							<?php endif; ?>
+						</div>
+					</div>
+					<div class="col-12 col-md-7 ">
+						<div class="two-column-content">
+							<?php if($heading) echo '<h3>' . $heading . '</h3>' ?>
+							<?php if($content) echo $content; ?>
+							<?php if ($button_url && $button_text) : ?>
+								<a class="btn btn-arrow-right <?php if($background_colour == '#8dc63f') echo 'btn-yellow'; ?>" href="<?php echo $button_url; ?>"><?php echo $button_text; ?></a>
+							<?php endif; ?>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -135,26 +135,90 @@
 	}
 }
 
-// Two col image/video left
-.two-column-image-left {
-	.left {
-		img {
-			max-width: 100%;
+.two-column-block {
+	padding: 50px 0;
+	@include media-breakpoint-up(md) {
+		padding: 60px 0;
+	}
+	.two-column-content {
+		@include media-breakpoint-up(md) {
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+			padding-right: 20px;
+		}
+		h3 {
+			font-size: 1.6em;
+			line-height: 1.3em;
+			@include media-breakpoint-up(md) {
+				font-size: 1.7em;
+			}
+			@include media-breakpoint-up(lg) {
+				font-size: 2em;
+			}
+		}
+		p {
+			font-size: 1.1em;
+			line-height: 1.4em;
+			@include media-breakpoint-up(lg) {
+				font-size: 1.25em;
+				line-height: 1.6em;
+			}
 		}
 	}
-	.right {
-
+	.two-column-image {
+		position: relative;
+		a {
+			position: absolute;
+			top:0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			z-index: 1;
+			text-align: center;
+			span {
+				background: $yellow;
+				height: 70px;
+				width: 70px;
+				border-radius: 50%;
+				position: relative;
+				top: 50%;
+				transform: translateY(-50%);
+				text-align: center;
+				margin:auto;
+				@include transition('all' 0.3s ease-in-out);
+				font-size: 2em;
+				display: inline-block;
+				i {
+					color: white;
+					margin-right: -4px;
+					line-height: 70px;
+				}
+			}
+			&:hover {
+				span {
+					background: $green;
+				}
+			}
+		}
 	}
 }
 
-// Two col image/video right
 .two-column-image-right {
-	.left {
-
+	.two-column-content {
+		margin:0 0 20px 0;
+		@include media-breakpoint-up(md) {
+			margin: 0;
+		}
 	}
-	.right {
-		img {
-			max-width: 100%;
+}
+
+
+.two-column-image-left {
+	.two-column-content {
+		margin:20px 0 0 0;
+		@include media-breakpoint-up(md) {
+			margin: 0;
 		}
 	}
 }
@@ -212,7 +276,7 @@
 				background-color: rgba(0, 0, 0, 0.3);
 		    transition: all 0.4s ease-in-out;
 		    &:hover {
-		    	background-color: rgba(141, 198, 64, 0.4);
+		    	background-color: rgba(141, 198, 64, 0.6);
 		    }
 				h4 {
 		      padding: 0 0 35px 35px;
@@ -237,7 +301,8 @@
 					background: none;
 					padding: 0;
 					height: auto;
-					line-height: 1.5em;
+					line-height: 1em;
+					font-size: 1.5em;
 		    }
 		}
 	}
@@ -301,6 +366,9 @@
 // Upcoming events
 .upcoming-events-content-block {
 	margin: 50px 0;
+	@include media-breakpoint-up(md){
+		margin: 60px 0;
+	}
 	.intro {
 		margin-bottom: 20px;
 		@include media-breakpoint-up(md){
