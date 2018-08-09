@@ -9,7 +9,9 @@ $buttons = get_sub_field('buttons');
 	<?php if ($background_colour) { echo 'background-color: ' . $background_colour . '; '; } ?>
 	<?php if ($background_image) { echo 'background-image: url(' . $background_image . ');'; } ?>
 	" >
-	<div class="overlay"></div>
+	<?php if ($background_image){ ?>
+		<div class="overlay"></div>
+	<?php } ?>
 	<div class="container cta-block-content text-center">
 		<div class="row">
 			<div class="col-12">
