@@ -1,5 +1,5 @@
 <?php
-if(is_page_template('templates/flexible-template')):
+if(is_page_template('templates/flexible-template.php')):
 	$gallery = get_sub_field('gallery_item');
 else:
 	$gallery = get_field('gallery_item');

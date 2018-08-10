@@ -85,3 +85,14 @@ function prospect_get_downloads_filters() {
     }
     return $terms;
 }
+
+
+/*
+** Modify ACF text and textarea fields to accept shortcodes
+*/
+function prospect_allow_shortcode_in_acf_fields( $value, $post_id, $field ) {
+	$value = do_shortcode($value);
+	return $value;
+}
+add_filter('acf/format_value/type=textarea', 'prospect_allow_shortcode_in_acf_fields', 10, 3);
+add_filter('acf/format_value/type=text', 'prospect_allow_shortcode_in_acf_fields', 10, 3);

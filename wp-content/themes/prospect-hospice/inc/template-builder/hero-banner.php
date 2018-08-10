@@ -15,7 +15,7 @@ $second_heading = (get_sub_field('second_heading') ? get_sub_field('second_headi
                     <?php if($heading) : ?>
                         <h1><?php echo $heading; ?></h1>
                     <?php endif; ?>
-                    
+
                 </div>
             </div>
         </div>

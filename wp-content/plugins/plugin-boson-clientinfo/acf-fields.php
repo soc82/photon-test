@@ -761,7 +761,55 @@ acf_add_local_field_group(array(
 			'return_format' => 'object',
 			'ui' => 1,
 		),
+		array(
+			'key' => 'field_5b588c142dd78',
+			'label' => 'Variable Data',
+			'name' => '',
+			'type' => 'tab',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'placement' => 'top',
+			'endpoint' => 0,
+		),
+		array(
+			'key' => 'field_5b6d62cf0c99a',
+			'label' => 'Variable Data',
+			'name' => '',
+			'type' => 'message',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'message' => 'Personalised data can be used to display information about the current user, to make the website experience feel more personalised. This can be achieved by using the shortcode <strong>[prospect_user]</strong>.
 
+There are 2 attributes which need to be used in the shortcode. These are explained below.
+
+<strong>field</strong> - This is what distinguishes the type of data that you will be showing (eg first name, last name, etc). The full list of available fields are listed below. Only one field can be passed in each shortcode.
+<strong>fallback</strong>	- This is the text that will display if the user is not logged in or the field is not supplied.
+
+
+<h3>Examples</h3>
+<strong>Hi [prospect_user field="first_name" fallback="there"]</strong> - This example will output "Hi Joe" if they are logged in, or "Hi there" as the fallback.
+<strong>Welcome [prospect_user field="first_name"] [prospect_user field="last_name"]</strong> - This example will output "Welcome Joe Bloggs" if they are logged in. As no \'fallback\' is supplied for either, if they are not logged in it will just output "Welcome".
+
+
+<h3>List of available fields</h3>
+<strong>first_name</strong> - First name
+<strong>last_name</strong> - Last name
+<strong>full_name</strong> - Full name',
+			'new_lines' => 'wpautop',
+			'esc_html' => 0,
+		),
 	),
 	'location' => array(
 		array(

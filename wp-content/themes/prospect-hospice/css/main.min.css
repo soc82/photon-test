@@ -6695,8 +6695,8 @@ be a descendant of the grid when it is being dragged.
   overflow: hidden;
   text-indent: 150%;
   white-space: nowrap;
-  background: transparent;
-  border: 0;
+  background: transparent !important;
+  border: none !important;
   margin: 0;
   padding: 0;
   outline: 0;
@@ -6754,7 +6754,7 @@ be a descendant of the grid when it is being dragged.
     margin: auto; }
 
   .lum-lightbox-inner img {
-    max-width: none;
+    max-width: 100%;
     max-height: none; } }
 /* Slider */
 .slick-slider {
@@ -8338,10 +8338,19 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       .copyright-footer .footer-accessibility li.active-size a {
         background: #999999; }
 
+.flexible-content-wrapper .first-block {
+  margin-top: 0; }
+.flexible-content-wrapper .last-block {
+  margin-bottom: 0; }
+
 .block {
   margin: 40px 0; }
+  @media (min-width: 768px) {
+    .block {
+      margin: 50px 0; } }
   .block.hero-banner {
     margin-top: 0;
+    margin-bottom: 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -8523,26 +8532,76 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .enquiry-form-block .section-heading {
     color: #FFFFFF; }
 
-.image-gallery-block a {
-  display: inline-block;
-  vertical-align: top;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  background-position: center !important;
-  height: 150px;
-  width: 50%;
-  margin-right: -4px; }
-  @media (min-width: 576px) {
-    .image-gallery-block a {
-      width: 33.3333333%; } }
-  @media (min-width: 768px) {
-    .image-gallery-block a {
-      width: 25%;
-      height: 200px; } }
-  @media (min-width: 992px) {
-    .image-gallery-block a {
-      width: 20%;
-      height: 200px; } }
+.image-gallery-block {
+  padding: 40px 0;
+  text-align: center; }
+  .image-gallery-block a {
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    position: relative;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
+    height: 150px;
+    margin: 0 0 10px 0;
+    width: 100%; }
+    @media screen and (min-width: 380px) {
+      .image-gallery-block a {
+        width: 48%; } }
+    @media (min-width: 576px) {
+      .image-gallery-block a {
+        width: 31.3333333%; } }
+    @media (min-width: 768px) {
+      .image-gallery-block a {
+        height: 200px; } }
+    @media (min-width: 992px) {
+      .image-gallery-block a {
+        width: 23%;
+        height: 225px; } }
+    .image-gallery-block a:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 1;
+      -webkit-transition: all 0.3s ease-in-out;
+      -khtml-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+    .image-gallery-block a:after {
+      font-family: 'Font Awesome 5 Pro';
+      content: '\f00e';
+      color: #FFFFFF;
+      font-size: 3em;
+      line-height: 1px;
+      text-align: center;
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      visibility: hidden;
+      z-index: 2;
+      -webkit-transition: all 0.3s ease-in-out;
+      -khtml-transition: all 0.3s ease-in-out;
+      -moz-transition: all 0.3s ease-in-out;
+      -ms-transition: all 0.3s ease-in-out;
+      -o-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out; }
+    .image-gallery-block a:hover:before {
+      opacity: 1;
+      visibility: visible;
+      background: rgba(132, 189, 0, 0.6); }
+    .image-gallery-block a:hover:after {
+      visibility: visible;
+      opacity: 1; }
 
 .tile-block {
   margin: 0; }
@@ -8627,22 +8686,106 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     display: block; }
 
 .testimonial-block {
-  padding: 40px 0; }
-  .testimonial-block .testimonials .testimonial p {
+  padding: 40px 0 30px 0; }
+  @media (min-width: 768px) {
+    .testimonial-block {
+      padding: 60px 0 50px 0; } }
+  .testimonial-block .testimonials {
+    padding: 0 50px; }
+    .testimonial-block .testimonials .slick-arrow {
+      height: 35px;
+      width: 35px; }
+      @media (min-width: 768px) {
+        .testimonial-block .testimonials .slick-arrow {
+          height: 50px;
+          width: 50px; } }
+      .testimonial-block .testimonials .slick-arrow.slick-prev {
+        left: -5px; }
+        @media (min-width: 768px) {
+          .testimonial-block .testimonials .slick-arrow.slick-prev {
+            left: -30px; } }
+        @media (min-width: 992px) {
+          .testimonial-block .testimonials .slick-arrow.slick-prev {
+            left: -45px; } }
+        .testimonial-block .testimonials .slick-arrow.slick-prev:before {
+          content: '\f177';
+          font-size: 20px;
+          font-family: 'Font Awesome 5 Pro'; }
+          @media (min-width: 768px) {
+            .testimonial-block .testimonials .slick-arrow.slick-prev:before {
+              font-size: 25px; } }
+      .testimonial-block .testimonials .slick-arrow.slick-next {
+        right: -15px; }
+        @media (min-width: 768px) {
+          .testimonial-block .testimonials .slick-arrow.slick-next {
+            right: -35px; } }
+        @media (min-width: 992px) {
+          .testimonial-block .testimonials .slick-arrow.slick-next {
+            right: -45px; } }
+        .testimonial-block .testimonials .slick-arrow.slick-next:before {
+          content: '\f178';
+          font-size: 20px;
+          font-family: 'Font Awesome 5 Pro'; }
+          @media (min-width: 768px) {
+            .testimonial-block .testimonials .slick-arrow.slick-next:before {
+              font-size: 25px; } }
+    .testimonial-block .testimonials .slick-list .testimonial p {
+      color: white;
+      font-size: 1.3em;
+      line-height: 1.5em;
+      margin: 0 0 20px 0; }
+      @media (min-width: 768px) {
+        .testimonial-block .testimonials .slick-list .testimonial p {
+          font-size: 1.6em;
+          line-height: 1.5em; } }
+    .testimonial-block .testimonials .slick-list .testimonial span {
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+      color: rgba(255, 255, 255, 0.8); }
+      @media (min-width: 768px) {
+        .testimonial-block .testimonials .slick-list .testimonial span {
+          font-size: 1.2em;
+          line-height: 1.4em; } }
+    .testimonial-block .testimonials .slick-dots {
+      margin: 0; }
+      .testimonial-block .testimonials .slick-dots li button {
+        background: white !important;
+        border: 1px solid white !important; }
+        .testimonial-block .testimonials .slick-dots li button:before {
+          display: none; }
+      .testimonial-block .testimonials .slick-dots li.slick-active > button {
+        border-color: rgba(255, 255, 255, 0.7) !important;
+        background: rgba(255, 255, 255, 0.7) !important; }
+  .testimonial-block.white-background-block .testimonials .slick-arrow:hover:before, .testimonial-block.white-background-block .testimonials .slick-arrow:active:before, .testimonial-block.white-background-block .testimonials .slick-arrow:focus:before {
+    color: #84BD00; }
+  .testimonial-block.white-background-block .testimonials .slick-list .testimonial p {
     color: #666666;
-    font-size: 0.9em; }
-  .testimonial-block .testimonials .slick-prev:before {
-    font-family: FontAwesome;
-    font-size: 40px;
-    margin-right: 5px;
-    content: "\f104";
-    color: black; }
-  .testimonial-block .testimonials .slick-next:before {
-    font-family: FontAwesome;
-    font-size: 40px;
-    margin-left: 5px;
-    content: "\f105";
-    color: black; }
+    font-size: 1.3em;
+    line-height: 1.5em;
+    margin: 0 0 20px 0; }
+    @media (min-width: 768px) {
+      .testimonial-block.white-background-block .testimonials .slick-list .testimonial p {
+        font-size: 1.6em;
+        line-height: 1.5em; } }
+  .testimonial-block.white-background-block .testimonials .slick-list .testimonial span {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: #999999; }
+    @media (min-width: 768px) {
+      .testimonial-block.white-background-block .testimonials .slick-list .testimonial span {
+        font-size: 1.2em;
+        line-height: 1.4em; } }
+  .testimonial-block.white-background-block .testimonials .slick-dots {
+    margin: 0; }
+    .testimonial-block.white-background-block .testimonials .slick-dots li button {
+      background: #84BD00 !important; }
+      .testimonial-block.white-background-block .testimonials .slick-dots li button:before {
+        display: none; }
+    .testimonial-block.white-background-block .testimonials .slick-dots li.slick-active > button {
+      border-color: rgba(132, 189, 0, 0.7) !important;
+      background: rgba(132, 189, 0, 0.7) !important; }
 
 .upcoming-events-content-block {
   margin: 50px 0; }
@@ -9231,7 +9374,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 /*
 ** Woocommerce Generic
 */
-button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled], #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button {
+.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled], #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button {
   display: inline-block;
   padding: 15px 30px;
   background: #84BD00 !important;
@@ -9272,9 +9415,9 @@ button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce 
   -o-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out; }
   @media (min-width: 768px) {
-    button, .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled], #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button {
+    .woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button, .woocommerce #respond input#submit.disabled, .woocommerce #respond input#submit:disabled, .woocommerce #respond input#submit:disabled[disabled], .woocommerce a.button.disabled, .woocommerce a.button:disabled, .woocommerce a.button:disabled[disabled], .woocommerce button.button.disabled, .woocommerce button.button:disabled, .woocommerce button.button:disabled[disabled], .woocommerce input.button.disabled, .woocommerce input.button:disabled, .woocommerce input.button:disabled[disabled], #add_payment_method .wc-proceed-to-checkout a.checkout-button, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button {
       padding: 15px 45px; } }
-  button:hover, button:focus, button:active, .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce #respond input#submit:active, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce a.button:active, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce button.button:active, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce input.button:active, .woocommerce #respond input#submit.disabled:hover, .woocommerce #respond input#submit.disabled:focus, .woocommerce #respond input#submit.disabled:active, .woocommerce #respond input#submit:disabled:hover, .woocommerce #respond input#submit:disabled:focus, .woocommerce #respond input#submit:disabled:active, .woocommerce #respond input#submit:disabled[disabled]:hover, .woocommerce #respond input#submit:disabled[disabled]:focus, .woocommerce #respond input#submit:disabled[disabled]:active, .woocommerce a.button.disabled:hover, .woocommerce a.button.disabled:focus, .woocommerce a.button.disabled:active, .woocommerce a.button:disabled:hover, .woocommerce a.button:disabled:focus, .woocommerce a.button:disabled:active, .woocommerce a.button:disabled[disabled]:hover, .woocommerce a.button:disabled[disabled]:focus, .woocommerce a.button:disabled[disabled]:active, .woocommerce button.button.disabled:hover, .woocommerce button.button.disabled:focus, .woocommerce button.button.disabled:active, .woocommerce button.button:disabled:hover, .woocommerce button.button:disabled:focus, .woocommerce button.button:disabled:active, .woocommerce button.button:disabled[disabled]:hover, .woocommerce button.button:disabled[disabled]:focus, .woocommerce button.button:disabled[disabled]:active, .woocommerce input.button.disabled:hover, .woocommerce input.button.disabled:focus, .woocommerce input.button.disabled:active, .woocommerce input.button:disabled:hover, .woocommerce input.button:disabled:focus, .woocommerce input.button:disabled:active, .woocommerce input.button:disabled[disabled]:hover, .woocommerce input.button:disabled[disabled]:focus, .woocommerce input.button:disabled[disabled]:active, #add_payment_method .wc-proceed-to-checkout a.checkout-button:hover, #add_payment_method .wc-proceed-to-checkout a.checkout-button:focus, #add_payment_method .wc-proceed-to-checkout a.checkout-button:active, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button:focus, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button:active, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:hover, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:focus, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:active {
+  .woocommerce #respond input#submit:hover, .woocommerce #respond input#submit:focus, .woocommerce #respond input#submit:active, .woocommerce a.button:hover, .woocommerce a.button:focus, .woocommerce a.button:active, .woocommerce button.button:hover, .woocommerce button.button:focus, .woocommerce button.button:active, .woocommerce input.button:hover, .woocommerce input.button:focus, .woocommerce input.button:active, .woocommerce #respond input#submit.disabled:hover, .woocommerce #respond input#submit.disabled:focus, .woocommerce #respond input#submit.disabled:active, .woocommerce #respond input#submit:disabled:hover, .woocommerce #respond input#submit:disabled:focus, .woocommerce #respond input#submit:disabled:active, .woocommerce #respond input#submit:disabled[disabled]:hover, .woocommerce #respond input#submit:disabled[disabled]:focus, .woocommerce #respond input#submit:disabled[disabled]:active, .woocommerce a.button.disabled:hover, .woocommerce a.button.disabled:focus, .woocommerce a.button.disabled:active, .woocommerce a.button:disabled:hover, .woocommerce a.button:disabled:focus, .woocommerce a.button:disabled:active, .woocommerce a.button:disabled[disabled]:hover, .woocommerce a.button:disabled[disabled]:focus, .woocommerce a.button:disabled[disabled]:active, .woocommerce button.button.disabled:hover, .woocommerce button.button.disabled:focus, .woocommerce button.button.disabled:active, .woocommerce button.button:disabled:hover, .woocommerce button.button:disabled:focus, .woocommerce button.button:disabled:active, .woocommerce button.button:disabled[disabled]:hover, .woocommerce button.button:disabled[disabled]:focus, .woocommerce button.button:disabled[disabled]:active, .woocommerce input.button.disabled:hover, .woocommerce input.button.disabled:focus, .woocommerce input.button.disabled:active, .woocommerce input.button:disabled:hover, .woocommerce input.button:disabled:focus, .woocommerce input.button:disabled:active, .woocommerce input.button:disabled[disabled]:hover, .woocommerce input.button:disabled[disabled]:focus, .woocommerce input.button:disabled[disabled]:active, #add_payment_method .wc-proceed-to-checkout a.checkout-button:hover, #add_payment_method .wc-proceed-to-checkout a.checkout-button:focus, #add_payment_method .wc-proceed-to-checkout a.checkout-button:active, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button:hover, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button:focus, .woocommerce-cart .wc-proceed-to-checkout a.checkout-button:active, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:hover, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:focus, .woocommerce-checkout .wc-proceed-to-checkout a.checkout-button:active {
     outline: none;
     text-decoration: none;
     background: transparent !important;

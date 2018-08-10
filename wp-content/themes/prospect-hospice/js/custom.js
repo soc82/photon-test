@@ -1,34 +1,11 @@
 jQuery( document ).ready(function($) {
 
   /*
-  ** FAQ accordions
+  ** Flexible content template customisations
   */
-  jQuery('.faqs-block .faq-question').click(function() {
-    if(jQuery(this).parent().hasClass('active-faq')) {
-      jQuery(this).parent().removeClass('active-faq');
-    } else {
-      jQuery(this).parent().addClass('active-faq');
-    }
-  });
+  jQuery('.flexible-content-wrapper .block').first().addClass('first-block');
+  jQuery('.flexible-content-wrapper .block').last().addClass('last-block');
 
-
-  /*
-  ** Init slick for testimonials
-  */
-  jQuery('.testimonials').slick({
-    dots: true,
-    arrows: true,
-  });
-
-  jQuery(document).ready( function () {
-    jQuery('#applications-table').DataTable();
-  });
-  /*
-  ** Form Autosubmitter
-  */
-  jQuery('.autosubmit-field').change(function() {
-    jQuery(this).closest("form").submit();
-  });
 
   /*
   ** Setting cookie for font size accessibility options
@@ -58,17 +35,45 @@ jQuery( document ).ready(function($) {
   */
   new mlPushMenu( document.getElementById( 'mobile-menu' ), document.getElementById( 'trigger' ) );
 
-	// Yop Menu Search
-	jQuery( ".menu-search-form input" ).click(function() {
-		jQuery('.menu-item-search').addClass('active');
-	});
 
   /*
   ** Lightbox image gallery
   */
   new LuminousGallery(document.querySelectorAll(".lightbox-gallery"));
 
+  // Top Menu Search
+	jQuery( ".menu-search-form input" ).click(function() {
+		jQuery('.menu-item-search').addClass('active');
+	});
 
+  /*
+  ** FAQ accordions
+  */
+  jQuery('.faqs-block .faq-question').click(function() {
+    if(jQuery(this).parent().hasClass('active-faq')) {
+      jQuery(this).parent().removeClass('active-faq');
+    } else {
+      jQuery(this).parent().addClass('active-faq');
+    }
+  });
+
+  /*
+  ** Init slick for testimonials
+  */
+  jQuery('.testimonials').slick({
+    dots: false,
+    arrows: true,
+  });
+
+  jQuery(document).ready( function () {
+    jQuery('#applications-table').DataTable();
+  });
+  /*
+  ** Form Autosubmitter
+  */
+  jQuery('.autosubmit-field').change(function() {
+    jQuery(this).closest("form").submit();
+  });
 
 
 
