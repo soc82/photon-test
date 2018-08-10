@@ -1,12 +1,10 @@
 <?php
 $background_image = get_sub_field('background_image');
-//$background_colour = get_sub_field('background_colour');
 $heading = get_sub_field('heading');
 $content = get_sub_field('content');
 $buttons = get_sub_field('buttons');
 ?>
 <div class="cta-block block" style="
-	<?php // if ($background_colour) { echo 'background-color: ' . $background_colour . '; '; } ?>
 	<?php if ($background_image) { echo 'background-image: url(' . $background_image . ');'; } ?>
 	" >
 	<?php if ($background_image){ ?>

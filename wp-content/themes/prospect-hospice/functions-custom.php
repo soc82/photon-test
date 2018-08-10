@@ -96,3 +96,18 @@ function prospect_allow_shortcode_in_acf_fields( $value, $post_id, $field ) {
 }
 add_filter('acf/format_value/type=textarea', 'prospect_allow_shortcode_in_acf_fields', 10, 3);
 add_filter('acf/format_value/type=text', 'prospect_allow_shortcode_in_acf_fields', 10, 3);
+
+
+/*
+** Checks if the background colour is dark and returns white class (for themeing)
+** For use in flexible content field
+*/
+function prospect_dark_colour_class() {
+	$background_colour = get_sub_field('background_colour', get_the_ID());
+	$dark_colors = array('#bf3051', '#639144', '#525c63', '#f7941d');
+	$color_class = '';
+	if(in_array($background_colour, $dark_colors)){
+		$color_class = 'color-white';
+	}
+	return $color_class;
+}

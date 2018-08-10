@@ -183,6 +183,13 @@
   color: $black !important;
 }
 
+.color-white {
+  color: white !important;
+  p {
+    color: white !important;
+  }
+}
+
 .color-yellow {
   color: $yellow !important;
 }

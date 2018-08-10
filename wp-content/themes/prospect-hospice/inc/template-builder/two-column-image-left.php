@@ -7,9 +7,10 @@ $content = get_sub_field('content');
 $button_text = get_sub_field('button_text');
 $button_url = get_sub_field('button_url');
 $background_colour = get_sub_field('background_colour');
+$color_class = prospect_dark_colour_class();
 ?>
 
-<div class="two-column-block two-column-image-left " <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
+<div class="two-column-block two-column-image-left" <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-10 offset-md-1">
@@ -30,8 +31,8 @@ $background_colour = get_sub_field('background_colour');
 					</div>
 					<div class="col-12 col-md-7 ">
 						<div class="two-column-content">
-							<?php if($heading) echo '<h3>' . $heading . '</h3>' ?>
-							<?php if($content) echo $content; ?>
+							<?php if($heading) echo '<h3 class="' . $color_class .' ">' . $heading . '</h3>' ?>
+							<?php if($content) echo '<p class="' . $color_class .' ">' . $content . '</p>'; ?>
 							<?php if ($button_url && $button_text) : ?>
 								<a class="btn btn-arrow-right <?php if($background_colour == '#8dc63f') echo 'btn-yellow'; ?>" href="<?php echo $button_url; ?>"><?php echo $button_text; ?></a>
 							<?php endif; ?>

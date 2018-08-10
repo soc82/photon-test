@@ -1,6 +1,7 @@
 <?php
 $testimonial_items = get_sub_field('testimonial_items');
 $background_colour = get_sub_field('background_colour');
+$color_class = prospect_dark_colour_class();
 ?>
 
 <div class="testimonial-block block <?php if($background_colour == 'white') echo 'white-background-block'; ?>" style="background-color: <?php echo $background_colour; ?>" >
@@ -14,8 +15,8 @@ $background_colour = get_sub_field('background_colour');
 						$testimonial = get_field('testimonial', $testimonial_item->ID);
 					?>
 					<div class="testimonial">
-						<?php if($testimonial) echo '<p>' . $testimonial . '</p>'; ?>
-						<?php if($name) echo '<span class="name">' . $name . "</span>"; ?>
+						<?php if($testimonial) echo '<p class="' . $color_class . '">' . $testimonial . '</p>'; ?>
+						<?php if($name) echo '<span class="name ' . $color_class . '">' . $name . "</span>"; ?>
 					</div>
 				<?php endforeach; ?>
 				</div>
