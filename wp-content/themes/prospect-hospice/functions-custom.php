@@ -70,7 +70,7 @@ function prospect_get_downloads_filters() {
         'post_type' => 'downloads',
         'posts_per_page'  => -1,
         'order' => 'DESC',
-        'orderby' => 'date',
+        'orderby' => 'name',
     );
 
     $items = new WP_Query($query_args);

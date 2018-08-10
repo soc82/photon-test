@@ -2,7 +2,7 @@
 /*
 Plugin Name: Boson Web - Testimonials Module
 Plugin URI: http://bosonweb.net
-Description: This plugin allows you to manage your projects.
+Description: This plugin allows you to manage your testimonials.
 Version: 1.0
 Author: Boson Web
 Author URI: http://bosonweb.net
@@ -46,7 +46,7 @@ function custom_post_type_testimonials() {
     'hierarchical' => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 4,
-    'menu_icon'           => 'dashicons-yes',
+    'menu_icon'           => 'dashicons-format-status',
     'can_export'          => true,
     'has_archive'         => true, // index Page
     'exclude_from_search' => false,
@@ -72,4 +72,3 @@ add_action( 'init', 'custom_post_type_testimonials', 0 );
 LOAD ACF FIELDS
 *****************************/
 require_once('acf-fields.php');
-

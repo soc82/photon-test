@@ -1,82 +1,65 @@
+
+
+
 <?php
 /**
  * Template Name: Downloads Template
 **/
 
-$query_args = array(
-	'post_type' => 'downloads',
-	'posts_per_page'  => -1,
-	'order' => 'DESC',
-	'orderby' => 'date',
-);
-
-if (isset($_GET['downloads_search']) && $_GET['downloads_search']) {
-	$query_args['s'] = $_GET['downloads_search'];
-}
-
-if (isset($_GET['department']) && $_GET['department'] && $_GET['department'] != 'all') {
-	$query_args['tax_query'] = [
-		[
-          	'taxonomy' => 'department',
-          	'field'    => 'slug',
-          	'terms'    => $_GET['department'],
-      	]
-	];
-}
-
-$items = new WP_Query($query_args);
-
-$terms = prospect_get_downloads_filters();
 
 get_header(); ?>
 
-<?php get_template_part('inc/template-builder/hero-banner'); ?>
+<div class="documents-wrapper">
+	<div class="container">
 
-<div class="container">
-
-	<div class="row filters">
-		<div class="col-12">
-			<form method="get">
-				Search: 
-				<input value="<?php echo (isset($_GET['downloads_search']) ? $_GET['downloads_search'] : '') ?>" class="autosubmit-field" type="text" name="downloads_search">
-				<select class="autosubmit-field" name="department">
-					<option value="all">All</option>
-					<?php foreach($terms as $term) : ?>
-						<option 
-							value="<?php echo $term->slug; ?>"
-							<?php if (isset($_GET['department']) && $_GET['department'] == $term->slug) { echo ' selected '; } ?>
-							>
-							<?php echo $term->name; ?>	
-						</option>
-					<?php endforeach; ?>
-				</select>
-			</form>
+		<div class="row">
+			<div class="col-12">
+				<form method="get" class="document-filter">
+					<label for="document-search">Search:</label>
+					<input value="<?php echo (isset($_GET['downloads_search']) ? $_GET['downloads_search'] : '') ?>" class="autosubmit-field" id="document-search" type="text" name="downloads_search">
+						<?php
+						$departments = get_terms(array(
+						    'taxonomy' => 'department',
+						    'hide_empty' => true,
+						));
+						if($departments):
+							echo '<select class="autosubmit-field" name="department">';
+								echo '<option value="all">All</option>';
+									foreach($departments as $department) : ?>
+										<option
+											value="<?php echo $department->slug; ?>"
+											<?php if (isset($_GET['department']) && $_GET['department'] == $department->slug) { echo ' selected '; } ?>
+											>
+											<?php echo $department->name; ?>
+										</option>
+							<?php endforeach;
+						echo '</select>';
+					endif; ?>
+				</form>
+			</div>
 		</div>
+		<?php
+		$categories = get_terms( array(
+		    'taxonomy' => 'download-category',
+		    'hide_empty' => true,
+		) );
+		if($categories):
+			echo '<div class="row document-categories text-center">';
+				foreach($categories as $category):
+					echo '<div class="col-6 col-md-4 col-lg-3 inline-block-replace">';
+						echo '<a href="' . get_term_link($category->term_id) . '">';
+							echo '<div class="document-icon"><i class="fal fa-folder-open"></i></div>';
+							echo '<p>' . $category->name . '</p>';
+						echo '</a>';
+					echo '</div>';
+				endforeach;
+			echo '</div>';
+		else:
+			// get all posts here
+		endif;
+		?>
+
 	</div>
-
-	<?php if ( $items->posts ) : ?>
-		<div class="row downloads-list">
-			<?php foreach ($items->posts as $item) : ?>
-				<?php
-				$file_name = get_the_title($item->ID);
-				$file = get_field('file', $item->ID);
-				$file_description = get_field('file_description', $item->ID);
-				?>
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div class="item">
-						<a href="<?php echo $file;?>"><h5><?php echo $file_name;?></h5></a>
-						<?php echo $file_description; ?>
-						<div class="row actions">
-							<a href="<?php echo $file;?>" class="btn">Download</a>
-						</div>
-					</div>
-				</div>
-			<?php endforeach;?>
-		</div>
-	<?php endif; ?>
-
-	<?php get_template_part('template-parts/benefits-section'); ?>
-	
 </div>
 
 <?php get_footer(); ?>

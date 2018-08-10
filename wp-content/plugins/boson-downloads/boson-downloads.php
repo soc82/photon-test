@@ -2,7 +2,7 @@
 /*
 Plugin Name: Boson Web - Downloads Module
 Plugin URI: http://bosonweb.net
-Description: This plugin allows you to manage your projects.
+Description: This plugin allows you to manage your downloads.
 Version: 1.0
 Author: Boson Web
 Author URI: http://bosonweb.net
@@ -43,10 +43,10 @@ function custom_post_type_downloads() {
     'show_ui'             => true,
     'show_in_menu'        => true,
     'show_in_nav_menus'   => true,
-    'hierarchical' => true,
+    'hierarchical'        => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 4,
-    'menu_icon'           => 'dashicons-yes',
+    'menu_icon'           => 'dashicons-download',
     'can_export'          => true,
     'has_archive'         => true, // index Page
     'exclude_from_search' => false,
@@ -81,23 +81,22 @@ function create_department_tax() {
 
 add_action( 'init', 'create_department_tax' );
 
-function create_service_tax() {
+function create_doc_category_tax() {
   register_taxonomy(
-    'service',
+    'download-category',
     ['downloads'],
     array(
-      'label' => __( 'Service' ),
-      'rewrite' => array( 'slug' => 'service' ),
+      'label' => __( 'Category' ),
+      'rewrite' => array( 'slug' => 'document-category' ),
       'hierarchical' => true,
     )
   );
 }
 
-add_action( 'init', 'create_service_tax' );
+add_action( 'init', 'create_doc_category_tax' );
 
 
 /****************************
 LOAD ACF FIELDS
 *****************************/
 require_once('acf-fields.php');
-

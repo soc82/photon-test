@@ -2,7 +2,7 @@
 /*
 Plugin Name: Boson Web - News API Module
 Plugin URI: http://bosonweb.net
-Description: This plugin allows you to manage roles and applications.
+Description: This plugin connects your Unitii install with your wordpress website.
 Version: 1.0
 Author: Boson Web
 Author URI: http://bosonweb.net

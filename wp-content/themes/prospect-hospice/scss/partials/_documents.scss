@@ -1,0 +1,52 @@
+.documents-wrapper {
+	margin:0 0 40px 0;
+	.document-filter {
+		margin: 30px 0;
+	}
+	.document-categories {
+		display: block;
+		a {
+			display: block;
+			position: relative;
+			text-align: center;
+			margin-bottom: 30px;
+			.document-icon {
+				height: 100px;
+				width: 100px;
+				border-radius: 50%;
+				background: $yellow;
+				display: inline-block;
+				vertical-align: top;
+				margin:0 auto;
+				@include transition('background' 0.3s ease-in-out);
+				i {
+					color: $black;
+					font-size: 2.8em;
+					line-height: 100px;
+					text-align: center;
+					display: block;
+					@include transition('color' 0.3s ease-in-out);
+
+				}
+			}
+			p {
+				margin: 10px 0 0 0;
+				font-size: 1.3em;
+				line-height: 1.5em;
+				color: $black;
+				@include media-breakpoint-up(md){
+					font-size: 1.5em;
+					line-height: 1.6em;
+				}
+			}
+			&:hover {
+				.document-icon {
+					background: $green;
+					i {
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}

@@ -45,7 +45,7 @@ function custom_post_type_jobs() {
     'hierarchical' => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 4,
-    'menu_icon'           => 'dashicons-yes',
+    'menu_icon'           => 'dashicons-clipboard',
     'can_export'          => true,
     'has_archive'         => false, // index Page
     'exclude_from_search' => false,

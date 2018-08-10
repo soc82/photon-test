@@ -2,7 +2,7 @@
 /*
 Plugin Name: Boson Web - Campaigns Module
 Plugin URI: http://bosonweb.net
-Description: This plugin allows you to manage education courses.
+Description: This plugin allows you to manage campaigns courses.
 Version: 1.0
 Author: Boson Web
 Author URI: http://bosonweb.net
@@ -45,7 +45,7 @@ function custom_post_type_campaigns() {
     'hierarchical' => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 4,
-    'menu_icon'           => 'dashicons-yes',
+    'menu_icon'           => 'dashicons-megaphone',
     'can_export'          => true,
     'has_archive'         => false, // index Page
     'exclude_from_search' => false,
@@ -86,4 +86,3 @@ function campaigns_single_template($single) {
 LOAD ACF FIELDS
 *****************************/
 // require_once('acf-fields.php');
-

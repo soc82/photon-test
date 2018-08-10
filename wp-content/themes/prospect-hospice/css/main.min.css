@@ -7078,6 +7078,12 @@ a {
   .circle-arrow:hover {
     background: #f3cc30; }
 
+.inline-block-replace {
+  float: none;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -4px; }
+
 .inner-page-wrapper {
   margin: 20px 0; }
   .inner-page-wrapper .intro p {
@@ -9426,6 +9432,57 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 .single-post h4 {
   margin-bottom: 30px; }
 
+.documents-wrapper {
+  margin: 0 0 40px 0; }
+  .documents-wrapper .document-filter {
+    margin: 30px 0; }
+  .documents-wrapper .document-categories {
+    display: block; }
+    .documents-wrapper .document-categories a {
+      display: block;
+      position: relative;
+      text-align: center;
+      margin-bottom: 30px; }
+      .documents-wrapper .document-categories a .document-icon {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        background: #f3cc30;
+        display: inline-block;
+        vertical-align: top;
+        margin: 0 auto;
+        -webkit-transition: background 0.3s ease-in-out;
+        -khtml-transition: background 0.3s ease-in-out;
+        -moz-transition: background 0.3s ease-in-out;
+        -ms-transition: background 0.3s ease-in-out;
+        -o-transition: background 0.3s ease-in-out;
+        transition: background 0.3s ease-in-out; }
+        .documents-wrapper .document-categories a .document-icon i {
+          color: #222222;
+          font-size: 2.8em;
+          line-height: 100px;
+          text-align: center;
+          display: block;
+          -webkit-transition: color 0.3s ease-in-out;
+          -khtml-transition: color 0.3s ease-in-out;
+          -moz-transition: color 0.3s ease-in-out;
+          -ms-transition: color 0.3s ease-in-out;
+          -o-transition: color 0.3s ease-in-out;
+          transition: color 0.3s ease-in-out; }
+      .documents-wrapper .document-categories a p {
+        margin: 10px 0 0 0;
+        font-size: 1.3em;
+        line-height: 1.5em;
+        color: #222222; }
+        @media (min-width: 768px) {
+          .documents-wrapper .document-categories a p {
+            font-size: 1.5em;
+            line-height: 1.6em; } }
+      .documents-wrapper .document-categories a:hover .document-icon {
+        background: #84BD00; }
+        .documents-wrapper .document-categories a:hover .document-icon i {
+          color: white; }
+
 /*
 ** Woocommerce Generic
 */
@@ -9480,7 +9537,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     color: #84BD00 !important; }
 
 @media (min-width: 768px) {
-  body.woocommerce-page .site-header {
+  body.woocommerce-page .site-header, .page-template-page-downloads .site-header {
     box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.5); } }
 
 body.post-type-archive-product .page-inner-wrapper, body.tax-product_cat .page-inner-wrapper, body.single-product .page-inner-wrapper, body.woocommerce-cart .page-inner-wrapper {

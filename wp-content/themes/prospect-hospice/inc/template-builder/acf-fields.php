@@ -2079,9 +2079,23 @@ acf_add_local_field_group(array(
 	'location' => array(
 		array(
 			array(
-				'param' => 'post_type',
+				'param' => 'page_template',
 				'operator' => '==',
-				'value' => 'page',
+				'value' => 'default',
+			),
+		),
+		array(
+			array(
+				'param' => 'page_template',
+				'operator' => '==',
+				'value' => 'templates/flexible-template.php',
+			),
+		),
+		array(
+			array(
+				'param' => 'page_template',
+				'operator' => '==',
+				'value' => 'templates/page-jobs.php',
 			),
 		),
 	),
