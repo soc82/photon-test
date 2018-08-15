@@ -9583,6 +9583,23 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
             font-size: 1em;
             padding: 15px 40px; } }
 
+.error404 .error-404-large {
+  font-size: 4.5em;
+  line-height: 1.6em;
+  color: #222222; }
+  @media (min-width: 768px) {
+    .error404 .error-404-large {
+      font-size: 7em;
+      line-height: 1.2em; } }
+.error404 .page-title {
+  font-size: 1.6em;
+  margin: 0 0 5px 0; }
+  @media (min-width: 768px) {
+    .error404 .page-title {
+      font-size: 1.9em; } }
+.error404 .page-content {
+  margin-bottom: 50px; }
+
 /*
 ** Woocommerce Generic
 */
@@ -9637,7 +9654,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     color: #84BD00 !important; }
 
 @media (min-width: 768px) {
-  body.woocommerce-page .site-header, body.page-template-page-downloads .site-header, body.tax-download-category .site-header {
+  body.woocommerce-page .site-header, body.page-template-page-downloads .site-header, body.tax-download-category .site-header, body.error404 .site-header {
     box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.5); } }
 
 body.post-type-archive-product .page-inner-wrapper, body.tax-product_cat .page-inner-wrapper, body.single-product .page-inner-wrapper, body.woocommerce-cart .page-inner-wrapper {
