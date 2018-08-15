@@ -24,25 +24,6 @@ acf_add_local_field_group(array(
 			'max_size' => '',
 			'mime_types' => '',
 		),
-		array(
-			'key' => 'field_5b6058384c950',
-			'label' => 'File Description',
-			'name' => 'file_description',
-			'type' => 'textarea',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'default_value' => '',
-			'placeholder' => '',
-			'maxlength' => '',
-			'rows' => '',
-			'new_lines' => '',
-		),
 	),
 	'location' => array(
 		array(
