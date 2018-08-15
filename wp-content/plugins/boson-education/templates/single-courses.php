@@ -17,61 +17,89 @@ $cost = get_field('cost');
 
 get_header(); ?>
 
-<div class="container">
-	<div class="row">
-		<div class="col-12">
-			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-				<div class="page-header">
-					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-					<?php if ($sub_text) : ?>
-						<h2><?php echo $sub_text; ?></h2>
-					<?php endif; ?>
-					<ul class="course-details">
+<div class="inner-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-lg-7">
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<div class="page-header">
+						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+					</div>
+					
+					<div class="entry-content">
+						<?php the_content();?>
+					</div>
+
+					<div class="course-cta">
+						<div class="row">
+							<div class="col-12">
+								<a href="/our-courses/" class="btn btn-light-grey"><i class="fal fa-arrow-left"></i> Back to our courses</a>
+								<a hrf="#" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
+							</div>
+						</div>
+					</div>
+				</article>
+			</div>
+
+			<div class="col-12 offset-lg-1 col-lg-4">
+				<div class="sidebar-sub-menu bg-yellow">
+					<div class="sidebar-inner">
+						<?php if ($sub_text) : ?>
+							<h3><?php echo $sub_text; ?></h3>
+						<?php endif; ?>
+						
 						<?php if ($dates) : ?>
-							<li>Date(s): <?php echo $date_string; ?></li>
+							<div class="dates"><strong>Date(s):</strong><br /> <?php echo $date_string; ?></div>
 						<?php endif; ?>
 						<?php if ($start_time && $end_time) : ?>
-							<li>Time: <?php echo $start_time . ' - ' . $end_time; ?></li>
+							<div class="start"><strong>Time:</strong><br /> <?php echo $start_time . ' - ' . $end_time; ?></div>
 						<?php endif; ?>
 						<?php if ($venue) : ?>
-							<li>Venue: <?php echo $venue; ?></li>
+							<div class="venue"><strong>Venue:</strong><br /> <?php echo $venue; ?></div>
 						<?php endif; ?>
 						<?php if ($cost) : ?>
-							<li>Cost: <?php echo $cost; ?></li>
+							<div class="cost"><strong>Cost:</strong><br /> <?php echo $cost; ?></div>
 						<?php endif; ?>
-					</ul>
-				</div>
-				
-				<div class="entry-content">
-					<?php the_content();?>
-				</div>
-
-				<div class="course-cta">
-					<div class="row">
-						<div class="col-12">
-							<a hef="#" class="btn">Book or enquire</a>
-						</div>
+						<a hef="#" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 					</div>
 				</div>
+			</div>
 
-				<?php if ($related_courses) : ?>
-					<div class="related-courses">
-						<h3>Related courses</h3>
-						<div class="row">
-						<?php foreach ($related_courses as $related_course) : ?>
-							<div class="col-md-4 col-12">
-								<a href="<?php echo get_permalink($related_course->ID); ?>">
-									<h4><?php echo $related_course->post_title; ?></h4>
-								</a>
-							</div>
-						<?php endforeach; ?>
-						</div>
-					</div>
-				<?php endif; ?>
-
-			</article>
 		</div>
 	</div>
-</div>
+
+	<?php if ($related_courses) : ?>
+		<div class="container ">
+			<div class="related-courses">
+				<div class="upcoming-events-content-block">
+					<div class="row">
+						<div class="col-12">
+							<h3>Related courses</h3>
+						</div>
+					</div>
+					
+					<?php foreach ($related_courses as $post) : ?>
+						<div class="upcoming-event">
+							
+							<div class="row">
+								<div class="d-none d-md-block col-md-1">
+									<div class="event-icon"><i class="fal fa-calendar-alt"></i></div>
+								</div>
+								<div class="col-12 col-md-7 col-lg-8">
+									<!-- <span class="start-date">Start</span> -->
+									<h3><?php echo  $post->post_title; ?></h3>
+								</div>
+								<div class="col-12 col-md-4 col-lg-3">
+									<a class="btn btn-arrow-right" href="<?php echo get_permalink($post); ?>">Apply</a>
+								</div>
+							</div>
+							
+						</div>
+					<?php endforeach;?>
+					
+				</div>
+			</div>
+		</div>
+	<?php endif; ?>
 
 <?php get_footer(); ?>
