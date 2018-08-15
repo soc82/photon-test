@@ -67,6 +67,7 @@ function custom_post_type_downloads() {
 */
 add_action( 'init', 'custom_post_type_downloads', 0 );
 
+/*
 function create_department_tax() {
   register_taxonomy(
     'department',
@@ -78,8 +79,8 @@ function create_department_tax() {
     )
   );
 }
-
 add_action( 'init', 'create_department_tax' );
+*/
 
 function create_doc_category_tax() {
   register_taxonomy(
@@ -92,8 +93,45 @@ function create_doc_category_tax() {
     )
   );
 }
-
 add_action( 'init', 'create_doc_category_tax' );
+
+
+/*
+** Get the file type and return relevant FA icon
+*/
+function prospect_file_type_icon($post_id) {
+  $icon = '';
+  $file = get_field('file', $post_id);
+  if(!$file){
+    return 'fa-file';
+  }
+  $type = $file['subtype'];
+  $images = array('jpeg','png','jpe','jpg','gif','bmp','ico','tiff','tif','svg','svgz');
+  $text = array('txt','htm','html');
+  $archives = array('zip','rar','exe','msi','cab');
+  $audio_video = array('mp3','qt', 'mov');
+
+  if(in_array($file['subtype'],$images)) {
+    $icon = 'fa-file-image';
+  } elseif(in_array($file['subtype'],$text)) {
+    $icon = 'fa-file-alt';
+  } elseif(in_array($file['subtype'],$archives)) {
+    $icon = 'fa-file-archive';
+  } elseif(in_array($file['subtype'],$audio_video)) {
+    $icon = 'fa-file-audio';
+  } elseif($file['subtype'] == 'pdf') {
+    $icon = 'fa-file-pdf';
+  } elseif($file['subtype'] == 'doc') {
+    $icon = 'fa-file-word';
+  } elseif($file['subtype'] == 'xls') {
+    $icon = 'fa-file-excel';
+  } elseif($file['subtype'] == 'ppt') {
+    $icon = 'fa-file-powerpoint';
+  } else {
+    $icon = 'fa-file';
+  }
+  return $icon;
+}
 
 
 /****************************

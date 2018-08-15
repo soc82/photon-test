@@ -7082,7 +7082,15 @@ a {
   float: none;
   display: inline-block;
   vertical-align: top;
-  margin-right: -4px; }
+  margin-right: -4px;
+  flex: none; }
+
+.inline-block-replace-middle {
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: -4px;
+  flex: none; }
 
 .inner-page-wrapper {
   margin: 20px 0; }
@@ -9433,11 +9441,68 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   margin-bottom: 30px; }
 
 .documents-wrapper {
-  margin: 0 0 40px 0; }
+  margin: 30px 0 40px 0; }
+  .documents-wrapper .entry-title {
+    font-size: 1.5em;
+    line-height: 1.6em; }
+    @media (min-width: 768px) {
+      .documents-wrapper .entry-title {
+        font-size: 1.8em;
+        line-height: 1.6em; } }
+    @media (min-width: 992px) {
+      .documents-wrapper .entry-title {
+        display: inline-block;
+        vertical-align: top;
+        width: 40%;
+        margin-right: 3%; } }
   .documents-wrapper .document-filter {
-    margin: 30px 0; }
+    margin: 20px 0 50px 0; }
+    @media (min-width: 768px) {
+      .documents-wrapper .document-filter {
+        margin: 0; } }
+    @media (min-width: 992px) {
+      .documents-wrapper .document-filter {
+        text-align: right;
+        display: inline-block;
+        vertical-align: top;
+        width: 55%;
+        margin: 0; } }
+    .documents-wrapper .document-filter p {
+      margin: 0 0 10px 0;
+      font-size: 1.2em; }
+    .documents-wrapper .document-filter .document-search {
+      width: 100%;
+      margin-bottom: 10px; }
+      @media (min-width: 768px) {
+        .documents-wrapper .document-filter .document-search {
+          margin-bottom: 0;
+          width: 165px;
+          height: 47px;
+          font-size: 0.9em; } }
+    .documents-wrapper .document-filter .document-category-dropdown {
+      width: 100%;
+      margin-bottom: 10px; }
+      @media (min-width: 768px) {
+        .documents-wrapper .document-filter .document-category-dropdown {
+          height: 45px;
+          width: 165px;
+          font-size: 0.9em; } }
+    .documents-wrapper .document-filter .btn, .documents-wrapper .document-filter .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-wrapper .document-filter .gform_button {
+      font-size: 0.9em;
+      padding-right: 35px;
+      padding-left: 35px; }
+      @media (min-width: 768px) {
+        .documents-wrapper .document-filter .btn, .documents-wrapper .document-filter .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-wrapper .document-filter .gform_button {
+          font-size: 0.8em; } }
+      .documents-wrapper .document-filter .btn i, .documents-wrapper .document-filter .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button i, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-wrapper .document-filter .gform_button i {
+        padding-right: 3px;
+        margin-left: -5px; }
   .documents-wrapper .document-categories {
-    display: block; }
+    display: block;
+    margin-top: 15px; }
+    @media (min-width: 768px) {
+      .documents-wrapper .document-categories {
+        margin-top: 50px; } }
     .documents-wrapper .document-categories a {
       display: block;
       position: relative;
@@ -9459,7 +9524,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         transition: background 0.3s ease-in-out; }
         .documents-wrapper .document-categories a .document-icon i {
           color: #222222;
-          font-size: 2.8em;
+          font-size: 2.4em;
           line-height: 100px;
           text-align: center;
           display: block;
@@ -9482,6 +9547,41 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         background: #84BD00; }
         .documents-wrapper .document-categories a:hover .document-icon i {
           color: white; }
+  .documents-wrapper .document-listing {
+    margin-top: 15px;
+    width: 100%;
+    margin-bottom: 50px; }
+    @media (min-width: 768px) {
+      .documents-wrapper .document-listing {
+        margin-top: 50px; } }
+    .documents-wrapper .document-listing .download-item {
+      border-bottom: 2px dashed rgba(102, 102, 102, 0.2);
+      padding-top: 25px;
+      padding-bottom: 25px; }
+      .documents-wrapper .document-listing .download-item .download-icon i {
+        font-size: 2.5em; }
+        @media (min-width: 768px) {
+          .documents-wrapper .document-listing .download-item .download-icon i {
+            font-size: 3em; } }
+      .documents-wrapper .document-listing .download-item h3 {
+        font-size: 1.25em;
+        line-height: 1.4em;
+        margin: 0 0 5px 0; }
+        @media (min-width: 768px) {
+          .documents-wrapper .document-listing .download-item h3 {
+            padding-left: 10px; } }
+        @media (min-width: 992px) {
+          .documents-wrapper .document-listing .download-item h3 {
+            padding-left: 0;
+            font-size: 1.4em;
+            margin: 0; } }
+      .documents-wrapper .document-listing .download-item .btn, .documents-wrapper .document-listing .download-item .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-wrapper .document-listing .download-item .gform_button {
+        font-size: 0.9em;
+        padding: 10px 25px; }
+        @media (min-width: 768px) {
+          .documents-wrapper .document-listing .download-item .btn, .documents-wrapper .document-listing .download-item .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-wrapper .document-listing .download-item .gform_button {
+            font-size: 1em;
+            padding: 15px 40px; } }
 
 /*
 ** Woocommerce Generic
@@ -9537,7 +9637,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     color: #84BD00 !important; }
 
 @media (min-width: 768px) {
-  body.woocommerce-page .site-header, .page-template-page-downloads .site-header {
+  body.woocommerce-page .site-header, body.page-template-page-downloads .site-header, body.tax-download-category .site-header {
     box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.5); } }
 
 body.post-type-archive-product .page-inner-wrapper, body.tax-product_cat .page-inner-wrapper, body.single-product .page-inner-wrapper, body.woocommerce-cart .page-inner-wrapper {
