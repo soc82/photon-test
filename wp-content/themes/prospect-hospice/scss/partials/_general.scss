@@ -154,14 +154,14 @@
       margin-left:34px;
     }
     &:hover a, &:hover a:after {
-      color:$teal !important;
+      color:white !important;
     }
     ul.sub-menu,h6,p {
       background-color: $teal !important;
       color: white !important;
     }
 }.nav-teal.current-menu-item a,.nav-teal.current-menu-item a:after  {
-  color:$teal !important;
+  color:white !important;
 }
 
 .nav-burgundy {
