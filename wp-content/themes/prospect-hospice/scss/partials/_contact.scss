@@ -1,0 +1,9 @@
+.page-template-page-contact {
+  @include media-breakpoint-up(md) {
+
+  }
+  .contact-map {
+    width: 100%;
+    height: 400px;
+  }
+}
