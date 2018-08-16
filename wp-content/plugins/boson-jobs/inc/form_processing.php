@@ -5,17 +5,21 @@ Job application form
 *****************************/
 
 // Redirect the user back to the form (with job_id) after login/register
-add_filter( 'woocommerce_login_redirect', 'prospect_woocommerce_login_reg_redirect', 10, 1 ); 
-add_filter( 'woocommerce_registration_redirect', 'prospect_woocommerce_login_reg_redirect', 10, 1 );      
+add_filter( 'woocommerce_login_redirect', 'prospect_woocommerce_login_reg_redirect', 10, 1 );
+add_filter( 'woocommerce_registration_redirect', 'prospect_woocommerce_login_reg_redirect', 10, 1 );
 
-function prospect_woocommerce_login_reg_redirect( $redirect ) { 
+function prospect_woocommerce_login_reg_redirect( $redirect ) {
 	if (isset($_GET['job_id'])) {
+			$form_page = get_field('job_applciation_form_page', 'options');
+			if(!$form_page){
+				$form_page = site_url('job-application-form/');
+			}
 	    $job_id = $_GET['job_id'];
-	    $redirect = '/job-application-form/?job_id=' . $job_id;
+	    $redirect = $form_page . '?job_id=' . $job_id;
 	}
-    return $redirect; 
-}; 
-// Form submission         
+    return $redirect;
+};
+// Form submission
 add_action( 'gform_after_submission_2', 'after_submission', 10, 2 );
 
 function after_submission($entry, $form) {
