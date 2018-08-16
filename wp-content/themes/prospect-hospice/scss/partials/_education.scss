@@ -3,7 +3,7 @@
 	.month {
 		border-bottom: none !important;
 		padding:0 !important;
-		margin-top: 70px;
+		margin-top: 40px;
 		h2 {
 			color:$light-grey;
 		}
@@ -15,5 +15,14 @@
 .single-courses {
 	.course-cta {
 		margin: 30px 0 50px 0;
+		.btn {
+			width: 100%;
+			margin: 10px 0;
+			text-align: center;
+			@include media-breakpoint-up(md) {
+				width: auto;
+				text-align: inherit;	
+			}	
+		}
 	}
 }

@@ -117,6 +117,10 @@ form {
 	}
 }
 
+.gform_wrapper .field_description_below .gfield_description {
+	padding-top:0 !important;
+}
+
 /* Save & Continue */
 .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
 	padding: 10px !important;

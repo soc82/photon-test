@@ -7420,6 +7420,9 @@ form {
     .gform_confirmation_wrapper .gform_confirmation_message a {
       color: #84BD00; }
 
+.gform_wrapper .field_description_below .gfield_description {
+  padding-top: 0 !important; }
+
 /* Save & Continue */
 .gform_wrapper input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]) {
   padding: 10px !important; }
@@ -7593,13 +7596,21 @@ div.form_saved_message div.form_saved_message_emailform form input[type=submit] 
 .page-template-page-education .month {
   border-bottom: none !important;
   padding: 0 !important;
-  margin-top: 70px; }
+  margin-top: 40px; }
   .page-template-page-education .month h2 {
     color: #999999; }
 
 /* Detaul page */
 .single-courses .course-cta {
   margin: 30px 0 50px 0; }
+  .single-courses .course-cta .btn, .single-courses .course-cta .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-courses .course-cta .gform_button {
+    width: 100%;
+    margin: 10px 0;
+    text-align: center; }
+    @media (min-width: 768px) {
+      .single-courses .course-cta .btn, .single-courses .course-cta .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-courses .course-cta .gform_button {
+        width: auto;
+        text-align: inherit; } }
 
 /* Social sharing buttons */
 .social {
@@ -9013,6 +9024,66 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   border-right: 10px solid transparent;
   border-top: 10px solid #222222; }
 
+/* Top Filter */
+.top-filter-wrapper {
+  margin: 30px 0 40px 0; }
+  .top-filter-wrapper .entry-title {
+    font-size: 1.5em;
+    line-height: 1.6em; }
+    @media (min-width: 768px) {
+      .top-filter-wrapper .entry-title {
+        font-size: 1.8em;
+        line-height: 1.6em; } }
+    @media (min-width: 992px) {
+      .top-filter-wrapper .entry-title {
+        display: inline-block;
+        vertical-align: top;
+        width: 40%;
+        margin-right: 3%; } }
+  .top-filter-wrapper .top-filter {
+    margin: 20px 0 50px 0; }
+    @media (min-width: 768px) {
+      .top-filter-wrapper .top-filter {
+        margin: 0; } }
+    @media (min-width: 992px) {
+      .top-filter-wrapper .top-filter {
+        text-align: right;
+        display: inline-block;
+        vertical-align: top;
+        width: 55%;
+        margin: 0;
+        float: right; } }
+    .top-filter-wrapper .top-filter p {
+      margin: 0 0 10px 0;
+      font-size: 1.2em; }
+    .top-filter-wrapper .top-filter .search {
+      width: 100%;
+      margin-bottom: 10px; }
+      @media (min-width: 768px) {
+        .top-filter-wrapper .top-filter .search {
+          margin-bottom: 0;
+          width: 165px;
+          height: 47px;
+          font-size: 0.9em; } }
+    .top-filter-wrapper .top-filter .category-dropdown {
+      width: 100%;
+      margin-bottom: 10px; }
+      @media (min-width: 768px) {
+        .top-filter-wrapper .top-filter .category-dropdown {
+          height: 45px;
+          width: 165px;
+          font-size: 0.9em; } }
+    .top-filter-wrapper .top-filter .btn, .top-filter-wrapper .top-filter .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .top-filter-wrapper .top-filter .gform_button {
+      font-size: 0.9em;
+      padding-right: 35px;
+      padding-left: 35px; }
+      @media (min-width: 768px) {
+        .top-filter-wrapper .top-filter .btn, .top-filter-wrapper .top-filter .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .top-filter-wrapper .top-filter .gform_button {
+          font-size: 0.8em; } }
+      .top-filter-wrapper .top-filter .btn i, .top-filter-wrapper .top-filter .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button i, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .top-filter-wrapper .top-filter .gform_button i {
+        padding-right: 3px;
+        margin-left: -5px; }
+
 .sidebar-sub-menu {
   position: relative;
   margin: 20px 0 30px 0; }
@@ -9031,7 +9102,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     transform-origin: 100% 0; }
   .sidebar-sub-menu .sidebar-inner {
     padding: 25px; }
-    @media (min-width: 992px) {
+    @media (min-width: 1200px) {
       .sidebar-sub-menu .sidebar-inner {
         padding: 35px; } }
     .sidebar-sub-menu .sidebar-inner h3 {
@@ -9041,6 +9112,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       @media (min-width: 992px) {
         .sidebar-sub-menu .sidebar-inner h3 {
           font-size: 1.75em; } }
+    .sidebar-sub-menu .sidebar-inner a {
+      color: #222222;
+      font-weight: bold; }
+    .sidebar-sub-menu .sidebar-inner .btn, .sidebar-sub-menu .sidebar-inner .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .sidebar-sub-menu .sidebar-inner .gform_button {
+      color: white; }
     .sidebar-sub-menu .sidebar-inner p, .sidebar-sub-menu .sidebar-inner div {
       margin: 20px 0;
       font-size: 1.2em;
@@ -9653,13 +9729,21 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 .page-template-page-education .month {
   border-bottom: none !important;
   padding: 0 !important;
-  margin-top: 70px; }
+  margin-top: 40px; }
   .page-template-page-education .month h2 {
     color: #999999; }
 
 /* Detaul page */
 .single-courses .course-cta {
   margin: 30px 0 50px 0; }
+  .single-courses .course-cta .btn, .single-courses .course-cta .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-courses .course-cta .gform_button {
+    width: 100%;
+    margin: 10px 0;
+    text-align: center; }
+    @media (min-width: 768px) {
+      .single-courses .course-cta .btn, .single-courses .course-cta .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-courses .course-cta .gform_button {
+        width: auto;
+        text-align: inherit; } }
 
 .page-template-page-contact .contact-map {
   width: 100%;
