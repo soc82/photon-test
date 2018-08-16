@@ -365,6 +365,21 @@
 	}
 }
 
+// Team block
+.team-block {
+	padding: 60px 0;
+	h2 {
+		margin-bottom: 10px;
+	}
+	.intro {
+		font-size: 1.5em;
+		line-height: 1.3em;
+		color:$black;
+		opacity: 0.5;
+		margin:0 0 40px 0;
+	}
+}
+
 // FAQs
 .faqs-block {
 	.section-heading {

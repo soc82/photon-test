@@ -26,7 +26,8 @@
 	}
 	.job_title {
 		font-weight: bold;
-		color:$light-grey;
+		color:rgba(0,0,0,0.4);
+		margin-bottom: 0;
 	}
 }
 .team:hover {
