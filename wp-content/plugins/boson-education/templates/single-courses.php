@@ -34,7 +34,7 @@ get_header(); ?>
 						<div class="row">
 							<div class="col-12">
 								<a href="/our-courses/" class="btn btn-light-grey"><i class="fal fa-arrow-left"></i> Back to our courses</a>
-								<a hrf="#" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
+								<a href="/education/education-contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@ get_header(); ?>
 						<?php if ($cost) : ?>
 							<div class="cost"><strong>Cost:</strong><br /> <?php echo $cost; ?></div>
 						<?php endif; ?>
-						<a hef="#" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
+						<a href="/education/education-contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -101,5 +101,7 @@ get_header(); ?>
 			</div>
 		</div>
 	<?php endif; ?>
+	
+</div>
 
 <?php get_footer(); ?>

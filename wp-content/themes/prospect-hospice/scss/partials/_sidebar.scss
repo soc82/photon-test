@@ -17,7 +17,7 @@
 	}
 	.sidebar-inner {
 		padding: 25px;
-		@include media-breakpoint-up(lg) {
+		@include media-breakpoint-up(xl) {
 			padding: 35px;
 		}
 		h3 {
@@ -27,6 +27,15 @@
 			@include media-breakpoint-up(lg) {
 				font-size: 1.75em;
 			}
+		}
+
+		a {
+			color:$black;
+			font-weight: bold;
+		}
+
+		.btn {
+			color:white;
 		}
 
 		p, div {
