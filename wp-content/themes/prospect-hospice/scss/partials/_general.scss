@@ -125,6 +125,9 @@
     ul.sub-menu,h6,p {
       background-color: $orange !important;
       color: white !important;
+      a {
+        color: white !important;
+      }
     }
 }
 .nav-orange.current-menu-item a,.nav-orange.current-menu-item a:after  {
@@ -142,6 +145,9 @@
     ul.sub-menu,h6,p {
       background-color: $navy !important;
       color: white !important;
+      a {
+        color: white !important;
+      }
     }
 }
 .nav-navy.current-menu-item a,.nav-navy.current-menu-item a:after  {
@@ -154,11 +160,14 @@
       margin-left:34px;
     }
     &:hover a, &:hover a:after {
-      color:white !important;
+      color:$teal !important;
     }
     ul.sub-menu,h6,p {
       background-color: $teal !important;
       color: white !important;
+      a {
+        color: white !important;
+      }
     }
 }.nav-teal.current-menu-item a,.nav-teal.current-menu-item a:after  {
   color:white !important;
@@ -175,6 +184,9 @@
     ul.sub-menu,h6,p {
       background-color: $burgundy !important;
       color: white !important;
+      a {
+        color: white !important;
+      }
     }
 }.nav-burgundy.current-menu-item a,.nav-burgundy.current-menu-item a:after  {
   color:$burgundy !important;
@@ -190,6 +202,9 @@
     ul.sub-menu,h6,p {
       background-color: $dark-green !important;
       color: white !important;
+      a {
+        color: white !important;
+      }
     }
 }.nav-dark-green.current-menu-item a,.nav-dark-green.current-menu-item a:after  {
   color:$dark-green !important;

@@ -7159,6 +7159,8 @@ a {
 .nav-orange ul.sub-menu, .nav-orange h6, .nav-orange p {
   background-color: #ED8B00 !important;
   color: white !important; }
+  .nav-orange ul.sub-menu a, .nav-orange h6 a, .nav-orange p a {
+    color: white !important; }
 
 .nav-orange.current-menu-item a, .nav-orange.current-menu-item a:after {
   color: #ED8B00 !important; }
@@ -7171,6 +7173,8 @@ a {
 .nav-navy ul.sub-menu, .nav-navy h6, .nav-navy p {
   background-color: #002b5c !important;
   color: white !important; }
+  .nav-navy ul.sub-menu a, .nav-navy h6 a, .nav-navy p a {
+    color: white !important; }
 
 .nav-navy.current-menu-item a, .nav-navy.current-menu-item a:after {
   color: #002b5c !important; }
@@ -7179,10 +7183,12 @@ a {
   border-bottom: solid 20px #008F96 !important;
   margin-left: 34px; }
 .nav-teal:hover a, .nav-teal:hover a:after {
-  color: white !important; }
+  color: #008F96 !important; }
 .nav-teal ul.sub-menu, .nav-teal h6, .nav-teal p {
   background-color: #008F96 !important;
   color: white !important; }
+  .nav-teal ul.sub-menu a, .nav-teal h6 a, .nav-teal p a {
+    color: white !important; }
 
 .nav-teal.current-menu-item a, .nav-teal.current-menu-item a:after {
   color: white !important; }
@@ -7195,6 +7201,8 @@ a {
 .nav-burgundy ul.sub-menu, .nav-burgundy h6, .nav-burgundy p {
   background-color: #B52555 !important;
   color: white !important; }
+  .nav-burgundy ul.sub-menu a, .nav-burgundy h6 a, .nav-burgundy p a {
+    color: white !important; }
 
 .nav-burgundy.current-menu-item a, .nav-burgundy.current-menu-item a:after {
   color: #B52555 !important; }
@@ -7207,6 +7215,8 @@ a {
 .nav-dark-green ul.sub-menu, .nav-dark-green h6, .nav-dark-green p {
   background-color: #6A963B !important;
   color: white !important; }
+  .nav-dark-green ul.sub-menu a, .nav-dark-green h6 a, .nav-dark-green p a {
+    color: white !important; }
 
 .nav-dark-green.current-menu-item a, .nav-dark-green.current-menu-item a:after {
   color: #6A963B !important; }
@@ -8684,6 +8694,17 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         line-height: 1em;
         font-size: 1.5em; }
 
+.team-block {
+  padding: 60px 0; }
+  .team-block h2 {
+    margin-bottom: 10px; }
+  .team-block .intro {
+    font-size: 1.5em;
+    line-height: 1.3em;
+    color: #222222;
+    opacity: 0.5;
+    margin: 0 0 40px 0; }
+
 .faqs-block .section-heading {
   margin-bottom: 30px; }
 .faqs-block .faq-item {
@@ -9768,7 +9789,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     margin: 0; }
   .team .job_title {
     font-weight: bold;
-    color: #999999; }
+    color: rgba(0, 0, 0, 0.4);
+    margin-bottom: 0; }
 
 .team:hover .image-wrapper .image {
   opacity: 0.5; }
