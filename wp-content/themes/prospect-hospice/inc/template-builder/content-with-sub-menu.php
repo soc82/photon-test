@@ -1,16 +1,17 @@
 <?php
-$heading = get_sub_field('heading');
-$content = get_sub_field('content');
-$background_colour = get_sub_field('background_colour');
+$heading = get_sub_field('heading', $post->ID);
+$content = get_sub_field('content', $post->ID);
+$background_colour = get_sub_field('background_colour', $post->ID);
 $color_class = prospect_dark_colour_class();
+
 ?>
 
 <div class="content-with-sub-menu block" >
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-8">
-					<?php if($heading) echo '<h3>' . $heading . '</h3>' ?>
-					<?php if($content) echo '<p>' . $content . '</p>'; ?>
+				<?php if($heading) echo '<h3>' . $heading . '</h3>' ?>
+				<?php if($content) echo '<p>' . $content . '</p>'; ?>
 			</div>
 			<div class="col-12 col-md-4">
 				<div class="sidebar-sub-menu" <?php if($background_colour) echo 'style="background-color:' . $background_colour . '"'; ?>>
@@ -30,6 +31,7 @@ $color_class = prospect_dark_colour_class();
 										while($page_query->have_posts()): $page_query->the_post();
 											echo '<li class="' . $color_class . '" ><a href="' . get_permalink(get_the_ID()) . '" class="' . $color_class . '">' . get_the_title() . '</a></li>';
 										endwhile;
+										wp_reset_postdata();
 									echo '</ul>';
 								endif;
 							}
