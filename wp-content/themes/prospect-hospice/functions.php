@@ -196,8 +196,9 @@ if (!function_exists('theme_get_post_thumbnail')){
 ** API Key for ACF Google Maps field
 */
 function startline_acf_init() {
-	acf_update_setting('google_api_key', 'AIzaSyC136X0oNRMn3rEvmB6FzNi8_e4I66o74A');
+	acf_update_setting('google_api_key', 'AIzaSyDQJsfiggkELXzjTTH3xUKjsef9cBtXLdQ');
 }
+add_action('acf/init', 'startline_acf_init');
 
 
 
