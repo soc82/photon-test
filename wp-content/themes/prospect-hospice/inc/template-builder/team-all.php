@@ -24,7 +24,7 @@ wp_reset_postdata();
 	    	<?php foreach($categories as $category) : ?>
 	    		<div class="row">
 	    			<div class="col-12">
-	    				<h3><?php echo $category->name;?></h3>
+	    				<h3 class="title-block bg-yellow"><?php echo $category->name;?></h3>
 	    			</div>
 	    		</div>
 
