@@ -9151,9 +9151,6 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         font-size: 1em;
         line-height: 1.4em;
         margin-bottom: 3px; }
-        @media (min-width: 992px) {
-          .sidebar-sub-menu .sidebar-inner ul li {
-            font-size: 1.1em; } }
         .sidebar-sub-menu .sidebar-inner ul li:before {
           content: '\f105';
           color: rgba(34, 34, 34, 0.4);
