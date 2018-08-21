@@ -51,6 +51,8 @@ if($hero_image): ?>
 							$args = array(
 								'post_type'	=> 'shop',
 								'posts_per_page'	=> -1,
+								'orderby'	=> 'name',
+								'order'	=> 'ASC',
 							);
 							$shop_query = new WP_Query($args);
 							if($shop_query->have_posts()):
