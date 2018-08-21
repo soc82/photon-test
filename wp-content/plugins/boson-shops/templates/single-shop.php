@@ -17,10 +17,10 @@ if($hero_image): ?>
 <div class="block">
 	<div class="container">
 		<div class="row">
-			<div class="col-12 col-md-3 col-lg-3">
+			<div class="col-12 col-md-5 col-lg-3">
 				<div class="shop-map" id="shop-map"></div>
 			</div>
-			<div class="col-12 col-md-5 col-lg-6 shop-details">
+			<div class="col-12 col-md-7 col-lg-6 shop-details">
 				<h1 class="shop-heading"><?php the_title(); ?></h1>
 				<?php
 				if($address):
@@ -44,7 +44,7 @@ if($hero_image): ?>
 				endif;
 				?>
 			</div>
-			<div class="col-12 col-md-4 col-lg-3">
+			<div class="col-12 col-lg-3">
 				<div class="sidebar-sub-menu bg-yellow">
 					<div class="sidebar-inner">
 						<?php
