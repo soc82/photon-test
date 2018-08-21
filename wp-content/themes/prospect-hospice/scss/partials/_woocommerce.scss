@@ -29,7 +29,7 @@
 }
 
 // Add other body classes here where needed
-body.woocommerce-page, body.page-template-page-downloads, body.tax-download-category, body.error404, body.search-results, body.page-template-page-contact {
+body.woocommerce-page, body.page-template-page-downloads, body.tax-download-category, body.error404, body.search-results, body.page-template-page-contact, body.single-shop {
   .site-header {
     @include media-breakpoint-up(md) {
       box-shadow: 0 3px 2px -2px rgba(200,200,200,0.5);
