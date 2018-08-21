@@ -306,7 +306,7 @@ endif; ?>
         animation: google.maps.Animation.DROP,
         icon: {
           url: "<?php echo get_stylesheet_directory_uri(); ?>/img/shop-marker.png",
-          scaledSize: new google.maps.Size(40, 55)
+          scaledSize: new google.maps.Size(30, 40)
         }
       });
 
