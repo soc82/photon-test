@@ -9996,7 +9996,7 @@ body.single-shop .shop-details {
     color: #84BD00 !important; }
 
 @media (min-width: 768px) {
-  body.woocommerce-page .site-header, body.page-template-page-downloads .site-header, body.tax-download-category .site-header, body.error404 .site-header, body.search-results .site-header, body.page-template-page-contact .site-header, body.single-shop .site-header {
+  body.woocommerce-page .site-header, body.page-template-page-downloads .site-header, body.tax-download-category .site-header, body.error404 .site-header, body.search-results .site-header, body.page-template-page-contact .site-header, body.single-shop .site-header, body.page-template-page-donate-confirmation .site-header, body.page-template-page-basic-template .site-header {
     box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.5); } }
 
 body.post-type-archive-product .page-inner-wrapper, body.tax-product_cat .page-inner-wrapper, body.single-product .page-inner-wrapper, body.woocommerce-cart .page-inner-wrapper {
