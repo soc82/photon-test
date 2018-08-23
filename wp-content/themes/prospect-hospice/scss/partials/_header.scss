@@ -373,7 +373,7 @@
                     line-height: 1.6em;
                     margin-right: -4px;
                     height: auto;
-                    padding: 5px 15px;
+                    padding: 5px 15px 5px 20px;
                     vertical-align: top;
                     a {
                       color: $black;
@@ -383,6 +383,7 @@
                         font-weight: 300;
                         padding-right: 5px;
                         color: rgba($black,0.3);
+                        margin:0 0 0 -20px;
                       }
                       &:hover {
                         color: $black;

@@ -7231,6 +7231,22 @@ a {
 .nav-dark-green.current-menu-item a, .nav-dark-green.current-menu-item a:after {
   color: #6A963B !important; }
 
+.nav-green a:after {
+  color: #84BD00 !important; }
+.nav-green:hover a:before {
+  border-bottom: solid 20px #84BD00 !important;
+  margin-left: 6px; }
+.nav-green:hover a, .nav-green:hover a:after {
+  color: #84BD00 !important; }
+.nav-green ul.sub-menu, .nav-green h6, .nav-green p {
+  background-color: #84BD00 !important;
+  color: white !important; }
+  .nav-green ul.sub-menu a, .nav-green h6 a, .nav-green p a {
+    color: white !important; }
+
+.nav-green.current-menu-item a, .nav-green.current-menu-item a:after {
+  color: #84BD00 !important; }
+
 .color-black {
   color: #222222 !important; }
 
@@ -8207,7 +8223,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                       line-height: 1.6em;
                       margin-right: -4px;
                       height: auto;
-                      padding: 5px 15px;
+                      padding: 5px 15px 5px 20px;
                       vertical-align: top; }
                       .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a {
                         color: #222222; }
@@ -8216,7 +8232,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                           font-family: 'Font Awesome 5 Pro';
                           font-weight: 300;
                           padding-right: 5px;
-                          color: rgba(34, 34, 34, 0.3); }
+                          color: rgba(34, 34, 34, 0.3);
+                          margin: 0 0 0 -20px; }
                         .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a:hover {
                           color: #222222; }
             .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.current-menu-item a {

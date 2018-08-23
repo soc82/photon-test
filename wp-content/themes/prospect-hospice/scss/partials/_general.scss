@@ -225,6 +225,29 @@
   color:$dark-green !important;
 }
 
+
+.nav-green {
+  a:after {
+    color:$green !important;
+  }
+  &:hover a:before {
+    border-bottom: solid 20px $green !important;
+    margin-left:6px;
+  }
+  &:hover a, &:hover a:after {
+    color:$green !important;
+  }
+  ul.sub-menu,h6,p {
+    background-color: $green !important;
+    color: white !important;
+    a {
+      color: white !important;
+    }
+  }
+}.nav-green.current-menu-item a,.nav-green.current-menu-item a:after  {
+  color:$green !important;
+}
+
 .color-black {
   color: $black !important;
 }
