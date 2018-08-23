@@ -159,6 +159,7 @@
   padding: 10px 0;
   @include media-breakpoint-up(md) {
     background: none;
+    box-shadow: 0 3px 2px -2px rgba(200,200,200,0.5);
   }
   .container-fluid {
     max-width: 1140px;
@@ -241,7 +242,7 @@
             }
             @include media-breakpoint-up(xl) {
               font-size: 0.9em;
-              margin-left: 10px;
+              margin-left: 20px;
             }
       			a {
       				color:$black;
@@ -300,6 +301,10 @@
               display: none;
               @include media-breakpoint-up(lg) {
                 display: inline;
+                margin-left: 10px;
+              }
+              @include media-breakpoint-up(xl) {
+                margin-left: 20px;
               }
         			a {
         				color:#fff !important;
@@ -371,7 +376,7 @@
                     display: inline-block;
                     font-size: 1.2em;
                     line-height: 1.5em;
-                    margin-right: -4px;
+                    margin: 0 -4px 0 0;
                     height: auto;
                     padding: 5px 10px 5px 0;
                     vertical-align: top;
