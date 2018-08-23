@@ -8114,7 +8114,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
             margin-left: 11px; } }
         @media (min-width: 768px) and (min-width: 1200px) {
           .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
-            font-size: 0.90em;
+            font-size: 0.9em;
             margin-left: 10px; } }
     @media (min-width: 768px) {
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li a {
@@ -8217,13 +8217,13 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                     text-align: left;
                     line-height: 24px; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li {
-                      width: 50%;
+                      width: 48%;
                       display: inline-block;
-                      font-size: 1.1em;
+                      font-size: 1.2em;
                       line-height: 1.5em;
                       margin-right: -4px;
                       height: auto;
-                      padding: 5px 10px;
+                      padding: 5px 10px 5px 0;
                       vertical-align: top; }
                       .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a {
                         color: #222222; }
