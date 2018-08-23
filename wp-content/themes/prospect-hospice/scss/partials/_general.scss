@@ -115,97 +115,112 @@
 
 /* Nav colours */
 .nav-orange {
-    &:hover a, &:hover a:after {
-      color:$orange !important;
-    }
-    &:hover a:before {
-      border-bottom: solid 20px $orange !important;
-      margin-left:32px;
-    }
-    ul.sub-menu,h6,p {
-      background-color: $orange !important;
+  a:after {
+    color:$orange !important;
+  }
+  &:hover a, &:hover a:after {
+    color:$orange !important;
+  }
+  &:hover a:before {
+    border-bottom: solid 20px $orange !important;
+    margin-left:32px;
+  }
+  ul.sub-menu,h6,p {
+    background-color: $orange !important;
+    color: white !important;
+    a {
       color: white !important;
-      a {
-        color: white !important;
-      }
     }
+  }
 }
 .nav-orange.current-menu-item a,.nav-orange.current-menu-item a:after  {
   color:$orange !important;
 }
 
 .nav-navy {
-    &:hover a:before {
-      border-bottom: solid 20px $navy !important;
-      margin-left:40px;
-    }
-    &:hover a, &:hover a:after {
-      color:$navy !important;
-    }
-    ul.sub-menu,h6,p {
-      background-color: $navy !important;
+  a:after {
+    color:$navy !important;
+  }
+  &:hover a:before {
+    border-bottom: solid 20px $navy !important;
+    margin-left:40px;
+  }
+  &:hover a, &:hover a:after {
+    color:$navy !important;
+  }
+  ul.sub-menu,h6,p {
+    background-color: $navy !important;
+    color: white !important;
+    a {
       color: white !important;
-      a {
-        color: white !important;
-      }
     }
+  }
 }
 .nav-navy.current-menu-item a,.nav-navy.current-menu-item a:after  {
   color:$navy !important;
 }
 
 .nav-teal {
-    &:hover a:before {
-      border-bottom: solid 20px $teal !important;
-      margin-left:34px;
-    }
-    &:hover a, &:hover a:after {
-      color:$teal !important;
-    }
-    ul.sub-menu,h6,p {
-      background-color: $teal !important;
+  a:after {
+    color:$teal !important;
+  }
+  &:hover a:before {
+    border-bottom: solid 20px $teal !important;
+    margin-left:34px;
+  }
+  &:hover a, &:hover a:after {
+    color:$teal !important;
+  }
+  ul.sub-menu,h6,p {
+    background-color: $teal !important;
+    color: white !important;
+    a {
       color: white !important;
-      a {
-        color: white !important;
-      }
     }
+  }
 }.nav-teal.current-menu-item a,.nav-teal.current-menu-item a:after  {
   color:white !important;
 }
 
 .nav-burgundy {
-    &:hover a:before {
-      border-bottom: solid 20px $burgundy !important;
-      margin-left:23px;
-    }
-    &:hover a, &:hover a:after {
-      color:$burgundy !important;
-    }
-    ul.sub-menu,h6,p {
-      background-color: $burgundy !important;
+  a:after {
+    color:$burgundy !important;
+  }
+  &:hover a:before {
+    border-bottom: solid 20px $burgundy !important;
+    margin-left:23px;
+  }
+  &:hover a, &:hover a:after {
+    color:$burgundy !important;
+  }
+  ul.sub-menu,h6,p {
+    background-color: $burgundy !important;
+    color: white !important;
+    a {
       color: white !important;
-      a {
-        color: white !important;
-      }
     }
+  }
 }.nav-burgundy.current-menu-item a,.nav-burgundy.current-menu-item a:after  {
   color:$burgundy !important;
 }
 .nav-dark-green {
-    &:hover a:before {
-      border-bottom: solid 20px $dark-green !important;
-      margin-left:6px;
-    }
-    &:hover a, &:hover a:after {
-      color:$dark-green !important;
-    }
-    ul.sub-menu,h6,p {
-      background-color: $dark-green !important;
+  a:after {
+    color:$dark-green !important;
+  }
+  &:hover a:before {
+    border-bottom: solid 20px $dark-green !important;
+    margin-left:6px;
+  }
+  &:hover a, &:hover a:after {
+    color:$dark-green !important;
+  }
+  ul.sub-menu,h6,p {
+    background-color: $dark-green !important;
+    color: white !important;
+    a {
       color: white !important;
-      a {
-        color: white !important;
-      }
     }
+  }
 }.nav-dark-green.current-menu-item a,.nav-dark-green.current-menu-item a:after  {
   color:$dark-green !important;
 }
