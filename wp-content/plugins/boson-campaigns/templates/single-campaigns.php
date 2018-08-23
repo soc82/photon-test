@@ -1,19 +1,21 @@
 <?php get_header(); ?>
 
-<div class="container">
-	<div class="row">
-		<div class="col-12">
-			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-				<div class="page-header">
-					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-				</div>
-				
-				<div class="entry-content">
-					<?php the_content();?>
-					<a href="../" class="btn"><i class="fal fa-arrow-left"></i> Back to Campaigns</a>
-				</div>
+<div class="inner-page-wrapper">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<div class="page-header">
+						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+					</div>
+					
+					<div class="entry-content">
+						<?php the_content();?>
+						<a href="../" class="btn"><i class="fal fa-arrow-left"></i> Back to Campaigns</a>
+					</div>
 
-			</article>
+				</article>
+			</div>
 		</div>
 	</div>
 </div>
