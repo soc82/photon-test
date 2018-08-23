@@ -303,7 +303,7 @@
                 display: inline;
               }
         			a {
-        				color:#fff;
+        				color:#fff !important;
                 background: $pink;
                 padding: 15px 25px;
                 border-radius: 50px;
@@ -320,8 +320,9 @@
         			}
               &:hover {
                 a  {
-                  background: $yellow;
+                  background: $yellow !important;
                   cursor: default;
+                  color: #FFFFFF !important;
                 }
               }
         		}
