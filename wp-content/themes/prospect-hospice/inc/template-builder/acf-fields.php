@@ -2285,6 +2285,13 @@ acf_add_local_field_group(array(
 				'value' => 'templates/page-jobs.php',
 			),
 		),
+		array(
+			array(
+				'param' => 'page_template',
+				'operator' => '==',
+				'value' => 'templates/page-campaigns.php',
+			),
+		),
 	),
 	'menu_order' => 0,
 	'position' => 'acf_after_title',
