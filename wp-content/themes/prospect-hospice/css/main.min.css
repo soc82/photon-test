@@ -8106,16 +8106,16 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
             .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
               display: inline-block;
               height: 100%;
-              font-size: 0.9em;
-              margin-right: 3px; } }
+              font-size: 0.8em;
+              margin-left: 9px; } }
         @media (min-width: 768px) and (min-width: 992px) {
           .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
-            margin-right: 10px;
-            font-size: 0.9em; } }
+            font-size: 0.8em;
+            margin-left: 11px; } }
         @media (min-width: 768px) and (min-width: 1200px) {
           .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
-            font-size: 1em;
-            margin-right: 16px; } }
+            font-size: 0.90em;
+            margin-left: 10px; } }
     @media (min-width: 768px) {
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li a {
                 color: #222222;
@@ -8206,7 +8206,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                       color: #222222;
                       margin: 0 0 15px 0; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper p {
-                      font-size: 0.9em;
+                      font-size: 0.95em;
                       line-height: 1.6em;
                       color: #222222;
                       margin: 0; }
@@ -8219,11 +8219,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li {
                       width: 50%;
                       display: inline-block;
-                      font-size: 1.2em;
-                      line-height: 1.6em;
+                      font-size: 1.1em;
+                      line-height: 1.5em;
                       margin-right: -4px;
                       height: auto;
-                      padding: 5px 15px 5px 20px;
+                      padding: 5px 10px;
                       vertical-align: top; }
                       .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a {
                         color: #222222; }
@@ -8231,9 +8231,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                           content: '\f105';
                           font-family: 'Font Awesome 5 Pro';
                           font-weight: 300;
-                          padding-right: 5px;
+                          padding-right: 8px;
                           color: rgba(34, 34, 34, 0.3);
-                          margin: 0 0 0 -20px; }
+                          margin: 0 0 0 -15px; }
                         .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a:hover {
                           color: #222222; }
             .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.current-menu-item a {
