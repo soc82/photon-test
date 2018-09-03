@@ -8045,10 +8045,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 
 .site-header {
   background: #84BD00;
-  padding: 0; }
+  padding: 20px 0; }
   @media (min-width: 768px) {
     .site-header {
       background: none;
+      padding: 0;
       box-shadow: 0 3px 2px -2px rgba(200, 200, 200, 0.3); } }
   .site-header .container-fluid {
     max-width: 1140px; }

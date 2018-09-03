@@ -156,9 +156,10 @@
 
 .site-header {
   background: $green;
-  padding: 0;
+  padding: 20px 0;
   @include media-breakpoint-up(md) {
     background: none;
+    padding: 0;
     box-shadow: 0 3px 2px -2px rgba(200,200,200,0.3);
   }
   .container-fluid {
