@@ -7693,7 +7693,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   background: #f3cc30;
   border-radius: 50%;
   position: absolute;
-  right: 15px; }
+  right: 15px;
+  margin-top: 2px; }
   @media (min-width: 768px) {
     .menu-trigger {
       display: none; } }
@@ -7721,6 +7722,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   -webkit-transform: translate3d(-100%, 0, 0);
   -moz-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0); }
+  .mobile-menu .close {
+    background: rgba(0, 0, 0, 0.2);
+    text-align: right; }
+  .mobile-menu .close:before {
+    display: none; }
 
 .menu-level {
   position: absolute;
@@ -7816,7 +7822,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     float: left;
     position: relative;
     left: 13px;
-    top: 13px;
+    top: 16px;
     z-index: -1;
     color: rgba(255, 255, 255, 0.4);
     content: '\f105';
@@ -7829,6 +7835,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2);
     text-shadow: none;
     font-size: 1.2em;
+    line-height: 1.4em;
     color: #FFFFFF;
     -webkit-transition: background 0.3s, box-shadow 0.3s;
     -moz-transition: background 0.3s, box-shadow 0.3s;
@@ -8397,7 +8404,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     color: #666666; }
     @media (min-width: 768px) {
       .copyright-footer .footer-copyright {
-        font-size: 1em; } }
+        font-size: 1em; }
+        .copyright-footer .footer-copyright div {
+          display: inline-block; } }
   .copyright-footer .footer-disclaimer {
     color: #999999;
     font-size: 0.7em;

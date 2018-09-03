@@ -72,10 +72,11 @@ $tel = get_field('config_telephone_number', 'options');
 				<div class="container">
 					<div class="row">
 						<div class="col-12 col-md-10">
-							<p class="footer-copyright">Copyright Prospect Hospice <?php echo date("Y"); ?> &nbsp;
-								<?php if($email) echo 'Email: <a href="MAILTO:' . $email . '">' . $email .'</a> &nbsp;'; ?>
-								<?php if($tel) echo 'Tel: <a href="TEL:' . str_replace(" ", '', $tel) . '">' . $tel .'</a>'; ?>
-							</p>
+							<div class="footer-copyright">
+								<div class="copyright">Copyright Prospect Hospice <?php echo date("Y"); ?> &nbsp;</div>
+								<div class="email"><?php if($email) echo 'Email: <a href="MAILTO:' . $email . '">' . $email .'</a> &nbsp;'; ?></div>
+								<div class="tel"><?php if($tel) echo 'Tel: <a href="TEL:' . str_replace(" ", '', $tel) . '">' . $tel .'</a>'; ?></div>
+							</div>
 							<?php if($disclaimer) echo '<p class="footer-disclaimer">' . $disclaimer . '</p>'; ?>
 						</div>
 						<div class="col-12 col-md-2">
