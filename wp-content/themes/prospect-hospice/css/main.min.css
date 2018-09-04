@@ -7253,7 +7253,7 @@ a {
 .color-green {
   color: #84BD00 !important; }
 
-.color-pink {
+.color-pink, .color-pink a {
   color: #f50068 !important; }
 
 .color-grey {
