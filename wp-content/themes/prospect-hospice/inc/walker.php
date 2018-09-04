@@ -21,7 +21,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	 */
 	public function start_lvl( &$output, $depth = 0, $args = array() ) {
 		$indent = str_repeat( "\t", $depth );
-		$output .= "\n$indent<div class=\"menu-level\"><a class=\"mp-back\" href=\"#\">Back</a><ul role=\"menu\" class=\" sub-menu\">\n";
+		$output .= "\n$indent<div class=\"menu-level\"><a class=\"mp-close\" href=\"#\">Close</a><a class=\"mp-back\" href=\"#\">Back</a><ul role=\"menu\" class=\" sub-menu\">\n";
 	}
 
 	/**
@@ -36,6 +36,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	 */
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
+
 
 		/**
 		 * Dividers, Headers or Disabled
