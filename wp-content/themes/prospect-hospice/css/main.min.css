@@ -8230,11 +8230,14 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                 .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid {
                   max-width: 1140px; }
                   .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper {
-                    padding: 80px 50px 80px 0;
+                    margin-top: 30px;
+                    margin-bottom: 30px;
+                    border-right: solid 1px rgba(255, 255, 255, 0.2);
+                    padding: 20px 50px 20px 0;
                     text-align: left; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper h6 {
-                      font-size: 1.6em;
-                      line-height: 1.8em;
+                      font-size: 2.4em;
+                      line-height: 1.5em;
                       color: #222222;
                       margin: 0 0 15px 0; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper p {
@@ -8245,7 +8248,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-content-wrapper li {
                       display: none; }
                   .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper {
-                    padding: 80px 50px 80px 0;
+                    padding: 80px 20px 80px 80px;
                     text-align: left;
                     line-height: 24px; }
                     .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li {
