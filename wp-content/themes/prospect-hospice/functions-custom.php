@@ -86,3 +86,14 @@ function prospect_dark_colour_class() {
 	}
 	return $color_class;
 }
+
+/*
+** Adds a close item to the menu
+*/
+add_filter('wp_nav_menu_items', 'prospect_add_close_item', 10, 2);
+function prospect_add_close_item($items, $args){
+    if( $args->theme_location == 'main-navigation' ){
+        $items = '<a class="mp-close close">&nbsp;</a>' . $items;
+    }
+    return $items;
+}

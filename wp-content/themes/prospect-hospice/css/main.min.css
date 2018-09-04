@@ -7711,11 +7711,6 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   -webkit-transform: translate3d(-100%, 0, 0);
   -moz-transform: translate3d(-100%, 0, 0);
   transform: translate3d(-100%, 0, 0); }
-  .mobile-menu .close {
-    background: rgba(0, 0, 0, 0.2);
-    text-align: right; }
-  .mobile-menu .close:before {
-    display: none; }
 
 .menu-level {
   position: absolute;
@@ -7869,13 +7864,36 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     -moz-transition: background 0.3s;
     transition: background 0.3s; }
     .mobile-menu ul .mp-back::after {
-      content: '\f060';
+      content: '\f061';
       font-family: 'Font Awesome 5 Pro';
       font-weight: 400;
       position: absolute;
       right: 10px;
-      font-size: 0.9em;
-      color: rgba(0, 0, 0, 0.3); }
+      font-size: 1.6em;
+      color: white; }
+  .mobile-menu ul .mp-close {
+    background: rgba(0, 0, 0, 0.1);
+    outline: none;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    display: block;
+    font-size: 0.9em;
+    padding: 1em;
+    position: relative;
+    box-shadow: inset 0 1px rgba(0, 0, 0, 0.1);
+    -webkit-transition: background 0.3s;
+    -moz-transition: background 0.3s;
+    transition: background 0.3s; }
+    .mobile-menu ul .mp-close::after {
+      content: '\f00d';
+      font-family: 'Font Awesome 5 Pro';
+      font-weight: 400;
+      position: absolute;
+      right: 10px;
+      font-size: 1.6em;
+      color: white; }
 
 .menu-level > ul > li:first-child > a {
   box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2), inset 0 1px rgba(0, 0, 0, 0.2); }
