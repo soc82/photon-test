@@ -8266,8 +8266,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                           content: '\f105';
                           font-family: 'Font Awesome 5 Pro';
                           font-weight: 300;
+                          font-size: 1.1em;
                           padding-right: 8px;
-                          color: rgba(34, 34, 34, 0.3);
+                          color: rgba(255, 255, 255, 0.5);
                           margin: 0 0 0 -15px; }
                         .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a:hover {
                           color: #222222; }
