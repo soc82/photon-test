@@ -7351,6 +7351,20 @@ a {
   .btn-set .btn, .btn-set .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-set .gform_button {
     margin: 0 10px 5px 0; }
 
+.btn-circle {
+  display: block;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  border-radius: 60px;
+  text-align: center;
+  background: #f3cc30;
+  color: #222222; }
+
+.btn-circle:hover {
+  background: #84BD00;
+  color: #fff; }
+
 input, textarea, select {
   font-family: "Glypha LT Pro W01 Regular", "sans-serif"; }
 
@@ -8478,6 +8492,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.25); }
+    .block.hero-banner .btn-circle {
+      position: absolute;
+      bottom: 40px;
+      right: 40px; }
     .block.hero-banner .hero-banner-content {
       padding: 50px; }
       @media (min-width: 992px) {
@@ -8493,6 +8511,14 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
         margin-bottom: 10px; }
+      .block.hero-banner .hero-banner-content p {
+        color: #fff;
+        font-size: 1.2em;
+        line-height: 1.4em;
+        width: 75%; }
+        @media (min-width: 992px) {
+          .block.hero-banner .hero-banner-content p {
+            width: 30%; } }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;
