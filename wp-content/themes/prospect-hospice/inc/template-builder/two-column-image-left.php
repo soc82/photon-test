@@ -32,7 +32,7 @@ $color_class = prospect_dark_colour_class();
 					<div class="col-12 col-md-7 ">
 						<div class="two-column-content">
 							<?php if($heading) echo '<h3 class="' . $color_class .' ">' . $heading . '</h3>' ?>
-							<?php if($content) echo '<p class="' . $color_class .' ">' . $content . '</p>'; ?>
+							<?php if($content) echo '<div class="' . $color_class .' ">' . $content . '</div>'; ?>
 							<?php if ($button_url && $button_text) : ?>
 								<a class="btn btn-arrow-right <?php if($background_colour == '#8dc63f') echo 'btn-yellow'; ?>" href="<?php echo $button_url; ?>"><?php echo $button_text; ?></a>
 							<?php endif; ?>

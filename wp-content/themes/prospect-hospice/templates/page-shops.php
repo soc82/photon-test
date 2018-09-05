@@ -1,85 +1,66 @@
 <?php
+/*
+* Template Name: Shops Template
+*/
 
 get_header(); ?>
 
-<?php $hero_image = get_field('shop_image');
-$address = get_field('shop_address');
-$email = get_field('shop_email');
-$tel = get_field('shop_telephone');
-$speciality = get_field('speciality');
-$opening_times = get_field('opening_times');
-if($hero_image): ?>
-	<div class="shop-hero">
-	  <img src="<?php echo $hero_image['sizes']['slider']; ?>" alt="<?php echo $hero_image['alt']; ?>" />
-	</div>
-<?php endif; ?>
+<?php
+$shop_args = array(
+  'post_type' => 'shop',
+  'post_per_page' => -1,
+);
+$shop_query = new WP_Query($shop_args);
+if($shop_query->have_posts()):
+  $shop_locations = array();
+  while($shop_query->have_posts()): $shop_query->the_post();
+    $address = get_field('shop_address', get_the_ID());
+    if($address):
+      $shop_locations[] = '["' . $address['address'] . '","' . $address['lat'] . '","' . $address['lng'] . '"],';
+    endif;
+  endwhile;
+endif; ?>
 
-<div class="block">
-	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-5 col-lg-3">
-				<div class="shop-map" id="shop-map"></div>
-			</div>
-			<div class="col-12 col-md-7 col-lg-6 shop-details">
-				<h1 class="shop-heading"><?php the_title(); ?></h1>
-				<?php
-				if($address):
-					echo '<p class="shop-address">' . str_replace(',', '<br />', $address['address']) . '</p>';
-				endif;
-				if($tel || $email):
-					echo '<div class="shop-contact">';
-					if($email):
-						echo '<a class="shop-email" href="MAILTO:' . $email . '">E: ' . $email . '</a>';
-					endif;
-					if($tel):
-						echo '<a class="shop-tel" href="TEL:' . str_replace(" ", "", $tel) . '">T: ' . $tel . '</a>';
-					endif;
-					echo '</div>';
-				endif;
-				if($speciality):
-					echo '<p class="shop-speciality"><strong>Speciality:</strong> ' . $speciality . '</p>';
-				endif;
-				if($address):
-					echo '<p class="shop-times"><strong>Opening Times:</strong> ' . $opening_times . '</p>';
-				endif;
-				?>
-			</div>
-			<div class="col-12 col-lg-3">
-				<div class="sidebar-sub-menu bg-yellow">
-					<div class="sidebar-inner">
-						<?php
-							$args = array(
-								'post_type'	=> 'shop',
-								'posts_per_page'	=> -1,
-								'orderby'	=> 'name',
-								'order'	=> 'ASC',
-							);
-							$shop_query = new WP_Query($args);
-							if($shop_query->have_posts()):
-								echo '<h3>Our shops</h3>';
-								echo '<ul>';
-									while($shop_query->have_posts()): $shop_query->the_post();
-										echo '<li><a href="' . get_permalink(get_the_ID()) . '" >' . get_the_title() . '</a></li>';
-									endwhile;
-									wp_reset_postdata();
-								echo '</ul>';
-							endif;
-						?>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="shop-map-wrapper">
+  <div class="shop-map" id="shop-map"></div>
+  <?php
+  if($shop_query->have_posts()):
+    $i = 0;
+    echo '<div class="shops-sidebar-wrapper">';
+      echo '<div class="shops-sidebar-inner">';
+        while($shop_query->have_posts()): $shop_query->the_post();
+          $address = get_field('shop_address', get_the_ID());
+          $email = get_field('shop_email', get_the_ID());
+          $tel = get_field('shop_telephone', get_the_ID());
+          echo '<div class="shop-item" data-lat="' . $address['lat'] . '" data-marker-id="' . $i . '">';
+            echo '<p class="shop-name">' . get_the_title() . '</p>';
+            if($address):
+              echo '<span class="shop-address">' . $address['address'] . '</span>';
+            endif;
+            /*
+            if($tel):
+              echo '<a class="shop-tel" href="TEL:' . str_replace(" ", "", $tel) . '">' . $tel . '</span>';
+            endif;
+            if($email):
+              echo '<a class="shop-email" href="MAILTO:' . $email . '">' . $email . '</a>';
+            endif;
+            */
+            echo '<a href="' . get_permalink() . '">View Shop</a>';
+          echo '</div>';
+          $i++;
+        endwhile;
+      echo '</div>';
+    echo '</div>';
+  endif; ?>
 </div>
 
 <?php get_footer(); ?>
-
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQJsfiggkELXzjTTH3xUKjsef9cBtXLdQ"></script>
 <script>
   var map = new google.maps.Map(document.getElementById('shop-map'), {
     zoom: 10,
-    center: new google.maps.LatLng(<?php echo $address['lat']; ?>, <?php echo $address['lng']; ?>),
+    center: new google.maps.LatLng(51.5264768, -1.7850049),
     scrollwheel: false,
     mapTypeControl: false,
     styles: [
@@ -260,16 +241,48 @@ if($hero_image): ?>
     ]
   });
 
-	var myLatLng = {lat: <?php echo $address['lat']; ?>, lng: <?php echo $address['lng']; ?>};
-	var marker = new google.maps.Marker({
-		 position: myLatLng,
-		 map: map,
-		 animation: google.maps.Animation.DROP,
-		 icon: {
-			 url: "<?php echo get_stylesheet_directory_uri(); ?>/img/shop-marker.png",
-			 scaledSize: new google.maps.Size(30, 40)
-		 }
-	 });
+  var infowindow = new google.maps.InfoWindow();
+
+  <?php if($shop_locations): ?>
+    var shops = [<?php foreach($shop_locations as $location):
+        echo $location;
+      endforeach;   ?>];
+    var shops, i;
+    var id = 0;
+    for (i = 0; i < shops.length; i++) {
+        shopMarkers = new google.maps.Marker({
+        position: new google.maps.LatLng(shops[i][1], shops[i][2]),
+        map: map,
+        id: id,
+        animation: google.maps.Animation.DROP,
+        icon: {
+          url: "<?php echo get_stylesheet_directory_uri(); ?>/img/shop-marker.png",
+          scaledSize: new google.maps.Size(30, 40)
+        }
+      });
+
+
+      google.maps.event.addListener(shopMarkers, 'click', (function(shopMarkers, i) {
+        return function() {
+          jQuery('.shop-item').each(function(){
+            jQuery(this).removeClass('active-shop');
+            if(jQuery(this).attr('data-lat') == shops[i][1]) {
+              jQuery(this).addClass('active-shop');
+            }
+          });
+          jQuery('.shops-sidebar-inner').find('.active-shop').prependTo('.shops-sidebar-inner');
+          map.setCenter(shopMarkers.getPosition());
+          infowindow.setContent(shops[i][0]);
+          infowindow.open(map, shopMarkers);
+        }
+      })(shopMarkers, i));
+
+
+
+  <?php endif; ?>
+
+  }
+
 
 
 </script>

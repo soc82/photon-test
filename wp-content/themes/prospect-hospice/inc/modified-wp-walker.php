@@ -25,7 +25,7 @@ class prospect_desktop_walker extends Walker_Nav_Menu {
 
 
 			if($content_menu_item) {
-				$output .= '<div class="col-md-6 mega-menu-content-wrapper">';
+				$output .= '<div class="col-md-5 mega-menu-content-wrapper">';
 				if($heading) $output .= '<h6>' . $heading . '</h6>';
 				if($content) $output .= '<p>' . $content . '</p>';
 			}
@@ -51,9 +51,9 @@ class prospect_desktop_walker extends Walker_Nav_Menu {
       }
 
 			if($content_menu_item) {
-				$output .= '</div><div class="col-md-6 mega-menu-links-wrapper">';
+				$output .= '</div><div class="col-md-7 mega-menu-links-wrapper">';
 			}
-			
+
     }
 
 }

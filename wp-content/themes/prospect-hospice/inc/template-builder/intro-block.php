@@ -1,9 +1,5 @@
 <?php
-$image = (get_sub_field('background_image') ? get_sub_field('background_image') : get_field('hero_banner_image'));
-$heading = (get_sub_field('heading') ? get_sub_field('heading') : get_field('hero_banner_heading'));
-$second_heading = (get_sub_field('second_heading') ? get_sub_field('second_heading') : get_field('hero_banner_second_heading'));
-$description = (get_sub_field('description') ? get_sub_field('description') : get_field('hero_banner_description'));
-$link_url = (get_sub_field('link_url') ? get_sub_field('link_url') : get_field('hero_banner_link_url'));
+$title = (get_sub_field('title') ? get_sub_field('title');
 ?>
 <div class="hero-banner block" <?php if($image) echo 'style="background-image:url(' . $image . ');"'; ?>>
     <div class="overlay"></div>

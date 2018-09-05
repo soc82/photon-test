@@ -4,16 +4,16 @@
  *
  * Licensed under the MIT license.
  * http://www.opensource.org/licenses/mit-license.php
- * 
+ *
  * Copyright 2013, Codrops
  * http://www.codrops.com
  */
 ;( function( window ) {
-	
+
 	'use strict';
 
 	function extend( a, b ) {
-		for( var key in b ) { 
+		for( var key in b ) {
 			if( b.hasOwnProperty( key ) ) {
 				a[key] = b[key];
 			}
@@ -57,7 +57,7 @@
 		return e.parentNode && closest( e.parentNode, classname );
 	}
 
-	function mlPushMenu( el, trigger, options ) {	
+	function mlPushMenu( el, trigger, options ) {
 		this.el = el;
 		this.trigger = trigger;
 		this.options = extend( this.defaults, options );
@@ -76,7 +76,9 @@
 			// space between each overlaped level
 			levelSpacing : 40,
 			// classname for the element (if any) that when clicked closes the current level
-			backClass : 'mp-back'
+			backClass : 'mp-back',
+			// classname for the element that closes the nav
+			closeClass : 'mp-close'
 		},
 		_init : function() {
 			// if menu is open or not
@@ -128,6 +130,13 @@
 				}
 			} );
 
+			/**
+			* Close menu on click of close link
+			*/
+			jQuery('.mp-close').click(function(e) {
+				bodyClickFn( this );
+			});
+
 			// opening a sub level menu
 			this.menuItems.forEach( function( el, i ) {
 				// check if it has a sub level
@@ -169,7 +178,7 @@
 						self.level === 0 ? self._resetMenu() : self._closeMenu();
 					}
 				} );
-			} );	
+			} );
 		},
 		_openMenu : function( subLevel ) {
 			// increment level depth
@@ -178,7 +187,7 @@
 			// move the main wrapper
 			var levelFactor = ( this.level - 1 ) * this.options.levelSpacing,
 				translateVal = this.options.type === 'overlap' ? this.el.offsetWidth + levelFactor : this.el.offsetWidth;
-			
+
 			this._setTransform( 'translate3d(' + translateVal + 'px,0,0)' );
 
 			if( subLevel ) {

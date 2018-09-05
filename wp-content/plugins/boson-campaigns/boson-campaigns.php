@@ -85,4 +85,4 @@ function campaigns_single_template($single) {
 /****************************
 LOAD ACF FIELDS
 *****************************/
-// require_once('acf-fields.php');
+require_once('acf-fields.php');

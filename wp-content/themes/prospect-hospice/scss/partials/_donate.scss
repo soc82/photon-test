@@ -1,0 +1,71 @@
+form.donation-form {
+  ul.gform_fields {
+    li.gfield {
+      margin: 0 0 30px 0;
+      label.gfield_label {
+        display: block;
+        font-family: $font-heading;
+        font-size: 0.95em;
+        line-height: 1.6em;
+        margin: 0 0 5px 0;
+      }
+      .ginput_container {
+        margin: 0;
+        padding: 0;
+        input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+          font-size: 0.9em;
+          line-height: 1.5em;
+          padding: 8px !important;
+          max-width: 500px;
+          margin: 0;
+        }
+      }
+      ul.gfield_radio, ul.gfield_checkbox {
+        li {
+          margin: 0;
+          input {
+            vertical-align: top !important;
+            margin-right: 5px;
+          }
+          label {
+            font-size: 0.85em;
+            line-height: 1.65em;
+          }
+        }
+      }
+      // Section field
+      &.gsection {
+        margin: 0 0 35px 0;
+        h2.gsection_title {
+          font-size: 1.5em;
+          line-height: 1.5em;
+          margin: 30px 0 0 0 !important;
+          @include media-breakpoint-up(md) {
+            font-size: 1.9em;
+          }
+        }
+      }
+      &.gfield_html {
+        font-size: 0.85em;
+        line-height: 1.35em;
+      }
+      // Custom fields
+      &.donate-title {
+        select {
+          max-width: 250px;
+        }
+      }
+      &.donate-gift-aid-terms {
+        margin:30px 0 10px 0;
+      }
+      &.donate-total {
+        .ginput_total {
+          color: $green;
+          font-size: 1.4em;
+          font-family: $font-heading;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

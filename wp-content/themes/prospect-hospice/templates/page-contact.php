@@ -92,7 +92,7 @@ endif; ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQJsfiggkELXzjTTH3xUKjsef9cBtXLdQ"></script>
 <script>
   var map = new google.maps.Map(document.getElementById('contact-map'), {
-    zoom: 11,
+    zoom: 10,
     center: new google.maps.LatLng(51.5264768, -1.7850049),
     scrollwheel: false,
     mapTypeControl: false,
@@ -306,7 +306,7 @@ endif; ?>
         animation: google.maps.Animation.DROP,
         icon: {
           url: "<?php echo get_stylesheet_directory_uri(); ?>/img/shop-marker.png",
-          scaledSize: new google.maps.Size(40, 40)
+          scaledSize: new google.maps.Size(30, 40)
         }
       });
 
