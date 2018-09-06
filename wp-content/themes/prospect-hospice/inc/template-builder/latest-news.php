@@ -54,20 +54,23 @@ if (count($recent_posts) < 3) {
 					<p><?php echo $text; ?></p>
 				<?php endif; ?>
 				<?php if ($link_text && $link_url) : ?>
-					<a href="<?php echo $link_url; ?>"><?php echo $link_text; ?></a>
+					<a href="<?php echo $link_url; ?>"><?php echo $link_text; ?> <i class="fal fa-arrow-right"></i></a>
 				<?php endif; ?>
 			</div>
 		</div>
 		<div class="row">
 			<?php foreach ($recent_posts as $post) : ?>
 				<div class="col-4 post-image">
-					<div class="image">
-						<?php the_post_thumbnail($post['ID']); ?>
-						<div class="image-overlay">
-							<h4><?php echo $post['post_title']; ?></h4>
-							<p><?php echo $post['post_excerpt']; ?></p>
+					<a href="<?php get_permalink($post['ID']); ?>">
+						<div class="image">
+							<?php echo get_the_post_thumbnail($post['ID']); ?>
+							<div class="image-overlay">
+								<h4><?php echo $post['post_title']; ?></h4>
+								<p><?php echo $post['post_excerpt']; ?></p>
+								<p><?php echo get_the_date('F Y', $post['ID']); ?></p>
+							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			<?php endforeach; ?>
 		</div>	

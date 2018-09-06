@@ -83,8 +83,8 @@
 	margin-top: 0;
 	margin-bottom: 0;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    // background-size: cover;
+    background-position: right center;
     position: relative;
     .overlay {
     	display: block;
@@ -123,6 +123,7 @@
 				margin-bottom: 0px;
 				font-size: 1.8em;
 				line-height: 1.5em;
+				margin-bottom: 25px;
 				@include media-breakpoint-up(md) {
 					font-size: 2.2em;
 				}
@@ -141,6 +142,7 @@
 				color: #FFFFFF;
 				background: transparent;
 				border-color: #FFFFFF;
+				margin-bottom: 10px !important;
 				@include media-breakpoint-up(md) {
 					margin: 0 7px;
 				}
@@ -158,13 +160,15 @@
 	}
 
 	// Latest news block
-	.latest-news-content-block {
+	&.latest-news-content-block {
 		.intro {
+			margin-bottom: 45px;
 			h2 {
 
 			}
 			p {
-
+			    font-size: 1.15em;
+    			line-height: 1.5em;
 			}
 		}
 		.post-image {
@@ -173,11 +177,19 @@
 					max-width: 100%;
 				}
 				.image-overlay {
+					position: relative;
+				    background: $green;
+				    width: 75%;
+				    margin: 0 auto;
+				    text-align: center;
+				    padding: 15px 10px;
+				    margin-top: -70px;
 					h4 {
-
+						color: #fff;
+						font-size: 1.15em;
 					}
 					p {
-
+						color: #fff;
 					}
 				}
 			}

@@ -7098,7 +7098,7 @@ a {
     .inner-page-wrapper {
       margin: 50px 0; } }
   .inner-page-wrapper .intro p {
-    font-size: 1.5em;
+    font-size: 1.25em;
     line-height: 1.5em;
     color: #666666; }
 
@@ -7307,11 +7307,12 @@ a {
     border: 2px solid #72a400;
     color: #FFFFFF; }
   .btn.btn-donate, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button, .button.btn-donate {
-    background-color: #f50068;
-    border: 2px solid #f50068; }
+    background-color: #f50068 !important;
+    border: 2px solid #f50068 !important; }
     .btn.btn-donate:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:hover, .btn.btn-donate:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:focus, .btn.btn-donate:active, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:active, .button.btn-donate:hover, .button.btn-donate:focus, .button.btn-donate:active {
-      background: #dc005d;
-      border: 2px solid #dc005d; }
+      background: #dc005d !important;
+      border: 2px solid #dc005d !important;
+      color: #FFF !important; }
     .btn.btn-donate:before, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:before, .button.btn-donate:before {
       content: '\f004';
       font-family: 'Font Awesome 5 Pro';
@@ -7319,6 +7320,13 @@ a {
       padding-right: 10px;
       font-size: 25px;
       color: #FFF; }
+  .btn.btn-video:before, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-video.gform_button:before, .button.btn-video:before {
+    content: '\f144';
+    font-family: 'Font Awesome 5 Pro';
+    vertical-align: middle;
+    padding-right: 10px;
+    font-size: 25px;
+    color: #FFF; }
   .btn.btn-yellow, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button, .button.btn-yellow {
     background-color: #f3cc30;
     border: 2px solid #f3cc30;
@@ -8546,8 +8554,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     margin-top: 0;
     margin-bottom: 0;
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    background-position: right center;
     position: relative; }
     .block.cta-block .overlay {
       display: block;
@@ -8592,7 +8599,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         color: white;
         margin-bottom: 0px;
         font-size: 1.8em;
-        line-height: 1.5em; }
+        line-height: 1.5em;
+        margin-bottom: 25px; }
         @media (min-width: 768px) {
           .block.cta-block .cta-block-content h2 {
             font-size: 2.2em; } }
@@ -8608,15 +8616,34 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         margin: 5px 7px;
         color: #FFFFFF;
         background: transparent;
-        border-color: #FFFFFF; }
+        border-color: #FFFFFF;
+        margin-bottom: 10px !important; }
         @media (min-width: 768px) {
           .block.cta-block .cta-block-content .btn, .block.cta-block .cta-block-content .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .block.cta-block .cta-block-content .gform_button {
             margin: 0 7px; } }
         .block.cta-block .cta-block-content .btn:hover, .block.cta-block .cta-block-content .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .block.cta-block .cta-block-content .gform_button:hover {
           background: #FFFFFF;
           color: #84BD00; }
-  .block .latest-news-content-block .post-image .image img {
+  .block.latest-news-content-block .intro {
+    margin-bottom: 45px; }
+    .block.latest-news-content-block .intro p {
+      font-size: 1.15em;
+      line-height: 1.5em; }
+  .block.latest-news-content-block .post-image .image img {
     max-width: 100%; }
+  .block.latest-news-content-block .post-image .image .image-overlay {
+    position: relative;
+    background: #84BD00;
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+    padding: 15px 10px;
+    margin-top: -70px; }
+    .block.latest-news-content-block .post-image .image .image-overlay h4 {
+      color: #fff;
+      font-size: 1.15em; }
+    .block.latest-news-content-block .post-image .image .image-overlay p {
+      color: #fff; }
 
 .two-column-block {
   padding: 50px 0; }

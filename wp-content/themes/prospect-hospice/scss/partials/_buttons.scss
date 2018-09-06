@@ -25,14 +25,25 @@
     color: #FFFFFF;
   }
   &.btn-donate {
-    background-color: $pink;
-    border:2px solid $pink;
+    background-color: $pink !important;
+    border:2px solid $pink !important;
     &:hover, &:focus, &:active {
-      background: darken($pink, 5%);
-      border:2px solid darken($pink, 5%);
+      background: darken($pink, 5%) !important;
+      border:2px solid darken($pink, 5%) !important;
+      color: #FFF !important;
     }
     &:before {
       content: '\f004';
+      font-family: 'Font Awesome 5 Pro';
+      vertical-align: middle;
+      padding-right: 10px;
+      font-size: 25px;
+      color: #FFF;
+    }
+  }
+  &.btn-video {
+    &:before {
+      content: '\f144';
       font-family: 'Font Awesome 5 Pro';
       vertical-align: middle;
       padding-right: 10px;

@@ -317,7 +317,7 @@ acf_add_local_field_group(array(
 				'5a9d6b125f12a' => array(
 					'key' => '5a9d6b125f12a',
 					'name' => 'two_column_image_left',
-					'label' => 'Two Column (Image Left)',
+					'label' => 'Two Column (Image/Video Left)',
 					'display' => 'block',
 					'sub_fields' => array(
 						array(
@@ -504,7 +504,7 @@ acf_add_local_field_group(array(
 				'layout_5b59e89830c8b' => array(
 					'key' => 'layout_5b59e89830c8b',
 					'name' => 'two_column_image_right',
-					'label' => 'Two Column (Image right)',
+					'label' => 'Two Column (Image/Video right)',
 					'display' => 'block',
 					'sub_fields' => array(
 						array(
@@ -1021,7 +1021,7 @@ acf_add_local_field_group(array(
 									'key' => 'field_5a9fc4354f605',
 									'label' => 'Button Link',
 									'name' => 'button_link',
-									'type' => 'page_link',
+									'type' => 'link',
 									'instructions' => '',
 									'required' => 0,
 									'conditional_logic' => 0,
@@ -1037,6 +1037,33 @@ acf_add_local_field_group(array(
 									'allow_null' => 0,
 									'allow_archives' => 0,
 									'multiple' => 0,
+								),
+								array(
+									'key' => 'field_5b9106475f3dc',
+									'label' => 'Button Type',
+									'name' => 'button_type',
+									'type' => 'select',
+									'instructions' => '',
+									'required' => 0,
+									'conditional_logic' => 0,
+									'wrapper' => array(
+										'width' => '',
+										'class' => '',
+										'id' => '',
+									),
+									'choices' => array(
+										'normal' => 'Normal',
+										'btn-video' => 'Video',
+										'btn-donate' => 'Donate',
+									),
+									'default_value' => array(
+									),
+									'allow_null' => 0,
+									'multiple' => 0,
+									'ui' => 0,
+									'return_format' => 'value',
+									'ajax' => 0,
+									'placeholder' => '',
 								),
 							),
 						),
