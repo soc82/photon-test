@@ -8519,6 +8519,15 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         @media (min-width: 992px) {
           .block.hero-banner .hero-banner-content p {
             width: 30%; } }
+  .block.full-width-content h2.below_hero {
+    display: inline-block;
+    position: absolute;
+    top: -75px;
+    padding: 20px 65px;
+    color: #fff;
+    transform: rotate(-3deg); }
+  .block.full-width-content .content-below-hero {
+    margin-top: 50px; }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;

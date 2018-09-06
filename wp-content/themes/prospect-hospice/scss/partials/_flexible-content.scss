@@ -61,10 +61,26 @@
 		}
 	}
 
+	&.full-width-content {
+		h2 {
+			&.below_hero {
+				display: inline-block;
+				position: absolute;
+				top: -75px;
+				padding: 20px 65px;
+				color: #fff;
+				transform: rotate(-3deg);
+			}
+		}
+		.content-below-hero {
+			margin-top: 50px;
+		}
+	}
+
 	// CTA blocks
 	&.cta-block {
-		margin-top: 0;
-		margin-bottom: 0;
+	margin-top: 0;
+	margin-bottom: 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
