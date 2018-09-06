@@ -31,6 +31,7 @@
 	    	position: absolute;
 	    	bottom: 40px;
 	    	right: 40px;
+	    	color: #fff;
 	    }
 		.hero-banner-content {
 			padding: 50px;
@@ -353,6 +354,26 @@
 // Tiles
 .tile-block {
 	margin: 0;
+	.header {
+		h2 {
+			display: inline-block;
+		}
+		.btn {
+			float: right;
+			margin-bottom: 20px;
+		}
+
+		@include media-breakpoint-down(md) {
+			text-align: center;
+	       h2 {
+
+	       }
+	       .btn {
+	       		float: none;
+	       }
+	    }
+
+	}
 	.image-tile {
 		display: block;
 		height: 350px;

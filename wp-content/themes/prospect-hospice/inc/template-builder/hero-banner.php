@@ -12,10 +12,10 @@ $link_url = (get_sub_field('link_url') ? get_sub_field('link_url') : get_field('
             <div class="row">
                 <div class="col-12">
                     <?php if ($second_heading) : ?>
-                        <h2 class="color-yellow"><?php echo $second_heading; ?></h2>
+                        <h2 class="color-yellow"><?php echo $heading; ?></h2>
                     <?php endif; ?>
                     <?php if($heading) : ?>
-                        <h1><?php echo $heading; ?></h1>
+                        <h1><?php echo $second_heading; ?></h1>
                     <?php endif; ?>
                     <?php if($description) : ?>
                         <p><?php echo $description; ?></p>

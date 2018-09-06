@@ -24,6 +24,22 @@
     border:2px solid darken($green, 5%);
     color: #FFFFFF;
   }
+  &.btn-donate {
+    background-color: $pink;
+    border:2px solid $pink;
+    &:hover, &:focus, &:active {
+      background: darken($pink, 5%);
+      border:2px solid darken($pink, 5%);
+    }
+    &:before {
+      content: '\f004';
+      font-family: 'Font Awesome 5 Pro';
+      vertical-align: middle;
+      padding-right: 10px;
+      font-size: 25px;
+      color: #FFF;
+    }
+  }
   &.btn-yellow {
     background-color: $yellow;
     border: 2px solid $yellow;

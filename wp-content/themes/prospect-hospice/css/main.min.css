@@ -7306,6 +7306,19 @@ a {
     background: #72a400;
     border: 2px solid #72a400;
     color: #FFFFFF; }
+  .btn.btn-donate, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button, .button.btn-donate {
+    background-color: #f50068;
+    border: 2px solid #f50068; }
+    .btn.btn-donate:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:hover, .btn.btn-donate:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:focus, .btn.btn-donate:active, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:active, .button.btn-donate:hover, .button.btn-donate:focus, .button.btn-donate:active {
+      background: #dc005d;
+      border: 2px solid #dc005d; }
+    .btn.btn-donate:before, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:before, .button.btn-donate:before {
+      content: '\f004';
+      font-family: 'Font Awesome 5 Pro';
+      vertical-align: middle;
+      padding-right: 10px;
+      font-size: 25px;
+      color: #FFF; }
   .btn.btn-yellow, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-yellow.gform_button, .button.btn-yellow {
     background-color: #f3cc30;
     border: 2px solid #f3cc30;
@@ -8495,7 +8508,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     .block.hero-banner .btn-circle {
       position: absolute;
       bottom: 40px;
-      right: 40px; }
+      right: 40px;
+      color: #fff; }
     .block.hero-banner .hero-banner-content {
       padding: 50px; }
       @media (min-width: 992px) {
@@ -8759,6 +8773,16 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 
 .tile-block {
   margin: 0; }
+  .tile-block .header h2 {
+    display: inline-block; }
+  .tile-block .header .btn, .tile-block .header .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .tile-block .header .gform_button {
+    float: right;
+    margin-bottom: 20px; }
+  @media (max-width: 991.98px) {
+    .tile-block .header {
+      text-align: center; }
+      .tile-block .header .btn, .tile-block .header .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .tile-block .header .gform_button {
+        float: none; } }
   .tile-block .image-tile {
     display: block;
     height: 350px;
