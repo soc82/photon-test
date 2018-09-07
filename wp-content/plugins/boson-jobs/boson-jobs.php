@@ -120,7 +120,7 @@ function prospect_woo_account_menu() {
     'edit-account'       => __( 'Account Details', 'prospect' ),
     'edit-address'       => __( 'Addresses', 'prospect' ),
     //'payment-methods'    => __( 'Payment Methods', 'prospect' ),
-		'orders'             => __( 'Orders', 'prospect' ),
+		'orders'             => __( 'Orders & Events', 'prospect' ),
     'applications' => __( 'Job Applications', 'prospect' ),
 		//'downloads'          => __( 'Download', 'prospect' ),
 		'customer-logout'    => __( 'Logout', 'prospect' ),

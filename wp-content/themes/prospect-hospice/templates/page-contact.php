@@ -9,10 +9,6 @@ get_header(); ?>
 // Prospect HQ
 $lat = get_field('config_map_lattitude', 'options');
 $long = get_field('config_map_longitude', 'options');
-// Other Address
-$gwh = get_field('gwh_address');
-$wellbeing = get_field('wellbeing_centre_address');
-$distribution = get_field('distribution_centre_address');
 
 $find_us = get_field('how_to_find_us');
 $useful = get_field('useful_telephone_numbers');
@@ -48,6 +44,9 @@ $useful = get_field('useful_telephone_numbers');
           echo '<div class="col-12 col-md-6 col-lg-5 how-to-find-us">';
             if($find_us['section_heading']) echo '<h3 class="section-heading">' . $find_us['section_heading'] . '</h3>';
             if($find_us['content']) echo $find_us['content'];
+            if($find_us['find_shop_button']['button_text'] && $find_us['find_shop_button']['button_link']):
+              echo '<a href="' . get_permalink($find_us['find_shop_button']['button_link']) . '" class="btn" title="' . $find_us['find_shop_button']['button_text'] . '">' . $find_us['find_shop_button']['button_text'] . '</a>';
+            endif;
           echo '</div>';
         endif; ?>
         <?php if(array_filter($useful)):
@@ -92,8 +91,8 @@ endif; ?>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQJsfiggkELXzjTTH3xUKjsef9cBtXLdQ"></script>
 <script>
   var map = new google.maps.Map(document.getElementById('contact-map'), {
-    zoom: 10,
-    center: new google.maps.LatLng(51.5264768, -1.7850049),
+    zoom: 12,
+    center: new google.maps.LatLng(<?php echo $lat; ?>, <?php echo $long; ?>),
     scrollwheel: false,
     mapTypeControl: false,
     styles: [
@@ -287,102 +286,12 @@ endif; ?>
       scaledSize: new google.maps.Size(40, 55)
     }
   });
-  google.maps.event.addListener(officeMarker, 'click', (function(officeMarker, i) {
+  google.maps.event.addListener(officeMarker, 'click', (function(officeMarker) {
     return function() {
       infowindow.setContent(office[0]);
       infowindow.open(map, officeMarker);
     }
-  })(officeMarker, i));
+  })(officeMarker));
 
-  <?php if($shop_locations): ?>
-    var shops = [<?php foreach($shop_locations as $location):
-        echo $location;
-      endforeach;   ?>];
-    var shops, i;
-    for (i = 0; i < shops.length; i++) {
-      shopMarkers = new google.maps.Marker({
-        position: new google.maps.LatLng(shops[i][1], shops[i][2]),
-        map: map,
-        animation: google.maps.Animation.DROP,
-        icon: {
-          url: "<?php echo get_stylesheet_directory_uri(); ?>/img/shop-marker.png",
-          scaledSize: new google.maps.Size(30, 40)
-        }
-      });
-
-      google.maps.event.addListener(shopMarkers, 'click', (function(shopMarkers, i) {
-        return function() {
-          infowindow.setContent(shops[i][0]);
-          infowindow.open(map, shopMarkers);
-        }
-      })(shopMarkers, i));
-  <?php endif; ?>
-
-  <?php if($gwh): ?>
-    var gwh = ["<?php echo $gwh['address']; ?>", <?php echo $gwh['lat']; ?>,<?php echo $gwh['lng']; ?>];
-    var gwhMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(<?php echo $gwh['lat']; ?>,<?php echo $gwh['lng']; ?>),
-      map: map,
-      title: '<?php echo $gwh['address']; ?>',
-      animation: google.maps.Animation.DROP,
-      icon: {
-        url: "<?php echo get_stylesheet_directory_uri(); ?>/img/hospital-marker.png",
-        scaledSize: new google.maps.Size(40, 40)
-      }
-    });
-    google.maps.event.addListener(gwhMarker, 'click', (function(gwhMarker, i) {
-      return function() {
-        infowindow.setContent(gwh[0]);
-        infowindow.open(map, gwhMarker);
-      }
-    })(gwhMarker, i));
-
-  <?php endif;  ?>
-
-  <?php if($wellbeing): ?>
-    var wellbeing = ["<?php echo $wellbeing['address']; ?>", <?php echo $wellbeing['lat']; ?>,<?php echo $wellbeing['lng']; ?>];
-    var wellbeingMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(<?php echo $wellbeing['lat']; ?>,<?php echo $wellbeing['lng']; ?>),
-      map: map,
-      title: '<?php echo $wellbeing['address']; ?>',
-      animation: google.maps.Animation.DROP,
-      icon: {
-        url: "<?php echo get_stylesheet_directory_uri(); ?>/img/wellbeing-marker.png",
-        scaledSize: new google.maps.Size(40, 40)
-      }
-    });
-    google.maps.event.addListener(wellbeingMarker, 'click', (function(wellbeingMarker, i) {
-      return function() {
-        infowindow.setContent(wellbeing[0]);
-        infowindow.open(map, wellbeingMarker);
-      }
-    })(wellbeingMarker, i));
-
-  <?php endif;  ?>
-
-  <?php if($distribution): ?>
-    var distribution = ["<?php echo $wellbeing['address']; ?>", <?php echo $distribution['lat']; ?>,<?php echo $distribution['lng']; ?>];
-    var distributionMarker = new google.maps.Marker({
-      position: new google.maps.LatLng(<?php echo $distribution['lat']; ?>,<?php echo $distribution['lng']; ?>),
-      map: map,
-      title: '<?php echo $distribution['address']; ?>',
-      animation: google.maps.Animation.DROP,
-      icon: {
-        url: "<?php echo get_stylesheet_directory_uri(); ?>/img/distribution-marker.png",
-        scaledSize: new google.maps.Size(55, 35)
-      }
-    });
-    google.maps.event.addListener(distributionMarker, 'click', (function(distributionMarker, i) {
-      return function() {
-        infowindow.setContent(distribution[0]);
-        infowindow.open(map, distributionMarker);
-      }
-    })(distributionMarker, i));
-
-  <?php endif;  ?>
-
-
-
-  }
 
 </script>
