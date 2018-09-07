@@ -23,6 +23,8 @@ $color_class = prospect_dark_colour_class();
 									'post_type'	=> 'page',
 									'posts_per_page'	=> -1,
 									'post_parent'	=>	$parent,
+									'orderby'	=> 'name',
+									'order'	=> 'ASC',
 								);
 								$page_query = new WP_Query($args);
 								if($page_query->have_posts()):
