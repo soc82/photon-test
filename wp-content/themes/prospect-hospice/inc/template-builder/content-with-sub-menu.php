@@ -13,6 +13,11 @@ $color_class = prospect_dark_colour_class();
 				<?php if($heading) echo '<h3>' . $heading . '</h3>' ?>
 				<?php if($content) echo '<p>' . $content . '</p>'; ?>
 			</div>
+			<style>
+				.sidebar-sub-menu:after {
+					background-color: <?php echo $background_colour; ?> !important;
+				}
+			</style>
 			<div class="col-12 col-md-4">
 				<div class="sidebar-sub-menu" <?php if($background_colour) echo 'style="background-color:' . $background_colour . '"'; ?>>
 					<div class="sidebar-inner">

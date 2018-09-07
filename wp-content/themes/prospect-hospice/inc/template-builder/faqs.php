@@ -1,5 +1,8 @@
 <?php
-if(is_page_template('templates/flexible-template.php')):
+$template = basename(get_page_template());
+
+if (is_page_template('templates/flexible-template.php') || $template == 'page.php'):
+
 	$faq_items = get_sub_field('faq_items');
 	$heading = get_sub_field('heading');
 	if($faq_items && array_filter($faq_items)): ?>

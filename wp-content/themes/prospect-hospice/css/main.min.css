@@ -5792,7 +5792,6 @@ tr:first-child > td > .fc-day-grid-event {
 
 .fc-day-grid-event .fc-content {
   /* force events to be one-line tall */
-  white-space: nowrap;
   overflow: hidden; }
 
 .fc-day-grid-event .fc-time {
@@ -8629,21 +8628,24 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     .block.latest-news-content-block .intro p {
       font-size: 1.15em;
       line-height: 1.5em; }
-  .block.latest-news-content-block .post-image .image img {
-    max-width: 100%; }
-  .block.latest-news-content-block .post-image .image .image-overlay {
-    position: relative;
-    background: #84BD00;
-    width: 75%;
-    margin: 0 auto;
-    text-align: center;
-    padding: 15px 10px;
-    margin-top: -70px; }
-    .block.latest-news-content-block .post-image .image .image-overlay h4 {
-      color: #fff;
-      font-size: 1.15em; }
-    .block.latest-news-content-block .post-image .image .image-overlay p {
-      color: #fff; }
+  .block.latest-news-content-block .post-image {
+    margin-bottom: 20px; }
+    .block.latest-news-content-block .post-image .image img {
+      max-width: 100%;
+      width: 100%; }
+    .block.latest-news-content-block .post-image .image .image-overlay {
+      position: relative;
+      background: #84BD00;
+      width: 75%;
+      margin: 0 auto;
+      text-align: center;
+      padding: 15px 10px;
+      margin-top: -70px; }
+      .block.latest-news-content-block .post-image .image .image-overlay h4 {
+        color: #fff;
+        font-size: 1.15em; }
+      .block.latest-news-content-block .post-image .image .image-overlay p {
+        color: #fff; }
 
 .two-column-block {
   padding: 50px 0; }
@@ -8726,6 +8728,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   @media (min-width: 768px) {
     .enquiry-form-block {
       padding: 50px 0; } }
+  .enquiry-form-block .gform_body .gfield .gfield_required {
+    display: none; }
 
 .image-gallery-block {
   padding: 40px 0;
@@ -8900,6 +8904,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     content: '\f106'; }
   .faqs-block .faq-item.active-faq .faq-answer {
     display: block; }
+
+.testimonial-intro {
+  margin-top: 60px; }
 
 .testimonial-block {
   padding: 40px 0 30px 0; }
@@ -9405,10 +9412,16 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   text-align: center;
   border-radius: 30px;
   text-shadow: none;
+  text-transform: capitalize;
   box-sizing: content-box;
   outline: none !important; }
   #event-calendar .fc-header-toolbar button:hover {
     background: #608a00; }
+  #event-calendar .fc-header-toolbar button.fc-next-button {
+    margin-left: 20px; }
+    @media (min-width: 576px) {
+      #event-calendar .fc-header-toolbar button.fc-next-button {
+        margin-left: 5px; } }
 #event-calendar .fc-header-toolbar .fc-left {
   float: none;
   width: 100%;
@@ -9426,9 +9439,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   display: inline-block;
   vertical-align: middle;
   text-align: right;
-  width: 50%; }
+  width: 50%;
+  float: right; }
   @media (min-width: 768px) {
     #event-calendar .fc-header-toolbar .fc-center {
+      float: none;
       width: auto;
       text-align: center; } }
   #event-calendar .fc-header-toolbar .fc-center button {
@@ -9451,16 +9466,16 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         float: left; } }
   #event-calendar .fc-header-toolbar .fc-right .fc-button-group {
     float: none;
-    vertical-align: middle; }
+    vertical-align: middle;
+    margin-top: 20px; }
     @media (min-width: 768px) {
       #event-calendar .fc-header-toolbar .fc-right .fc-button-group {
-        float: left; } }
+        float: left;
+        margin-top: 0; } }
     #event-calendar .fc-header-toolbar .fc-right .fc-button-group button {
       padding-left: 6px;
       padding-right: 6px;
       float: none; }
-      #event-calendar .fc-header-toolbar .fc-right .fc-button-group button.fc-next-button {
-        margin-left: 5px; }
 #event-calendar .fc-view-container .fc-day-header span {
   font-size: 0.9em;
   padding: 5px;
@@ -9484,6 +9499,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     #event-calendar .fc-view-container .fc-event .fc-title .event-location {
       font-size: 0.8em;
       display: block; }
+#event-calendar .fc-list-table td {
+  padding: 20px 14px; }
+  @media (min-width: 768px) {
+    #event-calendar .fc-list-table td {
+      padding: 8px 14px; } }
 #event-calendar .fc-list-table .fc-list-heading span {
   padding: 0;
   font-size: 0.8em; }

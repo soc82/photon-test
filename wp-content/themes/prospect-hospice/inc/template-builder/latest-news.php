@@ -60,7 +60,7 @@ if (count($recent_posts) < 3) {
 		</div>
 		<div class="row">
 			<?php foreach ($recent_posts as $post) : ?>
-				<div class="col-4 post-image">
+				<div class="col-md-4 col-12 post-image">
 					<a href="<?php get_permalink($post['ID']); ?>">
 						<div class="image">
 							<?php echo get_the_post_thumbnail($post['ID']); ?>

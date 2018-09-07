@@ -14,10 +14,18 @@
       text-align: center;
       border-radius: 30px;
       text-shadow: none;
+      text-transform: capitalize;
       box-sizing: content-box;
       outline: none !important;
       &:hover {
         background:darken($green, 10%);
+      }
+      &.fc-next-button {
+        margin-left: 20px;
+        @include media-breakpoint-up(sm) {
+          margin-left: 5px;
+        }
+
       }
     }
     .fc-left {
@@ -40,7 +48,9 @@
       vertical-align: middle;
       text-align: right;
       width:50%;
+      float: right;
       @include media-breakpoint-up(md) {
+        float: none;
         width: auto;
         text-align: center;
       }
@@ -68,16 +78,15 @@
       .fc-button-group {
         float: none;
         vertical-align: middle;
+        margin-top: 20px;
         @include media-breakpoint-up(md) {
           float: left;
+          margin-top: 0;
         }
         button {
           padding-left: 6px;
           padding-right: 6px;
           float: none;
-          &.fc-next-button {
-            margin-left: 5px;
-          }
         }
       }
 
@@ -117,6 +126,13 @@
     }
   }
   .fc-list-table  {
+
+    td {
+      padding: 20px 14px;
+      @include media-breakpoint-up(md) {
+        padding: 8px 14px;
+      }
+    }
 
     .fc-list-heading {
       span {

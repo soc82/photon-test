@@ -172,9 +172,11 @@
 			}
 		}
 		.post-image {
+			margin-bottom: 20px;
 			.image {
 				img {
 					max-width: 100%;
+					width: 100%;
 				}
 				.image-overlay {
 					position: relative;
@@ -292,6 +294,13 @@
 	text-align: center;
 	@include media-breakpoint-up(md) {
 		padding: 50px 0;
+	}
+	.gform_body {
+		.gfield {
+			.gfield_required {
+				display: none;
+			}
+		}
 	}
 }
 
@@ -499,6 +508,9 @@
 			}
 		}
 	}
+}
+.testimonial-intro {
+	margin-top: 60px;
 }
 
 .testimonial-block {
