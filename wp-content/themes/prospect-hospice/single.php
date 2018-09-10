@@ -55,7 +55,7 @@
 		<div class="container">
 		    <div class="row">
 		    	<div class="col-12">
-		    		<h2 class="text-center">Recent article which may interest you ...</h2>
+		    		<h2 class="text-center">Recent articles which may interest you ...</h2>
 		    	</div>
 		    </div>
 		</div>

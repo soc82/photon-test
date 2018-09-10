@@ -56,7 +56,7 @@ get_header(); ?>
     'posts_per_page'  => -1,
     'order' => 'DESC',
     'orderby' => 'date',
-    'posts_per_page' => 6,
+    'posts_per_page' => 20,
     'paged' => get_query_var('paged') ? get_query_var('paged') : 1,
 );
 

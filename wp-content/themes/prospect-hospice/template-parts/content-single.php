@@ -20,6 +20,6 @@
 	<?php endif;?>
 	<div class="entry-content">
 		<?php the_content();?>
-		<a href="/news/" title="Back to news"><i class="fa fa-angle-left"></i> Back to News</a>
+		<a class="btn" href="/news/" title="Back to news"><i class="fa fa-angle-left"></i> Back to News</a>
 	</div>
 </div>
