@@ -9619,8 +9619,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           font-size: 1.15em; } }
     .prospect_event .single-event-details .event-information .event-description {
       margin: 10px 0; }
-      .prospect_event .single-event-details .event-information .event-description p, .prospect_event .single-event-details .event-information .event-description ul, .prospect_event .single-event-details .event-information .event-description ol, .prospect_event .single-event-details .event-information .event-description a {
-        font-size: 85%; }
+      .prospect_event .single-event-details .event-information .event-description p, .prospect_event .single-event-details .event-information .event-description ul, .prospect_event .single-event-details .event-information .event-description ol {
+        font-size: 90%; }
+      .prospect_event .single-event-details .event-information .event-description .btn, .prospect_event .single-event-details .event-information .event-description .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-event-details .event-information .event-description .gform_button {
+        margin-top: 10px; }
     .prospect_event .single-event-details .event-map {
       height: 300px; }
   .prospect_event .event-volunteering-block {

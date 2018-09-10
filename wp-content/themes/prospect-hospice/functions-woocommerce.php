@@ -59,23 +59,32 @@ function prospect_product_admin_js() {
     <script type='text/javascript'>
         jQuery(document).ready(function () {
             //for Price tab
-            jQuery('.product_data_tabs .general_tab').addClass('show-field').show();
-            jQuery('#general_product_data .pricing').addClass('show-field').show();
+            jQuery('.product_data_tabs .general_tab').addClass('show_if_prospect_event').show();
+            jQuery('#general_product_data .pricing').addClass('show_if_prospect_event').show();
             //for Inventory tab
-            jQuery('.inventory_options').addClass('show-field').show();
-            jQuery('#inventory_product_data ._manage_stock_field').addClass('show-field').show();
-            jQuery('#inventory_product_data ._sold_individually_field').parent().addClass('show-field').show();
-            jQuery('#inventory_product_data ._sold_individually_field').addClass('show-field').show();
+            jQuery('.inventory_options').addClass('show_if_prospect_event').show();
+            jQuery('#inventory_product_data ._manage_stock_field').addClass('show_if_prospect_event').show();
         });
 				jQuery( function($){
 				    $( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
 				        if ( select_val === 'prospect_event' ) {
 				            $( '.event_details_tab' ).show();
+                    $('.shipping_options').hide();
+                    $('.attribute_options').hide();
 				        } else {
 									$( '.event_details_tab' ).hide();
 								}
 				    } );
 				    $( 'select#product-type' ).change();
+
+            $('#event_bookable').change(function() {
+              if($('#event_bookable').prop('checked')) {
+                $('.external-booking-link-field').hide();
+              } else {
+                $('.external-booking-link-field').show();
+              }
+            } );
+            $( '#event_bookable' ).change();
 				} );
     </script>
 		<script>
@@ -171,6 +180,14 @@ function prospect_custom_product_data_fields() {
         ?> <div class = 'options_group' >
 
 				<div class="options-group">
+            <p class="form-field">
+              <label for="event_bookable">Bookable On Website?: </label>
+              <input type="checkbox" name="event_bookable" id="event_bookable" <?php if(get_post_meta($post->ID, 'event_bookable')) echo 'checked'; ?> />
+            </p>
+            <p class="form-field external-booking-link-field">
+              <label for="external_booking_link">Booking Link (external): </label>
+              <input type="text" name="external_booking_link" id="external_booking_link" class="short" <?php if(get_post_meta($post->ID, 'external_booking_link')) echo 'value="' . get_post_meta($post->ID, 'external_booking_link', true) . '"'; ?> />
+            </p>
 						<p class="form-field">
 							<label for="event_start_date">Start Date: </label>
 							<input type="date" name="event_start_date" id="event_start_date" class="short" <?php if(get_post_meta($post->ID, 'event_start_date')) echo 'value="' . get_post_meta($post->ID, 'event_start_date', true) . '"'; ?> />
@@ -204,6 +221,10 @@ function prospect_custom_product_data_fields() {
 
 function prospect_save_event_custom_fields($post_id) {
 
+    $bookable = $_POST['event_bookable'];
+    if (!empty($bookable)) {
+        update_post_meta($post_id, 'event_bookable', esc_attr($bookable));
+    }
     $start_date = $_POST['event_start_date'];
     if (!empty($start_date)) {
         update_post_meta($post_id, 'event_start_date', esc_attr($start_date));
@@ -625,4 +646,25 @@ function marketing_consent_option_update_user_meta( $order_id ) {
       update_user_meta( $user_id, 'marketing_consent', 'no' );
     }
   endif;
+}
+
+
+/*
+** Get Add to Cart link - Used for custom event pages
+*/
+function prospect_add_product_to_cart($post_id) {
+  global $woocommerce;
+  $url = $woocommerce->cart->get_cart_url() . '?add-to-cart=' . $post_id;
+  return $url;
+}
+
+/*
+** Redirect after add to cart - removes the add-to-cart query arg used in event template
+*/
+add_action('woocommerce_add_to_cart_redirect', 'prospect_to_cart_redirect');
+function prospect_to_cart_redirect($url = false) {
+  if(!empty($url)) {
+    return $url;
+  }
+  return wc_get_cart_url() . add_query_arg(array(), remove_query_arg('add-to-cart'));
 }
