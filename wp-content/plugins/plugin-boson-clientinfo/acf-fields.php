@@ -471,6 +471,52 @@ acf_add_local_field_group(array(
 			'ui' => 1,
 		),
 		array(
+			'key' => 'field_5c7e9845667b1',
+			'label' => 'Donate Page',
+			'name' => 'donate_page',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+			),
+			'allow_null' => 1,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
+			'key' => 'field_5c7e8876543c2',
+			'label' => 'Event Enquiry Form Page',
+			'name' => 'event_enquiry_form_page',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+			),
+			'allow_null' => 1,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
 			'key' => 'field_5b588c248dd94',
 			'label' => 'Footer',
 			'name' => '',
@@ -800,29 +846,7 @@ acf_add_local_field_group(array(
 			'return_format' => 'object',
 			'ui' => 1,
 		),
-		array(
-			'key' => 'field_5c7e9845667b1',
-			'label' => 'Donate Page',
-			'name' => 'donate_page',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'page',
-			),
-			'taxonomy' => array(
-			),
-			'allow_null' => 1,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
+
 		array(
 			'key' => 'field_5b588c142dd78',
 			'label' => 'Variable Data',
