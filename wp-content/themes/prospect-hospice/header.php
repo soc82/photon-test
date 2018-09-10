@@ -18,8 +18,8 @@
 	<meta name="theme-color" content="#c25cc3">
 	<?php wp_head(); ?>
 </head>
-
-<body <?php body_class(); ?>>
+<?php $class = wp_get_post_terms(get_the_ID(), 'section')[0]->slug; ?>
+<body <?php body_class($class); ?>>
 
 	<!-- Push Wrapper -->
 	<div class="mobile-pusher" id="mobile-pusher">
