@@ -18,7 +18,14 @@
 	<meta name="theme-color" content="#c25cc3">
 	<?php wp_head(); ?>
 </head>
-<?php $class = wp_get_post_terms(get_the_ID(), 'section')[0]->slug; ?>
+<?php 
+$terms = wp_get_post_terms(get_the_ID(), 'section');
+$class = "";
+
+if ($terms) {
+	$class = $terms[0]->slug; 
+}
+?>
 <body <?php body_class($class); ?>>
 
 	<!-- Push Wrapper -->

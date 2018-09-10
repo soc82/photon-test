@@ -7,7 +7,7 @@
 ));
 wp_reset_postdata();
 ?>
-<div class="team-block" <?php if($background_colour) echo 'style="background-color:'.$background_colour.'"';?>>
+<div class="team-block" <?php if($background_colour && $background_colour != 'section') echo 'style="background-color:'.$background_colour.'"';?>>
     <div class="container">
     	<?php if($heading) : ?>
 	        <div class="row">

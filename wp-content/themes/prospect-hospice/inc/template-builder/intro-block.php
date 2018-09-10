@@ -1,6 +1,3 @@
-<?php
-$title = (get_sub_field('title') ? get_sub_field('title');
-?>
 <div class="hero-banner block" <?php if($image) echo 'style="background-image:url(' . $image . ');"'; ?>>
     <div class="overlay"></div>
     <?php if($heading || $second_heading): ?>
