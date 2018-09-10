@@ -80,8 +80,10 @@ function prospect_product_admin_js() {
             $('#event_bookable').change(function() {
               if($('#event_bookable').prop('checked')) {
                 $('.external-booking-link-field').hide();
+                $('.booking-form-key-field').show();
               } else {
                 $('.external-booking-link-field').show();
+                $('.booking-form-key-field').hide();
               }
             } );
             $( '#event_bookable' ).change();
@@ -184,6 +186,10 @@ function prospect_custom_product_data_fields() {
               <label for="event_bookable">Bookable On Website?: </label>
               <input type="checkbox" name="event_bookable" id="event_bookable" <?php if(get_post_meta($post->ID, 'event_bookable')) echo 'checked'; ?> />
             </p>
+            <p class="form-field booking-form-key-field">
+              <label for="booking_form_key">Booking Form Key: </label>
+              <input type="text" name="booking_form_key" id="booking_form_key" placeholder="Example: form_5b966a4ca1f8a" class="short" <?php if(get_post_meta($post->ID, 'booking_form_key')) echo 'value="' . get_post_meta($post->ID, 'booking_form_key', true) . '"'; ?> />
+            </p>
             <p class="form-field external-booking-link-field">
               <label for="external_booking_link">Booking Link (external): </label>
               <input type="text" name="external_booking_link" id="external_booking_link" class="short" <?php if(get_post_meta($post->ID, 'external_booking_link')) echo 'value="' . get_post_meta($post->ID, 'external_booking_link', true) . '"'; ?> />
@@ -224,6 +230,14 @@ function prospect_save_event_custom_fields($post_id) {
     $bookable = $_POST['event_bookable'];
     if (!empty($bookable)) {
         update_post_meta($post_id, 'event_bookable', esc_attr($bookable));
+    }
+    $booking_form_key = $_POST['booking_form_key'];
+    if (!empty($booking_form_key)) {
+        update_post_meta($post_id, 'booking_form_key', esc_attr($booking_form_key));
+    }
+    $external_booking_link = $_POST['external_booking_link'];
+    if (!empty($external_booking_link)) {
+        update_post_meta($post_id, 'external_booking_link', esc_attr($external_booking_link));
     }
     $start_date = $_POST['event_start_date'];
     if (!empty($start_date)) {
@@ -666,5 +680,18 @@ function prospect_to_cart_redirect($url = false) {
   if(!empty($url)) {
     return $url;
   }
-  return wc_get_cart_url() . add_query_arg(array(), remove_query_arg('add-to-cart'));
+  return wc_get_cart_url() . add_query_arg(array(), remove_query_arg(array('add-to-cart', 'quantity', 'event_entry_id')));
+}
+
+
+// Set custom data as custom cart data in the cart item
+add_filter( 'woocommerce_add_cart_item_data', 'save_custom_data_in_cart_object', 30, 3 );
+function save_custom_data_in_cart_object( $cart_item_data, $product_id, $variation_id ) {
+    if( ! isset($_GET['event_entry_id']) )
+        return $cart_item_data;
+
+    $event_entry_meta = esc_attr( $_GET['event_entry_id'] );
+    $cart_item_data['custom_data']['event_entry_meta'] = esc_attr( $_GET['event_entry_id'] );
+
+    return $cart_item_data;
 }

@@ -15,6 +15,11 @@
 *****************************/
 require_once('acf-fields.php');
 
+/****************************
+  Register event submissions post type
+*****************************/
+include(plugin_dir_path( __FILE__ ) . 'boson-event-submissions.php');
+
 
 // Event query for calendar
 function prospect_events_calendar_query() {
@@ -185,3 +190,84 @@ function create_event_type_taxonomies() {
 	register_taxonomy( 'event-type', array( 'product' ), $args );
 
 }
+
+
+
+function prospect_get_event_form( ) {
+  $event = '';
+  if(isset($_GET['event'])):
+    $event = get_post($_GET['event']);
+    $form_key = get_post_meta($_GET['event'], 'booking_form_key', true);
+    echo '<h2>Event: ' . get_the_title($event) . '</h2>';
+    if($form_key):
+
+      $form_args = array(
+          'display_title' => false,
+          'display_description' => false,
+          'submit_text' => 'Submit',
+          'echo' => true,
+          'values' => array(),
+          // Filter mode disables the success message after submission and instead displays all fields again with their submitted values.
+          'filter_mode' => false,
+      );
+      advanced_form( $form_key, $form_args );
+      echo '<div class="event-total-attendees"></div>';
+      echo '<div class="event-total-price"></div>';
+
+    else:
+      echo '<p>Event not found.</p>';
+    endif;
+  else:
+    echo '<p>Event not found.</p>';
+  endif;
+}
+
+
+function prosect_event_form_attendee_number( $form, $args ) {
+    echo '<input type="hidden" name="total_number_attendees" id="total_number_attendees" value="1">';
+}
+add_action( 'af/form/hidden_fields', 'prosect_event_form_attendee_number', 10, 2 );
+
+
+/*
+** After ACF form submission
+*/
+function prospect_event_form_submission( $form, $fields, $args ) {
+
+	$post_title = 'Test Entry';
+
+	$post_data = array(
+		'post_type' => 'event-entry',
+		'post_status' => 'publish',
+		'post_title' => $post_title,
+	);
+
+  /*
+  ** Reminder to add completion status here
+  */
+
+	$post_id = wp_insert_post( $post_data );
+  foreach($fields as $field):
+    if($field['type'] == 'repeater'):
+      $attendee = 1;
+      foreach($field['value'] as $attendee_array):
+          foreach($attendee_array as $key => $value):
+            if($value):
+              update_post_meta($post_id, $attendee . '_' . $key, $value);
+            endif;
+          endforeach;
+          $attendee++;
+      endforeach;
+    else:
+      if($field['value']):
+        update_post_meta($post_id, '0_' . $field['name'], $field['value']);
+      endif;
+    endif;
+  endforeach;
+  update_post_meta($post_id, 'event_id', $_GET['event']);
+
+  wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendee);
+  exit;
+
+}
+add_action( 'af/form/submission', 'prospect_event_form_submission', 10, 3 );
