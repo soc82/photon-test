@@ -9,7 +9,7 @@
             <?php endif;?>
             <div class="caption">
                 <h2><?php echo $post->post_title;?></h2>
-                <p><?php echo the_date('F Y');?></p>
+                <p><?php echo the_date('d F Y');?></p>
             </div>
         </a>
     </div>
