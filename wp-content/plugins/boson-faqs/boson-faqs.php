@@ -70,7 +70,7 @@ add_action( 'init', 'custom_post_type_faqs', 0 );
 function create_section_tax() {
   register_taxonomy(
     'section',
-    ['post', 'faqs'],
+    ['post', 'faqs', 'page'],
     array(
       'label' => __( 'Section' ),
       'rewrite' => array( 'slug' => 'section' ),

@@ -10,7 +10,7 @@ $background_colour = get_sub_field('background_colour');
 $color_class = prospect_dark_colour_class();
 ?>
 
-<div class="two-column-block two-column-image-left" <?php if ($background_colour) { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
+<div class="two-column-block two-column-image-left" <?php if ($background_colour && $background_colour != 'section') { echo 'style="background-color: ' . $background_colour . ';"'; } ?> >
 	<div class="container">
 		<div class="row">
 			<div class="col-12 col-md-10 offset-md-1">

@@ -3,7 +3,7 @@
 <?php $heading = get_sub_field('heading');?>
 <?php $intro = get_sub_field('intro');?>
 <?php if($related_team) : ?>
-	<div class="team-block" <?php if($background_colour) echo 'style="background-color:'.$background_colour.'"';?>>
+	<div class="team-block" <?php if($background_colour && $background_colour != 'section') echo 'style="background-color:'.$background_colour.'"';?>>
 	    <div class="container">
 	    	<?php if($heading) : ?>
 		        <div class="row">

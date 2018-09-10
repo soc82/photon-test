@@ -167,6 +167,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -478,6 +479,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -666,6 +668,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -855,6 +858,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -1505,6 +1509,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -1585,6 +1590,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -1691,6 +1697,7 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
+								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
