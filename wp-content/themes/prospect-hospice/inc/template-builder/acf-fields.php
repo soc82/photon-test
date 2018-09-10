@@ -31,7 +31,7 @@ acf_add_local_field_group(array(
 							'label' => 'Background Image',
 							'name' => 'background_image',
 							'type' => 'image',
-							'instructions' => '',
+							'instructions' => '1800 x 600 px',
 							'required' => 0,
 							'conditional_logic' => 0,
 							'wrapper' => array(
@@ -350,7 +350,7 @@ acf_add_local_field_group(array(
 							'label' => 'Image',
 							'name' => 'image',
 							'type' => 'image',
-							'instructions' => 'Image is needed whether image or video is set above. If Video, image is used as thumbnail.',
+							'instructions' => 'Image is needed whether image or video is set above. If Video, image is used as thumbnail. Image should be around 600x400px.',
 							'required' => 0,
 							'wrapper' => array(
 								'width' => '',
@@ -538,7 +538,7 @@ acf_add_local_field_group(array(
 							'label' => 'Image',
 							'name' => 'image',
 							'type' => 'image',
-							'instructions' => 'Image is needed whether image or video is set above. If Video, image is used as thumbnail.',
+							'instructions' => 'Image is needed whether image or video is set above. If Video, image is used as thumbnail. Image should be around 600x400px.',
 							'required' => 0,
 
 							'wrapper' => array(
@@ -1303,7 +1303,7 @@ acf_add_local_field_group(array(
 									'label' => 'Image',
 									'name' => 'image',
 									'type' => 'image',
-									'instructions' => '',
+									'instructions' => '600 x 400 px',
 									'required' => 0,
 									'conditional_logic' => 0,
 									'wrapper' => array(
