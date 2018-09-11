@@ -234,7 +234,7 @@ add_action( 'af/form/hidden_fields', 'prosect_event_form_attendee_number', 10, 2
 */
 function prospect_event_form_submission( $form, $fields, $args ) {
 
-	$post_title = 'Test Entry';
+	$post_title = 'Event Entry';
 
 	$post_data = array(
 		'post_type' => 'event-entry',
@@ -261,13 +261,33 @@ function prospect_event_form_submission( $form, $fields, $args ) {
     else:
       if($field['value']):
         update_post_meta($post_id, '0_' . $field['name'], $field['value']);
+        update_post_meta($post_id, '0_' . 'attendee_status', 'complete');
       endif;
     endif;
   endforeach;
   update_post_meta($post_id, 'event_id', $_GET['event']);
 
-  wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendee);
+  wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendee . '&event_entry_id=' . $post_id);
   exit;
 
 }
 add_action( 'af/form/submission', 'prospect_event_form_submission', 10, 3 );
+
+
+// Save event entry post id to cart item when added to cart
+add_filter( 'woocommerce_add_cart_item_data', 'prospect_save_event_entry_cart_data', 30, 3 );
+function prospect_save_event_entry_cart_data( $cart_item_data, $product_id, $variation_id ) {
+    if( ! isset($_GET['event_entry_id']) )
+        return $cart_item_data;
+
+    $cart_item_data['custom_data']['event_entry_meta'] = esc_attr( $_GET['event_entry_id'] );
+
+    return $cart_item_data;
+}
+
+add_action( 'woocommerce_add_order_item_meta', 'prospect_save_order_meta', 10, 3 );
+function prospect_save_order_meta( $itemId, $values, $key ) {
+    if ( isset( $values['custom_data']['event_entry_meta'] ) ) {
+        wc_add_order_item_meta( $itemId, 'event_entry_id', $values['custom_data']['event_entry_meta'] );
+    }
+}

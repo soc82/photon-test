@@ -682,16 +682,3 @@ function prospect_to_cart_redirect($url = false) {
   }
   return wc_get_cart_url() . add_query_arg(array(), remove_query_arg(array('add-to-cart', 'quantity', 'event_entry_id')));
 }
-
-
-// Set custom data as custom cart data in the cart item
-add_filter( 'woocommerce_add_cart_item_data', 'save_custom_data_in_cart_object', 30, 3 );
-function save_custom_data_in_cart_object( $cart_item_data, $product_id, $variation_id ) {
-    if( ! isset($_GET['event_entry_id']) )
-        return $cart_item_data;
-
-    $event_entry_meta = esc_attr( $_GET['event_entry_id'] );
-    $cart_item_data['custom_data']['event_entry_meta'] = esc_attr( $_GET['event_entry_id'] );
-
-    return $cart_item_data;
-}
