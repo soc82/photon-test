@@ -47,7 +47,7 @@ if($banner): ?>
           <?php the_content(); ?>
           <?php
           if(get_post_meta(get_the_ID(), 'event_bookable')):
-            echo '<a href="' . wc_get_cart_url() .  '?add-to-cart=' . get_the_ID() . '" class="btn btn-arrow-right">Book Now</a>';
+            echo '<a href="' . add_query_arg( array( 'event' => get_the_ID()), site_url('/booking-form/')) . '" class="btn btn-arrow-right">Book Now</a>';
           else:
             if(get_post_meta(get_the_ID(), 'external_booking_link')):
               echo '<a href="' . get_post_meta(get_the_ID(), 'external_booking_link') . '" class="btn btn-arrow-right" target="_blank">Book Now</a>';
