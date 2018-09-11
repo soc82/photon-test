@@ -23,8 +23,21 @@
 	}
 }
 
+.page-template-page-jobs {
+	.container {
+		h2 {
+			margin-top: 50px;
+		}
+	}
+}
+
 /* Volunteering */
 .page-template-page-volunteers {
+	.container {
+		h2 {
+			margin-top: 50px;
+		}
+	}
 	.jobs-list {
 		.item {
 			@include media-breakpoint-up(md) {

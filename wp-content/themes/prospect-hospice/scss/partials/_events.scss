@@ -409,3 +409,23 @@
     }
   }
 }
+
+.page-template-page-events-calendar-php {
+
+  @media (max-width: 300px) {
+    .fc-toolbar {
+      .fc-right {
+        width: 40% !important;
+      }
+      .fc-center {
+        width: 60% !important;
+      }
+    }
+  }
+  
+  @include media-breakpoint-down(xs) {
+    .static-donate {
+      display: none;
+    }
+  }
+}

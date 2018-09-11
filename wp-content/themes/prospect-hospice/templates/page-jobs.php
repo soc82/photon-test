@@ -6,8 +6,9 @@
 $query_args = array(
 	'post_type' => 'jobs',
 	'posts_per_page'  => -1,
+	'meta_key' => 'closing_date',
 	'order' => 'ASC',
-	'orderby' => 'menu_order',
+	'orderby' => 'meta_value',
 );
 // Use a tax_query if the user has specified a jobtype
 if (isset($_GET['type']) && $_GET['type'] && $_GET['type'] != 'all') {

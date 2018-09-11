@@ -71,14 +71,14 @@ get_header(); ?>
 					</div>
 
 					<div class="section apply-job">
-						<a href="/recruitment/" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
+						<a href="/working-for-us/vacant-positions/" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
 						<?php if (!$applied) : // If Applied ?>
 
 							<?php if (is_user_logged_in()) : // If user logged in, apply ?>
 								<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 							
 							<?php else : // else, explain they need to register / login ?>
-								<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> to apply <i class="fa fa-angle-right"></i></a>
+								<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 							<?php endif; ?>
 
 						<?php else : // else, tell user they have already applied  ?>
