@@ -48,4 +48,16 @@ function custom_post_type_event() {
 }
 
 
+if( function_exists('acf_add_options_page') ) {
+  $option_page = acf_add_options_page(array(
+    'page_title'  => 'Group Registration Settings',
+    'menu_title'  => 'Group Registration Settings',
+    'menu_slug'   => 'group-registration-settings',
+    'capability'  => 'edit_posts',
+    'redirect'  => false
+  ));
+ 
+}
+
+
  ?>
