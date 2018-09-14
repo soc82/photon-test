@@ -256,6 +256,21 @@ function prospect_event_form_submission( $form, $fields, $args ) {
               update_post_meta($post_id, $attendee . '_' . $key, $value);
             endif;
           endforeach;
+
+          $to = $attendee_array['email_address'];
+          $subject = get_field('new_attendee_email_subject', 'options');
+          $link_text = get_field('new_attendee_email_link_text', 'options');
+
+          $message = get_field('new_attendee_email_content', 'options');
+          $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
+
+          $headers = array(
+              "MIME-Version: 1.0",
+              "Content-Type: text/html;charset=utf-8"
+          );
+
+          $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee_array), implode("\r\n", $headers) );
+                    
           $attendee++;
       endforeach;
     else:
@@ -272,6 +287,12 @@ function prospect_event_form_submission( $form, $fields, $args ) {
 
 }
 add_action( 'af/form/submission', 'prospect_event_form_submission', 10, 3 );
+
+function process_attendee_email($message, $attendee) {
+  $message = str_replace('{attendee_name}', $attendee['first_name'], $message);
+  $message = str_replace('{attendee_full_name}', $attendee['first_name'] . ' ' . $attendee['last_name'], $message);
+  return $message;
+}
 
 
 // Save event entry post id to cart item when added to cart
