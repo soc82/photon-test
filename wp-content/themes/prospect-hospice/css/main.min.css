@@ -8599,7 +8599,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         width: 75%; }
         @media (min-width: 992px) {
           .block.hero-banner .hero-banner-content p {
-            width: 30%; } }
+            max-width: 50%; } }
   .block.full-width-content h2.below_hero {
     display: inline-block;
     position: absolute;
