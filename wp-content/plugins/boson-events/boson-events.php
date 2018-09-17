@@ -164,30 +164,30 @@ add_action( 'init', 'create_event_type_taxonomies', 0 );
 
 function create_event_type_taxonomies() {
 
-	$labels = array(
-		'name'              => _x( 'Event Types', 'taxonomy general name', 'prospect' ),
-		'singular_name'     => _x( 'Event Type', 'taxonomy singular name', 'prospect' ),
-		'search_items'      => __( 'Search Event Types', 'prospect' ),
-		'all_items'         => __( 'All Event Types', 'prospect' ),
-		'parent_item'       => __( 'Parent Event Type', 'prospect' ),
-		'parent_item_colon' => __( 'Parent Event Type:', 'prospect' ),
-		'edit_item'         => __( 'Edit Event Type', 'prospect' ),
-		'update_item'       => __( 'Update Event Type', 'prospect' ),
-		'add_new_item'      => __( 'Add New Event Type', 'prospect' ),
-		'new_item_name'     => __( 'New Event Type', 'prospect' ),
-		'menu_name'         => __( 'Event Types', 'prospect' ),
-	);
+  $labels = array(
+    'name'              => _x( 'Event Types', 'taxonomy general name', 'prospect' ),
+    'singular_name'     => _x( 'Event Type', 'taxonomy singular name', 'prospect' ),
+    'search_items'      => __( 'Search Event Types', 'prospect' ),
+    'all_items'         => __( 'All Event Types', 'prospect' ),
+    'parent_item'       => __( 'Parent Event Type', 'prospect' ),
+    'parent_item_colon' => __( 'Parent Event Type:', 'prospect' ),
+    'edit_item'         => __( 'Edit Event Type', 'prospect' ),
+    'update_item'       => __( 'Update Event Type', 'prospect' ),
+    'add_new_item'      => __( 'Add New Event Type', 'prospect' ),
+    'new_item_name'     => __( 'New Event Type', 'prospect' ),
+    'menu_name'         => __( 'Event Types', 'prospect' ),
+  );
 
-	$args = array(
-		'hierarchical'      => true,
-		'labels'            => $labels,
-		'show_ui'           => true,
-		'show_admin_column' => true,
-		'query_var'         => true,
-		'rewrite'           => array( 'slug' => 'event-type' ),
-	);
+  $args = array(
+    'hierarchical'      => true,
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    'rewrite'           => array( 'slug' => 'event-type' ),
+  );
 
-	register_taxonomy( 'event-type', array( 'product' ), $args );
+  register_taxonomy( 'event-type', array( 'product' ), $args );
 
 }
 
@@ -234,65 +234,95 @@ add_action( 'af/form/hidden_fields', 'prosect_event_form_attendee_number', 10, 2
 */
 function prospect_event_form_submission( $form, $fields, $args ) {
 
-	$post_title = 'Event Entry';
+  $post_title = 'Event Entry';
 
-	$post_data = array(
-		'post_type' => 'event-entry',
-		'post_status' => 'publish',
-		'post_title' => $post_title,
-	);
+  $post_data = array(
+    'post_type' => 'event-entry',
+    'post_status' => 'publish',
+    'post_title' => $post_title,
+  );
 
-  /*
-  ** Reminder to add completion status here
-  */
+    /*
+    ** Reminder to add completion status here
+    */
+    $event_id = $_GET['event'];
+    $lead_booker_fields = [];
+    $attendees = [];
 
-	$post_id = wp_insert_post( $post_data );
-  foreach($fields as $field):
-    if($field['type'] == 'repeater'):
-      $attendee = 1;
-      foreach($field['value'] as $attendee_array):
-          foreach($attendee_array as $key => $value):
-            if($value):
-              update_post_meta($post_id, $attendee . '_' . $key, $value);
-            endif;
-          endforeach;
+    foreach ($fields as $field) {
+        
+        if ($field['name'] == 'additional_attendees') {
+            foreach ($field['value'] as $attendee) {
+                $attendees[] = $attendee;
+            }
+        } else {
+            if ($field) {
+                $lead_booker_fields[] = $field;
+            }
+        }
+    }
 
-          $to = $attendee_array['email_address'];
-          $subject = get_field('new_attendee_email_subject', 'options');
-          $link_text = get_field('new_attendee_email_link_text', 'options');
+    if ($lead_booker_fields) {
+        $lead_post_id = wp_insert_post( $post_data );
+        foreach ($lead_booker_fields as $lead_booker_field) {
+            update_post_meta($lead_post_id, $lead_booker_field['name'], $lead_booker_field['value']);
+        }
+        update_post_meta($lead_post_id, 'attendee_status', 'complete');
+        update_post_meta($lead_post_id, 'event_id', $event_id);
+    }
 
-          $message = get_field('new_attendee_email_content', 'options');
-          $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
+    if ($attendees) {
+        $attendeeID = 1;
 
-          $headers = array(
-              "MIME-Version: 1.0",
-              "Content-Type: text/html;charset=utf-8"
-          );
+        foreach ($attendees as $attendee) {
+            // Check to see if a user already exists for the attendees
+            $user = get_user_by( 'email', $attendee['email_address'] );
+            if (!$user) {
+                $user_data = [
+                    'user_login' => strtolower(str_replace(' ',  '_', $attendee['first_name'] . '_' . $attendee['last_name'])),
+                    'user_name' => $attendee['first_name'] . ' ' . $attendee['last_name'],
+                    'user_email' => $attendee['email_address'],
+                    'user_pass' => null,
+                ];
+                $user = wp_insert_user($user_data);
+                // Triggers a password reset email to the user
+                wp_update_user(['user_pass' => null]);
 
-          $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee_array), implode("\r\n", $headers) );
+                $to = $attendee_array['email_address'];
+                $subject = get_field('new_attendee_email_subject', 'options');
+                $link_text = get_field('new_attendee_email_link_text', 'options');
 
-          $attendee++;
-      endforeach;
-    else:
-      if($field['value']):
-        update_post_meta($post_id, '0_' . $field['name'], $field['value']);
-        update_post_meta($post_id, '0_' . 'attendee_status', 'complete');
-      endif;
-    endif;
-  endforeach;
-  update_post_meta($post_id, 'event_id', $_GET['event']);
+                $message = get_field('new_attendee_email_content', 'options');
+                $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
 
-  wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendee . '&event_entry_id=' . $post_id);
-  exit;
+                $headers = array(
+                    "MIME-Version: 1.0",
+                    "Content-Type: text/html;charset=utf-8"
+                );
 
+                $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee_array), implode("\r\n", $headers) );
+            }
+            // Create an event entry post for each attendee, replace this with a custom wp_mail
+            $post_id = wp_insert_post( $post_data );
+
+            foreach ($attendee as $key => $value) {
+                if ($value) {
+                    update_post_meta($post_id, $key, $value);
+                }
+            }
+
+            update_post_meta($post_id, 'event_id', $event_id);
+            update_post_meta($post_id, 'lead_booking_id', $lead_post_id);
+
+            $attendeeID++;
+        }
+    }
+    exit;
+    wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendee . '&event_entry_id=' . $post_id);
+    exit;
 }
+
 add_action( 'af/form/submission', 'prospect_event_form_submission', 10, 3 );
-
-function process_attendee_email($message, $attendee) {
-  $message = str_replace('{attendee_name}', $attendee['first_name'], $message);
-  $message = str_replace('{attendee_full_name}', $attendee['first_name'] . ' ' . $attendee['last_name'], $message);
-  return $message;
-}
 
 
 // Save event entry post id to cart item when added to cart
@@ -312,8 +342,31 @@ function prospect_save_order_meta( $itemId, $values, $key ) {
         wc_add_order_item_meta( $itemId, 'event_entry_id', $values['custom_data']['event_entry_meta'] );
     }
 }
-// Remove event entries that are no longer needed
-function prospect_remove_cart_item( $cart_item_key, $instance ) { 
-    
-}; 
-add_action( 'woocommerce_remove_cart_item', 'prospect_remove_cart_item', 10, 2 ); 
+
+
+function prospect_woo_account_menu_events() {
+  $myorder = array(
+    'dashboard'          => __( 'Dashboard', 'prospect' ),
+    'edit-account'       => __( 'Account Details', 'prospect' ),
+    'edit-address'       => __( 'Addresses', 'prospect' ),
+    //'payment-methods'    => __( 'Payment Methods', 'prospect' ),
+    'orders'             => __( 'Orders & Events', 'prospect' ),
+    'applications' => __( 'Job Applications', 'prospect' ),
+    'attendingevents' => __( 'Events', 'prospect' ),
+    //'downloads'          => __( 'Download', 'prospect' ),
+    'customer-logout'    => __( 'Logout', 'prospect' ),
+  );
+  return $myorder;
+}
+add_filter ( 'woocommerce_account_menu_items', 'prospect_woo_account_menu_events' );
+
+// Add new URL endpoint for job applications
+function prospect_add_events_endpoint() {
+    add_rewrite_endpoint( 'attendingevents', EP_PAGES );
+}
+add_action( 'init', 'prospect_add_events_endpoint' );
+// Set the content for the new endpoint
+function prospect_events_endpoint_content() {
+    include(plugin_dir_path( __FILE__ ) . 'templates/attendee_events.php');
+}
+add_action( 'woocommerce_account_attendingevents_endpoint', 'prospect_events_endpoint_content' );
