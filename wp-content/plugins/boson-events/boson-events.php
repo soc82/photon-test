@@ -270,7 +270,7 @@ function prospect_event_form_submission( $form, $fields, $args ) {
           );
 
           $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee_array), implode("\r\n", $headers) );
-                    
+
           $attendee++;
       endforeach;
     else:
@@ -312,3 +312,8 @@ function prospect_save_order_meta( $itemId, $values, $key ) {
         wc_add_order_item_meta( $itemId, 'event_entry_id', $values['custom_data']['event_entry_meta'] );
     }
 }
+// Remove event entries that are no longer needed
+function prospect_remove_cart_item( $cart_item_key, $instance ) { 
+    
+}; 
+add_action( 'woocommerce_remove_cart_item', 'prospect_remove_cart_item', 10, 2 ); 
