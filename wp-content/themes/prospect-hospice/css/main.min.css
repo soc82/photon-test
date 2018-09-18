@@ -7158,7 +7158,7 @@ a {
 .desktop-navigation .nav-orange:hover a, .desktop-navigation .nav-orange:hover a:after {
   color: #ED8B00 !important; }
 .desktop-navigation .nav-orange:hover a:before {
-  border-bottom: solid 20px #ED8B00 !important;
+  border-bottom: solid 30px #ED8B00 !important;
   margin-left: 32px; }
 .desktop-navigation .nav-orange ul.sub-menu, .desktop-navigation .nav-orange h6, .desktop-navigation .nav-orange p {
   background-color: #ED8B00 !important;
@@ -7170,7 +7170,7 @@ a {
 .desktop-navigation .nav-navy a:after {
   color: #002b5c !important; }
 .desktop-navigation .nav-navy:hover a:before {
-  border-bottom: solid 20px #002b5c !important; }
+  border-bottom: solid 30px #002b5c !important; }
 .desktop-navigation .nav-navy:hover a, .desktop-navigation .nav-navy:hover a:after {
   color: #002b5c !important; }
 .desktop-navigation .nav-navy ul.sub-menu, .desktop-navigation .nav-navy h6, .desktop-navigation .nav-navy p {
@@ -7183,7 +7183,7 @@ a {
 .desktop-navigation .nav-teal a:after {
   color: #008F96 !important; }
 .desktop-navigation .nav-teal:hover a:before {
-  border-bottom: solid 20px #008F96 !important; }
+  border-bottom: solid 30px #008F96 !important; }
 .desktop-navigation .nav-teal:hover a, .desktop-navigation .nav-teal:hover a:after {
   color: #008F96 !important; }
 .desktop-navigation .nav-teal ul.sub-menu, .desktop-navigation .nav-teal h6, .desktop-navigation .nav-teal p {
@@ -7196,7 +7196,7 @@ a {
 .desktop-navigation .nav-burgundy a:after {
   color: #B52555 !important; }
 .desktop-navigation .nav-burgundy:hover a:before {
-  border-bottom: solid 20px #B52555 !important; }
+  border-bottom: solid 30px #B52555 !important; }
 .desktop-navigation .nav-burgundy:hover a, .desktop-navigation .nav-burgundy:hover a:after {
   color: #B52555 !important; }
 .desktop-navigation .nav-burgundy ul.sub-menu, .desktop-navigation .nav-burgundy h6, .desktop-navigation .nav-burgundy p {
@@ -7209,7 +7209,7 @@ a {
 .desktop-navigation .nav-dark-green a:after {
   color: #6A963B !important; }
 .desktop-navigation .nav-dark-green:hover a:before {
-  border-bottom: solid 20px #6A963B !important; }
+  border-bottom: solid 30px #6A963B !important; }
 .desktop-navigation .nav-dark-green:hover a, .desktop-navigation .nav-dark-green:hover a:after {
   color: #6A963B !important; }
 .desktop-navigation .nav-dark-green ul.sub-menu, .desktop-navigation .nav-dark-green h6, .desktop-navigation .nav-dark-green p {
@@ -9453,7 +9453,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   background: #84BD00;
   color: #FFFFFF;
   padding: 2px 15px;
-  font-size: 0.9em;
+  font-size: 0.8em;
   line-height: 1em;
   text-align: center;
   border-radius: 30px;
@@ -9461,6 +9461,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   text-transform: capitalize;
   box-sizing: content-box;
   outline: none !important; }
+  @media (min-width: 768px) {
+    #event-calendar .fc-header-toolbar button {
+      font-size: 0.9em;
+      padding: 2px 15px; } }
   #event-calendar .fc-header-toolbar button:hover {
     background: #608a00; }
   #event-calendar .fc-header-toolbar button.fc-next-button {
@@ -9513,7 +9517,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   #event-calendar .fc-header-toolbar .fc-right .fc-button-group {
     float: none;
     vertical-align: middle;
-    margin-top: 20px; }
+    margin-left: 5px; }
     @media (min-width: 768px) {
       #event-calendar .fc-header-toolbar .fc-right .fc-button-group {
         float: left;
@@ -9521,7 +9525,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     #event-calendar .fc-header-toolbar .fc-right .fc-button-group button {
       padding-left: 6px;
       padding-right: 6px;
-      float: none; }
+      float: none;
+      margin-left: 5px; }
 #event-calendar .fc-view-container .fc-day-header span {
   font-size: 0.9em;
   padding: 5px;
