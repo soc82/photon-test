@@ -192,16 +192,16 @@ function create_event_type_taxonomies() {
 }
 
 function prospect_get_attendee_form() {
-  //if (isset($_GET['event_entry'])) {
-    //$event_entry = $_GET['event_entry'];
+  if (isset($_GET['event_entry'])) {
+    $event_entry = $_GET['event_entry'];
 
     acf_form(array(
-      'post_id' => 639,
+      'post_id' => $event_entry,
       'post_title'  => false,
       'submit_value'  => 'Update the post!'
     ));
 
-  //}
+  }
 }
 
 function prospect_get_event_form( ) {
@@ -250,10 +250,28 @@ function prosect_event_form_attendee_number( $form, $args ) {
 add_action( 'af/form/hidden_fields', 'prosect_event_form_attendee_number', 10, 2 );
 
 
+function prospect_event_form_testing($post_id) {
+
+  $post_title = 'Event Entry';
+
+  $post_data = array(
+    'post_type' => 'event-entry',
+    'post_status' => 'publish',
+    'post_title' => $post_title,
+  );
+
+  $fields = $_POST['acf'];
+
+  exit;
+}
+
+// add_filter('acf/pre_save_post' , 'prospect_event_form_testing', 10, 1 );
+
+
 /*
 ** After ACF form submission
 */
-function prospect_event_form_submission( $form, $fields, $args ) {
+function prospect_event_form_submission( $post_id ) {
 
   $post_title = 'Event Entry';
 
@@ -270,23 +288,25 @@ function prospect_event_form_submission( $form, $fields, $args ) {
     $lead_booker_fields = [];
     $attendees = [];
 
-    foreach ($fields as $field) {
+    $fields = $_POST['acf'];
 
-        if ($field['name'] == 'additional_attendees') {
-            foreach ($field['value'] as $attendee) {
-                $attendees[] = $attendee;
+    foreach ($fields as $key => $field) {
+
+        if ($key == 'field_5b7fadacd0064') {
+            foreach ($field as $attendee) {
+              $attendees[] = $attendee;
             }
         } else {
             if ($field) {
-                $lead_booker_fields[] = $field;
+                $lead_booker_fields[$key] = $field;
             }
         }
-    }
+    }    
 
     if ($lead_booker_fields) {
         $lead_post_id = wp_insert_post( $post_data );
-        foreach ($lead_booker_fields as $lead_booker_field) {
-            update_post_meta($lead_post_id, $lead_booker_field['name'], $lead_booker_field['value']);
+        foreach ($lead_booker_fields as $key => $lead_booker_field) {
+            update_field($key, $lead_booker_field, $lead_post_id);
         }
         update_post_meta($lead_post_id, 'attendee_status', 'complete');
         update_post_meta($lead_post_id, 'event_id', $event_id);
@@ -295,40 +315,39 @@ function prospect_event_form_submission( $form, $fields, $args ) {
     if ($attendees) {
         $attendeeID = 1;
 
-        foreach ($attendees as $attendee) {
+        foreach ($attendees as $attendee) {          
             // Check to see if a user already exists for the attendees
-            $user = get_user_by( 'email', $attendee['email_address'] );
+            $user = get_user_by( 'email', $attendee['field_5ba0fce54a08b_field_5ba0f79860142'] );
             if (!$user) {
                 $user_data = [
-                    'user_login' => strtolower(str_replace(' ',  '_', $attendee['first_name'] . '_' . $attendee['last_name'])),
-                    'user_name' => $attendee['first_name'] . ' ' . $attendee['last_name'],
-                    'user_email' => $attendee['email_address'],
+                    'user_login' => strtolower(str_replace(' ',  '_', $attendee['field_5ba0fce54a08b_field_5ba0f76955543'] . '_' . $attendee['field_5ba0fce54a08b_field_5ba0f77155544'])),
+                    'user_name' => $attendee['field_5ba0fce54a08b_field_5ba0f76955543'] . ' ' . $attendee['field_5ba0fce54a08b_field_5ba0f77155544'],
+                    'user_email' => $attendee['field_5ba0fce54a08b_field_5ba0f79860142'],
                     'user_pass' => null,
                 ];
                 $user = wp_insert_user($user_data);
-                // Triggers a password reset email to the user
-                wp_update_user(['user_pass' => null]);
-
-                $to = $attendee['email_address'];
-                $subject = get_field('new_attendee_email_subject', 'options');
-                $link_text = get_field('new_attendee_email_link_text', 'options');
-
-                $message = get_field('new_attendee_email_content', 'options');
-                $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
-
-                $headers = array(
-                    "MIME-Version: 1.0",
-                    "Content-Type: text/html;charset=utf-8"
-                );
-
-                $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
+                $user = get_user_by('ID', $user);
             }
+
+            $to = $user->data->user_email;
+            $subject = get_field('new_attendee_email_subject', 'options');
+            $link_text = get_field('new_attendee_email_link_text', 'options');
+
+            $message = get_field('new_attendee_email_content', 'options');
+            $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
+
+            $headers = array(
+                "MIME-Version: 1.0",
+                "Content-Type: text/html;charset=utf-8"
+            );
+
+            $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
             // Create an event entry post for each attendee, replace this with a custom wp_mail
             $post_id = wp_insert_post( $post_data );
 
             foreach ($attendee as $key => $value) {
                 if ($value) {
-                    update_post_meta($post_id, $key, $value);
+                  update_field($key, $value, $post_id);
                 }
             }
 
@@ -338,15 +357,17 @@ function prospect_event_form_submission( $form, $fields, $args ) {
             $attendeeID++;
         }
     }
-    wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendeeID . '&event_entry_id=' . $post_id);
+    exit;
+    wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendeeID . '&event_entry_id=' . $lead_post_id);
     exit;
 }
 
-add_action( 'af/form/submission', 'prospect_event_form_submission', 10, 3 );
+add_filter('acf/pre_save_post' , 'prospect_event_form_submission', 10, 1 );
+
 
 function process_attendee_email($message, $attendee) {
-  $message = str_replace('{attendee_name}', $attendee['first_name'], $message);
-  $message = str_replace('{attendee_full_name}', $attendee['first_name'] . ' ' . $attendee['last_name'], $message);
+  $message = str_replace('{attendee_name}', $attendee['field_5ba0fce54a08b_field_5ba0f76955543'], $message);
+  $message = str_replace('{attendee_full_name}', $attendee['field_5ba0fce54a08b_field_5ba0f76955543'] . ' ' . $attendee['field_5ba0fce54a08b_field_5ba0f77155544'], $message);
   return $message;
 }
 

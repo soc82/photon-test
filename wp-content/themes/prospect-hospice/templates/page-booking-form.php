@@ -3,6 +3,7 @@
 * Template Name: Event Booking Form Template
 */
 
+acf_form_head();
 get_header(); ?>
 
 <div class="block">
