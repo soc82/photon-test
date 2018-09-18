@@ -288,6 +288,8 @@ function prospect_event_form_submission( $post_id ) {
     $lead_booker_fields = [];
     $attendees = [];
 
+    $event_entry_post_ids = [];
+
     $fields = $_POST['acf'];
 
     foreach ($fields as $key => $field) {
@@ -328,20 +330,6 @@ function prospect_event_form_submission( $post_id ) {
                 $user = wp_insert_user($user_data);
                 $user = get_user_by('ID', $user);
             }
-
-            $to = $user->data->user_email;
-            $subject = get_field('new_attendee_email_subject', 'options');
-            $link_text = get_field('new_attendee_email_link_text', 'options');
-
-            $message = get_field('new_attendee_email_content', 'options');
-            $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
-
-            $headers = array(
-                "MIME-Version: 1.0",
-                "Content-Type: text/html;charset=utf-8"
-            );
-
-            $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
             // Create an event entry post for each attendee, replace this with a custom wp_mail
             $post_id = wp_insert_post( $post_data );
 
@@ -354,10 +342,25 @@ function prospect_event_form_submission( $post_id ) {
             update_post_meta($post_id, 'event_id', $event_id);
             update_post_meta($post_id, 'lead_booking_id', $lead_post_id);
 
+            $to = $user->data->user_email;
+            $subject = get_field('new_attendee_email_subject', 'options');
+            $link_text = get_field('new_attendee_email_link_text', 'options');
+
+            $message = get_field('new_attendee_email_content', 'options');
+            $message .= '<a href="/attendee-form/?event_entry=' . $post_id . '">' . $link_text . '</a>';
+
+            $headers = array(
+                "MIME-Version: 1.0",
+                "Content-Type: text/html;charset=utf-8"
+            );
+
+            $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
+
             $attendeeID++;
         }
     }
-    exit;
+    
+    // Use the lead booking id for the event_entry_id. You can then query the event entries by the meta lead_booking_id to find any associated bookings
     wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendeeID . '&event_entry_id=' . $lead_post_id);
     exit;
 }
