@@ -187,8 +187,8 @@ function prospect_custom_product_data_fields() {
               <input type="checkbox" name="event_bookable" id="event_bookable" <?php if(get_post_meta($post->ID, 'event_bookable')) echo 'checked'; ?> />
             </p>
             <p class="form-field booking-form-key-field">
-              <label for="booking_form_key">Booking Form Key: </label>
-              <input type="text" name="booking_form_key" id="booking_form_key" placeholder="Example: form_5b966a4ca1f8a" class="short" <?php if(get_post_meta($post->ID, 'booking_form_key')) echo 'value="' . get_post_meta($post->ID, 'booking_form_key', true) . '"'; ?> />
+              <label for="booking_form_post_id">Form Fields ID: </label>
+              <input type="text" name="booking_form_post_id" id="booking_form_post_id" placeholder="Example: 462" class="short" <?php if(get_post_meta($post->ID, 'booking_form_post_id')) echo 'value="' . get_post_meta($post->ID, 'booking_form_post_id', true) . '"'; ?> />
             </p>
             <p class="form-field external-booking-link-field">
               <label for="external_booking_link">Booking Link (external): </label>
@@ -231,9 +231,9 @@ function prospect_save_event_custom_fields($post_id) {
     if (!empty($bookable)) {
         update_post_meta($post_id, 'event_bookable', esc_attr($bookable));
     }
-    $booking_form_key = $_POST['booking_form_key'];
-    if (!empty($booking_form_key)) {
-        update_post_meta($post_id, 'booking_form_key', esc_attr($booking_form_key));
+    $booking_form_post_id = $_POST['booking_form_post_id'];
+    if (!empty($booking_form_post_id)) {
+        update_post_meta($post_id, 'booking_form_post_id', esc_attr($booking_form_post_id));
     }
     $external_booking_link = $_POST['external_booking_link'];
     if (!empty($external_booking_link)) {

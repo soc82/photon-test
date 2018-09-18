@@ -208,29 +208,12 @@ function prospect_get_event_form( ) {
   $event = '';
   if(isset($_GET['event'])):
     $event = get_post($_GET['event']);
-    $form_key = get_post_meta($_GET['event'], 'booking_form_key', true);
+    $fields_id = get_post_meta($_GET['event'], 'booking_form_post_id', true);
     echo '<h2>Event: ' . get_the_title($event) . '</h2>';
 
-    $group = acf_get_fields($form_key);
-    if( $group ) {
-      $keys = array();
-      foreach( $group as $field ) {
-        $keys[] = $field['key'];
-      }
-    }
-
-    if($form_key):
-
+    if($fields_id):
       $form_args = array(
-        'field_groups'  => array(307),
-        //  'fields' => $keys,
-          // 'display_title' => false,
-          // 'display_description' => false,
-          // 'submit_text' => 'Submit',
-          // 'echo' => true,
-          // 'values' => array(),
-          // Filter mode disables the success message after submission and instead displays all fields again with their submitted values.
-          // 'filter_mode' => false,
+        'field_groups'  => array($fields_id),
       );
       acf_form($form_args);
       echo '<div class="event-total-attendees"></div>';
@@ -268,17 +251,6 @@ function prospect_event_form_testing($post_id) {
 
 // add_filter('acf/pre_save_post' , 'prospect_event_form_testing', 10, 1 );
 
-function acf_get_field_key( $field_name ) {
-    global $wpdb;
-    $acf_fields = $wpdb->get_results( $wpdb->prepare( "SELECT ID,post_parent,post_name FROM $wpdb->posts WHERE post_excerpt=%s AND post_type=%s" , $field_name , 'acf-field' ) );
-    // get all fields with that name.
-    switch ( count( $acf_fields ) ) {
-        case 0: // no such field
-            return false;
-        case 1: // just one result.
-            return $acf_fields[0]->post_name;
-    }
-}
 
 /*
 ** After ACF form submission
