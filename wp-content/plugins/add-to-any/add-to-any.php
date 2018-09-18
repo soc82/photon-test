@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.28
+Version: 1.7.30
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -503,8 +503,10 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 	$custom_attributes = '';
 	
 	if ( $special_service_code == 'facebook_like' ) {
-		$custom_attributes .= ( isset( $options['special_facebook_like_options']['verb'] ) &&
-		'recommend' == $options['special_facebook_like_options']['verb'] ) ? ' data-action="recommend"' : '';
+		$custom_attributes .= ( isset( $options['special_facebook_like_options']['verb'] )
+			&& 'recommend' == $options['special_facebook_like_options']['verb'] ) ? ' data-action="recommend"' : '';
+		$custom_attributes .= ( isset( $options['special_facebook_like_options']['show_count'] )
+			&& $options['special_facebook_like_options']['show_count'] == '1' ) ? '' : ' data-layout="button"';
 		$custom_attributes .= ' data-href="' . $linkurl . '"';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
@@ -526,8 +528,8 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 	}
 	
 	elseif ( $special_service_code == 'pinterest_pin' ) {
-		$custom_attributes .= ( isset( $options['special_pinterest_pin_options']['show_count'] ) &&
-			$options['special_pinterest_pin_options']['show_count'] == '1' ) ? '' : ' data-pin-config="none"';
+		$custom_attributes .= ( isset( $options['special_pinterest_pin_options']['show_count'] )
+			&& $options['special_pinterest_pin_options']['show_count'] == '1' ) ? '' : ' data-pin-config="none"';
 		$custom_attributes .= ' data-url="' . $linkurl . '"';
 		$custom_attributes .= ( ! empty( $linkmedia ) ) ? ' data-media="' . $linkmedia . '"' : '';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
@@ -775,9 +777,27 @@ function A2A_SHARE_SAVE_head_script() {
 	$options = get_option( 'addtoany_options', array() );
 
 	// Use local cache?
-	$cache = ( isset( $options['cache'] ) && '1' == $options['cache'] ) ? true : false;
+	$cache = ! empty( $options['cache'] ) && '1' == $options['cache'] ? true : false;
 	$upload_dir = wp_upload_dir();
-	$static_server = ( $cache ) ? $upload_dir['baseurl'] . '/addtoany' : 'https://static.addtoany.com/menu';
+	$cached_file = ! empty( $upload_dir['basedir'] ) && file_exists( $upload_dir['basedir'] . '/addtoany/page.js' ) ? $upload_dir['basedir'] . '/addtoany/page.js' : false;
+	$querystring = '';
+	// Is page.js actually cached?
+	if ( $cache && $cached_file ) {
+		// Is page.js recently cached, within 2 days (172800 seconds)?
+		$modified_time = filemtime( $cached_file );
+		$cache = $modified_time && time() - $modified_time < 172800 ? true : false;
+		// If cache is recent
+		if ( $cache ) {
+			// Set a "ver" parameter's value to the file's modified time for cache management
+			$querystring = '?ver=' . $modified_time;
+		} else {
+			// Revert the cache option
+			A2A_SHARE_SAVE_revert_cache();
+		}
+	}
+	
+	// Set static server
+	$static_server = $cache ? $upload_dir['baseurl'] . '/addtoany' : 'https://static.addtoany.com/menu';
 	
 	// Icon colors
 	$icon_bg = ! empty( $options['icon_bg'] ) && in_array( $options['icon_bg'], array( 'custom', 'transparent' ) ) ? $options['icon_bg'] : false;
@@ -845,7 +865,7 @@ function A2A_SHARE_SAVE_head_script() {
 			. 'a=d.createElement(s);'
 			. 'b=d.getElementsByTagName(s)[0];'
 			. 'a.async=1;'
-			. 'a.src="' . $static_server . '/page.js";'
+			. 'a.src="' . $static_server . '/page.js' . $querystring . '";'
 			. 'b.parentNode.insertBefore(a,b);'
 		. '})(document,"script");'		
 		. "\n</script>\n";
@@ -1012,7 +1032,7 @@ function A2A_SHARE_SAVE_stylesheet() {
 	$options = $A2A_SHARE_SAVE_options;
 	
 	if ( ! is_admin() ) {
-		wp_enqueue_style( 'addtoany', plugins_url('/addtoany.min.css', __FILE__ ), false, '1.14' );
+		wp_enqueue_style( 'addtoany', plugins_url('/addtoany.min.css', __FILE__ ), false, '1.15' );
 		
 		// Prepare inline CSS
 		$inline_css = '';
@@ -1079,12 +1099,11 @@ add_action( 'wp_enqueue_scripts', 'A2A_SHARE_SAVE_stylesheet', 20 );
 
 function A2A_SHARE_SAVE_enqueue_script() {
 	if ( wp_script_is( 'jquery', 'registered' ) ) {
-		wp_enqueue_script( 'addtoany', plugins_url('/addtoany.min.js', __FILE__ ), array( 'jquery' ), '1.0' );
+		wp_enqueue_script( 'addtoany', plugins_url('/addtoany.min.js', __FILE__ ), array( 'jquery' ), '1.1' );
 	}
 }
 
 add_action( 'wp_enqueue_scripts', 'A2A_SHARE_SAVE_enqueue_script' );
-
 
 /**
  * Cache AddToAny
@@ -1095,10 +1114,11 @@ function A2A_SHARE_SAVE_refresh_cache() {
 	$file_urls = explode( "\n", $contents, 20 );
 	$upload_dir = wp_upload_dir();
 	
-	// Make directory if needed
+	// Try to create directory if it doesn't already exist
 	if ( ! wp_mkdir_p( dirname( $upload_dir['basedir'] . '/addtoany/foo' ) ) ) {
-		$message = sprintf( __( 'Unable to create directory %s. Is its parent directory writable by the server?' ), dirname( $new_file ) );
-		return array( 'error' => $message );
+		// Handle directory creation issue
+		// Revert cache option
+		A2A_SHARE_SAVE_revert_cache();
 	}
 	
 	if ( count( $file_urls ) > 0 ) {
@@ -1108,28 +1128,79 @@ function A2A_SHARE_SAVE_refresh_cache() {
 			$file_name = substr( strrchr( $file_url, '/' ), 1, 99 );
 			
 			// Place files in uploads/addtoany directory
-			wp_remote_get( $file_url, array(
+			$response = wp_remote_get( $file_url, array(
 				'filename' => $upload_dir['basedir'] . '/addtoany/' . $file_name,
 				'stream'   => true, // Required to use `filename` arg
 			) );
+
+			// Handle error
+			if ( is_wp_error( $response ) ) {
+				// Revert cache option
+				A2A_SHARE_SAVE_revert_cache();
+			}
 		}
 	}
 }
 
+add_action( 'addtoany_refresh_cache', 'A2A_SHARE_SAVE_refresh_cache' );
+
 function A2A_SHARE_SAVE_schedule_cache() {
-	$timestamp = wp_next_scheduled( 'A2A_SHARE_SAVE_refresh_cache' );
-	if ( ! $timestamp) {
-		// Only schedule if currently unscheduled
-		wp_schedule_event( time(), 'daily', 'A2A_SHARE_SAVE_refresh_cache' );
+	// Unschedule if already scheduled
+	A2A_SHARE_SAVE_unschedule_cache();
+
+	// Try to schedule daily cache refreshes, running once now
+	$result = wp_schedule_event( time(), 'daily', 'addtoany_refresh_cache' );
+
+	// Revert cache option if the event didn't get scheduled
+	if ( false === $result ) {
+		A2A_SHARE_SAVE_revert_cache();
 	}
 }
 
 function A2A_SHARE_SAVE_unschedule_cache() {
-	$timestamp = wp_next_scheduled( 'A2A_SHARE_SAVE_refresh_cache' );
-	wp_unschedule_event( $timestamp, 'A2A_SHARE_SAVE_refresh_cache' );
+	// Unschedule if scheduled
+	wp_clear_scheduled_hook( 'addtoany_refresh_cache' );
 }
 
+function A2A_SHARE_SAVE_revert_cache() {
+	// Unschedule
+	A2A_SHARE_SAVE_unschedule_cache();
 
+	// Get all existing AddToAny options
+	$options = get_option( 'addtoany_options', array() );
+
+	// Revert cache option
+	$options['cache'] = '-1';	
+	update_option( 'addtoany_options', $options );
+}
+
+/**
+ * Activation hook
+ */
+
+function addtoany_activation() {
+	// Get all existing AddToAny options
+	$options = get_option( 'addtoany_options', array() );
+	
+	// If the local cache option is enabled
+	if ( isset( $options['cache'] ) && $options['cache'] == '1' ) {
+		// Schedule and run the local cache refresh
+		A2A_SHARE_SAVE_schedule_cache();
+	}
+}
+
+register_activation_hook( __FILE__, 'addtoany_activation' );
+
+/**
+ * Deactivation hook
+ */
+
+function addtoany_deactivation() {
+	// Unschedule if scheduled
+	A2A_SHARE_SAVE_unschedule_cache();
+}
+
+register_deactivation_hook( __FILE__, 'addtoany_deactivation' );
 
 /**
  * Admin Options

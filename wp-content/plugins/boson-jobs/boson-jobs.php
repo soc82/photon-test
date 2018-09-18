@@ -166,3 +166,23 @@ require_once('acf-fields-user.php');
 require_once('acf-fields-listing.php');
 require_once('acf-job-application-page.php');
 require_once('acf-job-settings.php');
+
+
+
+/*
+** Only display job vacancies user is a manager of
+*/
+add_action( 'pre_get_posts', 'prospect_manager_filter' );
+function prospect_manager_filter($query) {
+  if ( !is_admin()) return;
+
+  // If administrator or super user, show all
+  $user = wp_get_current_user();
+  if(in_array( $user->roles[0], array('super_user', 'administrator') )) return;
+
+  if ( in_array ( $query->get('post_type'), array('jobs') ) ) {
+    $query->set( 'meta_key', 'job_vacancy_manager' );
+    $query->set( 'meta_value', $user->ID );
+    return;
+  }
+}

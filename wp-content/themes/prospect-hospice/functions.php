@@ -227,28 +227,7 @@ function startline_woo_wrapper_end() {
   echo '</div>';
 }
 
-/**********************************************
-** Custom user roles
-**********************************************/
-remove_role('content_keeper');
-$result = add_role(
-    'content_keeper',
-    __( 'Content Keeper' ),
-    array(
-        'read'         => true,
-        'edit_posts'   => true,
-        'publish_posts' => false,
-        'delete_posts' => false,
-        'edit_pages' => true,
-        'publish_pages' => false,
-        'delete_pages' => false,
-        'manage_options' => false,
-    )
-);
 
-if( function_exists('acf_set_options_page_capability') ) {
-    acf_set_options_page_capability( 'manage_options' );
-}
 
 /**********************************************
 ** Custom Functions

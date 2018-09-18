@@ -1,4 +1,4 @@
-<?php 
+<?php
 if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array(
@@ -97,6 +97,28 @@ acf_add_local_field_group(array(
 			'display_format' => 'd/m/Y',
 			'return_format' => 'd/m/Y',
 			'first_day' => 1,
+		),
+		array(
+			'key' => 'field_5ba0c177365a0',
+			'label' => 'Job Vacancy Manager',
+			'name' => 'job_vacancy_manager',
+			'type' => 'user',
+			'instructions' => 'Select a manager for this vacancy. If selected, only this user (and administrators) will be able to view this vacancy.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'hide_admin' => 0,
+			'role' => array(
+				0 => 'administrator',
+				1 => 'editor',
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'return_format' => 'id',
 		),
 	),
 	'location' => array(

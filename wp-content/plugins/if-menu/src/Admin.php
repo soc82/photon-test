@@ -46,6 +46,7 @@ class Admin {
 				<li><?php _e('Display Logout link for logged-in users:', 'if-menu') ?> <code><span class="if-menu-green"><?php _e('Show', 'if-menu') ?></span> <?php _e('if', 'if-menu') ?> <span class="if-menu-purple"><?php _e('User is logged in', 'if-menu') ?></span></code></li>
 				<li><?php _e('Hide menu item on mobile devices:', 'if-menu') ?> <code><span class="if-menu-red"><?php _e('Hide', 'if-menu') ?></span> <?php _e('if', 'if-menu') ?> <span class="if-menu-purple"><?php _e('Mobile', 'if-menu') ?></span></code></li>
 				<li><?php _e('Display menu item for users in US and UK:', 'if-menu') ?> <code><span class="if-menu-green"><?php _e('Show', 'if-menu') ?></span> <?php _e('if', 'if-menu') ?> <span class="if-menu-purple"><?php _e('User from country: US, UK', 'if-menu') ?></span></code></li>
+				<li><?php _e('Display menu item for visitors browsing in English or Spanish:', 'if-menu') ?> <code><span class="if-menu-green"><?php _e('Show', 'if-menu') ?></span> <?php _e('if', 'if-menu') ?> <span class="if-menu-purple"><?php _e('Language: English, Spanish', 'if-menu') ?></span></code></li>
 			</ul>
 			<hr class="wp-header-end">
 
@@ -85,6 +86,7 @@ class Admin {
 								<?php _e('Advanced visibility rules:', 'if-menu') ?>
 								<ul>
 									<li><?php _e('Visitor location - detect visitor\'s country', 'if-menu') ?></li>
+									<li><?php _e('Language - detect visitor\'s selected language', 'if-menu') ?></li>
 								</ul>
 							</li>
 							<li>
@@ -98,7 +100,13 @@ class Admin {
 									<li><a href="https://restrictcontentpro.com/" target="_blank">Restrict Content Pro</a> - <?php _e('User has Subscription Level', 'if-menu') ?></li>
 								</ul>
 							</li>
-							<li><?php _e('Priority support', 'if-menu') ?></li>
+							<li>
+								<?php if ($plan && $plan['plan'] == 'premium') : ?>
+									<a href="mailto:wp@layered.studio"><?php _e('Priority support', 'if-menu') ?> &#10147;</a>
+								<?php else : ?>
+									<?php _e('Priority support', 'if-menu') ?>
+								<?php endif ?>
+							</li>
 						</ul>
 
 						<p class="description">
