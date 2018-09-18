@@ -210,10 +210,19 @@ function prospect_get_event_form( ) {
     $event = get_post($_GET['event']);
     $form_key = get_post_meta($_GET['event'], 'booking_form_key', true);
     echo '<h2>Event: ' . get_the_title($event) . '</h2>';
+
+    $group = acf_get_fields('307');
+    if( $group ) {
+      $keys = array();
+      foreach( $group as $field ) {
+        $keys[] = $field['key'];
+      }
+    }
+
     if($form_key):
 
       $form_args = array(
-          'field_groups' => [$form_key],
+          'fields' => $keys,
           // 'display_title' => false,
           // 'display_description' => false,
           // 'submit_text' => 'Submit',
@@ -262,7 +271,7 @@ function prospect_event_form_submission( $form, $fields, $args ) {
     $attendees = [];
 
     foreach ($fields as $field) {
-        
+
         if ($field['name'] == 'additional_attendees') {
             foreach ($field['value'] as $attendee) {
                 $attendees[] = $attendee;
