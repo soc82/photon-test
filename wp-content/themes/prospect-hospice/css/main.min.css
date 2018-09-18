@@ -8597,7 +8597,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     color: #fff;
     transform: rotate(-3deg); }
   .block.full-width-content .content-below-hero {
-    margin-top: 50px; }
+    margin-top: 50px;
+    font-size: 1.3em;
+    line-height: 1.4em; }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;
@@ -8858,6 +8860,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .tile-block .header .btn, .tile-block .header .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .tile-block .header .gform_button {
     float: right;
     margin-bottom: 20px; }
+    .tile-block .header .btn:hover, .tile-block .header .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .tile-block .header .gform_button:hover {
+      background: #f3cc30 !important;
+      border-color: #f3cc30 !important; }
   @media (max-width: 991.98px) {
     .tile-block .header {
       text-align: center; }
@@ -9340,10 +9345,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     .sidebar-sub-menu .sidebar-inner h3 {
       margin: 0 0 15px 0;
       font-size: 1.4em;
-      line-height: 1.4em; }
+      line-height: 1.35em; }
       @media (min-width: 992px) {
         .sidebar-sub-menu .sidebar-inner h3 {
-          font-size: 1.75em; } }
+          font-size: 1.45em; } }
     .sidebar-sub-menu .sidebar-inner a {
       color: #222222;
       font-weight: bold; }
