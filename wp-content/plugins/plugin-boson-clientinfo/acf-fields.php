@@ -477,56 +477,11 @@ acf_add_local_field_group(array(
 			'return_format' => 'object',
 			'ui' => 1,
 		),
-		array(
-			'key' => 'field_5b4e8827630c2',
-			'label' => 'Application Success Page',
-			'name' => 'application_success_page',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'page',
-			),
-			'taxonomy' => array(
-			),
-			'allow_null' => 1,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
+
 		array(
 			'key' => 'field_5c7e9845667b1',
 			'label' => 'Donate Page',
 			'name' => 'donate_page',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'page',
-			),
-			'taxonomy' => array(
-			),
-			'allow_null' => 1,
-			'multiple' => 0,
-			'return_format' => 'object',
-			'ui' => 1,
-		),
-		array(
-			'key' => 'field_5c7e8876543c2',
-			'label' => 'Event Enquiry Form Page',
-			'name' => 'event_enquiry_form_page',
 			'type' => 'post_object',
 			'instructions' => '',
 			'required' => 0,
