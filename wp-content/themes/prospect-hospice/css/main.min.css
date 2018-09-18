@@ -7304,8 +7304,8 @@ a {
     background-color: #f50068 !important;
     border: 2px solid #f50068 !important; }
     .btn.btn-donate:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:hover, .btn.btn-donate:focus, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:focus, .btn.btn-donate:active, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:active, .button.btn-donate:hover, .button.btn-donate:focus, .button.btn-donate:active {
-      background: #dc005d !important;
-      border: 2px solid #dc005d !important;
+      background: #f3cc30 !important;
+      border: #f3cc30 !important;
       color: #FFF !important; }
     .btn.btn-donate:before, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .btn-donate.gform_button:before, .button.btn-donate:before {
       content: '\f004';
@@ -8580,7 +8580,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       .block.hero-banner .hero-banner-content h2 {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-        margin-bottom: 10px; }
+        margin-bottom: 0; }
       .block.hero-banner .hero-banner-content p {
         color: #fff;
         font-size: 1.2em;
@@ -8603,6 +8603,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;
+    background-color: #84BD00;
     background-repeat: no-repeat;
     background-position: right center;
     position: relative; }
@@ -8620,17 +8621,6 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           background: -webkit-linear-gradient(left, #84bd00 0%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
           /* Chrome10-25,Safari5.1-6 */
           background: linear-gradient(to right, #84bd00 0%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
-          /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-          filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84bd00', endColorstr='#0084bd00',GradientType=1 );
-          /* IE6-9 */ } }
-      @media (min-width: 992px) {
-        .block.cta-block .overlay {
-          /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#84bd00+0,84bd00+57,84bd00+100&1+0,1+56,0+100 */
-          background: -moz-linear-gradient(left, #84bd00 0%, rgba(132, 189, 0, 0.98) 60%, rgba(132, 189, 0, 0) 100%);
-          /* FF3.6-15 */
-          background: -webkit-linear-gradient(left, #84bd00 0%, rgba(132, 189, 0, 0.98) 60%, rgba(132, 189, 0, 0) 100%);
-          /* Chrome10-25,Safari5.1-6 */
-          background: linear-gradient(to right, #84bd00 0%, rgba(132, 189, 0, 0.98) 60%, rgba(132, 189, 0, 0) 100%);
           /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84bd00', endColorstr='#0084bd00',GradientType=1 );
           /* IE6-9 */ } }
@@ -8674,6 +8664,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         .block.cta-block .cta-block-content .btn:hover, .block.cta-block .cta-block-content .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .block.cta-block .cta-block-content .gform_button:hover {
           background: #FFFFFF;
           color: #84BD00; }
+          .block.cta-block .cta-block-content .btn:hover:before, .block.cta-block .cta-block-content .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover:before, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .block.cta-block .cta-block-content .gform_button:hover:before {
+            color: #84BD00; }
   .block.latest-news-content-block .intro {
     margin-bottom: 45px; }
     .block.latest-news-content-block .intro p {
@@ -9682,7 +9674,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       .prospect_event .single-event-details .event-information .event-description p, .prospect_event .single-event-details .event-information .event-description ul, .prospect_event .single-event-details .event-information .event-description ol {
         font-size: 90%; }
       .prospect_event .single-event-details .event-information .event-description .btn, .prospect_event .single-event-details .event-information .event-description .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .single-event-details .event-information .event-description .gform_button {
-        margin-top: 10px; }
+        margin-top: 10px;
+        margin-right: 10px; }
     .prospect_event .single-event-details .event-map {
       height: 300px; }
   .prospect_event .event-volunteering-block {

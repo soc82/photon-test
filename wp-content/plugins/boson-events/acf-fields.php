@@ -59,6 +59,29 @@ if( function_exists('acf_add_local_field_group') ):
 		'title' => 'Event',
 		'fields' => array(
 			array(
+				'key' => 'field_5b4e0678333b1',
+				'label' => 'Enquiry Page',
+				'name' => 'enquiry_page',
+				'type' => 'post_object',
+				'instructions' => 'Select enquiry page. If selected, a "Enquire Now" button will show on the event page.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'post_type' => array(
+					0 => 'page',
+				),
+				'taxonomy' => array(
+				),
+				'allow_null' => 1,
+				'multiple' => 0,
+				'return_format' => 'object',
+				'ui' => 1,
+			),
+			array(
 				'key' => 'field_5b3edb128d4c1',
 				'label' => 'Event Icon',
 				'name' => 'event_icon',

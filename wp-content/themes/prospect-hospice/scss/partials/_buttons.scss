@@ -28,8 +28,8 @@
     background-color: $pink !important;
     border:2px solid $pink !important;
     &:hover, &:focus, &:active {
-      background: darken($pink, 5%) !important;
-      border:2px solid darken($pink, 5%) !important;
+      background: $yellow !important;
+      border:$yellow !important;
       color: #FFF !important;
     }
     &:before {

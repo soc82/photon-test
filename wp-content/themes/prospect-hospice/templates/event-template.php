@@ -52,10 +52,11 @@ if($banner): ?>
           else:
             if(get_post_meta(get_the_ID(), 'external_booking_link')):
               echo '<a href="' . get_post_meta(get_the_ID(), 'external_booking_link') . '" class="btn btn-arrow-right" target="_blank">Book Now</a>';
-            else:
-              $event_enquiry_page = get_field('event_enquiry_form_page', 'options');
-              echo '<a href="' . get_permalink($event_enquiry_page) . '" class="btn btn-arrow-right" >Register interest</a>';
             endif;
+          endif;
+          $event_enquiry_page = get_field('enquiry_page');
+          if($event_enquiry_page):
+            echo '<a href="' . get_permalink($event_enquiry_page) . '" class="btn btn-arrow-right" >Enquire Now</a>';
           endif; ?>
         </div>
       </div>
