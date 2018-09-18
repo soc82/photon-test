@@ -288,7 +288,7 @@ function prospect_event_form_submission( $form, $fields, $args ) {
                 // Triggers a password reset email to the user
                 wp_update_user(['user_pass' => null]);
 
-                $to = $attendee_array['email_address'];
+                $to = $attendee['email_address'];
                 $subject = get_field('new_attendee_email_subject', 'options');
                 $link_text = get_field('new_attendee_email_link_text', 'options');
 
@@ -300,7 +300,7 @@ function prospect_event_form_submission( $form, $fields, $args ) {
                     "Content-Type: text/html;charset=utf-8"
                 );
 
-                $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee_array), implode("\r\n", $headers) );
+                $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
             }
             // Create an event entry post for each attendee, replace this with a custom wp_mail
             $post_id = wp_insert_post( $post_data );
@@ -317,13 +317,17 @@ function prospect_event_form_submission( $form, $fields, $args ) {
             $attendeeID++;
         }
     }
-    exit;
     wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendee . '&event_entry_id=' . $post_id);
     exit;
 }
 
 add_action( 'af/form/submission', 'prospect_event_form_submission', 10, 3 );
 
+function process_attendee_email($message, $attendee) {
+  $message = str_replace('{attendee_name}', $attendee['first_name'], $message);
+  $message = str_replace('{attendee_full_name}', $attendee['first_name'] . ' ' . $attendee['last_name'], $message);
+  return $message;
+}
 
 // Save event entry post id to cart item when added to cart
 add_filter( 'woocommerce_add_cart_item_data', 'prospect_save_event_entry_cart_data', 30, 3 );
