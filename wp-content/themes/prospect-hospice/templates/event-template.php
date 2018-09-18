@@ -31,6 +31,7 @@ if($banner): ?>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-8 col-lg-9 event-information">
+        <?php if(!$banner) echo '<h1>' . get_the_title() . '</h1>'; ?>
         <?php
         if($event):
           if($event['location']):  ?>

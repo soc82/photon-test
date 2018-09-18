@@ -8222,7 +8222,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         @media (min-width: 768px) and (min-width: 1200px) {
           .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
             font-size: 0.9em;
-            margin-left: 20px; } }
+            margin-left: 20px; }
+            .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li:first-of-type {
+              margin-left: 0; } }
     @media (min-width: 768px) {
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li a {
                 color: #222222;
@@ -9452,8 +9454,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   border: none;
   background: #84BD00;
   color: #FFFFFF;
-  padding: 2px 15px;
-  font-size: 0.8em;
+  padding: 2px 13px;
+  font-size: 0.9em;
   line-height: 1em;
   text-align: center;
   border-radius: 30px;
@@ -9463,7 +9465,6 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   outline: none !important; }
   @media (min-width: 768px) {
     #event-calendar .fc-header-toolbar button {
-      font-size: 0.9em;
       padding: 2px 15px; } }
   #event-calendar .fc-header-toolbar button:hover {
     background: #608a00; }
@@ -9490,12 +9491,14 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   vertical-align: middle;
   text-align: right;
   width: 50%;
-  float: right; }
+  float: right;
+  display: none; }
   @media (min-width: 768px) {
     #event-calendar .fc-header-toolbar .fc-center {
       float: none;
       width: auto;
-      text-align: center; } }
+      text-align: center;
+      display: inline-block; } }
   #event-calendar .fc-header-toolbar .fc-center button {
     float: none; }
 #event-calendar .fc-header-toolbar .fc-right {
@@ -9551,7 +9554,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       font-size: 0.8em;
       display: block; }
 #event-calendar .fc-list-table td {
-  padding: 20px 14px; }
+  padding: 10px 14px; }
   @media (min-width: 768px) {
     #event-calendar .fc-list-table td {
       padding: 8px 14px; } }
@@ -9572,10 +9575,10 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   background: #84BD00;
   padding: 10px;
   min-width: 300px;
-  display: none; }
+  display: none !important; }
   @media (min-width: 768px) {
     .popover {
-      display: block; } }
+      display: block !important; } }
   .popover .arrow, .popover .arrow-inner {
     position: absolute;
     display: inline-block;

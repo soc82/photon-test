@@ -8,8 +8,8 @@
       border:none;
       background: $green;
       color:#FFFFFF;
-      padding: 2px 15px;
-      font-size: 0.8em;
+      padding: 2px 13px;
+      font-size: 0.9em;
       line-height: 1em;
       text-align: center;
       border-radius: 30px;
@@ -18,7 +18,6 @@
       box-sizing: content-box;
       outline: none !important;
       @include media-breakpoint-up(md) {
-        font-size: 0.9em;
         padding: 2px 15px;
       }
       &:hover {
@@ -53,10 +52,12 @@
       text-align: right;
       width:50%;
       float: right;
+      display: none;
       @include media-breakpoint-up(md) {
         float: none;
         width: auto;
         text-align: center;
+        display: inline-block;
       }
       button {
         float: none;
@@ -133,7 +134,7 @@
   .fc-list-table  {
 
     td {
-      padding: 20px 14px;
+      padding: 10px 14px;
       @include media-breakpoint-up(md) {
         padding: 8px 14px;
       }
@@ -166,9 +167,9 @@
   background: $green;
   padding: 10px;
   min-width: 300px;
-  display: none;
+  display: none !important;
   @include media-breakpoint-up(md) {
-    display: block;
+    display: block !important;
   }
   .arrow, .arrow-inner {
     position: absolute;
