@@ -122,6 +122,7 @@ function prospect_woo_account_menu() {
     //'payment-methods'    => __( 'Payment Methods', 'prospect' ),
 		'orders'             => __( 'Orders & Events', 'prospect' ),
     'applications' => __( 'Job Applications', 'prospect' ),
+    'attendingevents' => __( 'Events', 'prospect' ),
 		//'downloads'          => __( 'Download', 'prospect' ),
 		'customer-logout'    => __( 'Logout', 'prospect' ),
 	);
