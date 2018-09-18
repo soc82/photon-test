@@ -3,7 +3,7 @@ $user = wp_get_current_user();
 $users_applications = get_field('applications', 'user_' . $user->ID);
 ?>
 <?php if ($users_applications) : ?>
-  <table id="applications-table">
+  <table id="applications-table" >
     	<thead>
       	<tr>
         		<th scope="col">Job Title</th>
@@ -21,7 +21,7 @@ $users_applications = get_field('applications', 'user_' . $user->ID);
   	      	<th scope="row"><?php echo $application['job_title']; ?></th>
   	      	<td><?php echo $application['job_reference']; ?></td>
   	      	<td><?php echo $date; ?></td>
-  	      	<td><a href="<?php echo $application['job_link']; ?>">Open</a></td>
+  	      	<td><a href="<?php echo $application['job_link']; ?>">View</a></td>
   	    </tr>
   	<?php endforeach; ?>
     	</tbody>
@@ -29,6 +29,3 @@ $users_applications = get_field('applications', 'user_' . $user->ID);
 <?php else: ?>
     You haven't applied for any positions yet.
 <?php endif; ?>
-
-
-

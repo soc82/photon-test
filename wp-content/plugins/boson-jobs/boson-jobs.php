@@ -168,6 +168,18 @@ require_once('acf-job-application-page.php');
 require_once('acf-job-settings.php');
 
 
+/*
+** Allow users to view draft job post if they have applied
+
+function ceo_single_page_published_and_draft_posts( $query ) {
+  if(is_admin()) return;
+  if( is_single('job') ) {
+      $query->set('post_status', 'publish,draft');
+  }
+}
+add_action('pre_get_posts', 'ceo_single_page_published_and_draft_posts');
+*/
+
 
 /*
 ** Only display job vacancies user is a manager of

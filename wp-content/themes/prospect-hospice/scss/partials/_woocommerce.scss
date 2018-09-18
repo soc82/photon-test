@@ -585,5 +585,19 @@ body.woocommerce-cart {
 				margin:20px 0;
 			}
 		}
+		#applications-table {
+			text-align: left;
+			&.no-footer {
+				border-color: #CCCCCC;
+			}
+			th, td {
+				font-size: 0.9em;
+			}
+			thead {
+				th {
+					border-color: #CCCCCC;
+				}
+			}
+		}
 	}
 }

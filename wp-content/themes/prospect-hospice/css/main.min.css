@@ -8575,7 +8575,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
         margin-bottom: 0px;
         font-size: 3em;
-        line-height: 1.1em; }
+        line-height: 1.1em;
+        transform: rotate(-2deg); }
       .block.hero-banner .hero-banner-content h2 {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
@@ -10682,6 +10683,14 @@ body.woocommerce-cart .woocommerce {
   border: none;
   padding: 0;
   margin: 20px 0; }
+.woocommerce-account .woocommerce-MyAccount-content #applications-table {
+  text-align: left; }
+  .woocommerce-account .woocommerce-MyAccount-content #applications-table.no-footer {
+    border-color: #CCCCCC; }
+  .woocommerce-account .woocommerce-MyAccount-content #applications-table th, .woocommerce-account .woocommerce-MyAccount-content #applications-table td {
+    font-size: 0.9em; }
+  .woocommerce-account .woocommerce-MyAccount-content #applications-table thead th {
+    border-color: #CCCCCC; }
 
 /*
 ** Used for footer accessibility buttons to increase/decrease sizing
@@ -10692,6 +10701,8 @@ body.woocommerce-cart .woocommerce {
 body.accessibility-large {
   font-size: 110%;
   transition: none !important; }
+  body.accessibility-large .main-navigation-wrapper li {
+    font-size: 0.85em; }
 
 body.accessibility-small {
   font-size: 90%;

@@ -6,5 +6,5 @@
 
 		<?php the_excerpt(); ?>
 	</div>
-	<a href="#" class="btn btn-arrow-right">Read more</a>
+	<a href="<?php echo get_permalink(); ?>" class="btn btn-arrow-right">Read more</a>
 </article>

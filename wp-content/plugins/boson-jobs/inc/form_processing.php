@@ -49,18 +49,30 @@ function after_submission($entry, $form) {
     ];
 
     update_field('applications', $users_applications, 'user_' . $user->ID);
+
+		add_filter('gform_confirmation_2', 'application_completed_redirect', 100, 4);
+
 }
 
-// Form completion
-add_filter( 'gform_confirmation_2', 'override_form_completed', 10, 4 );
+add_filter('gform_confirmation_2', 'application_completed_redirect', 100, 4);
+function application_completed_redirect($confirmation, $form, $lead, $ajax){
+
+	$application_form_page = get_field('job_application_form_page', 'options');
+	$confirmation = array("redirect" => add_query_arg( array(
+			'job_id'	=>  $job_id = $_GET['job_id'],
+			'status' => 'completed',
+	), get_permalink($application_form_page)));
+
+	return $confirmation;
+
+}
 
 function override_form_completed($confirmation, $form, $entry, $ajax) {
     // The job applied for
     $job_id = $entry[5];
     $job = get_post($job_id);
     $job_title = $job->post_title;
-
-    $confirmation = str_replace('{job_title}', $job_title, $confirmation);
+		$confirmation = str_replace('{job_title}', $job_title, $confirmation);
 
     return $confirmation;
 }

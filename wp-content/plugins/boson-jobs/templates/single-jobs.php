@@ -4,6 +4,8 @@ $reference = get_field('reference');
 $introduction_content = get_field('introduction_content');
 $salary = get_field('salary');
 $closing_date = get_field('closing_date');
+$vacancies_page = get_field('job_vacancies_page', 'options');
+$application_page = get_field('job_applciation_form_page', 'options');
 
 $user = wp_get_current_user();
 $users_applications = get_field('applications', 'user_' . $user->ID);
@@ -30,7 +32,7 @@ get_header(); ?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					<div class="page-header">
 						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-						
+
 					</div>
 					<div class="job-spec bg-yellow d-lg-none">
 						<?php if ($reference) : ?>
@@ -48,17 +50,17 @@ get_header(); ?>
 									<?php if (!$applied) : // If not Applied ?>
 
 										<?php if (is_user_logged_in()) : // If user logged in, apply ?>
-											<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
-										
+											<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+
 										<?php else : // else, explain they need to register / login ?>
-											
+
 											<?php $intro_text = get_field('registration_sign_in_intro_text', 'option');
 											if($intro_text) echo '<div class="register">' . $intro_text .'</div>';?>
-											
+
 											<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 										<?php endif; ?>
 									<?php else : // else, tell user they have already applied  ?>
-										<?php echo get_field('position_already_applied_for_text', 'option'); ?>
+										<?php echo '<p>' . get_field('position_already_applied_for_text', 'option') . '</p>'; ?>
 									<?php endif; ?>
 								</div>
 							</div>
@@ -71,19 +73,20 @@ get_header(); ?>
 					</div>
 
 					<div class="section apply-job">
-						<a href="/working-for-us/vacant-positions/" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
 						<?php if (!$applied) : // If Applied ?>
 
 							<?php if (is_user_logged_in()) : // If user logged in, apply ?>
-								<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
-							
+								<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+
 							<?php else : // else, explain they need to register / login ?>
 								<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 							<?php endif; ?>
 
 						<?php else : // else, tell user they have already applied  ?>
-							<?php echo get_field('position_already_applied_for_text', 'option'); ?>
+							<?php echo '<p>' . get_field('position_already_applied_for_text', 'option') . '</p>'; ?>
 						<?php endif; ?>
+						<a href="<?php echo get_permalink($vacancies_page); ?>" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
+
 					</div>
 
 				</article>
@@ -107,13 +110,13 @@ get_header(); ?>
 							<?php if (!$applied) : // If Applied ?>
 
 								<?php if (is_user_logged_in()) : // If user logged in, apply ?>
-									<a class="btn" href="/job-application-form?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
-								
+									<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+
 								<?php else : // else, explain they need to register / login ?>
-									
+
 									<?php $intro_text = get_field('registration_sign_in_intro_text', 'option');
 									if($intro_text) echo '<div class="register">' . $intro_text .'</div>';?>
-									
+
 									<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 								<?php endif; ?>
 

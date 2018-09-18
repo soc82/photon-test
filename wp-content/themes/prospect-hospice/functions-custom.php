@@ -11,7 +11,7 @@ function prospect_search_form_to_menu ( $items, $args ) {
 	if( 'top-navigation' === $args->theme_location ) {
     $search_form = '';
     $search_form .= '<li class="menu-item menu-item-search">';
-    $search_form .= '<form method="get" class="menu-search-form" action="#" /"><input class="text_input" type="text" placeholder="Search" name="s" id="s" /></form>';
+    $search_form .= '<form method="get" class="menu-search-form" action="' . esc_url( home_url( '/' ) ) . '" /"><input class="text_input" type="text" placeholder="Search" name="s" id="s" /></form>';
     $search_form .= '</li>';
     $items = $search_form . $items;
 	}
