@@ -152,7 +152,7 @@ acf_add_local_field_group(array(
 							'append' => '',
 							'maxlength' => '',
 						),
-						
+
 						array(
 							'key' => 'field_5z4z79e4b3d6f',
 							'label' => 'Background Colour',

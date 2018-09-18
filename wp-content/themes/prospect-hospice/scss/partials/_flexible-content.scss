@@ -56,7 +56,7 @@
 				line-height: 1.4em;
 				width: 75%;
 				@include media-breakpoint-up(lg) {
-					width: 30%;
+					max-width: 50%;
 				}
 			}
 		}
@@ -156,7 +156,7 @@
 	}
 
 	&.content-with-sub-menu {
-		
+
 	}
 
 	// Latest news block

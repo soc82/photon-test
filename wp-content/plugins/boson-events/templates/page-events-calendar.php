@@ -23,12 +23,7 @@ function fullCalendar_resize(config) {
   if(jQuery(window).width() > 550) {
     config = jQuery('#event-calendar').fullCalendar('changeView', 'month');
   } else {
-    config = jQuery('#event-calendar').fullCalendar('changeView', 'listMonth', { duration: { days: 90 } });
-    jQuery('.popover').remove();
-    jQuery('.fc-list-item').hover(function() {
-      jQuery('.popover').hide();
-    });
-
+    config = jQuery('#event-calendar').fullCalendar('changeView', 'listMonth', { duration: { days: 90 } }, {});
   }
   return config;
 }

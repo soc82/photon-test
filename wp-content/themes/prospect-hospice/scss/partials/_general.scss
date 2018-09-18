@@ -118,7 +118,7 @@
 
 /* Nav colours */
 .desktop-navigation {
-  
+
   .nav-orange {
     a:after {
       color:$orange !important;
@@ -127,7 +127,7 @@
       color:$orange !important;
     }
     &:hover a:before {
-      border-bottom: solid 20px $orange !important;
+      border-bottom: solid 30px $orange !important;
       margin-left:32px;
     }
     ul.sub-menu,h6,p {
@@ -147,8 +147,7 @@
       color:$navy !important;
     }
     &:hover a:before {
-      border-bottom: solid 20px $navy !important;
-      margin-left:40px;
+      border-bottom: solid 30px $navy !important;
     }
     &:hover a, &:hover a:after {
       color:$navy !important;
@@ -170,8 +169,7 @@
       color:$teal !important;
     }
     &:hover a:before {
-      border-bottom: solid 20px $teal !important;
-      margin-left:34px;
+      border-bottom: solid 30px $teal !important;
     }
     &:hover a, &:hover a:after {
       color:$teal !important;
@@ -192,8 +190,7 @@
       color:$burgundy !important;
     }
     &:hover a:before {
-      border-bottom: solid 20px $burgundy !important;
-      margin-left:23px;
+      border-bottom: solid 30px $burgundy !important;
     }
     &:hover a, &:hover a:after {
       color:$burgundy !important;
@@ -213,8 +210,7 @@
       color:$dark-green !important;
     }
     &:hover a:before {
-      border-bottom: solid 20px $dark-green !important;
-      margin-left:6px;
+      border-bottom: solid 30px $dark-green !important;
     }
     &:hover a, &:hover a:after {
       color:$dark-green !important;
@@ -236,8 +232,7 @@
       color:$green !important;
     }
     &:hover a:before {
-      border-bottom: solid 20px $green !important;
-      margin-left:6px;
+      border-bottom: solid 30px $green !important;
     }
     &:hover a, &:hover a:after {
       color:$green !important;

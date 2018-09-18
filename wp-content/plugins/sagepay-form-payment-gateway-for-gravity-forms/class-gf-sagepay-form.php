@@ -668,7 +668,7 @@ class GFSagePayForm extends GFPaymentAddOn {
         $last_name = $customer_fields['last_name'];
         $address = $customer_fields['address1'];
         $address1 = $customer_fields['address2'];
-        $country = $customer_fields['country'];
+        $country = 'GB';
         $city = $customer_fields['town'];
         $state = $customer_fields['region'];
         $postcode = $customer_fields['postcode'];
@@ -734,6 +734,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 	  $params['Crypt'] = $this->encryptAndEncode($post_values);
 
 
+
   	$query_string = http_build_query($params);
 
 		$query_string = apply_filters( "gform_sagepay_form_query_{$form['id']}", apply_filters( 'gform_sagepay_form_query', $query_string, $form, $entry, $feed ), $form, $entry, $feed );
@@ -749,6 +750,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$url = apply_filters( "gform_sagepay_form_request_{$form['id']}", apply_filters( 'gform_sagepay_form_request', $url, $form, $entry, $feed ), $form, $entry, $feed );
 
 		$this->log_debug( "Sending to SagePay Form: {<pre>".print_r($params,TRUE)."</pre>}" );
+
 
 		return $url;
 	}

@@ -76,6 +76,36 @@ jQuery( document ).ready(function($) {
   });
 
 
+  /*
+  ** Donation page
+  */
+  jQuery('.single-donation-option').click(function(e) {
+    jQuery(this).toggleClass('active-donate-option');
+    jQuery('.single-donation-form').slideToggle();
+    // Scroll to a certain element
+    document.querySelector('.single-donation-form').scrollIntoView({
+      behavior: 'smooth'
+    });
+  });
+
+
+  /*
+  ** Anchor Scroll
+  */
+  $('a[href*=#]:not([href=#])').click(function () {
+  if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+          $('html,body').animate({
+              scrollTop: target.offset().top
+          }, 1000);
+          return false;
+      }
+  }
+  });
+
 
 
 });

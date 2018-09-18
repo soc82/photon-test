@@ -4,26 +4,27 @@ Tags: buttons, share, icons, social media, share buttons, sharing, share button,
 Requires at least: 3.7
 Tested up to: 5.0
 Requires PHP: 5.2
-Stable tag: 1.7.28
+Stable tag: 1.7.30
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
 == Description ==
 
-The AddToAny sharing plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Pinterest, Google, WhatsApp, LinkedIn, Tumblr, Reddit, and over 100 more sharing and social media sites & apps.
+The AddToAny Share Buttons plugin for WordPress increases traffic & engagement by helping people share your posts and pages to any service. Services include Facebook, Twitter, Pinterest, Google, WhatsApp, LinkedIn, Tumblr, Reddit, and over 100 more sharing and social media sites & apps.
 
-AddToAny is the universal sharing platform, and the AddToAny plugin is the most popular share plugin for WordPress, making sites social media ready since 2006.
+AddToAny is the home of universal sharing, and the AddToAny plugin is the most popular share plugin for WordPress, making sites social media ready since 2006.
 
-= Share Buttons & Follow Buttons =
+= Share Buttons =
 
-* **Counters** — fast & official share counts in the same style
-* **Floating** share buttons — responsive & customizable, vertical & horizontal
-* **Vector** share & follow buttons (SVG icons)
-* **Universal** Share Button and Smart Menu
-* Individual share links and custom share icons
-* Official buttons including the Facebook Like Button, Twitter Tweet Button, Pinterest Pin It Button, Google+ Share Button and Google +1 Button
-* Universal email sharing makes it easy to share via Gmail, Yahoo! Mail, Outlook.com (Hotmail), AOL Mail, and any other web or native apps
-* <a href="https://www.addtoany.com/">Share Buttons</a> demo
+* [**Standard**](https://www.addtoany.com/buttons/customize/wordpress/standalone_services) share buttons — share each piece of content
+* [**Floating**](https://www.addtoany.com/buttons/customize/wordpress/floating_share_buttons) share buttons — responsive & customizable, vertical & horizontal
+* **Counters** — fast & official [share counts](https://www.addtoany.com/buttons/customize/wordpress/share_counters) in the same style
+* **Follow** buttons** — [social media links](https://www.addtoany.com/buttons/customize/wordpress/follow_buttons) to your Instagram, YouTube, Snapchat
+* **Image** sharing buttons - share buttons for [sharing images](https://www.addtoany.com/buttons/customize/wordpress/image_sharing)
+* **Vector** share buttons & follow buttons — [custom color](https://www.addtoany.com/buttons/customize/wordpress/icon_color) SVG icons
+* **Custom** share icons — use your own if you prefer
+* Official buttons including the Facebook Like Button, Twitter Tweet Button, Pinterest Save Button, Google+ Share Button and Google +1 Button
+* Universal email sharing makes it easy to share via Gmail, Yahoo Mail, Outlook.com (Hotmail), AOL Mail, and any other web or native apps
 
 = Custom Placement & Appearance =
 * Before content, after content, or before & after content
@@ -33,8 +34,8 @@ AddToAny is the universal sharing platform, and the AddToAny plugin is the most 
 
 = Analytics Integration =
 
-* Automatic Google Analytics integration (<a href="https://www.addtoany.com/ext/google_analytics/">access guide</a>) for sharing analytics
-* Track shared links with Bitly, the Google URL Shortener, and custom URL shorteners
+* Google Analytics integration (<a href="https://www.addtoany.com/ext/google_analytics/">access guide</a>) for sharing analytics
+* Track shared links with Bitly and custom URL shorteners
 * Display share counts on posts and pages
 
 = WordPress Optimized =
@@ -42,7 +43,7 @@ AddToAny is the universal sharing platform, and the AddToAny plugin is the most 
 * Loads asynchronously so your content always loads before or in parallel with AddToAny
 * Supports theme features such as HTML5, widgets, infinite scroll, post formats
 * Supports WooCommerce, multilingual sites, multisite networks, and accessibility standards
-* No signup, no login, no account necessary
+* AddToAny is free — no signup, no login, no accounts to manage
 
 = Mobile Optimized & Retina Ready =
 
@@ -62,7 +63,7 @@ AddToAny is the universal sharing platform, and the AddToAny plugin is the most 
 = Wide Support =
 
 * Over 10 years of development
-* Over 8 million downloads
+* Over 9 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -278,7 +279,7 @@ Go to Settings > AddToAny > uncheck "Display at the top or bottom of posts on ar
 
 = How can I programmatically remove the button(s)? =
 
-You can disable AddToAny sharing using [filter](https://developer.wordpress.org/plugins/hooks/filters/) (PHP code) that you can add to a "functionality" plugin such as the [Code Snippets](https://wordpress.org/plugins/code-snippets/) plugin.
+You can disable AddToAny sharing using a [filter](https://developer.wordpress.org/plugins/hooks/filters/) (PHP code) that you can add to a "functionality" plugin such as the [Code Snippets](https://wordpress.org/plugins/code-snippets/) plugin.
 
 Disable AddToAny sharing in specific categories, for example:
 
@@ -315,6 +316,10 @@ The Google +1 Button with 'show count' enabled is 90 pixels. You can change the 
 
 The Google+ Share Button width can be changed using CSS code, for instance: `.a2a_button_google_plus_share { width:57px !important; }`
 
+= Is AddToAny GDPR compatible? =
+
+Yes, AddToAny is [GDPR compatible by default](https://www.addtoany.com/buttons/faq/#gdpr).
+
 = Does the plugin output W3C valid code? =
 
 Yes, this plugin outputs 100% W3C valid HTML5 and W3C valid CSS 3 by default.
@@ -344,6 +349,14 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.30 =
+* Fix issue where the "Show count" checkbox was unavailable for some services in settings
+
+= 1.7.29 =
+* Initialize AddToAny Follow buttons on the `post-load` event
+* Harden the local cache option to keep caches updated
+* Update official button options in admin
 
 = 1.7.28 =
 * New option to hide a floating bar until scrolled past a header region
