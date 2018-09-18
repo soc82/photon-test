@@ -28,9 +28,9 @@ function custom_post_type_event() {
     'labels'              => $labels_event_entries,
     'supports'            => array( 'title' ),
     'public'              => false,
-    'show_ui'             => false,
-    'show_in_menu'        => false,
-    'show_in_nav_menus'   => false,
+    'show_ui'             => true,
+    'show_in_menu'        => true,
+    'show_in_nav_menus'   => true,
     'hierarchical'        => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 4,
@@ -46,6 +46,8 @@ function custom_post_type_event() {
   register_post_type( 'event-entry', $args_events_entries );
 
 }
+add_action( 'init', 'custom_post_type_event', 0 );
+
 
 
 if( function_exists('acf_add_options_page') ) {
