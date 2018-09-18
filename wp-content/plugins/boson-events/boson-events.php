@@ -211,7 +211,7 @@ function prospect_get_event_form( ) {
     $form_key = get_post_meta($_GET['event'], 'booking_form_key', true);
     echo '<h2>Event: ' . get_the_title($event) . '</h2>';
 
-    $group = acf_get_fields('307');
+    $group = acf_get_fields($form_key);
     if( $group ) {
       $keys = array();
       foreach( $group as $field ) {
@@ -222,7 +222,8 @@ function prospect_get_event_form( ) {
     if($form_key):
 
       $form_args = array(
-          'fields' => $keys,
+        'field_groups'  => array(307),
+        //  'fields' => $keys,
           // 'display_title' => false,
           // 'display_description' => false,
           // 'submit_text' => 'Submit',
@@ -267,6 +268,17 @@ function prospect_event_form_testing($post_id) {
 
 // add_filter('acf/pre_save_post' , 'prospect_event_form_testing', 10, 1 );
 
+function acf_get_field_key( $field_name ) {
+    global $wpdb;
+    $acf_fields = $wpdb->get_results( $wpdb->prepare( "SELECT ID,post_parent,post_name FROM $wpdb->posts WHERE post_excerpt=%s AND post_type=%s" , $field_name , 'acf-field' ) );
+    // get all fields with that name.
+    switch ( count( $acf_fields ) ) {
+        case 0: // no such field
+            return false;
+        case 1: // just one result.
+            return $acf_fields[0]->post_name;
+    }
+}
 
 /*
 ** After ACF form submission
@@ -292,7 +304,7 @@ function prospect_event_form_submission( $post_id ) {
 
     foreach ($fields as $key => $field) {
 
-        if ($key == 'field_5b7fadacd0064') {
+        if (acf_get_field($key)['type'] == 'repeater') {
             foreach ($field as $attendee) {
               $attendees[] = $attendee;
             }
@@ -301,7 +313,8 @@ function prospect_event_form_submission( $post_id ) {
                 $lead_booker_fields[$key] = $field;
             }
         }
-    }    
+    }
+    exit;
 
     if ($lead_booker_fields) {
         $lead_post_id = wp_insert_post( $post_data );
@@ -315,14 +328,17 @@ function prospect_event_form_submission( $post_id ) {
     if ($attendees) {
         $attendeeID = 1;
 
-        foreach ($attendees as $attendee) {          
+        foreach ($attendees as $attendee) {
             // Check to see if a user already exists for the attendees
-            $user = get_user_by( 'email', $attendee['field_5ba0fce54a08b_field_5ba0f79860142'] );
+            var_dump(acf_get_field('email_address'));
+            exit;
+
+            $user = get_user_by( 'email', acf_get_field('email_address')['value']);
             if (!$user) {
                 $user_data = [
-                    'user_login' => strtolower(str_replace(' ',  '_', $attendee['field_5ba0fce54a08b_field_5ba0f76955543'] . '_' . $attendee['field_5ba0fce54a08b_field_5ba0f77155544'])),
-                    'user_name' => $attendee['field_5ba0fce54a08b_field_5ba0f76955543'] . ' ' . $attendee['field_5ba0fce54a08b_field_5ba0f77155544'],
-                    'user_email' => $attendee['field_5ba0fce54a08b_field_5ba0f79860142'],
+                    'user_login' => strtolower(str_replace(' ',  '_', acf_get_field('first_name')['value'] . '_' . acf_get_field('last_name')['value'])),
+                    'user_name' => acf_get_field('first_name')['value']  . ' ' . acf_get_field('last_name')['value'],
+                    'user_email' => acf_get_field('email_address')['value'],
                     'user_pass' => null,
                 ];
                 $user = wp_insert_user($user_data);
@@ -346,9 +362,9 @@ function prospect_event_form_submission( $post_id ) {
             $post_id = wp_insert_post( $post_data );
 
             foreach ($attendee as $key => $value) {
-                if ($value) {
-                  update_field($key, $value, $post_id);
-                }
+                $field = acf_get_field(substr($key, -19));
+                //var_dump($field['name']);
+                update_field($field['name'], $value, $post_id);
             }
 
             update_post_meta($post_id, 'event_id', $event_id);
@@ -366,8 +382,8 @@ add_filter('acf/pre_save_post' , 'prospect_event_form_submission', 10, 1 );
 
 
 function process_attendee_email($message, $attendee) {
-  $message = str_replace('{attendee_name}', $attendee['field_5ba0fce54a08b_field_5ba0f76955543'], $message);
-  $message = str_replace('{attendee_full_name}', $attendee['field_5ba0fce54a08b_field_5ba0f76955543'] . ' ' . $attendee['field_5ba0fce54a08b_field_5ba0f77155544'], $message);
+  $message = str_replace('{attendee_name}', acf_get_field('first_name')['value'], $message);
+  $message = str_replace('{attendee_full_name}', acf_get_field('first_name')['value'] . ' ' . acf_get_field('last_name')['value'], $message);
   return $message;
 }
 
