@@ -7411,10 +7411,16 @@ form {
     font-size: 1.05em;
     line-height: 1.5em;
     margin: 3px 0; }
+  form .gform_body .gfield.text-white {
+    color: #FFFFFF; }
+  form .gform_body .gfield.full-width {
+    width: 100%; }
   form .gform_body .gfield .ginput_container {
     margin-top: 5px; }
     form .gform_body .gfield .ginput_container.ginput_container_checkbox {
       margin-top: 0px !important; }
+      form .gform_body .gfield .ginput_container.ginput_container_checkbox .gfield_checkbox input {
+        margin-right: 5px !important; }
     form .gform_body .gfield .ginput_container input, form .gform_body .gfield .ginput_container textarea {
       border-radius: 0;
       border: solid 1px #ccc;
@@ -9552,7 +9558,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       font-size: 0.8em;
       display: block; }
 #event-calendar .fc-list-table td {
-  padding: 10px 14px; }
+  padding: 10px 14px;
+  cursor: pointer; }
   @media (min-width: 768px) {
     #event-calendar .fc-list-table td {
       padding: 8px 14px; } }
@@ -9661,6 +9668,12 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     display: none !important; }
   .prospect_event .single-event-details {
     padding: 30px 0; }
+    .prospect_event .single-event-details .back-to-events {
+      margin: 0 0 20px 0;
+      display: block; }
+      .prospect_event .single-event-details .back-to-events i {
+        opacity: 0.7;
+        padding-right: 5px; }
     .prospect_event .single-event-details .event-information .event-location, .prospect_event .single-event-details .event-information .event-start, .prospect_event .single-event-details .event-information .event-end {
       margin: 0 0 8px 0;
       color: #222222; }

@@ -409,6 +409,29 @@ acf_add_local_field_group(array(
 			'endpoint' => 0,
 		),
 		array(
+			'key' => 'field_5b4e0973000b2',
+			'label' => 'Events Calendar Page',
+			'name' => 'events_calendar_page',
+			'type' => 'post_object',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'page',
+			),
+			'taxonomy' => array(
+			),
+			'allow_null' => 1,
+			'multiple' => 0,
+			'return_format' => 'object',
+			'ui' => 1,
+		),
+		array(
 			'key' => 'field_5b4e0907654b1',
 			'label' => 'Documents Page',
 			'name' => 'documents_page',

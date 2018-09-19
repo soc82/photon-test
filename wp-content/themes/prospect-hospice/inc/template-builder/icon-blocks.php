@@ -9,7 +9,7 @@ $icon_block = get_sub_field('icon_block');
 				<div class="col-sm-12 col-md-4 icon-item">
 					<?php if($item['icon']): ?>
 						<span class="icon" <?php echo 'style="color: ' . $item['icon_colour'] . '"'; ?>>
-							<?php echo $item['icon']; ?>
+							<i class="far fa-<?php echo $item['icon']; ?>" ></i>
 						</span>
 					<?php endif; ?>
 					<?php if($item['title']) echo '<h3>' . $item['title'] . '</h3>'; ?>

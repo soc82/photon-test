@@ -43,7 +43,7 @@ if($result->have_posts()): ?>
 					<div class="col-12 col-md-10 offset-md-1">
 						<div class="row">
 							<div class="d-none d-md-block col-md-1">
-								<?php if($icon) echo '<div class="event-icon">' . $icon . '</div>'; ?>
+								<?php if($icon) echo '<div class="event-icon"><i class="far fa-' . $icon . '" ></i></div>'; ?>
 							</div>
 							<div class="col-12 col-md-7 col-lg-8">
 								<span class="start-date"><?php echo $start->format('d/m/Y'); ?></span>

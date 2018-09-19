@@ -39,10 +39,21 @@ form {
 
 	.gform_body {
 		.gfield {
+      &.text-white {
+        color: #FFFFFF;
+      }
+      &.full-width {
+        width: 100%;
+      }
 			.ginput_container {
 				margin-top: 5px;
 				&.ginput_container_checkbox {
 					margin-top: 0px !important;
+          .gfield_checkbox {
+            input {
+              margin-right: 5px !important;
+            }
+          }
 				}
 				input, textarea {
 					border-radius: 0;

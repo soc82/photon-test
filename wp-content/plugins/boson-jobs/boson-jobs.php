@@ -171,29 +171,31 @@ require_once('acf-job-settings.php');
 
 /*
 ** Allow users to view draft job post if they have applied
-
+*/
 function prospect_view_draft_jobs( $query ) {
   if(is_admin()) return;
+  if(!is_user_logged_in()) return;
+  
   if($query->get('post_type') == 'jobs') {
-    global $post;
-    $user = wp_get_current_user();
-    $users_applications = get_field('applications', 'user_' . $user->ID);
-    $applied = false;
-    if ($users_applications) {
-    	foreach ($users_applications as $application) {
-    	    if ($job_id == $application['job_id']) {
-    	        $applied = true;
-    	        break;
-    	    }
-    	}
-    }
+    $job = get_page_by_path( $query->query['name'], OBJECT, 'jobs' );
+    if($job){
 
-    $query->set( 'post_status', [ 'publish', 'draft' ] );
+      $user = wp_get_current_user();
+
+      $users_applications = get_field('applications', 'user_' . $user->ID);
+      if ($users_applications) {
+      	foreach ($users_applications as $application) {
+      	    if ($job->ID == $application['job_id']) {
+              $query->set( 'post_status', [ 'publish', 'draft' ] );
+      	    }
+      	}
+      }
+
+    }
   }
   return $query;
 }
 add_action('pre_get_posts', 'prospect_view_draft_jobs');
-*/
 
 /*
 ** Only display job vacancies user is a manager of

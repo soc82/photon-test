@@ -132,9 +132,9 @@
     }
   }
   .fc-list-table  {
-
     td {
       padding: 10px 14px;
+      cursor: pointer;
       @include media-breakpoint-up(md) {
         padding: 8px 14px;
       }
@@ -273,6 +273,14 @@
   }
   .single-event-details {
     padding: 30px 0;
+    .back-to-events {
+      margin: 0 0 20px 0;
+      display: block;
+      i {
+        opacity: 0.7;
+        padding-right: 5px;
+      }
+    }
     .event-information {
       .event-location, .event-start, .event-end {
         margin: 0 0 8px 0;
@@ -331,6 +339,7 @@
             vertical-align: top;
             width: 33%;
           }
+
           .gfield_label {
             display: none;
           }
