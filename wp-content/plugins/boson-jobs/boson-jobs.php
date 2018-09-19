@@ -144,29 +144,12 @@ add_action( 'woocommerce_account_applications_endpoint', 'prospect_applications_
 
 
 
-// Register new ACF options page
-
-if( function_exists('acf_add_options_page') ) {
-
-  acf_add_options_page(array(
-    'page_title'  => 'Jobs Settings',
-    'menu_title'  => 'Jobs Settings',
-    'menu_slug'   => 'boson-jobs-settings',
-    'capability'  => 'edit_posts',
-    'redirect'    => false
-  ));
-
-
-}
-
 /****************************
 LOAD ACF FIELDS
 *****************************/
 require_once('acf-fields.php');
 require_once('acf-fields-user.php');
 require_once('acf-fields-listing.php');
-require_once('acf-job-application-page.php');
-require_once('acf-job-settings.php');
 
 
 /*
@@ -175,7 +158,7 @@ require_once('acf-job-settings.php');
 function prospect_view_draft_jobs( $query ) {
   if(is_admin()) return;
   if(!is_user_logged_in()) return;
-  
+
   if($query->get('post_type') == 'jobs') {
     $job = get_page_by_path( $query->query['name'], OBJECT, 'jobs' );
     if($job){
