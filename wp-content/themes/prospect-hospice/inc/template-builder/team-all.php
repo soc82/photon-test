@@ -59,10 +59,10 @@ wp_reset_postdata();
 			                                    <div class="image" style="background-image:url(<?php echo $image['sizes']['large'];?>);"></div>
 			                                </div>
 			                            <?php endif;?>
-			                           <h4><?php echo $team->post_title;?></h4>
+			                           <h4 class="<?php echo $color_class; ?>"><?php echo $team->post_title;?></h4>
 			                           <?php $job_title = get_field('job_title', $team->ID);
 			                            if($job_title) : ?>
-			                               <p class="job_title"><?php echo $job_title;?></p>
+			                               <p class="job_title <?php echo $color_class; ?>"><?php echo $job_title;?></p>
 			                           <?php endif;?>
 			                        </a>
 			                    </div>
@@ -74,7 +74,6 @@ wp_reset_postdata();
 			                        <p class="job_title"><?php echo $job_title;?></p>
 			                    <?php endif;?>
 			                    <p><?php echo $team->post_content;?></p>
-			                    <p><a href="#" rel="modal:close">Close</a></p>
 			                </div>
 			            <?php endforeach;?>
 
