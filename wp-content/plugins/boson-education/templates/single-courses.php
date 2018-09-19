@@ -61,7 +61,7 @@ get_header(); ?>
 						<?php if ($cost) : ?>
 							<div class="cost"><strong>Cost:</strong><br /> <?php echo $cost; ?></div>
 						<?php endif; ?>
-						<a href="/education/education-contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
+						<a href="/education/contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 					</div>
 				</div>
 			</div>

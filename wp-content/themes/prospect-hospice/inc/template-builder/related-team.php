@@ -1,16 +1,17 @@
 <?php $related_team = get_sub_field('related_team');?>
 <?php $background_colour = get_sub_field('background_colour');?>
 <?php $heading = get_sub_field('heading');?>
-<?php $intro = get_sub_field('intro');?>
+<?php $intro = get_sub_field('intro');
+$color_class = prospect_dark_colour_class(); ?>
 <?php if($related_team) : ?>
 	<div class="team-block" <?php if($background_colour && $background_colour != 'section') echo 'style="background-color:'.$background_colour.'"';?>>
 	    <div class="container">
 	    	<?php if($heading) : ?>
 		        <div class="row">
 		            <div class="col-12">
-		                <h2><?php echo $heading;?></h2>
+		                <h2 class="<?php echo $color_class; ?>"><?php echo $heading;?></h2>
 		                <?php if($intro) : ?>
-			                <p class="intro"><?php echo $intro;?></p>
+			                <p class="intro <?php echo $color_class; ?>"><?php echo $intro;?></p>
 			            <?php endif;?>
 		            </div>
 		        </div>
