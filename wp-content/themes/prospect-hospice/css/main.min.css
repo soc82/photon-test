@@ -10041,6 +10041,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 .team:hover .image-wrapper .image {
   opacity: 0.5; }
 
+.jquery-modal img {
+  max-width: 200px;
+  padding-top: 10px; }
 .jquery-modal h4 {
   font-size: 1.4em;
   line-height: 1.4em;

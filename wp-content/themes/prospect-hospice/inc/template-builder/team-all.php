@@ -68,9 +68,11 @@ wp_reset_postdata();
 			                    </div>
 			                </div>
 			                <div id="team-<?php echo $team->ID;?>" class="modal">
+                         <?php if($image) : ?>
+                              <img src="<?php echo $image['sizes']['large'];?>" alt="<?php echo $image['sizes']['medium'];?>"  />
+                        <?php endif;?>
 			                    <h4><?php echo $team->post_title;?></h4>
-			                    <?php $job_title = get_field('job_title', $team->ID);
-			                    if($job_title) : ?>
+			                    <?php if($job_title) : ?>
 			                        <p class="job_title"><?php echo $job_title;?></p>
 			                    <?php endif;?>
 			                    <p><?php echo $team->post_content;?></p>
