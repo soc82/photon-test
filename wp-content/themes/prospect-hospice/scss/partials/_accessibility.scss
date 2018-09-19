@@ -7,11 +7,17 @@ body.accessibility-large {
     font-size:110%;
     transition: none !important;
   //}
-  .main-navigation-wrapper {
-    li {
-      font-size: 0.85em;
+  .site-header {
+    .desktop-navigation {
+      .main-navigation-wrapper {
+        ul.main-navigiation {
+          li {
+            font-size: 0.85em;
+          }
+        }
+      }
     }
-  }
+  } 
 }
 
 body.accessibility-normal {

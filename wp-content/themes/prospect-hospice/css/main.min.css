@@ -10711,7 +10711,7 @@ body.woocommerce-cart .woocommerce {
 body.accessibility-large {
   font-size: 110%;
   transition: none !important; }
-  body.accessibility-large .main-navigation-wrapper li {
+  body.accessibility-large .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
     font-size: 0.85em; }
 
 body.accessibility-small {
