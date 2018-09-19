@@ -12,7 +12,7 @@ $benefits_background_colour = get_field('benefits_section_background_colour');
 			</div>
 			<?php foreach ($benefits_items as $item) : ?>
 				<div class="col-6 col-md-4 benefits-item">
-					<span><?php echo $item['icon']; ?></span>
+					<span><i class="far fa-<?php echo $item['icon']; ?>"></i></span>
 					<div class="title"><?php echo $item['text']; ?></div>
 				</div>
 			<?php endforeach; ?>

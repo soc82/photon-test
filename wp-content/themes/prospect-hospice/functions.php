@@ -71,7 +71,7 @@ function startline_enqueue_scripts() {
   // Main theme stylesheet
 	wp_enqueue_style('main-css', get_stylesheet_directory_uri() . '/css/main.min.css', [], $currentTheme->get('Version'), 'screen');
 
-// Modal
+  // Modal
   wp_enqueue_script( 'modal-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js', array( 'jquery' ), null, true);
 
 

@@ -14,6 +14,7 @@ $start_time = get_field('start_time');
 $end_time = get_field('end_time');
 $venue = get_field('venue');
 $cost = get_field('cost');
+$courses_page = get_field('courses_page', 'options');
 
 get_header(); ?>
 
@@ -25,7 +26,7 @@ get_header(); ?>
 					<div class="page-header">
 						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 					</div>
-					
+
 					<div class="entry-content">
 						<?php the_content();?>
 					</div>
@@ -33,8 +34,8 @@ get_header(); ?>
 					<div class="course-cta">
 						<div class="row">
 							<div class="col-12">
-								<a href="/our-courses/" class="btn btn-light-grey"><i class="fal fa-arrow-left"></i> Back to our courses</a>
-								<a href="/education/education-contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
+								<?php if($courses_page) echo '<a href="' . get_permlaink($courses_page) . '" class="btn btn-light-grey"><i class="fal fa-arrow-left"></i> Back to our courses</a>'; ?>
+								<a href="/education/contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -47,7 +48,7 @@ get_header(); ?>
 						<?php if ($sub_text) : ?>
 							<h3><?php echo $sub_text; ?></h3>
 						<?php endif; ?>
-						
+
 						<?php if ($dates) : ?>
 							<div class="dates"><strong>Date(s):</strong><br /> <?php echo $date_string; ?></div>
 						<?php endif; ?>
@@ -60,7 +61,7 @@ get_header(); ?>
 						<?php if ($cost) : ?>
 							<div class="cost"><strong>Cost:</strong><br /> <?php echo $cost; ?></div>
 						<?php endif; ?>
-						<a href="/education/education-contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
+						<a href="/education/contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 					</div>
 				</div>
 			</div>
@@ -77,10 +78,10 @@ get_header(); ?>
 							<h3>Related courses</h3>
 						</div>
 					</div>
-					
+
 					<?php foreach ($related_courses as $post) : ?>
 						<div class="upcoming-event">
-							
+
 							<div class="row">
 								<div class="d-none d-md-block col-md-1">
 									<div class="event-icon"><i class="fal fa-calendar-alt"></i></div>
@@ -93,15 +94,15 @@ get_header(); ?>
 									<a class="btn btn-arrow-right" href="<?php echo get_permalink($post); ?>">Apply</a>
 								</div>
 							</div>
-							
+
 						</div>
 					<?php endforeach;?>
-					
+
 				</div>
 			</div>
 		</div>
 	<?php endif; ?>
-	
+
 </div>
 
 <?php get_footer(); ?>

@@ -8,6 +8,7 @@ get_header(); ?>
 <?php
 $event = prospect_get_event_info();
 $banner = get_field('event_banner');
+$event_page = get_field('events_calendar_page', 'options');
 $gallery = get_field('image_gallery');
 $volunteering = get_field('volunteering?');
 $volunteering_block = get_field('volunteering_block');
@@ -31,6 +32,9 @@ if($banner): ?>
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-8 col-lg-9 event-information">
+        <?php if($event_page):
+          echo '<a href="' . get_permalink($event_page) . '" class="back-to-events"><i class="fal fa-long-arrow-left"></i> Back to events</a>';
+        endif; ?>
         <?php if(!$banner) echo '<h1>' . get_the_title() . '</h1>'; ?>
         <?php
         if($event):

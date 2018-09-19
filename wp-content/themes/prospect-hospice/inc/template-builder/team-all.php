@@ -1,6 +1,7 @@
 <?php $background_colour = get_sub_field('background_colour');?>
 <?php $heading = get_sub_field('heading');?>
-<?php $intro = get_sub_field('intro');?>
+<?php $intro = get_sub_field('intro');
+$color_class = prospect_dark_colour_class(); ?>
 <?php $categories = get_terms( array(
     'taxonomy' => 'team-category',
     'hide_empty' => true,
@@ -12,9 +13,9 @@ wp_reset_postdata();
     	<?php if($heading) : ?>
 	        <div class="row">
 	            <div class="col-12">
-	                <h2><?php echo $heading;?></h2>
+	                <h2 class="<?php echo $color_class; ?>"><?php echo $heading;?></h2>
 	                <?php if($intro) : ?>
-		                <p class="intro"><?php echo $intro;?></p>
+		                <p class="intro <?php echo $color_class; ?>"><?php echo $intro;?></p>
 		            <?php endif;?>
 	            </div>
 	        </div>
@@ -30,7 +31,7 @@ wp_reset_postdata();
 
 	    		<?php // Get Team Members
 	    		$team_members = get_posts(
-	    			array( 
+	    			array(
 	    				'showposts' => -1,
 						'post_type' => 'team',
 						'tax_query' => array(
@@ -42,7 +43,7 @@ wp_reset_postdata();
 					    ),
 					)
 				);
-				
+
 				//print_r($items); die();
 				if ( $team_members ) : ?>
 					<div class="row">
