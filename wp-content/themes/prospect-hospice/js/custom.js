@@ -1,3 +1,4 @@
+
 jQuery( document ).ready(function($) {
 
   /*
@@ -6,19 +7,6 @@ jQuery( document ).ready(function($) {
   jQuery('.flexible-content-wrapper .block').first().addClass('first-block');
   jQuery('.flexible-content-wrapper .block').last().addClass('last-block');
 
-
-  /*
-  ** Setting cookie for font size accessibility options
-  */
-  if(Cookies.get('prospect_font_size')) {
-    var currentSize = Cookies.get('prospect_font_size');
-    jQuery('body').addClass(currentSize);
-    jQuery('.footer-accessibility a').each(function() {
-      if(jQuery(this).parent('li').hasClass(currentSize)) {
-        jQuery(this).parent('li').addClass('active-size');
-      }
-    });
-  }
   jQuery('.footer-accessibility a').click(function() {
     var textSize = jQuery(this).parent().attr('class');
     jQuery('body').removeClass('accessibility-small accessibility-normal accessibility-large').addClass(textSize);

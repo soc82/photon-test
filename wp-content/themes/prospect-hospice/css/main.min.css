@@ -10711,11 +10711,20 @@ body.woocommerce-cart .woocommerce {
 body.accessibility-large {
   font-size: 110%;
   transition: none !important; }
+  body.accessibility-large > * {
+    transition: none !important; }
   body.accessibility-large .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li {
     font-size: 0.85em; }
 
-body.accessibility-small {
-  font-size: 90%;
+body.accessibility-normal {
   transition: none !important; }
+  body.accessibility-normal > * {
+    transition: none !important; }
+
+body.accessibility-small {
+  transition: none !important;
+  font-size: 90%; }
+  body.accessibility-small > * {
+    transition: none !important; }
 
 /*# sourceMappingURL=main.min.css.map */
