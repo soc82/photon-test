@@ -286,7 +286,6 @@ function prospect_event_form_submission( $post_id ) {
             }
         }
     }
-    exit;
 
     if ($lead_booker_fields) {
         $lead_post_id = wp_insert_post( $post_data );
@@ -302,9 +301,6 @@ function prospect_event_form_submission( $post_id ) {
 
         foreach ($attendees as $attendee) {
             // Check to see if a user already exists for the attendees
-            var_dump(acf_get_field('email_address'));
-            exit;
-
             $user = get_user_by( 'email', acf_get_field('email_address')['value']);
             if (!$user) {
                 $user_data = [
@@ -316,20 +312,6 @@ function prospect_event_form_submission( $post_id ) {
                 $user = wp_insert_user($user_data);
                 $user = get_user_by('ID', $user);
             }
-
-            $to = $user->data->user_email;
-            $subject = get_field('new_attendee_email_subject', 'options');
-            $link_text = get_field('new_attendee_email_link_text', 'options');
-
-            $message = get_field('new_attendee_email_content', 'options');
-            $message .= '<a href="' . get_site_url() . '/my-account/lost-password/">' . $link_text . '</a>';
-
-            $headers = array(
-                "MIME-Version: 1.0",
-                "Content-Type: text/html;charset=utf-8"
-            );
-
-            $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
             // Create an event entry post for each attendee, replace this with a custom wp_mail
             $post_id = wp_insert_post( $post_data );
 
@@ -345,19 +327,75 @@ function prospect_event_form_submission( $post_id ) {
             $attendeeID++;
         }
     }
-    exit;
+
     wp_redirect( wc_get_cart_url() . '?add-to-cart=' .  $_GET['event'] . '&quantity=' . $attendeeID . '&event_entry_id=' . $lead_post_id);
     exit;
 }
 
 add_filter('acf/pre_save_post' , 'prospect_event_form_submission', 10, 1 );
 
-
 function process_attendee_email($message, $attendee) {
-  $message = str_replace('{attendee_name}', acf_get_field('first_name')['value'], $message);
-  $message = str_replace('{attendee_full_name}', acf_get_field('first_name')['value'] . ' ' . acf_get_field('last_name')['value'], $message);
+  $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
+  $message = str_replace('{attendee_full_name}', acf_get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
   return $message;
 }
+
+function action_woocommerce_order_status_completed( $order_id ) { 
+
+  $order = wc_get_order( $order_id );
+
+  $order_items = $order->get_items();
+
+  foreach ($order_items as $order_item) {
+    $item_id = $order_item->get_id();
+    $lead_event_entry_id = wc_get_order_item_meta($item_id, 'event_entry_id', true);
+
+    // Get all attendee's associated with this lead booking
+    $args = [
+      'post_type' => 'event-entry',
+      'posts_per_page' => -1,
+      'meta_key' => 'lead_booking_id',
+      'meta_value' => $lead_event_entry_id, // Query by the lead booking id
+    ];
+
+    $attendees = new WP_Query($args);
+
+    foreach ($attendees->posts as $attendee) {
+      $form_complete = get_field('other_attendee_details', $attendee->ID);
+      // Check to make sure the lead booker hasn't filled out all of the attendee fields before emailing
+      if ($form_complete == 'complete-attendee') {
+        $to = get_field('email_address', $attendee->ID);
+        $subject = get_field('new_attendee_email_subject', 'options');
+        $link_text = get_field('new_attendee_email_link_text', 'options');
+
+        $message = get_field('new_attendee_email_content', 'options');
+        $message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $attendee->ID . '">' . $link_text . '</a>';
+
+        $headers = array(
+            "MIME-Version: 1.0",
+            "Content-Type: text/html;charset=utf-8"
+        );
+
+        $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
+      }
+    }
+  } 
+}
+         
+add_action( 'woocommerce_order_status_completed', 'action_woocommerce_order_status_completed', 10, 1 ); 
+
+function prospect_remove_cart_item( $cart_item_key, $instance ) { 
+    echo "<pre>";
+    var_dump($cart_item_key);
+    echo "</pre>";
+
+    echo "<pre>";
+    var_dump($instance);
+    echo "</pre>";
+}
+         
+// add the action 
+add_action( 'woocommerce_remove_cart_item', 'prospect_remove_cart_item', 10, 2 ); 
 
 // Save event entry post id to cart item when added to cart
 add_filter( 'woocommerce_add_cart_item_data', 'prospect_save_event_entry_cart_data', 30, 3 );
