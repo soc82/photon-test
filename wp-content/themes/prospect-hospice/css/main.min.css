@@ -7047,10 +7047,6 @@ a {
   width: auto;
   transform: rotate(-1.5deg); }
 
-.entry-content p:first-child {
-  font-size: 1.4em;
-  line-height: 1.4em; }
-
 .img-fluid {
   max-width: 100%;
   height: auto; }
@@ -8604,8 +8600,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     transform: rotate(-3deg); }
   .block.full-width-content .content-below-hero {
     margin-top: 50px;
-    font-size: 1.3em;
-    line-height: 1.4em; }
+    font-size: 1.2em;
+    line-height: 1.35em; }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;

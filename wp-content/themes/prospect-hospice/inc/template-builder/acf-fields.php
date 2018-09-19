@@ -55,7 +55,7 @@ acf_add_local_field_group(array(
 							'label' => 'Intro Heading',
 							'name' => 'second_heading',
 							'type' => 'text',
-							'instructions' => '',
+							'instructions' => 'Small yellow heading. Leave blank if not needed.',
 							'required' => 0,
 							'conditional_logic' => 0,
 							'wrapper' => array(
@@ -74,7 +74,7 @@ acf_add_local_field_group(array(
 							'label' => 'Heading',
 							'name' => 'heading',
 							'type' => 'text',
-							'instructions' => '',
+							'instructions' => 'Main large heading.',
 							'required' => 0,
 							'conditional_logic' => 0,
 							'wrapper' => array(
@@ -93,7 +93,7 @@ acf_add_local_field_group(array(
 							'label' => 'Description',
 							'name' => 'description',
 							'type' => 'text',
-							'instructions' => '',
+							'instructions' => 'Small description copy displayed under main heading. Leave blamk if not needed.',
 							'required' => 0,
 							'conditional_logic' => 0,
 							'wrapper' => array(
