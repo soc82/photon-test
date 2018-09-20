@@ -120,7 +120,7 @@
 .desktop-navigation {
 
   .nav-orange {
-    a:after, & > a {
+    a:after, &.current-menu-item > a {
       color:$orange !important;
     }
     &:hover a, &:hover a:after {
@@ -143,7 +143,7 @@
   }
 
   .nav-navy {
-    a:after, & > a {
+    a:after, &.current-menu-item > a {
       color:$navy !important;
     }
     &:hover a:before {
@@ -165,7 +165,7 @@
   }
 
   .nav-teal {
-    a:after, & > a {
+    a:after, &.current-menu-item > a {
       color:$teal !important;
     }
     &:hover a:before {
@@ -186,7 +186,7 @@
   }
 
   .nav-burgundy {
-    a:after, & > a {
+    a:after, &.current-menu-item > a {
       color:$burgundy !important;
     }
     &:hover a:before {
@@ -206,7 +206,7 @@
     color:$burgundy !important;
   }
   .nav-dark-green {
-    a:after, & > a {
+    a:after, &.current-menu-item > a {
       color:$dark-green !important;
     }
     &:hover a:before {
@@ -228,7 +228,7 @@
 
 
   .nav-green {
-    a:after, & > a {
+    a:after, &.current-menu-item > a {
       color:$green !important;
     }
     &:hover a:before {
