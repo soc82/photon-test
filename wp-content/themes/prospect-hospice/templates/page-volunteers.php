@@ -12,14 +12,14 @@ $query_args = array(
 // Use a tax_query if the user has specified a jobtype
 if (isset($_GET['type']) && $_GET['type'] && $_GET['type'] != 'all') {
 	$query_by = $_GET['type'];
-	
+
 	$query_args['tax_query'] = [
 		[
           	'taxonomy' => 'jobtype',
           	'field'    => 'slug',
           	'terms'    => $query_by,
       	],
-      	
+
 	];
 }
 
@@ -52,11 +52,11 @@ get_header(); ?>
 					<select class="autosubmit-field" name="type">
 						<option value="all">Filter by Type ...</option>
 						<?php foreach($terms as $term) : ?>
-							<option 
+							<option
 								value="<?php echo $term->slug; ?>"
 								<?php if (isset($_GET['type']) && $_GET['type'] == $term->slug) { echo ' selected '; } ?>
 								>
-								<?php echo $term->name; ?>	
+								<?php echo $term->name; ?>
 							</option>
 						<?php endforeach; ?>
 					</select>
@@ -71,7 +71,7 @@ get_header(); ?>
 				<div class="col-12 col-md-6 col-lg-4">
 					<div class="item bg-very-light-grey">
 						<a href="<?php the_permalink($item);?>"><h3 class="color-grey"><?php echo $item->post_title;?></h3></a>
-						<div class="voluntry title-block bg-yellow"><i class="fal fa-heart"></i> Voluntry</div>
+						<div class="voluntry title-block bg-yellow"><i class="fal fa-heart"></i> Voluntary</div>
 						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
 						<?php if(get_field('location', $item->ID)) : ?>
 							<div class="location"><span>Location:</span><?php echo get_field('location', $item->ID); ?></div>
@@ -86,7 +86,7 @@ get_header(); ?>
 			<?php endforeach;?>
 		</div>
 	<?php endif; ?>
-	
+
 </div>
 
 <?php get_template_part('template-parts/benefits-section'); ?>

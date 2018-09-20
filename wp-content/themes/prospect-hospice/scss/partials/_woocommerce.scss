@@ -568,11 +568,6 @@ body.woocommerce-cart {
 		@include media-breakpoint-up(lg) {
 			width: 73%;
 		}
-		p:first-of-type {
-				font-size: 27px;
-				line-height: 34px;
-				margin: 0 0 25px 0;
-		}
 		.woocommerce-Addresses {
 			.col-1, .col-2 {
 				max-width: none;
