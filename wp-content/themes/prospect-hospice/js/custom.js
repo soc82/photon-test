@@ -1,3 +1,17 @@
+/*
+** Setting cookie for font size accessibility options
+*/
+jQuery(document).ready(function() {
+  if(Cookies.get('prospect_font_size')) {
+    var currentSize = Cookies.get('prospect_font_size');
+    jQuery('body').addClass(currentSize);
+    jQuery('.footer-accessibility a').each(function() {
+      if(jQuery(this).parent('li').hasClass(currentSize)) {
+        jQuery(this).parent('li').addClass('active-size');
+      }
+    });
+  }
+});
 
 jQuery( document ).ready(function($) {
 

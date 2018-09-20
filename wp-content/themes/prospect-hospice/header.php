@@ -14,23 +14,7 @@
 	<link rel="manifest" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicons/manifest.json">
 	<link rel="mask-icon" href="<?php bloginfo('stylesheet_directory'); ?>/img/favicons/safari-pinned-tab.svg" color="#5bbad5">
 	<script src="<?php echo get_stylesheet_directory_uri(); ?>/js/modernizr.custom.js"></script>
-	<script>
-	/*
-	** Setting cookie for font size accessibility options
-	** Load it early doors
-	*/
-	jQuery(document).load(function() {
-		if(Cookies.get('prospect_font_size')) {
-			var currentSize = Cookies.get('prospect_font_size');
-			jQuery('body').addClass(currentSize);
-			jQuery('.footer-accessibility a').each(function() {
-				if(jQuery(this).parent('li').hasClass(currentSize)) {
-					jQuery(this).parent('li').addClass('active-size');
-				}
-			});
-		}
-	});
-	</script>
+
 	<meta name="theme-color" content="#c25cc3">
 	<?php wp_head(); ?>
 </head>

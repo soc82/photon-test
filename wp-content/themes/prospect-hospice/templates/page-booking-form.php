@@ -24,9 +24,9 @@ if(isset($_GET['event'])):
   <script>
     jQuery('.acf-repeater').change(function(){
       var repeaterRows = jQuery('.acf-repeater .acf-row').not('.acf-clone').length + 1;
-      jQuery('.event-total-attendees').text('Number of attendees: ' + repeaterRows);
+      jQuery('.event-total-attendees').replaceWith('<div class="event-total-attendees">Number of attendees: <span>' + repeaterRows + '</span></div>');
       jQuery('#total_number_attendees').val(repeaterRows);
-      jQuery('.event-total-price').text('Total price: ' + (repeaterRows * <?php echo $product->get_price(); ?>));
+      jQuery('.event-total-price').replaceWith('<div class="event-total-price">Total price: <span>£' + (repeaterRows * <?php echo $product->get_price(); ?> + '</span></div>'));
     });
     jQuery('.acf-repeater').change();
   </script>

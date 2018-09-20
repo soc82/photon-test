@@ -216,9 +216,10 @@ function prospect_get_event_form( ) {
         'field_groups'  => array($fields_id),
       );
       acf_form($form_args);
-      echo '<div class="event-total-attendees"></div>';
-      echo '<div class="event-total-price"></div>';
-
+      echo '<div class="event-attendee-wrapper">';
+        echo '<div class="event-total-attendees"></div>';
+        echo '<div class="event-total-price"></div>';
+      echo '</div>';
     else:
       echo '<p>Event not found.</p>';
     endif;
@@ -340,7 +341,7 @@ function process_attendee_email($message, $attendee) {
   return $message;
 }
 
-function action_woocommerce_order_status_completed( $order_id ) { 
+function action_woocommerce_order_status_completed( $order_id ) {
 
   $order = wc_get_order( $order_id );
 
@@ -379,12 +380,12 @@ function action_woocommerce_order_status_completed( $order_id ) {
         $mail = wp_mail( $to, $subject, process_attendee_email($message, $attendee), implode("\r\n", $headers) );
       }
     }
-  } 
+  }
 }
-         
-add_action( 'woocommerce_order_status_completed', 'action_woocommerce_order_status_completed', 10, 1 ); 
 
-function prospect_remove_cart_item( $cart_item_key, $instance ) { 
+add_action( 'woocommerce_order_status_completed', 'action_woocommerce_order_status_completed', 10, 1 );
+
+function prospect_remove_cart_item( $cart_item_key, $instance ) {
     echo "<pre>";
     var_dump($cart_item_key);
     echo "</pre>";
@@ -393,9 +394,9 @@ function prospect_remove_cart_item( $cart_item_key, $instance ) {
     var_dump($instance);
     echo "</pre>";
 }
-         
-// add the action 
-add_action( 'woocommerce_remove_cart_item', 'prospect_remove_cart_item', 10, 2 ); 
+
+// add the action
+add_action( 'woocommerce_remove_cart_item', 'prospect_remove_cart_item', 10, 2 );
 
 // Save event entry post id to cart item when added to cart
 add_filter( 'woocommerce_add_cart_item_data', 'prospect_save_event_entry_cart_data', 30, 3 );
