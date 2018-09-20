@@ -57,17 +57,14 @@ function prospect_product_admin_js() {
     endif;
     ?>
     <script type='text/javascript'>
-        jQuery(document).ready(function () {
-            //for Price tab
-            jQuery('.product_data_tabs .general_tab').addClass('show_if_prospect_event').show();
-            jQuery('#general_product_data .pricing').addClass('show_if_prospect_event').show();
-            //for Inventory tab
-            jQuery('.inventory_options').addClass('show_if_prospect_event').show();
-            jQuery('#inventory_product_data ._manage_stock_field').addClass('show_if_prospect_event').show();
-        });
+
 				jQuery( function($){
 				    $( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
 				        if ( select_val === 'prospect_event' ) {
+                    $('.product_data_tabs .general_tab').show();
+                    $('.product_data_tabs .pricing').show();
+                    $('.inventory_options').show();
+                    $('#inventory_product_data ._manage_stock_field').show();
 				            $( '.event_details_tab' ).show();
                     $('.shipping_options').hide();
                     $('.attribute_options').hide();
@@ -161,7 +158,7 @@ function prospect_product_admin_js() {
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALC9P4YEEszUhuvABxSqXk8PzYSKa0T1c&libraries=places&callback=initAutocomplete"
          async defer></script>
 		<style>
-			.show_if_event { display: none; }
+			.show_if_prospect_event { display: block; }
 			#woocommerce-product-data ul.wc-tabs li.event_details_tab a:before { font-family: WooCommerce; content: '\e00e'; }
 		</style>
     <?php
