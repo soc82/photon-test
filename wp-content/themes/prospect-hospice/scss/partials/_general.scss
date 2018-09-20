@@ -138,7 +138,7 @@
       }
     }
   }
-  .nav-orange.current-menu-item a,.nav-orange.current-menu-item a:after  {
+  .nav-orange.current-menu-item .sub-menu a,.nav-orange.current-menu-item a:after  {
     color:$orange !important;
   }
 
@@ -160,7 +160,7 @@
       }
     }
   }
-  .nav-navy.current-menu-item a,.nav-navy.current-menu-item a:after  {
+  .nav-navy.current-menu-item .sub-menu a,.nav-navy.current-menu-item a:after  {
     color:$navy !important;
   }
 
@@ -181,7 +181,7 @@
         color: white !important;
       }
     }
-  }.nav-teal.current-menu-item a,.nav-teal.current-menu-item a:after  {
+  }.nav-teal.current-menu-item .sub-menu a,.nav-teal.current-menu-item a:after  {
     color:white !important;
   }
 
@@ -244,7 +244,7 @@
         color: white !important;
       }
     }
-  }.nav-green.current-menu-item a,.nav-green.current-menu-item a:after  {
+  }.nav-green.current-menu-item .sub-menu a,.nav-green.current-menu-item a:after  {
     color:$green !important;
   }
 

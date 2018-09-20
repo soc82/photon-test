@@ -5,7 +5,7 @@ $introduction_content = get_field('introduction_content');
 $salary = get_field('salary');
 $closing_date = get_field('closing_date');
 $vacancies_page = get_field('job_vacancies_page', 'options');
-$application_page = get_field('job_applciation_form_page', 'options');
+$application_page = get_field('job_application_form_page', 'options');
 
 $user = wp_get_current_user();
 $users_applications = get_field('applications', 'user_' . $user->ID);
