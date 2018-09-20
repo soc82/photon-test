@@ -34,7 +34,7 @@ get_header(); ?>
 					<div class="course-cta">
 						<div class="row">
 							<div class="col-12">
-								<?php if($courses_page) echo '<a href="' . get_permlaink($courses_page) . '" class="btn btn-light-grey"><i class="fal fa-arrow-left"></i> Back to our courses</a>'; ?>
+								<?php if($courses_page) echo '<a href="' . get_permalink($courses_page) . '" class="btn btn-light-grey"><i class="fal fa-arrow-left"></i> Back to our courses</a>'; ?>
 								<a href="/education/contact-us?course=<?php echo the_title();?>" class="btn">Book or enquire <i class="fal fa-arrow-right"></i></a>
 							</div>
 						</div>
