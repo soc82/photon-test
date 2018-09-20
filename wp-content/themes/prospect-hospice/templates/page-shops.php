@@ -8,7 +8,7 @@ get_header(); ?>
 <?php
 $shop_args = array(
   'post_type' => 'shop',
-  'post_per_page' => -1,
+  'posts_per_page' => -1,
 );
 $shop_query = new WP_Query($shop_args);
 if($shop_query->have_posts()):
