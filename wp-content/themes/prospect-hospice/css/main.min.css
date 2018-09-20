@@ -8357,7 +8357,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                         .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid .mega-menu-links-wrapper li a:hover {
                           color: #222222; }
             .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.current-menu-item a {
-              color: #f3cc30;
+              color: #f3cc30 !important;
               font-weight: 700; } }
 
 /*
