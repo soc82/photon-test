@@ -8089,7 +8089,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                   font-size: 0.9em;
                   color: #FFFFFF;
                   padding: 4px 5px 4px 0;
-                  width: 50px;
+                  width: 60px;
                   /* Expands on click */
                   -webkit-transition-duration: 700ms;
                   -moz-transition-duration: 700ms;
@@ -8097,7 +8097,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                   transition-duration: 700ms; } }
               @media (min-width: 768px) and (min-width: 992px) {
                 .top-header-bar .top-navigation-wrapper ul li.menu-item-search form input {
-                  font-size: 0.8em; } }
+                  font-size: 0.9em; } }
   @media (min-width: 768px) {
                   .top-header-bar .top-navigation-wrapper ul li.menu-item-search form input::-webkit-input-placeholder {
                     /* Chrome/Opera/Safari */

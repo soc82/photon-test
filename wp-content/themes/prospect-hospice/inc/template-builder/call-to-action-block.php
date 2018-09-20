@@ -12,7 +12,7 @@ $buttons = (get_sub_field('buttons') ? get_sub_field('buttons') : get_field('but
 	<?php } ?>
 	<div class="container cta-block-content">
 		<div class="row">
-			<div class="col-12 col-md-8 col-lg-6">
+			<div class="col-12 col-md-8 col-lg-7">
 				<h2><?php echo $heading; ?></h2>
 				<?php if ($content) : ?>
 					<?php echo $content; ?>

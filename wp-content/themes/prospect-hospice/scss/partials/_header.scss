@@ -74,13 +74,13 @@
                 font-size: 0.9em;
                 color: #FFFFFF;
                 padding: 4px 5px 4px 0;
-                width: 50px; /* Expands on click */
+                width: 60px; /* Expands on click */
                 -webkit-transition-duration: 700ms;
                 -moz-transition-duration: 700ms;
                 -o-transition-duration: 700ms;
                 transition-duration: 700ms;
                 @include media-breakpoint-up(lg) {
-                  font-size: 0.8em;
+                  font-size: 0.9em;
                 }
                 &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
                   color: white;
