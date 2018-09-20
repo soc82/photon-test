@@ -3,7 +3,7 @@ if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array(
 	'key' => 'group_5b7ea49084dc3',
-	'title' => 'Campaign Fields',
+	'title' => 'Campaign Call To Action',
 	'fields' => array(
 		array(
 			'key' => 'field_5b7ea4c8a3e15',
