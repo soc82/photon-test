@@ -8577,12 +8577,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
         margin-bottom: 0px;
         font-size: 3em;
-        line-height: 1.1em;
-        transform: rotate(-2deg); }
+        line-height: 1.1em; }
       .block.hero-banner .hero-banner-content h2 {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
-        margin-bottom: 0; }
+        margin-bottom: 10px; }
       .block.hero-banner .hero-banner-content p {
         color: #fff;
         font-size: 1.2em;
@@ -9125,6 +9124,65 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         .upcoming-events-content-block .upcoming-event .row .btn:hover:after, .upcoming-events-content-block .upcoming-event .row .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .upcoming-events-content-block .upcoming-event .row .gform_button:hover:after {
           color: #222222; }
 
+.documents-content-block {
+  margin: 50px 0; }
+  @media (min-width: 768px) {
+    .documents-content-block {
+      margin: 60px 0; } }
+  .documents-content-block .intro {
+    margin-bottom: 20px; }
+    @media (min-width: 768px) {
+      .documents-content-block .intro {
+        margin-bottom: 40px; } }
+    .documents-content-block .intro .section-heading {
+      margin-bottom: 20px; }
+    .documents-content-block .intro p {
+      font-size: 1.15em;
+      line-height: 1.5em;
+      margin: 0 0 15px 0; }
+  .documents-content-block .document-item .row {
+    padding: 15px 0;
+    border-bottom: 2px dashed rgba(102, 102, 102, 0.2); }
+    @media (min-width: 768px) {
+      .documents-content-block .document-item .row {
+        padding: 25px 0; } }
+    .documents-content-block .document-item .row .document-icon {
+      display: block;
+      text-align: center;
+      font-size: 1.7em;
+      line-height: 2.5em;
+      color: #222222; }
+      @media (min-width: 992px) {
+        .documents-content-block .document-item .row .document-icon {
+          font-size: 2em;
+          line-height: 1.9em; } }
+    .documents-content-block .document-item .row h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.4em;
+      line-height: 1.5em; }
+      @media (min-width: 768px) {
+        .documents-content-block .document-item .row h3 {
+          margin: 0; } }
+      @media (min-width: 992px) {
+        .documents-content-block .document-item .row h3 {
+          font-size: 1.6em;
+          line-height: 1.6em; } }
+    .documents-content-block .document-item .row .btn, .documents-content-block .document-item .row .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-content-block .document-item .row .gform_button {
+      background: #f3cc30;
+      border-color: #f3cc30;
+      color: #222222;
+      padding: 10px 25px; }
+      @media (min-width: 992px) {
+        .documents-content-block .document-item .row .btn, .documents-content-block .document-item .row .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-content-block .document-item .row .gform_button {
+          padding: 13px 35px; } }
+      .documents-content-block .document-item .row .btn:after, .documents-content-block .document-item .row .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-content-block .document-item .row .gform_button:after {
+        color: #222222; }
+      .documents-content-block .document-item .row .btn:hover, .documents-content-block .document-item .row .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-content-block .document-item .row .gform_button:hover {
+        background: transparent;
+        color: #222222; }
+        .documents-content-block .document-item .row .btn:hover:after, .documents-content-block .document-item .row .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button:hover:after, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .documents-content-block .document-item .row .gform_button:hover:after {
+          color: #222222; }
+
 .icon_block {
   padding: 30px 0; }
   .icon_block .icon-item {
@@ -9619,9 +9677,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 */
 .event-hero-banner {
   height: 400px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
   position: relative;
   margin-bottom: 30px; }
   @media (min-width: 768px) {

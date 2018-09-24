@@ -88,3 +88,31 @@ LOAD ACF FIELDS
 *****************************/
 require_once('acf-fields.php');
 
+
+/* NEED TO FINISH OFF LOOPING THROUGH COURSE DATES AND REMOVING OLD DATES
+add_filter('acf/load_value/name=dates', 'delete_old_courses_by_date', 10, 3);
+function delete_old_courses_by_date( $value, $post_id, $field) {
+  if (!is_array($value) || !count($value)) {
+    return $value;
+  }
+  $now = time();
+
+  $new_value = array();
+  $startdate = date("Ymd", strtotime($date));
+  $todaydate = date("Ymd");
+  $i = 0;
+  foreach($value as $v){
+    $date = get_post_meta($post_id,'dates_'.$i.'_date',true);
+    var_dump($v);
+    if(strtotime($todaydate) > strtotime($startdate) && !empty($date)){
+     $del_data = array(
+        "Date(s)" => 'dates_'.$i.'_date',
+     );
+     delete_row('dates', 1);
+    }
+    $i++;
+  }
+
+  return $value;
+}
+*/

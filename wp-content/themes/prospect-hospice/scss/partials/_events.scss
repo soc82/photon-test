@@ -223,9 +223,9 @@
 */
 .event-hero-banner {
   height: 400px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: center !important;
   position: relative;
   margin-bottom: 30px;
   @include media-breakpoint-up(md) {

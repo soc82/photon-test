@@ -3,13 +3,6 @@
 $sub_text = get_field('course_sub_text');
 $related_courses = get_field('related_courses');
 $dates = get_field('dates');
-$date_string = "";
-if ($dates) {
-	foreach ($dates as $date) {
-		$date_string .= $date['date'] . ", ";
-	}
-	$date_string = substr($date_string, 0, -2);
-}
 $start_time = get_field('start_time');
 $end_time = get_field('end_time');
 $venue = get_field('venue');
@@ -50,7 +43,7 @@ get_header(); ?>
 						<?php endif; ?>
 
 						<?php if ($dates) : ?>
-							<div class="dates"><strong>Date(s):</strong><br /> <?php echo $date_string; ?></div>
+							<div class="dates"><strong>Date(s):</strong><br /> <?php foreach($dates as $date) echo $date['date'] . '<br/>'; ?></div>
 						<?php endif; ?>
 						<?php if ($start_time && $end_time) : ?>
 							<div class="start"><strong>Time:</strong><br /> <?php echo $start_time . ' - ' . $end_time; ?></div>
@@ -87,7 +80,6 @@ get_header(); ?>
 									<div class="event-icon"><i class="fal fa-calendar-alt"></i></div>
 								</div>
 								<div class="col-12 col-md-7 col-lg-8">
-									<!-- <span class="start-date">Start</span> -->
 									<h3><?php echo  $post->post_title; ?></h3>
 								</div>
 								<div class="col-12 col-md-4 col-lg-3">

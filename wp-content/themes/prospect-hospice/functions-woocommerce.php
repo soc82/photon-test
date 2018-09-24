@@ -566,8 +566,8 @@ add_filter( 'woocommerce_output_related_products_args', 'prospect_related_produc
 */
 add_filter( 'woocommerce_product_tabs', 'prospect_remove_reviews_tab', 98 );
 function prospect_remove_reviews_tab( $tabs ) {
-    //unset( $tabs['reviews'] );
-    //unset($tabs['additional_information']);
+    unset( $tabs['reviews'] );
+    unset($tabs['additional_information']);
     return $tabs;
 }
 
