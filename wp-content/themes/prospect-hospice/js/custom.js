@@ -37,6 +37,21 @@ jQuery( document ).ready(function($) {
   */
   new mlPushMenu( document.getElementById( 'mobile-menu' ), document.getElementById( 'trigger' ) );
 
+  /*
+  ** Luminous Lightbox
+  */
+  var galleryOpts = {
+
+  };
+
+  var luminousOpts = {
+    caption: function(trigger) {
+      return jQuery(trigger).data('caption');
+    }
+  };
+  new LuminousGallery(document.querySelectorAll(".lightbox-gallery"), galleryOpts, luminousOpts);
+
+
 
 
   // Top Menu Search

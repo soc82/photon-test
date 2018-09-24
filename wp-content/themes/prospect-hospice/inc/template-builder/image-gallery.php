@@ -12,7 +12,7 @@ if($gallery):
 				echo '<div class="col-12">';
 					foreach($gallery as $image):
 						if($image['image']): ?>
-						<a class="lightbox-gallery" href="<?php echo $image['image']['sizes']['large']; ?>" style="background:url(<?php echo $image['image']['sizes']['large']; ?>);"></a>
+						<a class="lightbox-gallery" href="<?php echo $image['image']['sizes']['large']; ?>" data-caption="<?php if($image['image']['alt']) echo $image['image']['alt']; else echo ''; ?>" style="background:url(<?php echo $image['image']['sizes']['large']; ?>);"></a>
 				<?php endif;
 					endforeach;
 				echo '</div>';

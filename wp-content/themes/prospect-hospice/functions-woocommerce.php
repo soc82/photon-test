@@ -62,12 +62,15 @@ function prospect_product_admin_js() {
 				    $( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
 				        if ( select_val === 'prospect_event' ) {
                     $('.product_data_tabs .general_tab').show();
-                    $('.product_data_tabs .pricing').show();
+                    $('.woocommerce_options_panel').show();
+                    $('.woocommerce_options_panel .pricing').show();
                     $('.inventory_options').show();
                     $('#inventory_product_data ._manage_stock_field').show();
 				            $( '.event_details_tab' ).show();
                     $('.shipping_options').hide();
                     $('.attribute_options').hide();
+                    $('.advanced_options').hide();
+                    $('.linked_product_options').hide();
 				        } else {
 									$( '.event_details_tab' ).hide();
 								}

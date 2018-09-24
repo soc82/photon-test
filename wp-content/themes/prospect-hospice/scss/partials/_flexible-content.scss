@@ -826,9 +826,6 @@
 	.icon-item {
 		text-align: center;
 		margin-bottom: 30px;
-		@include media-breakpoint-up(md){
-			margin-bottom: 0;
-		}
 		h3 {
 			margin: 0 0 10px 0;
 			font-size: 1.4em;

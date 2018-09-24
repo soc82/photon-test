@@ -9188,9 +9188,6 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   .icon_block .icon-item {
     text-align: center;
     margin-bottom: 30px; }
-    @media (min-width: 768px) {
-      .icon_block .icon-item {
-        margin-bottom: 0; } }
     .icon_block .icon-item h3 {
       margin: 0 0 10px 0;
       font-size: 1.4em;
