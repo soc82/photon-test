@@ -578,8 +578,9 @@
 						line-height: 1.5em;
 					}
 				}
+				
 				span {
-					display: block;
+					display: inline-block;
 					margin-bottom: 15px;
 					font-size: 1.1em;
 					color: rgba(white, 0.8);
@@ -588,6 +589,25 @@
 						line-height: 1.4em;
 					}
 				}
+				.testimonial-image {
+					img {
+						width: 100px;
+						border-radius: 10px;
+						float: left;
+						height: auto;
+					}
+					div.name {
+						margin: 20px 0 0 20px;
+						float: left;
+						font-size: 1.1em;
+						color: rgba(white, 0.8);
+						@include media-breakpoint-up(md){
+							font-size: 1.2em;
+							line-height: 1.4em;
+						}
+					}
+				}
+				
 			}
 		}
 		.slick-dots {

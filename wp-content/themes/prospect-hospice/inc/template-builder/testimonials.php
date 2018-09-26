@@ -24,10 +24,19 @@ $color_class = prospect_dark_colour_class();
 					<?php
 						$name = get_field('name', $testimonial_item->ID);
 						$testimonial = get_field('testimonial', $testimonial_item->ID);
+						$testimonial_image = get_field('testimonial_image',$testimonial_item->ID);
 					?>
 					<div class="testimonial">
 						<?php if($testimonial) echo '<p class="' . $color_class . '">' . $testimonial . '</p>'; ?>
-						<?php if($name) echo '<span class="name ' . $color_class . '">' . $name . "</span>"; ?>
+						<?php if($testimonial_image) { ?>
+							<div class="testimonial-image">
+								<?php echo '<img class="testimonial-image" src="' . $testimonial_image . '" alt="' . $name . '" />'; ?>
+								<?php if($name) echo '<div class="name ' . $color_class . '">' . $name . "</div>"; ?>
+							</div>
+						<?php } else {?>
+							<?php if($name) echo '<span class="name ' . $color_class . '">' . $name . "</span>"; ?>
+						<?php }?>
+						
 					</div>
 				<?php endforeach; ?>
 				</div>
