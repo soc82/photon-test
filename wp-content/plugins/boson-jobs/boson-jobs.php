@@ -51,7 +51,17 @@ function custom_post_type_jobs() {
     'exclude_from_search' => false,
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
-    'capability_type'     => 'page',
+    'capability_type' => 'jobs',
+    'capabilities' => array(
+        'edit_post' => 'edit_job',
+        'edit_posts' => 'edit_jobs',
+        'edit_others_posts' => 'edit_other_jobs',
+        'publish_posts' => 'publish_jobs',
+        'read_post' => 'read_job',
+        'read_private_posts' => 'read_private_jobs',
+        'delete_post' => 'delete_job'
+    ),
+    'map_meta_cap' => true
 
   );
 
@@ -59,6 +69,33 @@ function custom_post_type_jobs() {
   register_post_type( 'jobs', $args_jobs );
 
 }
+
+function add_theme_caps() {
+    // gets the administrator role
+    $admins = get_role( 'administrator' );
+
+    $admins->add_cap( 'edit_job' ); 
+    $admins->add_cap( 'edit_jobs' ); 
+    $admins->add_cap( 'edit_other_jobs' ); 
+    $admins->add_cap( 'publish_jobs' ); 
+    $admins->add_cap( 'read_job' ); 
+    $admins->add_cap( 'read_private_jobs' ); 
+    $admins->add_cap( 'delete_job' );
+
+    // Assign Custom Job Type Categories
+    $admins->add_cap( 'manage_jobtype' );
+    $admins->add_cap( 'edit_jobtype' );
+    $admins->add_cap( 'delete_jobtype' );
+    $admins->add_cap( 'assign_jobtype' );
+
+    // Assign Custom Job Section Categories
+    $admins->add_cap( 'manage_jobsection' );
+    $admins->add_cap( 'edit_jobsection' );
+    $admins->add_cap( 'delete_jobsection' );
+    $admins->add_cap( 'assign_jobsection' );
+
+}
+add_action( 'admin_init', 'add_theme_caps');
 
 /* Hook into the 'init' action so that the function
 * Containing our post type registration is not
@@ -74,6 +111,12 @@ function create_jobtype_tax() {
       'label' => __( 'Job Type' ),
       'rewrite' => array( 'slug' => 'jobtype' ),
       'hierarchical' => true,
+      'capabilities' => array(
+        'manage_terms'=> 'manage_jobtype',
+        'edit_terms'=> 'edit_jobtype',
+        'delete_terms'=> 'delete_jobtype',
+        'assign_terms' => 'assign_jobtype'
+      ),
     )
   );
 }
@@ -89,6 +132,12 @@ function create_jobsection_tax() {
       'label' => __( 'Job Section' ),
       'rewrite' => array( 'slug' => 'jobsection' ),
       'hierarchical' => true,
+      'capabilities' => array(
+        'manage_terms'=> 'manage_jobsection',
+        'edit_terms'=> 'edit_jobsection',
+        'delete_terms'=> 'delete_jobsection',
+        'assign_terms' => 'assign_jobsection'
+      ),
     )
   );
 }
