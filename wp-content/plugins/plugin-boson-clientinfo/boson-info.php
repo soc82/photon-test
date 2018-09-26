@@ -19,7 +19,7 @@ if( function_exists('acf_add_options_page') ) {
         'page_title'    => 'Utility Settings',
         'menu_title'    => 'Utility Settings',
         'menu_slug'     => 'utility-settings',
-        'capability'    => 'edit_posts',
+        'capability'    => 'manage_options',
         'parent_slug'   => '',
         'position'      => false,
         'icon_url'      => false,

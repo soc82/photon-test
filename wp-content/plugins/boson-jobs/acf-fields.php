@@ -114,7 +114,11 @@ acf_add_local_field_group(array(
 			'hide_admin' => 0,
 			'role' => array(
 				0 => 'administrator',
-				1 => 'editor',
+				1 => 'super_user',
+				2 => 'comms_team',
+				3 => 'fundraising',
+				4 => 'hr',
+				5 => 'volunteering',
 			),
 			'allow_null' => 0,
 			'multiple' => 0,
