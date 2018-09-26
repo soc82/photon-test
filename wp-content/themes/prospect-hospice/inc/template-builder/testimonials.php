@@ -30,7 +30,7 @@ $color_class = prospect_dark_colour_class();
 						<?php if($testimonial) echo '<p class="' . $color_class . '">' . $testimonial . '</p>'; ?>
 						<?php if($testimonial_image) { ?>
 							<div class="testimonial-image">
-								<?php echo '<img class="testimonial-image" src="' . $testimonial_image . '" alt="' . $name . '" />'; ?>
+								<?php echo '<img class="testimonial-image" src="' . $testimonial_image['sizes']['medium'] . '" alt="' . $testimonial_image['alt'] . '" />'; ?>
 								<?php if($name) echo '<div class="name ' . $color_class . '">' . $name . "</div>"; ?>
 							</div>
 						<?php } else {?>
