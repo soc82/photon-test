@@ -8889,6 +8889,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         @media (min-width: 768px) {
           .tile-block .image-tile .overlay h4 {
             font-size: 1.7em; } }
+        .tile-block .image-tile .overlay h4 span {
+          font-size: 0.6em;
+          line-height: 1em;
+          opacity: 0.5;
+          vertical-align: middle; }
       .tile-block .image-tile .overlay .circle-arrow {
         position: absolute;
         z-index: 3;
@@ -9854,6 +9859,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     .prospect_event .event-sponsorship-block .btn-set {
       margin-top: 40px; }
 
+.page-template-page-events-calendar-php .featured-events {
+  margin-bottom: 60px; }
+  @media (max-width: 575.98px) {
+    .page-template-page-events-calendar-php .featured-events {
+      margin-bottom: 120px; } }
 @media (max-width: 300px) {
   .page-template-page-events-calendar-php .fc-toolbar .fc-right {
     width: 40% !important; }

@@ -414,7 +414,7 @@
 		    &:hover {
 		    	background-color: rgba(141, 198, 64, 0.6);
 		    }
-				h4 {
+			h4 {
 		      padding: 0 0 35px 35px;
 		      color: #FFFFFF;
 		      position: absolute;
@@ -428,7 +428,13 @@
 		      @include media-breakpoint-up(md){
 		        font-size: 1.7em;
 		      }
-		    }
+		      span {
+		      	font-size: 0.6em;
+		      	line-height: 1em;
+		      	opacity: 0.5;
+		      	vertical-align: middle;
+		      }
+		  	}
 		    .circle-arrow {
 		      position: absolute;
 		      z-index: 3;

@@ -2,10 +2,53 @@
 /*
 * Template Name: Events Calendar
 */
+
 ?>
 
 <?php get_header(); ?>
 <div class="inner-page-wrapper">
+  <div class="container">
+    <div class="tile-block block">
+
+      <div class="row">
+        <div class="col-12">
+          <h1>Featured Events</h2>
+        </div>
+      </div>
+
+      <div class="featured-events">
+        <div class="row no-gutters">
+
+          <?php  
+          $args = array(
+              'post_type'      => 'product',
+              'posts_per_page' => 3,
+              'product_cat'    => 'events',
+              'meta_key'       => 'featured',
+              'meta_value'     => 1
+          );
+          $loop = new WP_Query( $args );
+          while ( $loop->have_posts() ) : $loop->the_post(); 
+                global $product;?>
+                <div class="col-12 col-sm-4">
+                    <a class="image-tile" href="<?php echo get_permalink();?>" style="background-image: url(<?php echo my_get_the_product_thumbnail_url();?>)">
+                        <div class="overlay">
+                            <?php $event = prospect_get_event_info();?>
+                           
+                            <h4><?php echo get_the_title();?><br /><span class="date"><?php echo $event['start']->format('jS F o');?></span></h4>
+
+                            <span class="circle-arrow"><i class="far fa-long-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+          <?php endwhile;
+
+        wp_reset_query();?>
+      </div>
+    </div>
+  </div>
+
+
   <div class="container">
     <div class="row">
       <div class="col-12">

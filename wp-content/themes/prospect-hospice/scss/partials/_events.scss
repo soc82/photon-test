@@ -428,6 +428,13 @@
 
 .page-template-page-events-calendar-php {
 
+  .featured-events {
+    margin-bottom: 60px;
+    @include media-breakpoint-down(xs) {
+      margin-bottom: 120px;
+    }
+  }
+
   @media (max-width: 300px) {
     .fc-toolbar {
       .fc-right {

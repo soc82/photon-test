@@ -682,3 +682,9 @@ function prospect_to_cart_redirect($url = false) {
   }
   return wc_get_cart_url() . add_query_arg(array(), remove_query_arg(array('add-to-cart', 'quantity', 'event_entry_id')));
 }
+
+function my_get_the_product_thumbnail_url( $size = 'shop_catalog' ) {
+  global $post;
+  $image_size = apply_filters( 'single_product_archive_thumbnail_size', $size );
+  return get_the_post_thumbnail_url( $post->ID, $image_size );
+}
