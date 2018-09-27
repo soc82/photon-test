@@ -108,9 +108,9 @@
 			@include media-breakpoint-up(md) {
 
 				/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#84bd00+0,84bd00+57,84bd00+100&1+0,1+56,0+100 */
-				background: -moz-linear-gradient(left, rgba($green,1) 0%, rgba($green,0.98) 70%, rgba($green,0) 100%); /* FF3.6-15 */
-				background: -webkit-linear-gradient(left, rgba($green,1) 0%,rgba($green,0.98) 70%,rgba($green,0) 100%); /* Chrome10-25,Safari5.1-6 */
-				background: linear-gradient(to right, rgba($green,1) 0%,rgba($green,0.98) 70%,rgba($green,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				background: -moz-linear-gradient(left, rgba($green,1) 68%, rgba($green,0.98) 70%, rgba($green,0) 100%); /* FF3.6-15 */
+				background: -webkit-linear-gradient(left, rgba($green,1) 68%,rgba($green,0.98) 70%,rgba($green,0) 100%); /* Chrome10-25,Safari5.1-6 */
+				background: linear-gradient(to right, rgba($green,1) 68%,rgba($green,0.98) 70%,rgba($green,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84bd00', endColorstr='#0084bd00',GradientType=1 ); /* IE6-9 */
 			}
 			@include media-breakpoint-up(lg) {
