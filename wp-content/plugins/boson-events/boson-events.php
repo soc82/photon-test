@@ -204,16 +204,39 @@ function prospect_get_attendee_form() {
   }
 }
 
+
+
 function prospect_get_event_form( ) {
   $event = '';
   if(isset($_GET['event'])):
+	$entry_id = false;
+	if (isset($_GET['entry_id'])) {
+		$entry_user_id = get_post_meta($_GET['entry_id'], 'event_user_id', true);
+		var_dump($entry_user_id);
+		if ($entry_user_id == get_current_user_id()) {
+			$entry_id = $_GET['entry_id'];
+		}
+	}
+	var_dump($entry_id);
     $event = get_post($_GET['event']);
+
+	$post_title = sprintf('Booking for %s @ %s', $event->post_title, date('H:i d-M-Y'));
+
+	$post_data = array(
+	  'post_type'   => 'draft-event-entry',
+	  'post_status' => 'publish',
+	  'post_title'  => $post_title,
+	);
+
     $fields_id = get_post_meta($_GET['event'], 'booking_form_post_id', true);
     echo '<h2>Event: ' . get_the_title($event) . '</h2>';
 
     if($fields_id):
       $form_args = array(
-        'field_groups'  => array($fields_id),
+		  'id' 			 => 'event-registration',
+		  'field_groups' => array($fields_id),
+		  'new_post'     => $post_data,
+		  'post_id'      => $entry_id ?: 'new_post'
       );
       acf_form($form_args);
       echo '<div class="event-attendee-wrapper">';
@@ -228,47 +251,30 @@ function prospect_get_event_form( ) {
   endif;
 }
 
-
-function prosect_event_form_attendee_number( $form, $args ) {
-    echo '<input type="hidden" name="total_number_attendees" id="total_number_attendees" value="1">';
-}
-add_action( 'af/form/hidden_fields', 'prosect_event_form_attendee_number', 10, 2 );
-
-
-function prospect_event_form_testing($post_id) {
-
-  $post_title = 'Event Entry';
-
-  $post_data = array(
-    'post_type' => 'event-entry',
-    'post_status' => 'publish',
-    'post_title' => $post_title,
-  );
-
-  $fields = $_POST['acf'];
-
-  exit;
-}
-
-// add_filter('acf/pre_save_post' , 'prospect_event_form_testing', 10, 1 );
+add_action('acf/submit_form', function ($form, $post_id) {
+	if ($form['id'] == 'event-registration') {
+		if ($form['post_id'] == 'new_post' && $post_id) {
+			update_post_meta($post_id, 'event_user_id', get_current_user_id());
+		}
+	}
+}, 10, 2);
 
 
-/*
-** After ACF form submission
-*/
-function prospect_event_form_submission( $post_id ) {
 
-  $post_title = 'Event Entry';
 
-  $post_data = array(
-    'post_type' => 'event-entry',
-    'post_status' => 'publish',
-    'post_title' => $post_title,
-  );
 
-    /*
-    ** Reminder to add completion status here
-    */
+function complete_event_booking() {
+	$post_title = 'Event Entry @ ' . date('H:i d/M/Y');
+
+	$post_data = array(
+		'post_type' => 'event-entry',
+		'post_status' => 'publish',
+		'post_title' => $post_title,
+	);
+
+	/*
+	** Reminder to add completion status here
+	*/
     $event_id = $_GET['event'];
     $lead_booker_fields = [];
     $attendees = [];
@@ -333,7 +339,7 @@ function prospect_event_form_submission( $post_id ) {
     exit;
 }
 
-add_filter('acf/pre_save_post' , 'prospect_event_form_submission', 10, 1 );
+//add_filter('acf/pre_save_post' , 'prospect_event_form_submission', 10, 1 );
 
 function process_attendee_email($message, $attendee) {
   $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
@@ -443,3 +449,69 @@ function prospect_events_endpoint_content() {
     include(plugin_dir_path( __FILE__ ) . 'templates/attendee_events.php');
 }
 add_action( 'woocommerce_account_attendingevents_endpoint', 'prospect_events_endpoint_content' );
+//
+//add_filter( 'woocommerce_add_cart_item_data', function ( $cart_item_data, $product_id, $variation_id ) {
+//
+//	if (!is_event($product_id)) {
+//		return $cart_item_data;
+//	}
+//
+//	$store = sb_get_store();
+//	$duration = filter_input( INPUT_GET, 'duration' );
+//	$per = filter_input( INPUT_GET, 'per' );
+//	$vat = filter_input( INPUT_GET, 'vat' );
+//
+//	$price = sb_get_price($product_id, $store, $duration, $vat == 'inc', $per == 'weekly');
+//
+//
+//	$cart_item_data['_store_id'] = $store->ID;
+//	$cart_item_data['store'] = $store->post_title;
+//	$cart_item_data['_duration'] = $duration;
+//	$cart_item_data['_vat'] = $vat;
+//	$cart_item_data['_price'] = $price;
+//	$cart_item_data['_per'] = $per;
+//	$cart_item_data['price'] = sprintf('%s @ %s %s per %s',
+//									   sb_get_human_duration($duration),
+//									   number_format($price, 2),
+//									   $vat == 'exc' ? 'Exc VAT' : 'Inc VAT',
+//									   $duration == 'weekly' ? 'week' : 'month'
+//	);
+//
+//	return $cart_item_data;
+//}, 10, 3);
+//
+//
+//add_filter( 'woocommerce_get_item_data', function ( $item_data, $cart_item ) {
+//	if ( empty( $cart_item['_store_id'] ) ) {
+//		return $item_data;
+//	}
+//
+//	$item_data[] = array(
+//		'key'     => 'Store',
+//		'value'   => wc_clean( $cart_item['store'] ),
+//		'display' => '',
+//	);
+//
+//	$item_data[] = array(
+//		'key'     => 'Price',
+//		'value'   => wc_clean( $cart_item['price'] ),
+//		'display' => '',
+//	);
+//
+//	return $item_data;
+//}, 10, 2);
+//
+//add_action( 'woocommerce_checkout_create_order_line_item', function ( $item, $cart_item_key, $values, $order ) {
+//	if ( empty( $values['_store_id'] ) ) {
+//		return;
+//	}
+//
+//	$item->add_meta_data( '_store_id', $values['_store_id'] );
+//	$item->add_meta_data( 'store', $values['store'] );
+//	$item->add_meta_data( '_duration', $values['_duration'] );
+//	$item->add_meta_data( '_vat', $values['_vat'] );
+//	$item->add_meta_data( '_price', $values['_price'] );
+//	$item->add_meta_data( '_per', $values['_per'] );
+//	$item->add_meta_data( 'price', $values['price'] );
+//}, 10, 4);
+//
