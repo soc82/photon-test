@@ -13,7 +13,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'label' => 'Event Banner',
 				'name' => 'event_banner',
 				'type' => 'image',
-				'instructions' => 'Banner that displays above event page. Leave blank if not needed or not a event product.',
+				'instructions' => 'Banner that displays above event page. Recommended to be at least 1600px wide. Leave blank if not needed or not a event product.',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
