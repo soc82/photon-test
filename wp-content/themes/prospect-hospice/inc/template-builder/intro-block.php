@@ -1,6 +1,6 @@
-<div class="hero-banner block" <?php if($image) echo 'style="background-image:url(' . $image . ');"'; ?>>
+<div class="hero-banner block" <?php if(isset($image)) echo 'style="background-image:url(' . $image . ');"'; ?>>
     <div class="overlay"></div>
-    <?php if($heading || $second_heading): ?>
+    <?php if(isset($heading) || isset($second_heading)): ?>
         <div class="container hero-banner-content">
             <div class="row">
                 <div class="col-12">
@@ -18,7 +18,7 @@
         </div>
     <?php endif;?>
 
-    <?php if($link_url) : ?>
+    <?php if(isset($link_url)) : ?>
         <a class="btn-circle" href="<?php echo $link_url;?>"><i class="fal fa-arrow-right"></i></a>
     <?php endif; ?>
 

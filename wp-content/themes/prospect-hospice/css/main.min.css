@@ -7160,8 +7160,12 @@ a {
   background-color: #ED8B00 !important;
   color: white !important; }
   .desktop-navigation .nav-orange ul.sub-menu a, .desktop-navigation .nav-orange h6 a, .desktop-navigation .nav-orange p a {
-    color: white !important; }
-.desktop-navigation .nav-orange.current-menu-item .sub-menu a, .desktop-navigation .nav-orange.current-menu-item a:after {
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-orange ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-orange h6 li.current-menu-item > a, .desktop-navigation .nav-orange p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-orange.current-menu-item a, .desktop-navigation .nav-orange.current-menu-item a:after {
   color: #ED8B00 !important; }
 .desktop-navigation .nav-navy a:after, .desktop-navigation .nav-navy.current-menu-item > a {
   color: #002b5c !important; }
@@ -7173,8 +7177,12 @@ a {
   background-color: #002b5c !important;
   color: white !important; }
   .desktop-navigation .nav-navy ul.sub-menu a, .desktop-navigation .nav-navy h6 a, .desktop-navigation .nav-navy p a {
-    color: white !important; }
-.desktop-navigation .nav-navy.current-menu-item .sub-menu a, .desktop-navigation .nav-navy.current-menu-item a:after {
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-navy ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-navy h6 li.current-menu-item > a, .desktop-navigation .nav-navy p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-navy.current-menu-item a, .desktop-navigation .nav-navy.current-menu-item a:after {
   color: #002b5c !important; }
 .desktop-navigation .nav-teal a:after, .desktop-navigation .nav-teal.current-menu-item > a {
   color: #008F96 !important; }
@@ -7186,9 +7194,13 @@ a {
   background-color: #008F96 !important;
   color: white !important; }
   .desktop-navigation .nav-teal ul.sub-menu a, .desktop-navigation .nav-teal h6 a, .desktop-navigation .nav-teal p a {
-    color: white !important; }
-.desktop-navigation .nav-teal.current-menu-item .sub-menu a, .desktop-navigation .nav-teal.current-menu-item a:after {
-  color: white !important; }
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-teal ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-teal h6 li.current-menu-item > a, .desktop-navigation .nav-teal p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-teal.current-menu-item a, .desktop-navigation .nav-teal.current-menu-item a:after {
+  color: #008F96 !important; }
 .desktop-navigation .nav-burgundy a:after, .desktop-navigation .nav-burgundy.current-menu-item > a {
   color: #B52555 !important; }
 .desktop-navigation .nav-burgundy:hover a:before {
@@ -7199,7 +7211,11 @@ a {
   background-color: #B52555 !important;
   color: white !important; }
   .desktop-navigation .nav-burgundy ul.sub-menu a, .desktop-navigation .nav-burgundy h6 a, .desktop-navigation .nav-burgundy p a {
-    color: white !important; }
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-burgundy ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-burgundy h6 li.current-menu-item > a, .desktop-navigation .nav-burgundy p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
 .desktop-navigation .nav-burgundy.current-menu-item a, .desktop-navigation .nav-burgundy.current-menu-item a:after {
   color: #B52555 !important; }
 .desktop-navigation .nav-dark-green a:after, .desktop-navigation .nav-dark-green.current-menu-item > a {
@@ -7212,7 +7228,11 @@ a {
   background-color: #6A963B !important;
   color: white !important; }
   .desktop-navigation .nav-dark-green ul.sub-menu a, .desktop-navigation .nav-dark-green h6 a, .desktop-navigation .nav-dark-green p a {
-    color: white !important; }
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-dark-green ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-dark-green h6 li.current-menu-item > a, .desktop-navigation .nav-dark-green p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
 .desktop-navigation .nav-dark-green.current-menu-item a, .desktop-navigation .nav-dark-green.current-menu-item a:after {
   color: #6A963B !important; }
 .desktop-navigation .nav-green a:after, .desktop-navigation .nav-green.current-menu-item > a {
@@ -7225,8 +7245,12 @@ a {
   background-color: #84BD00 !important;
   color: white !important; }
   .desktop-navigation .nav-green ul.sub-menu a, .desktop-navigation .nav-green h6 a, .desktop-navigation .nav-green p a {
-    color: white !important; }
-.desktop-navigation .nav-green.current-menu-item .sub-menu a, .desktop-navigation .nav-green.current-menu-item a:after {
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-green ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-green h6 li.current-menu-item > a, .desktop-navigation .nav-green p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-green.current-menu-item a, .desktop-navigation .nav-green.current-menu-item a:after {
   color: #84BD00 !important; }
 
 .color-black {
