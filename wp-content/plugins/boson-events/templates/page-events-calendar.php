@@ -34,7 +34,7 @@
             <?php while ( $loop->have_posts() ) : $loop->the_post(); 
               global $product;?>
               <div class="col-12 col-sm-4">
-                <a class="image-tile" href="<?php echo get_permalink();?>" style="background-image: url(<?php echo my_get_the_product_thumbnail_url();?>)">
+                <a class="image-tile" href="<?php echo get_permalink();?>" style="background-image: url(<?php if(my_get_the_product_thumbnail_url()) : echo my_get_the_product_thumbnail_url(); else : echo get_stylesheet_directory_uri() . '/img/coming-soon.jpg'; endif;?>)">
                   <div class="overlay">
                     <?php $event = prospect_get_event_info();?>
                     <h4><?php echo get_the_title();?><br /><span class="date"><?php echo $event['start']->format('jS F o');?></span></h4>
