@@ -44,7 +44,7 @@ if($banner): ?>
           if($event['start']): ?>
             <p class="event-start"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>Start: </span><?php echo $event['start']->format('l jS F o') . ' @ ' . $event['start']->format('g:ia'); ?></p>
           <?php endif;
-          if($event['end']): ?>
+          if($event['end'] && ($event['end']->format('Y-m-d')) > $event['start']->format('Y-m-d')): ?>
             <p class="event-end"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>End: </span><?php echo $event['end']->format('l jS F o') . ' @ ' . $event['end']->format('g:ia'); ?></p>
           <?php endif;
         endif; ?>
