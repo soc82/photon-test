@@ -183,8 +183,8 @@ function prospect_custom_product_data_fields() {
 
 				<div class="options-group">
             <p class="form-field">
-              <label for="event_bookable">Bookable On Website?: </label>
-              <input type="checkbox" name="event_bookable" id="event_bookable" <?php if(get_post_meta($post->ID, 'event_bookable')) echo 'checked'; ?> />
+              <label for="event_bookable">Bookable On Website?: <?php //print_r(get_post_meta($post->ID, 'event_bookable')); die();?> </label>
+              <input type="checkbox" name="event_bookable" id="event_bookable" <?php if(!empty(get_post_meta($post->ID, 'event_bookable')[0]) && get_post_meta($post->ID, 'event_bookable')[0] != '') echo 'checked'; ?> />
             </p>
             <p class="form-field booking-form-key-field">
               <label for="booking_form_post_id">Form Fields ID: </label>
@@ -230,37 +230,37 @@ function prospect_save_event_custom_fields($post_id) {
     $bookable = $_POST['event_bookable'];
     if (!empty($bookable)) {
         update_post_meta($post_id, 'event_bookable', esc_attr($bookable));
+    }else {
+        update_post_meta($post_id, 'event_bookable', '');
     }
     $booking_form_post_id = $_POST['booking_form_post_id'];
-    if (!empty($booking_form_post_id)) {
+    //if (!empty($booking_form_post_id)) {
         update_post_meta($post_id, 'booking_form_post_id', esc_attr($booking_form_post_id));
-    }
+    //}
     $external_booking_link = $_POST['external_booking_link'];
-    if (!empty($external_booking_link)) {
+    //if (!empty($external_booking_link)) {
         update_post_meta($post_id, 'external_booking_link', esc_attr($external_booking_link));
-    }
+    //}
     $start_date = $_POST['event_start_date'];
-    if (!empty($start_date)) {
+    //if (!empty($start_date)) {
         update_post_meta($post_id, 'event_start_date', esc_attr($start_date));
-    }
+    //}
 		$start_time = $_POST['event_start_time'];
-    if (!empty($start_time)) {
+    //if (!empty($start_time)) {
         update_post_meta($post_id, 'event_start_time', esc_attr($start_time));
-    }
-
+    //}
 		$end_date = $_POST['event_end_date'];
-		if (!empty($end_date)) {
+		//if (!empty($end_date)) {
 				update_post_meta($post_id, 'event_end_date', esc_attr($end_date));
-		}
+		//}
 		$end_time = $_POST['event_end_time'];
-		if (!empty($end_time)) {
+		//if (!empty($end_time)) {
 				update_post_meta($post_id, 'event_end_time', esc_attr($end_time));
-		}
-
+		//}
 		$location = $_POST['event_location'];
-		if (!empty($location)) {
+		//if (!empty($location)) {
 				update_post_meta($post_id, 'event_location', esc_attr($location));
-		}
+		//}
 
 }
 
