@@ -19,7 +19,7 @@ $buttons = (get_sub_field('buttons') ? get_sub_field('buttons') : get_field('but
 				<?php if ($buttons) : ?>
 					<?php foreach ($buttons as $button) :
 						if($button['button_link']): ?>
-							<a href="<?php echo $button['button_link']; ?>" class="btn <?php echo $button['button_type']; ?>"><?php echo $button['button_text']; ?></a>
+							<a href="<?php echo $button['button_link']['url']; ?>" class="btn <?php echo $button['button_type']; ?>"><?php echo $button['button_text']; ?></a>
 					<?php endif;
 				endforeach; ?>
 				<?php endif; ?>
