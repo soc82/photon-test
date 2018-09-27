@@ -8633,11 +8633,18 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     background-repeat: no-repeat;
     background-position: right center;
     position: relative; }
+    .block.cta-block .image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: right; }
     .block.cta-block .overlay {
       display: block;
       position: absolute;
       width: 100%;
       height: 100%;
+      z-index: 10;
       background: rgba(34, 34, 34, 0.6); }
       @media (min-width: 768px) {
         .block.cta-block .overlay {
@@ -8650,13 +8657,22 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84bd00', endColorstr='#0084bd00',GradientType=1 );
           /* IE6-9 */ } }
+      @media (min-width: 992px) {
+        .block.cta-block .overlay {
+          width: 85%; } }
     .block.cta-block .cta-block-content {
       padding-top: 40px;
-      padding-bottom: 40px; }
+      padding-bottom: 40px;
+      padding-left: 10%;
+      padding-right: 10%;
+      z-index: 20;
+      position: relative; }
       @media (min-width: 768px) {
         .block.cta-block .cta-block-content {
-          padding-top: 60px;
-          padding-bottom: 60px; } }
+          padding-top: 50px;
+          padding-bottom: 50px;
+          padding-left: 35%;
+          padding-right: 5%; } }
       @media (min-width: 1200px) {
         .block.cta-block .cta-block-content {
           padding-top: 100px;
