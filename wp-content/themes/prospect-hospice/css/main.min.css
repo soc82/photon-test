@@ -8595,7 +8595,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       padding: 50px; }
       @media (min-width: 992px) {
         .block.hero-banner .hero-banner-content {
-          padding: 140px 50px; } }
+          padding: 100px 50px; } }
       .block.hero-banner .hero-banner-content h1 {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
@@ -8610,7 +8610,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         color: #fff;
         font-size: 1.2em;
         line-height: 1.4em;
-        width: 75%; }
+        width: 75%;
+        margin-bottom: 0; }
         @media (min-width: 992px) {
           .block.hero-banner .hero-banner-content p {
             max-width: 50%; } }
