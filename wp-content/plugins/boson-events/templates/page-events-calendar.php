@@ -24,7 +24,7 @@
 
         <div class="row">
           <div class="col-12">
-            <h1>Featured Events</h2>
+            <h2>Featured Events</h2>
           </div>
         </div>
 
