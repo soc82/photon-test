@@ -163,21 +163,18 @@ function jobs_single_template($single) {
 require_once('inc/form_processing.php');
 
 // Register new menu item(s) in woocommerce's my account area and re-order
-function prospect_woo_account_menu() {
-	$myorder = array(
-		'dashboard'          => __( 'Dashboard', 'prospect' ),
-    'edit-account'       => __( 'Account Details', 'prospect' ),
-    'edit-address'       => __( 'Addresses', 'prospect' ),
-    //'payment-methods'    => __( 'Payment Methods', 'prospect' ),
-		'orders'             => __( 'Orders & Events', 'prospect' ),
-    'applications' => __( 'Job Applications', 'prospect' ),
-    'attendingevents' => __( 'Events', 'prospect' ),
-		//'downloads'          => __( 'Download', 'prospect' ),
-		'customer-logout'    => __( 'Logout', 'prospect' ),
-	);
-	return $myorder;
+function prospect_woo_account_menu($menu) {
+	unset($menu['downloads']);
+	unset($menu['payment-methods']);
+	$menu['orders'] =  __('Orders & Events', 'prospect');
+
+	$menu = array_slice($menu, 0, 4, true) +
+		['applications' => __( 'Job Applications', 'prospect' )] +
+		array_slice($menu, 4, count($menu)-4, true);
+
+	return $menu;
 }
-add_filter ( 'woocommerce_account_menu_items', 'prospect_woo_account_menu' );
+add_filter ( 'woocommerce_account_menu_items', 'prospect_woo_account_menu', 15 );
 
 // Add new URL endpoint for job applications
 function prospect_add_my_account_endpoint() {
