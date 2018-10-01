@@ -4,8 +4,8 @@ $user = wp_get_current_user();
 $args = [
   'post_type' => 'event-entry',
   'posts_per_page' => -1,
-  'meta_key' => 'email_address',
-  'meta_value' => wp_get_current_user()->data->user_email,
+  'meta_key' => 'user_id',
+  'meta_value' => get_current_user_id(),
 ];
 
 $users_events = new WP_Query($args);

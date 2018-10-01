@@ -191,20 +191,36 @@ function create_event_type_taxonomies() {
 
 }
 
+// suppress from the edit booking
+add_filter('acf/prepare_field/name=other_attendee_details', function($field){
+	if (isset($_GET['event_entry'])) {
+		$event_entry = check_event_entry();
+		if ($event_entry && get_post_type($event_entry) == 'event-entry') {
+			return false;
+		}
+	}
+
+	if (is_admin() && get_current_screen()->id == 'event-entry' ) {
+		return false;
+	}
+
+	return $field;
+});
+
 function prospect_get_attendee_form() {
   if (isset($_GET['event_entry'])) {
-    $event_entry = $_GET['event_entry'];
+
+	$event_entry = check_event_entry();
+	if (!$event_entry) return;
 
     acf_form(array(
       'post_id' => $event_entry,
       'post_title'  => false,
-      'submit_value'  => 'Update the post!'
+      'submit_value'  => 'Save'
     ));
 
   }
 }
-
-
 
 function prospect_get_event_form( ) {
   $event = '';
@@ -359,7 +375,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 			update_post_meta($lead, $k, $v);
 		}
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
-		update_post_meta($lead, 'user_id', get_post_meta($event_entry_id, 'event_user_id', true));
+		update_post_meta($lead, 'event_user_id', get_post_meta($event_entry_id, 'event_user_id', true));
 
 		$post_data['post_parent'] = $lead;
 
@@ -369,7 +385,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				update_post_meta($new_attendee, $k, $v);
 			}
 
-			update_post_meta($attendee, 'event_id', $order_item->get_product()->get_id());
+			update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
 
 			$user = get_user_by( 'email', $attendee['email_address']);
 			if (!$user) {
@@ -382,7 +398,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				$user = wp_insert_user($user_data);
 				$user = get_user_by('ID', $user);
 			}
-			update_post_meta($attendee, 'user_id', $user->ID);
+			update_post_meta($new_attendee, 'event_user_id', $user->ID);
 
 			$form_complete = get_field('other_attendee_details', $new_attendee);
 			// Check to make sure the lead booker hasn't filled out all of the attendee fields before emailing
