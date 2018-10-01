@@ -21,7 +21,10 @@ if ( $items->posts ) :
 		$recurring_dates = get_field('dates');
 		if($recurring_dates) :
 			foreach ($recurring_dates as $date) :
-				$course_dates[date("Y-m",strtotime($date['date']))][$post->ID] = $post;	
+				$course_date = date("Y-m-d",strtotime($date['date']));
+				if($course_date > date('Y-m-d')) {
+					$course_dates[date("Y-m",strtotime($date['date']))][$post->ID] = $post;	
+				}
 			endforeach;
 		endif;
 	endforeach;

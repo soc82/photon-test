@@ -42,20 +42,20 @@ if($banner): ?>
             <p class="event-location"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>Location: </span><?php echo $event['location']; ?></p>
           <?php endif;
           if($event['start']): ?>
-            <p class="event-start"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>Start: </span><?php echo $event['start']->format('l jS F o') . ' @ ' . $event['start']->format('g:ha'); ?></p>
+            <p class="event-start"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>Start: </span><?php echo $event['start']->format('l jS F o') . ' @ ' . $event['start']->format('g:ia'); ?></p>
           <?php endif;
-          if($event['end']): ?>
-            <p class="event-end"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>End: </span><?php echo $event['end']->format('l jS F o') . ' @ ' . $event['end']->format('g:ha'); ?></p>
+          if($event['end'] && ($event['end']->format('Y-m-d')) > $event['start']->format('Y-m-d')): ?>
+            <p class="event-end"><span <?php if($event['color']) echo 'style="color:' . $event['color'] . '"'; ?>>End: </span><?php echo $event['end']->format('l jS F o') . ' @ ' . $event['end']->format('g:ia'); ?></p>
           <?php endif;
         endif; ?>
         <div class="event-description">
           <?php the_content(); ?>
           <?php
-          if(get_post_meta(get_the_ID(), 'event_bookable')):
+          if(!empty(get_post_meta(get_the_ID(), 'event_bookable')[0])) :
             echo '<a href="' . add_query_arg( array( 'event' => get_the_ID()), site_url('/booking-form/')) . '" class="btn btn-arrow-right">Book Now</a>';
           else:
             if(get_post_meta(get_the_ID(), 'external_booking_link')):
-              echo '<a href="' . get_post_meta(get_the_ID(), 'external_booking_link') . '" class="btn btn-arrow-right" target="_blank">Book Now</a>';
+              echo '<a href="' . get_post_meta(get_the_ID(), 'external_booking_link')[0] . '" class="btn btn-arrow-right" target="_blank">Book Now</a>';
             endif;
           endif;
           $event_enquiry_page = get_field('enquiry_page');

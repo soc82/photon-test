@@ -7160,8 +7160,12 @@ a {
   background-color: #ED8B00 !important;
   color: white !important; }
   .desktop-navigation .nav-orange ul.sub-menu a, .desktop-navigation .nav-orange h6 a, .desktop-navigation .nav-orange p a {
-    color: white !important; }
-.desktop-navigation .nav-orange.current-menu-item .sub-menu a, .desktop-navigation .nav-orange.current-menu-item a:after {
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-orange ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-orange h6 li.current-menu-item > a, .desktop-navigation .nav-orange p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-orange.current-menu-item a, .desktop-navigation .nav-orange.current-menu-item a:after {
   color: #ED8B00 !important; }
 .desktop-navigation .nav-navy a:after, .desktop-navigation .nav-navy.current-menu-item > a {
   color: #002b5c !important; }
@@ -7173,8 +7177,12 @@ a {
   background-color: #002b5c !important;
   color: white !important; }
   .desktop-navigation .nav-navy ul.sub-menu a, .desktop-navigation .nav-navy h6 a, .desktop-navigation .nav-navy p a {
-    color: white !important; }
-.desktop-navigation .nav-navy.current-menu-item .sub-menu a, .desktop-navigation .nav-navy.current-menu-item a:after {
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-navy ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-navy h6 li.current-menu-item > a, .desktop-navigation .nav-navy p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-navy.current-menu-item a, .desktop-navigation .nav-navy.current-menu-item a:after {
   color: #002b5c !important; }
 .desktop-navigation .nav-teal a:after, .desktop-navigation .nav-teal.current-menu-item > a {
   color: #008F96 !important; }
@@ -7186,9 +7194,13 @@ a {
   background-color: #008F96 !important;
   color: white !important; }
   .desktop-navigation .nav-teal ul.sub-menu a, .desktop-navigation .nav-teal h6 a, .desktop-navigation .nav-teal p a {
-    color: white !important; }
-.desktop-navigation .nav-teal.current-menu-item .sub-menu a, .desktop-navigation .nav-teal.current-menu-item a:after {
-  color: white !important; }
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-teal ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-teal h6 li.current-menu-item > a, .desktop-navigation .nav-teal p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-teal.current-menu-item a, .desktop-navigation .nav-teal.current-menu-item a:after {
+  color: #008F96 !important; }
 .desktop-navigation .nav-burgundy a:after, .desktop-navigation .nav-burgundy.current-menu-item > a {
   color: #B52555 !important; }
 .desktop-navigation .nav-burgundy:hover a:before {
@@ -7199,7 +7211,11 @@ a {
   background-color: #B52555 !important;
   color: white !important; }
   .desktop-navigation .nav-burgundy ul.sub-menu a, .desktop-navigation .nav-burgundy h6 a, .desktop-navigation .nav-burgundy p a {
-    color: white !important; }
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-burgundy ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-burgundy h6 li.current-menu-item > a, .desktop-navigation .nav-burgundy p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
 .desktop-navigation .nav-burgundy.current-menu-item a, .desktop-navigation .nav-burgundy.current-menu-item a:after {
   color: #B52555 !important; }
 .desktop-navigation .nav-dark-green a:after, .desktop-navigation .nav-dark-green.current-menu-item > a {
@@ -7212,7 +7228,11 @@ a {
   background-color: #6A963B !important;
   color: white !important; }
   .desktop-navigation .nav-dark-green ul.sub-menu a, .desktop-navigation .nav-dark-green h6 a, .desktop-navigation .nav-dark-green p a {
-    color: white !important; }
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-dark-green ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-dark-green h6 li.current-menu-item > a, .desktop-navigation .nav-dark-green p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
 .desktop-navigation .nav-dark-green.current-menu-item a, .desktop-navigation .nav-dark-green.current-menu-item a:after {
   color: #6A963B !important; }
 .desktop-navigation .nav-green a:after, .desktop-navigation .nav-green.current-menu-item > a {
@@ -7225,8 +7245,12 @@ a {
   background-color: #84BD00 !important;
   color: white !important; }
   .desktop-navigation .nav-green ul.sub-menu a, .desktop-navigation .nav-green h6 a, .desktop-navigation .nav-green p a {
-    color: white !important; }
-.desktop-navigation .nav-green.current-menu-item .sub-menu a, .desktop-navigation .nav-green.current-menu-item a:after {
+    color: white !important;
+    font-weight: 100 !important; }
+  .desktop-navigation .nav-green ul.sub-menu li.current-menu-item > a, .desktop-navigation .nav-green h6 li.current-menu-item > a, .desktop-navigation .nav-green p li.current-menu-item > a {
+    color: white !important;
+    font-weight: 700 !important; }
+.desktop-navigation .nav-green.current-menu-item a, .desktop-navigation .nav-green.current-menu-item a:after {
   color: #84BD00 !important; }
 
 .color-black {
@@ -8571,7 +8595,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       padding: 50px; }
       @media (min-width: 992px) {
         .block.hero-banner .hero-banner-content {
-          padding: 140px 50px; } }
+          padding: 100px 50px; } }
       .block.hero-banner .hero-banner-content h1 {
         color: white;
         text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.3);
@@ -8586,7 +8610,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         color: #fff;
         font-size: 1.2em;
         line-height: 1.4em;
-        width: 75%; }
+        width: 75%;
+        margin-bottom: 0; }
         @media (min-width: 992px) {
           .block.hero-banner .hero-banner-content p {
             max-width: 50%; } }
@@ -8608,30 +8633,46 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     background-repeat: no-repeat;
     background-position: right center;
     position: relative; }
+    .block.cta-block .image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: top center; }
     .block.cta-block .overlay {
       display: block;
       position: absolute;
       width: 100%;
       height: 100%;
+      z-index: 10;
       background: rgba(34, 34, 34, 0.6); }
       @media (min-width: 768px) {
         .block.cta-block .overlay {
           /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#84bd00+0,84bd00+57,84bd00+100&1+0,1+56,0+100 */
-          background: -moz-linear-gradient(left, #84bd00 0%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
+          background: -moz-linear-gradient(left, #84bd00 68%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
           /* FF3.6-15 */
-          background: -webkit-linear-gradient(left, #84bd00 0%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
+          background: -webkit-linear-gradient(left, #84bd00 68%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
           /* Chrome10-25,Safari5.1-6 */
-          background: linear-gradient(to right, #84bd00 0%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
+          background: linear-gradient(to right, #84bd00 68%, rgba(132, 189, 0, 0.98) 70%, rgba(132, 189, 0, 0) 100%);
           /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
           filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#84bd00', endColorstr='#0084bd00',GradientType=1 );
           /* IE6-9 */ } }
+      @media (min-width: 992px) {
+        .block.cta-block .overlay {
+          width: 85%; } }
     .block.cta-block .cta-block-content {
       padding-top: 40px;
-      padding-bottom: 40px; }
+      padding-bottom: 40px;
+      padding-left: 10%;
+      padding-right: 10%;
+      z-index: 20;
+      position: relative; }
       @media (min-width: 768px) {
         .block.cta-block .cta-block-content {
-          padding-top: 60px;
-          padding-bottom: 60px; } }
+          padding-top: 50px;
+          padding-bottom: 50px;
+          padding-left: 35%;
+          padding-right: 5%; } }
       @media (min-width: 1200px) {
         .block.cta-block .cta-block-content {
           padding-top: 100px;
@@ -8889,6 +8930,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         @media (min-width: 768px) {
           .tile-block .image-tile .overlay h4 {
             font-size: 1.7em; } }
+        .tile-block .image-tile .overlay h4 span {
+          font-size: 0.6em;
+          line-height: 1em;
+          opacity: 0.5;
+          vertical-align: middle; }
       .tile-block .image-tile .overlay .circle-arrow {
         position: absolute;
         z-index: 3;
@@ -9854,6 +9900,11 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     .prospect_event .event-sponsorship-block .btn-set {
       margin-top: 40px; }
 
+.page-template-page-events-calendar-php .featured-events {
+  margin-bottom: 60px; }
+  @media (max-width: 575.98px) {
+    .page-template-page-events-calendar-php .featured-events {
+      margin-bottom: 120px; } }
 @media (max-width: 300px) {
   .page-template-page-events-calendar-php .fc-toolbar .fc-right {
     width: 40% !important; }

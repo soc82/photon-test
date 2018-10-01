@@ -135,10 +135,16 @@
       color: white !important;
       a {
         color: white !important;
+        font-weight: 100 !important;
       }
+      li.current-menu-item > a {
+        color:white !important;
+        font-weight: 700 !important;
+      }
+
     }
   }
-  .nav-orange.current-menu-item .sub-menu a,.nav-orange.current-menu-item a:after  {
+  .nav-orange.current-menu-item a,.nav-orange.current-menu-item a:after  {
     color:$orange !important;
   }
 
@@ -157,10 +163,15 @@
       color: white !important;
       a {
         color: white !important;
+        font-weight: 100 !important;
+      }
+      li.current-menu-item > a {
+        color:white !important;
+        font-weight: 700 !important;
       }
     }
   }
-  .nav-navy.current-menu-item .sub-menu a,.nav-navy.current-menu-item a:after  {
+  .nav-navy.current-menu-item a,.nav-navy.current-menu-item a:after  {
     color:$navy !important;
   }
 
@@ -179,10 +190,15 @@
       color: white !important;
       a {
         color: white !important;
+        font-weight: 100 !important;
+      }
+      li.current-menu-item > a {
+        color:white !important;
+        font-weight: 700 !important;
       }
     }
-  }.nav-teal.current-menu-item .sub-menu a,.nav-teal.current-menu-item a:after  {
-    color:white !important;
+  }.nav-teal.current-menu-item a,.nav-teal.current-menu-item a:after  {
+    color:$teal !important;
   }
 
   .nav-burgundy {
@@ -200,6 +216,11 @@
       color: white !important;
       a {
         color: white !important;
+        font-weight: 100 !important;
+      }
+      li.current-menu-item > a {
+        color:white !important;
+        font-weight: 700 !important;
       }
     }
   }.nav-burgundy.current-menu-item a,.nav-burgundy.current-menu-item a:after  {
@@ -220,6 +241,11 @@
       color: white !important;
       a {
         color: white !important;
+        font-weight: 100 !important;
+      }
+      li.current-menu-item > a {
+        color:white !important;
+        font-weight: 700 !important;
       }
     }
   }.nav-dark-green.current-menu-item a,.nav-dark-green.current-menu-item a:after  {
@@ -242,9 +268,14 @@
       color: white !important;
       a {
         color: white !important;
+        font-weight: 100 !important;
+      }
+      li.current-menu-item > a {
+        color:white !important;
+        font-weight: 700 !important;
       }
     }
-  }.nav-green.current-menu-item .sub-menu a,.nav-green.current-menu-item a:after  {
+  }.nav-green.current-menu-item a,.nav-green.current-menu-item a:after  {
     color:$green !important;
   }
 

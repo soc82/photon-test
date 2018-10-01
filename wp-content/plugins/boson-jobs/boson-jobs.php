@@ -206,20 +206,22 @@ function prospect_view_draft_jobs( $query ) {
   if(!is_user_logged_in()) return;
 
   if($query->get('post_type') == 'jobs') {
-    $job = get_page_by_path( $query->query['name'], OBJECT, 'jobs' );
-    if($job){
+    if(isset($query->query['name'])) {
+      $job = get_page_by_path( $query->query['name'], OBJECT, 'jobs' );
+      if($job){
 
-      $user = wp_get_current_user();
+        $user = wp_get_current_user();
 
-      $users_applications = get_field('applications', 'user_' . $user->ID);
-      if ($users_applications) {
-      	foreach ($users_applications as $application) {
-      	    if ($job->ID == $application['job_id']) {
-              $query->set( 'post_status', [ 'publish', 'draft' ] );
-      	    }
-      	}
+        $users_applications = get_field('applications', 'user_' . $user->ID);
+        if ($users_applications) {
+        	foreach ($users_applications as $application) {
+        	    if ($job->ID == $application['job_id']) {
+                $query->set( 'post_status', [ 'publish', 'draft' ] );
+        	    }
+        	}
+        }
+
       }
-
     }
   }
   return $query;

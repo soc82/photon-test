@@ -120,5 +120,14 @@ jQuery( document ).ready(function($) {
   });
 
 
+  /* On Light up life dontation page if user dontates then send different notifcation email, the conditional logic is used in admin form */
+  $('.ginput_container_product_price input').on('change',function(e){
+      var donationamount = $(this).val();
+      if($.isNumeric(donationamount)) {
+        $('#input_36_32, #input_30_32').val(donationamount);
+      } else {
+        $('#input_36_32, #input_30_32').val(0);
+      }
+  });
 
 });

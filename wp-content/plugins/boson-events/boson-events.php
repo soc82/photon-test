@@ -50,8 +50,10 @@ function prospect_events_calendar_query() {
        $type = wp_get_post_terms( $post->ID, 'event-type');
        if($type):
         $colour = get_field('colour', 'event-type_' . reset($type)->term_id);
+        $typeSlug = reset($type)->slug;
        else:
          $colour = '#84BD00';
+         $typeSlug = '';
        endif;
 
        $events[] = array(
@@ -64,7 +66,7 @@ function prospect_events_calendar_query() {
          'end'     => $end->format('Y-m-d h:i:s'),
          'location'  => $location,
          'link'    => $link,
-         'type' => reset($type)->slug,
+         'type' => $typeSlug,
          'color'  => $colour,
          );
      }

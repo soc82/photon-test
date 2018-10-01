@@ -13,7 +13,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'label' => 'Event Banner',
 				'name' => 'event_banner',
 				'type' => 'image',
-				'instructions' => 'Banner that displays above event page. Leave blank if not needed or not a event product.',
+				'instructions' => 'Banner that displays above event page. Recommended to be at least 1600px wide. Leave blank if not needed or not a event product.',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
@@ -146,6 +146,25 @@ if( function_exists('acf_add_local_field_group') ):
 				),
 			),
 			array(
+				'key' => 'field_5b888e712c668',
+				'label' => 'Featured?',
+				'name' => 'featured',
+				'type' => 'true_false',
+				'instructions' => 'is this a featured event?',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'message' => '',
+				'default_value' => 0,
+				'ui' => 1,
+				'ui_on_text' => 'Yes',
+				'ui_off_text' => 'No',
+			),
+			array(
 				'key' => 'field_5b602e712c668',
 				'label' => 'Volunteering?',
 				'name' => 'volunteering?',
@@ -164,6 +183,7 @@ if( function_exists('acf_add_local_field_group') ):
 				'ui_on_text' => 'Yes',
 				'ui_off_text' => 'No',
 			),
+			
 			array(
 				'key' => 'field_5b602fdf2c669',
 				'label' => 'Volunteering Block',
