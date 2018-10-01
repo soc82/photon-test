@@ -120,5 +120,10 @@ jQuery( document ).ready(function($) {
   });
 
 
+  /* Donation Form change */
+  $('.ginput_container_product_price input').on('change',function(e){
+      var donationamount = $(this).val();
+      $('#input_36_32').val(donationamount);
+  });
 
 });
