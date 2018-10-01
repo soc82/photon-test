@@ -123,7 +123,11 @@ jQuery( document ).ready(function($) {
   /* Donation Form change */
   $('.ginput_container_product_price input').on('change',function(e){
       var donationamount = $(this).val();
-      $('#input_36_32, #input_30_32').val(donationamount);
+      if($.isNumeric(donationamount)) {
+        $('#input_36_32, #input_30_32').val(donationamount);
+      } else {
+        $('#input_36_32, #input_30_32').val(0);
+      }
   });
 
 });
