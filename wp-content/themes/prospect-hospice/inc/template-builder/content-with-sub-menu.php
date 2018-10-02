@@ -34,8 +34,9 @@ $color_class = prospect_dark_colour_class();
 									'order'	=> 'ASC',
 								);
 								$page_query = new WP_Query($args);
-								if($page_query->have_posts()):
-									echo '<h3 class="' . $color_class . '">' . get_the_title($parent) . '</h3>';
+								if($page_query->have_posts()) :
+									$parentURL = get_the_permalink($parent);
+									echo '<a href="' . $parentURL . '"><h3 class="' . $color_class . '">' . get_the_title($parent) . '</h3></a>';
 									echo '<ul>';
 										while($page_query->have_posts()): $page_query->the_post();
 											echo '<li class="' . $color_class . '" ><a href="' . get_permalink(get_the_ID()) . '" class="' . $color_class . '">' . get_the_title() . '</a></li>';
