@@ -9,7 +9,7 @@ get_header(); ?>
 $event = prospect_get_event_info();
 $banner = get_field('event_banner');
 $event_page = get_field('events_calendar_page', 'options');
-$gallery = get_field('image_gallery');
+$gallery = get_field('gallery_item');
 $volunteering = get_field('volunteering?');
 $volunteering_block = get_field('volunteering_block');
 $sponsorship = get_field('sponsorship_block');

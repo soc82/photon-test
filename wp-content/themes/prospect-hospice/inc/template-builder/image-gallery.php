@@ -1,11 +1,20 @@
 <?php
 $template = basename(get_page_template());
-if(is_page_template('templates/flexible-template.php') || $template = 'page.php' && get_post_type() == 'page'):
+
+// Gallery on pages
+if(is_page_template('templates/flexible-template.php') || $template == 'page.php' && get_post_type() == 'page') :
 	$gallery = get_sub_field('gallery_item');
+
+// Gallery on Products / events
+elseif(is_page_template('templates/flexible-template.php') || $template == 'page.php' && get_post_type() == 'product') :
+	$gallery = get_field('gallery_item');
+
+// Others
 else:
 	$gallery = get_field('image_gallery');
 endif;
 if($gallery):
+
 	echo '<div class="image-gallery-block block">';
 		echo '<div class="container">';
 			echo '<div class="row">';
