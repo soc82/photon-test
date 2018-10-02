@@ -21,16 +21,16 @@ if($result->have_posts()): ?>
 			</div>
 			<?php while($result->have_posts()): $result->the_post(); ?>
 				<div class="document-item">
-					<div class="col-12 col-md-10 offset-md-1">
-						<div class="row">
-							<div class="d-none d-md-block col-md-1">
-								<div class="document-icon"><i class="fas fa-file" ></i></div>
+					<div class="col-12 col-md-10 offset-md-1 download-item">
+						<div class="row d-block">
+							<div class="col-2 col-sm-1 col-md-1 inline-block-replace-middle">
+								<div class="download-icon"><i class="far <?php echo prospect_file_type_icon(get_the_ID()); ?>"></i></div>
 							</div>
-							<div class="col-12 col-md-7 col-lg-8">
-								<h3><?php echo  $post->post_title; ?></h3>
+							<div class="col-10 col-sm-11 col-md-7 col-lg-8 inline-block-replace-middle">
+								<h3><?php echo $post->post_title; ?></h3>
 							</div>
-							<div class="col-12 col-md-4 col-lg-3">
-								<a class="btn btn-arrow-right" href="<?php echo get_permalink($post); ?>">Download</a>
+							<div class="col-10 offset-2 col-sm-11 offset-sm-1 col-md-4 offset-md-0  col-lg-3 inline-block-replace-middle">
+								<a class="btn btn-arrow-right" href="<?php echo $file['url']; ?>" download target="_blank">Download</a>
 							</div>
 						</div>
 					</div>
