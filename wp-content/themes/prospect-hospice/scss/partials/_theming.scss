@@ -3,7 +3,7 @@ $care-color: $green;
 .care {
 	.flexible-content-wrapper {
 		.two-column-block {
-			background-color: $care-color;
+			background-color: $care-color !important;
 			.btn {
 
 			}
@@ -11,17 +11,17 @@ $care-color: $green;
 	}
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
-			background-color: $care-color;
+			background-color: $care-color !important;
 			&:after {
-				background-color: $care-color;
+				background-color: $care-color !important;
 			}
 		}
 	}
 	.team-block {
-		background-color: $care-color;
+		background-color: $care-color !important;
 	}
 	.testimonial-block {
-		background-color: $care-color;
+		background-color: $care-color !important;
 	}
 }
 
@@ -30,7 +30,7 @@ $fundraising-color: $orange;
 .fundraising {
 	.flexible-content-wrapper {
 		.two-column-block {
-			background-color: $fundraising-color;
+			background-color: $fundraising-color !important
 			.btn {
 
 			}
@@ -38,17 +38,17 @@ $fundraising-color: $orange;
 	}
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
-			background-color: $fundraising-color;
+			background-color: $fundraising-color !important;
 			&:after {
-				background-color: $fundraising-color;
+				background-color: $fundraising-color !important;
 			}
 		}
 	}
 	.team-block {
-		background-color: $fundraising-color;
+		background-color: $fundraising-color !important;
 	}
 	.testimonial-block {
-		background-color: $fundraising-color;
+		background-color: $fundraising-color !important;
 	}
 }
 
@@ -57,7 +57,7 @@ $education-color: $burgundy;
 .education {
 	.flexible-content-wrapper {
 		.two-column-block {
-			background-color: $education-color;
+			background-color: $education-color !important;
 			.btn {
 
 			}
@@ -65,17 +65,17 @@ $education-color: $burgundy;
 	}
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
-			background-color: $education-color;
+			background-color: $education-color !important;
 			&:after {
-				background-color: $education-color;
+				background-color: $education-color !important;
 			}
 		}
 	}
 	.team-block {
-		background-color: $education-color;
+		background-color: $education-color !important;
 	}
 	.testimonial-block {
-		background-color: $education-color;
+		background-color: $education-color !important;
 	}
 }
 
@@ -84,7 +84,7 @@ $volunteering-color: $teal;
 .volunteering {
 	.flexible-content-wrapper {
 		.two-column-block {
-			background-color: $volunteering-color;
+			background-color: $volunteering-color !important;
 			.btn {
 
 			}
@@ -92,26 +92,26 @@ $volunteering-color: $teal;
 	}
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
-			background-color: $volunteering-color;
+			background-color: $volunteering-color !important;
 			&:after {
-				background-color: $volunteering-color;
+				background-color: $volunteering-color !important;
 			}
 		}
 	}
 	.team-block {
-		background-color: $volunteering-color;
+		background-color: $volunteering-color !important;
 	}
 	.testimonial-block {
-		background-color: $volunteering-color;
+		background-color: $volunteering-color !important;
 	}
 }
 
-$retail-color: $dark-green;
+$retail-color: $dark-green !important;
 
 .retail {
 	.flexible-content-wrapper {
 		.two-column-block {
-			background-color: $retail-color;
+			background-color: $retail-color !important;
 			.btn {
 
 			}
@@ -119,16 +119,16 @@ $retail-color: $dark-green;
 	}
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
-			background-color: $retail-color;
+			background-color: $retail-color !important;
 			&:after {
-				background-color: $retail-color;
+				background-color: $retail-color !important;
 			}
 		}
 	}
 	.team-block {
-		background-color: $retail-color;
+		background-color: $retail-color !important;
 	}
 	.testimonial-block {
-		background-color: $retail-color;
+		background-color: $retail-color !important;
 	}
 }
