@@ -54,7 +54,7 @@ if($banner): ?>
           if(!empty(get_post_meta(get_the_ID(), 'event_bookable')[0])) :
             echo '<a href="' . add_query_arg( array( 'event' => get_the_ID()), site_url('/booking-form/')) . '" class="btn btn-arrow-right">Book Now</a>';
           else:
-            if(get_post_meta(get_the_ID(), 'external_booking_link')):
+            if(!empty(get_post_meta(get_the_ID(), 'external_booking_link')[0])) :
               echo '<a href="' . get_post_meta(get_the_ID(), 'external_booking_link')[0] . '" class="btn btn-arrow-right" target="_blank">Book Now</a>';
             endif;
           endif;
