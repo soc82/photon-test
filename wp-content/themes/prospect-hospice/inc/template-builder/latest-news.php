@@ -63,7 +63,8 @@ if (count($recent_posts) < 3) {
 				<div class="col-md-4 col-12 post-image">
 					<a href="<?php get_permalink($post['ID']); ?>">
 						<div class="image">
-							<?php echo get_the_post_thumbnail($post['ID']); ?>
+							<?php $imageURL = get_the_post_thumbnail_url($post['ID'], 'large');?>
+							<div class="image-bg" style="background-image:url(<?php echo $imageURL;?>)"></div>
 							<div class="image-overlay">
 								<h4><?php echo $post['post_title']; ?></h4>
 								<p><?php echo $post['post_excerpt']; ?></p>
