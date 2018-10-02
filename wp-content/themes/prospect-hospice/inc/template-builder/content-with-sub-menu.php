@@ -21,7 +21,7 @@ $color_class = prospect_dark_colour_class();
 			</style>
 			<?php endif; ?>
 			<div class="col-12 col-md-4">
-				<div class="sidebar-sub-menu" <?php if($background_colour && $background_colour != 'section') : echo 'style="background-color:' . $background_colour . '"'; else: echo 'background-color:#f3cc30'; endif; ?>>
+				<div class="sidebar-sub-menu" <?php if($background_colour && $background_colour != 'section') : echo 'style="background-color:' . $background_colour . '"'; else: echo 'style="background-color:#f3cc30"'; endif; ?>>
 					<div class="sidebar-inner">
 						<?php
 							$parent = get_post(get_the_ID())->post_parent;
