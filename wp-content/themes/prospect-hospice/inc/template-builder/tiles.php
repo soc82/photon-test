@@ -20,9 +20,11 @@ $donate_button_link = get_sub_field('donate_button_link');
 	<div class="row no-gutters">
 		<?php foreach ($tile_items as $tile_item) : ?>
 			<?php
-				$image = $tile_item['image']['sizes']['large'];
-				$heading = $tile_item['heading'];
-				$link = $tile_item['link'];
+			$image = $tile_item['image']['sizes']['large'];
+			$heading = $tile_item['heading'];
+			$link = $tile_item['link'];
+			$link_url = $tile_item['link_url'];
+			if(isset($link_url) && !empty($link_url)) $link = $link_url;
 			?>
 			<div class="col-12 col-sm-4">
 				<a class="image-tile" href="<?php echo $link; ?>" style="background-image: url(<?php echo $image; ?>)">
