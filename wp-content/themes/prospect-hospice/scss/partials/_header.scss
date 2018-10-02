@@ -247,6 +247,7 @@
             &:hover {
         			a {
         				color:$yellow;
+                position: relative;
         			}
         		}
             &.menu-item-has-children {
@@ -272,7 +273,10 @@
                   opacity: 0;
                   visibility: hidden;
                   @include media-breakpoint-up(lg) {
-                    top: 140px;
+                    top: 75px;
+                    margin: auto;
+                    left: calc(50% - 33px);
+
                   }
                 }
               }
@@ -341,7 +345,7 @@
               opacity: 0;
               top: 135px;
               @include media-breakpoint-up(lg) {
-                top:160px;
+                top:153px;
               }
               .container-fluid {
                 max-width: 1140px;

@@ -8256,7 +8256,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                 color: #222222;
                 display: block; }
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li:hover a {
-                color: #f3cc30; }
+                color: #f3cc30;
+                position: relative; }
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.menu-item-has-children > a:after {
                 content: '\f0d7';
                 font-family: 'Font Awesome 5 Pro';
@@ -8278,7 +8279,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                 visibility: hidden; } }
           @media (min-width: 768px) and (min-width: 992px) {
             .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.menu-item-has-children > a:before {
-              top: 140px; } }
+              top: 75px;
+              margin: auto;
+              left: calc(50% - 33px); } }
     @media (min-width: 768px) {
               .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.menu-item-has-children:hover a:before {
                 border-bottom: 30px solid #f3cc30;
@@ -8333,7 +8336,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                 top: 135px; } }
           @media (min-width: 768px) and (min-width: 992px) {
             .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu {
-              top: 160px; } }
+              top: 153px; } }
     @media (min-width: 768px) {
                 .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li ul.sub-menu .container-fluid {
                   max-width: 1140px; }
