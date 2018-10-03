@@ -105,7 +105,7 @@ jQuery( document ).ready(function($) {
   /*
   ** Anchor Scroll
   */
-  $('a[href*=#]:not([href=#])').click(function () {
+  $('a.image-tile[href*=#]:not([href=#])').click(function () {
   if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
 
       var target = $(this.hash);
