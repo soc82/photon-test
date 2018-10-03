@@ -73,13 +73,13 @@ get_header(); ?>
 						<a href="<?php the_permalink($item);?>"><h3 class="color-grey"><?php echo $item->post_title;?></h3></a>
 						<div class="voluntry title-block bg-yellow"><i class="fal fa-heart"></i> Voluntary</div>
 						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
-						<?php if(isset(get_field('location', $item->ID))) : ?>
+						<?php if(get_field('location', $item->ID)) : ?>
 							<div class="location"><span>Location:</span><?php echo get_field('location', $item->ID); ?></div>
 						<?php endif;?>
-						<?php if(isset(get_field('closing_date', $item->ID))) : ?>
+						<?php if(get_field('closing_date', $item->ID)) : ?>
 							<div class="closing-date"><span>Closing date:</span> <?php echo get_field('closing_date', $item->ID); ?></div>
 						<?php endif;?>
-						<?php if(isset(get_field('introduction_content', $item->ID))) : ?>
+						<?php if(get_field('introduction_content', $item->ID)) : ?>
 							<div class="introduction"><small><?php echo get_field('introduction_content', $item->ID);?></small></div>
 						<?php endif;?>
 						<div class="row actions">
