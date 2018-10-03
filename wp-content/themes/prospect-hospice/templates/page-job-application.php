@@ -57,7 +57,7 @@ get_header(); ?>
 									Thank you for applying to the position of <?php echo $job->post_title; ?>.<br/>
 										<a href="<?php echo site_url('/my-account/applications/'); ?>">View your previous applications here.</a>
 								<?php else: ?>
-									<?php gravity_form(2); ?>
+									<?php gravity_form(2,false,false,false,array('job_title'=>$job->post_title)); ?>
 								<?php endif; ?>
 
 							<?php else : // else, tell user they have already applied  ?>
