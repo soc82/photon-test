@@ -72,7 +72,10 @@ get_header(); ?>
 					<div class="item bg-very-light-grey">
 						<a href="<?php the_permalink($item);?>"><h3 class="color-grey"><?php echo $item->post_title;?></h3></a>
 						<div class="voluntry title-block bg-yellow"><i class="fal fa-heart"></i> Voluntary</div>
-						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
+
+						<?php if(get_field('reference', $item->ID)) : ?>
+							<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
+						<?php endif;?>
 						<?php if(get_field('location', $item->ID)) : ?>
 							<div class="location"><span>Location:</span><?php echo get_field('location', $item->ID); ?></div>
 						<?php endif;?>
