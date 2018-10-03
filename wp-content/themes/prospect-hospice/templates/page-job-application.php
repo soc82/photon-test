@@ -48,6 +48,7 @@ get_header(); ?>
 					<div class="page-header">
 						<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 						<h2 class="title-block bg-yellow"><?php echo $job->post_title;?></h2>
+						<?php the_content();?>
 					</div>
 					<div class="entry-content">
 						<div class="job-application wizard">
