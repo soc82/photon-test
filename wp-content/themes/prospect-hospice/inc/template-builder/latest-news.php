@@ -37,10 +37,12 @@ $args['post_type'] = 'post';
 $recent_posts = wp_get_recent_posts( $args, ARRAY_A );
 
 // If we get less than 3 posts, we can query again (without a specific category)
+/*
 if (count($recent_posts) < 3) {
 	unset($args['tax_query']);
 	$recent_posts = wp_get_recent_posts( $args, ARRAY_A );
 }
+*/
 ?>
 
 <div class="latest-news-content-block block">
