@@ -21,7 +21,7 @@ $users_events = new WP_Query($args);
 
 ?>
 <?php if ($users_events->posts) : ?>
-  <table id="events-table">
+  <table id="events-table" class="woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
     	<thead>
       	<tr>
         		<th scope="col">Event</th>
@@ -40,7 +40,7 @@ $users_events = new WP_Query($args);
   	      	<th scope="row"><?php echo $event_title; ?></th>
               <td><?php echo get_field('first_name', $event->ID) . ' ' . get_field('last_name', $event->ID) ?></td>
   	      	<td><?php echo is_attendee_complete($event) ? 'Yes' : 'No' ?></td>
-              <td><a href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
+              <td><a  class="woocommerce-button button view" href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
   	    </tr>
   	<?php endforeach; ?>
     	</tbody>
