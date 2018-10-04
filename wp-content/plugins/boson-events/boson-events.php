@@ -431,8 +431,9 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		foreach ($fields as $k=>$v) {
 			update_post_meta($lead, $k, $v);
 		}
+		$lead_user_id = get_post_meta($event_entry_id, 'event_user_id', true);
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
-		update_post_meta($lead, 'event_user_id', get_post_meta($event_entry_id, 'event_user_id', true));
+		update_post_meta($lead, 'event_user_id', $lead_user_id);
 
 		$order_item->add_meta_data('_lead_entry', $lead);
 
@@ -457,6 +458,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				$user = wp_insert_user($user_data);
 				$user = get_user_by('ID', $user);
 			}
+			update_post_meta($new_attendee, 'lead_user_id', $lead_user_id);
 			update_post_meta($new_attendee, 'event_user_id', $user->ID);
 
 			$form_complete = get_field('other_attendee_details', $new_attendee);
@@ -570,3 +572,123 @@ add_action( 'woocommerce_account_savedbookings_endpoint', function () {
 	include(plugin_dir_path( __FILE__ ) . 'templates/saved_event_bookings.php');
 } );
 
+
+function is_attendee_complete($entry) {
+	if (!is_numeric($entry)) {
+		$entry = $entry->ID;
+	}
+
+	$required = [
+		'title',
+		'first_name',
+		'last_name',
+		'email_address',
+		'date_of_birth',
+		'gender',
+		'address_1',
+		'address_2',
+		'address_3',
+		'town',
+		'county',
+		'postcode',
+		'contact_number',
+		'group_name',
+		't-shirt_size',
+		'emergency_contact_name',
+		'emergency_contact_number',
+	];
+
+	foreach ($required as $field ) {
+		if (empty(get_field($field, $entry))) {
+			return false;
+		}
+	}
+	return true;
+}
+
+add_action('acf/save_post', function ($post_id) {
+
+	if (get_post_type($post_id) != 'event-entry') return;
+	if (get_post_meta($post_id, '_attendee_complete_email_sent', true)) return;
+	if (!(is_attendee_complete($post_id))) return;
+
+	update_post_meta($post_id, '_attendee_complete', 1);
+	send_attendee_complete_mail($post_id);
+
+	update_post_meta($post_id, '_attendee_complete_email_sent', 1);
+}, 20);
+
+function send_attendee_complete_mail($post_id) {
+	$to = get_field('email_address', $post_id);
+	$subject = get_field('attendee_complete_email_subject', 'options');
+	$link_text = get_field('attendee_complete_email_link_text', 'options');
+
+	$message = get_field('attendee_complete_email_content', 'options');
+	$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $post_id . '">' . $link_text . '</a>';
+
+	$headers = array(
+		"MIME-Version: 1.0",
+		"Content-Type: text/html;charset=utf-8"
+	);
+
+	$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
+}
+
+
+add_action('wp', function () {
+	if (! wp_next_scheduled ( 'send_event_reminder_emails' )) {
+		wp_schedule_event(time(), 'daily', 'send_event_reminder_emails');
+	}
+});
+
+add_action('send_event_reminder_emails', 'do_send_event_reminder_emails');
+
+function do_send_event_reminder_emails() {
+
+	$args = [
+		'post_type'      => 'event-entry',
+		'posts_per_page' => -1,
+		'meta_query'     => array(
+			'relation' => 'OR',
+			array(
+				'key'     => '_attendee_complete',
+				'compare' => 'NOT EXISTS'
+			),
+			array(
+				'key'   => '_attendee_complete',
+				'value' => 0
+			)
+		)
+	];
+
+	$entries = get_posts($args);
+
+	$offset = 60 * 60 * 24 * 7; // a week - we send reminders once it's been a week
+	foreach ($entries as $entry) {
+		$last_time = get_post_meta($entry->ID, '_last_notified', true);
+
+		// check time elapsed since last email + check not complete - should never be the case, but just in case
+		if (time() - $last_time > $offset && !is_attendee_complete($entry)) {
+
+			send_attendee_reminder_mail($entry->ID);
+
+			update_post_meta($entry->ID, '_last_notified', time());
+		}
+	}
+}
+
+function send_attendee_reminder_mail($post_id) {
+	$to = get_field('email_address', $post_id);
+	$subject = get_field('attendee_reminder_email_subject', 'options');
+	$link_text = get_field('attendee_reminder_email_link_text', 'options');
+
+	$message = get_field('attendee_reminder_email_content', 'options');
+	$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $post_id . '">' . $link_text . '</a>';
+
+	$headers = array(
+		"MIME-Version: 1.0",
+		"Content-Type: text/html;charset=utf-8"
+	);
+
+	$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
+}
