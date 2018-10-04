@@ -497,8 +497,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				$message = get_field('new_attendee_email_content', 'options');
 				if ($new_user) {
 					$adt_rp_key = get_password_reset_key( $user );
-					$user_login = $user->user_login;
-					$message .= '<a href="' . wp_login_url()."/resetpass/?key=$adt_rp_key&login=" . rawurlencode($user_login) . '">Set Password</a><br /><br />';
+					$message .= '<a href="/my-account/lost-password/?key=' . $adt_rp_key . '&id=' . $user->ID . '">Set Password</a><br /><br />';
 				}
 				$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $new_attendee . '">' . $link_text . '</a>';
 
