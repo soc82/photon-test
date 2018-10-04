@@ -265,6 +265,7 @@ function prospect_get_attendee_form() {
       'post_id' 	  => $event_entry,
       'post_title'    => false,
 	  'field_groups'  => array($fieldset),
+      'return'		  => '/my-account/attendingevents/',
       'submit_value'  => 'Save'
     ));
 
@@ -297,6 +298,7 @@ function prospect_get_event_form( ) {
 		  'new_post'          => $post_data,
 		  'post_id'           => $entry_id ?: 'new_post',
 		  'submit_value'      => 'Save',
+		  'return'		  	  => '/my-account/savedbookings/',
 		  'html_after_fields' => '<input type="submit" name="save_and_add" class="button" value="Save &amp; Checkout">'
       );
       acf_form($form_args);
