@@ -69,36 +69,39 @@ function prospect_product_admin_js() {
     ?>
     <script type='text/javascript'>
 
-				jQuery( function($){
-				    $( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
-				        if ( select_val === 'prospect_event' ) {
+        jQuery( function($){
+            $( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
+
+                if ( select_val === 'prospect_event' ) {
+
                     $('.product_data_tabs .general_tab').show();
-                    $('.woocommerce_options_panel').show();
+//                    $('.woocommerce_options_panel').show();
                     $('.woocommerce_options_panel .pricing').show();
                     $('.inventory_options').show();
                     $('#inventory_product_data ._manage_stock_field').show();
-				            $( '.event_details_tab' ).show();
+                    $( '.event_details_tab' ).show();
                     $('.shipping_options').hide();
                     $('.attribute_options').hide();
                     $('.advanced_options').hide();
                     $('.linked_product_options').hide();
-				        } else {
-									$( '.event_details_tab' ).hide();
-								}
-				    } );
-				    $( 'select#product-type' ).change();
+                    $('.general_tab a').trigger('click');
+                } else {
+                    $( '.event_details_tab' ).hide();
+                }
+            } );
+            $( 'select#product-type' ).change();
 
             $('#event_bookable').change(function() {
-              if($('#event_bookable').prop('checked')) {
-                $('.external-booking-link-field').hide();
-                $('.booking-form-key-field').show();
-              } else {
-                $('.external-booking-link-field').show();
-                $('.booking-form-key-field').hide();
-              }
+                if($('#event_bookable').prop('checked')) {
+                    $('.external-booking-link-field').hide();
+                    $('.booking-form-key-field').show();
+                } else {
+                    $('.external-booking-link-field').show();
+                    $('.booking-form-key-field').hide();
+                }
             } );
             $( '#event_bookable' ).change();
-				} );
+        } );
     </script>
 		<script>
       function initAutocomplete() {
