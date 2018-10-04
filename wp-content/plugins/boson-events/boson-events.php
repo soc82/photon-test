@@ -193,8 +193,56 @@ function create_event_type_taxonomies() {
 
 }
 
-// suppress from the edit booking
+// load ticket types
+add_filter('acf/load_field/name=ticket_type', function ( $field ) {
+
+	// reset choices
+	$field['choices'] = array();
+
+	if (isset($_GET['event'])) {
+		$event = $_GET['event'];
+	}
+
+	// get the textarea value from options page without any formatting
+	$choices = get_field('ticket_types', $event, true);
+
+
+	// loop through array and add to field 'choices'
+	if( is_array($choices) ) {
+
+		foreach( $choices as $choice ) {
+
+			$field['choices'][ $choice['name'] ] = $choice['name'] . ' - &pound;' . $choice['price'];
+
+		}
+
+	}
+
+
+	// return the field
+	return $field;
+
+});
+
+add_filter('acf/load_field/name=color', 'acf_load_color_field_choices');
+
+// suppress from the edit booking pages
 add_filter('acf/prepare_field/name=other_attendee_details', function($field){
+	if (isset($_GET['event_entry'])) {
+		$event_entry = check_event_entry();
+		if ($event_entry && get_post_type($event_entry) == 'event-entry') {
+			return false;
+		}
+	}
+
+	if (is_admin() && get_current_screen()->id == 'event-entry' ) {
+		return false;
+	}
+
+	return $field;
+});
+
+add_filter('acf/prepare_field/name=ticket_type', function($field){
 	if (isset($_GET['event_entry'])) {
 		$event_entry = check_event_entry();
 		if ($event_entry && get_post_type($event_entry) == 'event-entry') {
@@ -303,7 +351,7 @@ add_action('acf/submit_form', function ($form, $post_id) {
 add_filter('acf/pre_submit_form', function ($form) {
 	if ($form['id'] == 'event-registration') {
 		if (isset($_POST['save_and_add'])) {
-			$form['return'] = wc_get_cart_url('') . '?add-to-cart=' . $_GET['event'] . '&event_entry=' . $_GET['event_entry'];
+			$form['return'] = wc_get_cart_url('') . '?add-to-cart=' . $_GET['event'] . '&event_entry=%post_id%';
 		}
 	}
 	return $form;
@@ -319,10 +367,17 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 	// First loop to check if product 11 is in cart
 	foreach ( $wc_cart->get_cart() as $cart_item ){
 		if ($cart_item['data'] instanceof WC_Product_Event) {
-			// price calcs go here
-			// regular seems ok to use - it will break if they put it on sale
-			$price = $cart_item['data']->get_regular_price();
-			$price = $price * (1 + count(get_field( 'additional_attendees', $cart_item['event_entry'])));
+			$_prices = get_field('ticket_types', $cart_item['data']->get_id(), true);
+			$prices = [];
+			foreach ($_prices as $price) {
+				$prices[$price['name']] = $price['price'];
+			}
+			$type = get_field('ticket_type', $cart_item['event_entry']);
+			$price = $prices[$type];
+			$additional_attendees = get_field( 'additional_attendees', $cart_item['event_entry']);
+			foreach ($additional_attendees as $additional_attendee) {
+				$price += $prices[$additional_attendee['ticket_type']];
+			}
 			$cart_item['data']->set_price($price);
 		}
 	}
@@ -330,7 +385,7 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 
 function process_attendee_email($message, $attendee) {
   $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
-  $message = str_replace('{attendee_full_name}', acf_get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
+  $message = str_replace('{attendee_full_name}', get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
   return $message;
 }
 
@@ -379,9 +434,11 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
 		update_post_meta($lead, 'event_user_id', get_post_meta($event_entry_id, 'event_user_id', true));
 
+		$order_item->add_meta_data('_lead_entry', $lead);
+
 		$post_data['post_parent'] = $lead;
 
-		foreach ($additional_attendees as $attendee) {
+		foreach ($additional_attendees as $ak=>$attendee) {
 			$new_attendee = wp_insert_post($post_data);
 			foreach ($attendee as $k=>$v) {
 				update_post_meta($new_attendee, $k, $v);
@@ -419,10 +476,11 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 				$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($new_attendee) ), implode("\r\n", $headers) );
 			}
-
+			$order_item->add_meta_data('_entry_' . $ak, $new_attendee);
 
 		}
 		wp_trash_post($event_entry_id);
+		$order_item->save_meta_data();
 	}
 }, 10, 1 );
 
@@ -459,14 +517,30 @@ add_filter( 'woocommerce_get_item_data', function ( $item_data, $cart_item ) {
 
 add_action( 'woocommerce_checkout_create_order_line_item', function ( $item, $cart_item_key, $values, $order ) {
     if ( isset( $values['event_entry'] ) ) {
-		$item->add_meta_data( '_event_entry', $values['event_entry'] );
-
 		$event = get_post($values['product_id']);
 		$item->add_meta_data( 'event', $event->post_title );
     }
 }, 10, 4);
 
+add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
+	foreach ($meta as $k=>$m) {
+		if ($m->key == '_event_entry') {
+			unset($meta[$k]);
+			continue;
+		} elseif ($m->key == 'event') {
+			$m->display_key = 'Event';
+		} else if ($m->key == '_lead_entry') {
+			$m->display_key = 'Lead Entry';
+			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, get_field('first_name', $m->value), get_field('last_name', $m->value));
+		} elseif (strpos($m->key, '_entry_') !== false) {
+			$m->display_key = 'Entry';
+			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, get_field('first_name', $m->value), get_field('last_name', $m->value));
+		}
+		$meta[$k] = $m;
 
+	}
+	return $meta;
+}, 99, 1);
 
 function prospect_woo_account_menu_events($menu) {
 	$menu = array_slice($menu, 0, 5, true) +
