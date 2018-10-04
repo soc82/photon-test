@@ -18,16 +18,28 @@ get_header(); ?>
 </div>
 <?php get_footer(); ?>
 
-<?php
-if(isset($_GET['event'])):
-  $product = wc_get_product($_GET['event']); ?>
-  <script>
-    jQuery('.acf-repeater').change(function(){
-      var repeaterRows = jQuery('.acf-repeater .acf-row').not('.acf-clone').length + 1;
-      jQuery('.event-total-attendees').replaceWith('<div class="event-total-attendees">Number of attendees: <span>' + repeaterRows + '</span></div>');
-      jQuery('#total_number_attendees').val(repeaterRows);
-      jQuery('.event-total-price').replaceWith('<div class="event-total-price">Total price: <span>£' + (repeaterRows * <?php echo $product->get_price(); ?> + '</span></div>'));
-    });
-    jQuery('.acf-repeater').change();
-  </script>
-<?php endif; ?>
+<script>
+    function calculate() {
+
+        var attendees = 0;
+        var price = 0;
+        var $ticket_types = jQuery('[data-name=ticket_type] select:visible');
+
+        var pricing = $ticket_types.first().closest('.acf-field').data('pricing');
+
+        $ticket_types.each(function () {
+            $this = jQuery(this);
+            price = parseFloat(price, 10) + parseFloat(pricing[$this.val()], 10);
+            attendees = attendees + 1;
+        });
+
+        jQuery('.event-total-attendees').replaceWith('<div class="event-total-attendees">Number of attendees: <span>' + attendees + '</span></div>');
+        jQuery('.event-total-price').replaceWith('<div class="event-total-price">Total price: <span>£' + price + '</span></div>');
+
+    }
+
+    jQuery('.acf-repeater').on('change', calculate);
+    jQuery(document).on('change', '[data-name=ticket_type] select', calculate);
+    calculate();
+
+</script>

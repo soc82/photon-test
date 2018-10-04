@@ -206,18 +206,15 @@ add_filter('acf/load_field/name=ticket_type', function ( $field ) {
 	// get the textarea value from options page without any formatting
 	$choices = get_field('ticket_types', $event, true);
 
-
 	// loop through array and add to field 'choices'
 	if( is_array($choices) ) {
-
+		$prices = [];
 		foreach( $choices as $choice ) {
-
 			$field['choices'][ $choice['name'] ] = $choice['name'] . ' - &pound;' . $choice['price'];
-
+			$prices[$choice['name']] = $choice['price'];
 		}
-
+		$field['wrapper']['data-pricing'] = json_encode($prices);
 	}
-
 
 	// return the field
 	return $field;
@@ -330,8 +327,15 @@ function check_event_entry()
 {
 	$entry_id = false;
 	if (isset($_GET['event_entry'])) {
+		if (get_post_status($_GET['event_entry'])!= 'publish') {
+			return false;
+		}
 		$entry_user_id = get_post_meta($_GET['event_entry'], 'event_user_id', true);
 		if ($entry_user_id == get_current_user_id()) {
+			$entry_id = $_GET['event_entry'];
+		}
+		$lead_user_id = get_post_meta($_GET['event_entry'], 'lead_user_id', true);
+		if ($lead_user_id == get_current_user_id()) {
 			$entry_id = $_GET['event_entry'];
 		}
 	}
@@ -519,6 +523,7 @@ add_filter( 'woocommerce_get_item_data', function ( $item_data, $cart_item ) {
 
 add_action( 'woocommerce_checkout_create_order_line_item', function ( $item, $cart_item_key, $values, $order ) {
     if ( isset( $values['event_entry'] ) ) {
+		$item->add_meta_data( '_event_entry', $values['event_entry'] );
 		$event = get_post($values['product_id']);
 		$item->add_meta_data( 'event', $event->post_title );
     }
