@@ -327,6 +327,7 @@ function get_event_attendee_fieldset_id($id)
 	$fields_id = get_event_booking_fieldset_id($id);
 
 	$fields = acf_get_fields($fields_id);
+	if (!$fields) return false;
 
 	$field = current(array_filter($fields, function ($el) { return $el['name'] == 'additional_attendees'; }));
 	$cloned = current($field['sub_fields']);
@@ -454,6 +455,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		$lead_user_id = get_post_meta($event_entry_id, 'event_user_id', true);
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
 		update_post_meta($lead, 'event_user_id', $lead_user_id);
+		update_post_meta($lead, '_last_notified', time());
 
 		$order_item->add_meta_data('_lead_entry', $lead);
 
@@ -464,8 +466,6 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 			foreach ($attendee as $k=>$v) {
 				update_post_meta($new_attendee, $k, $v);
 			}
-
-			update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
 
 			$user = get_user_by( 'email', $attendee['email_address']);
 			if (!$user) {
@@ -478,8 +478,10 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				$user = wp_insert_user($user_data);
 				$user = get_user_by('ID', $user);
 			}
+			update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
 			update_post_meta($new_attendee, 'lead_user_id', $lead_user_id);
 			update_post_meta($new_attendee, 'event_user_id', $user->ID);
+			update_post_meta($new_attendee, '_last_notified', time());
 
 			$form_complete = get_field('other_attendee_details', $new_attendee);
 			// Check to make sure the lead booker hasn't filled out all of the attendee fields before emailing
@@ -602,6 +604,10 @@ function is_attendee_complete($entry) {
 	$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry, 'event_id', true));
 	$fieldset = acf_get_fields($fieldset);
 
+	if (!$fieldset) {
+		return true; // what else can we do?
+	}
+
 	$required = [];
 	foreach ($fieldset as $k=>$v) {
 		if ($v['name'] == 'other_attendee_details') continue; // ignore this one
@@ -678,16 +684,17 @@ function do_send_event_reminder_emails() {
 
 	$offset = 60 * 60 * 24 * 7; // a week - we send reminders once it's been a week
 	foreach ($entries as $entry) {
-		$last_time = get_post_meta($entry->ID, '_last_notified', true);
+		$last_time = (int)get_post_meta($entry->ID, '_last_notified', true);
 
 		// check time elapsed since last email + check not complete - should never be the case, but just in case
 		if (time() - $last_time > $offset && !is_attendee_complete($entry)) {
 
 			send_attendee_reminder_mail($entry->ID);
 
-			update_post_meta($entry->ID, '_last_notified', time());
+ 			update_post_meta($entry->ID, '_last_notified', time());
 		}
 	}
+
 }
 
 function send_attendee_reminder_mail($post_id) {
@@ -705,3 +712,5 @@ function send_attendee_reminder_mail($post_id) {
 
 	$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
 }
+
+//add_action('wp', 'do_send_event_reminder_emails');
