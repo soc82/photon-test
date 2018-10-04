@@ -599,25 +599,17 @@ function is_attendee_complete($entry) {
 		$entry = $entry->ID;
 	}
 
-	$required = [
-		'title',
-		'first_name',
-		'last_name',
-		'email_address',
-		'date_of_birth',
-		'gender',
-		'address_1',
-		'address_2',
-		'address_3',
-		'town',
-		'county',
-		'postcode',
-		'contact_number',
-		'group_name',
-		't-shirt_size',
-		'emergency_contact_name',
-		'emergency_contact_number',
-	];
+	$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry, 'event_id', true));
+	$fieldset = acf_get_fields($fieldset);
+
+	$required = [];
+	foreach ($fieldset as $k=>$v) {
+		if ($v['name'] == 'other_attendee_details') continue; // ignore this one
+		if ($v['required']) {
+			$required[] = $v['name'];
+		}
+	}
+
 
 	foreach ($required as $field ) {
 		if (empty(get_field($field, $entry))) {

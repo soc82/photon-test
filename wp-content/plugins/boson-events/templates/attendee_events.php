@@ -26,6 +26,7 @@ $users_events = new WP_Query($args);
       	<tr>
         		<th scope="col">Event</th>
         		<th scope="col">Attendee</th>
+        		<th scope="col">Complete</th>
         		<th scope="col">Actions</th>
       	</tr>
     	</thead>
@@ -38,7 +39,8 @@ $users_events = new WP_Query($args);
   		  <tr>
   	      	<th scope="row"><?php echo $event_title; ?></th>
               <td><?php echo get_field('first_name', $event->ID) . ' ' . get_field('last_name', $event->ID) ?></td>
-  	      	<td><a href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Complete attendee details</a></td>
+  	      	<td><?php echo is_attendee_complete($event) ? 'Yes' : 'No' ?></td>
+              <td><a href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
   	    </tr>
   	<?php endforeach; ?>
     	</tbody>
