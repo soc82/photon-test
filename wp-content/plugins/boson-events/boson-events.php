@@ -328,14 +328,12 @@ function get_event_attendee_fieldset_id($id)
 {
 	$fields_id = get_event_booking_fieldset_id($id);
 
-	$fields = acf_get_fields($fields_id);
-	if (!$fields) return false;
+	if (!$fields_id) return false;
 
-	$field = current(array_filter($fields, function ($el) { return $el['name'] == 'additional_attendees'; }));
-	$cloned = current($field['sub_fields']);
-	$original_field = acf_get_field($cloned['_clone']);
-
-	return $original_field['clone'][0];
+	global $wpdb;
+	$data = $wpdb->get_var("SELECT p2.post_content FROM {$wpdb->prefix}posts p1 LEFT JOIN {$wpdb->prefix}posts p2 ON p1.ID = p2.post_parent WHERE p1.post_parent = 307 AND p1.post_excerpt = 'additional_attendees'");
+	$data = unserialize($data);
+	return $data['clone'][0];
 }
 
 
@@ -724,4 +722,40 @@ function send_attendee_reminder_mail($post_id) {
 add_filter( 'password_reset_expiration', function( $expiration ) {
 	return MONTH_IN_SECONDS;
 });
+
+add_filter('acf/get_field_group', function ($group) {
+	static $filtering = [];
+	if (!isset($filtering[$group['key']]) && is_admin()) {
+		$filtering[$group['key']] = true;
+		$get_current_screen = get_current_screen();
+		if ($get_current_screen->post_type == 'event-entry') {
+			$entry_id = $_GET['post'];
+			$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry_id, 'event_id', true));
+print_r($fieldset);
+
+			if (
+				$group['key'] == $fieldset
+			) {
+//				var_dump('a');
+//				exit;
+				$group['location'] = array(
+					array(
+						array(
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'event-entry',
+						),
+					),
+				);
+			}
+//			var_dump($group); exit;
+
+		}
+		unset($filtering[$group['key']]);
+	}
+
+	return $group;
+});
+
+
 //add_action('wp', 'do_send_event_reminder_emails');
