@@ -256,13 +256,15 @@ add_filter('acf/prepare_field/name=ticket_type', function($field){
 
 function prospect_get_attendee_form() {
   if (isset($_GET['event_entry'])) {
-
 	$event_entry = check_event_entry();
 	if (!$event_entry) return;
 
+	$fieldset = get_event_attendee_fieldset_id(get_post_meta($event_entry, 'event_id', true));
+
     acf_form(array(
-      'post_id' => $event_entry,
-      'post_title'  => false,
+      'post_id' 	  => $event_entry,
+      'post_title'    => false,
+	  'field_groups'  => array($fieldset),
       'submit_value'  => 'Save'
     ));
 
@@ -319,6 +321,20 @@ function get_event_booking_fieldset_id($id)
 
 	return $fields_id;
 }
+
+function get_event_attendee_fieldset_id($id)
+{
+	$fields_id = get_event_booking_fieldset_id($id);
+
+	$fields = acf_get_fields($fields_id);
+
+	$field = current(array_filter($fields, function ($el) { return $el['name'] == 'additional_attendees'; }));
+	$cloned = current($field['sub_fields']);
+	$original_field = acf_get_field($cloned['_clone']);
+
+	return $original_field['clone'][0];
+}
+
 
 /**
  * @return bool
