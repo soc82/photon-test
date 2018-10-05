@@ -67,10 +67,64 @@ class CSVExport
 		echo '<div id="icon-tools" class="icon32"></div>';
 		echo '<h2>Export Event Entries</h2>';
 
+		$args = array(
+			'post_type'      => 'product',
+			'posts_per_page' => -1,
+			'tax_query'      => array(
+				array(
+					'taxonomy' => 'product_type',
+					'field'    => 'slug',
+					'terms'    => 'prospect_event',
+				),
+			),
+		);
+		$posts = get_posts($args);
 
-		echo '<p>Export the event entries</p>';
 
-		echo '<a href="' . $_SERVER['REQUEST_URI'] . '&download_report=1">Download</a>';
+		?>
+
+		<form method="get">
+			<table class="form-table">
+				<tr>
+					<th scope="row"><label>Event</label></th>
+					<td>
+						<select name="event_id">
+							<option>All Events</option>
+							<?php foreach ($posts as $post): ?>
+								<option value="<?php echo $post->ID ?>"><?php echo $post->post_title ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"><label>From</label></th>
+					<td>
+						<input type="date" name="from" >
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"><label>Until</label></th>
+					<td>
+						<input type="date" name="until" >
+					</td>
+				</tr>
+
+				<tr>
+					<th scope="row"></th>
+					<td>
+						<input type="hidden" name="download_report" value="1">
+						<input type="submit" value="Export" class="button button-primary button-large">
+					</td>
+				</tr>
+
+			</table>
+		</form>
+
+		<?php
+
+
 	}
 
 	/**
@@ -80,7 +134,21 @@ class CSVExport
 	{
 		global $wpdb;
 
-		$posts = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}posts WHERE post_type = 'event-entry' ORDER BY ID DESC");
+		$where = '';
+		if ($_GET['event_id']) {
+			$where .= ' AND meta_value = ' . intval($_GET['event_id']);
+		}
+//		http://localhost:8081/wp-admin/edit.php?event_id=99&from=2018-01-01&until=&download_report=1
+		if ($_GET['from']) {
+			$where .= " AND post_modified > '" . $_GET['from'] . " 00:00:00'";
+		}
+
+		if ($_GET['until']) {
+			$where .= " AND post_modified < '" . $_GET['until'] . " 23:59:00'";
+		}
+
+		$posts = $wpdb->get_results("SELECT p.* FROM {$wpdb->prefix}posts p LEFT JOIN {$wpdb->prefix}postmeta pm ON p.ID = pm.post_id AND pm.meta_key = 'event_id'  WHERE post_type = 'event-entry' $where ORDER BY ID ASC");
+		if (!$posts) return;
 		$ids = array_map(function ($el) { return $el->ID; }, $posts);
 		$post_keys = array_keys(get_object_vars($posts[0]));
 
