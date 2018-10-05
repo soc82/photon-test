@@ -34,7 +34,7 @@ class CSVExport
 	 */
 	public function admin_menu()
 	{
-		add_menu_page('Download Report', 'Download Report', 'manage_options', 'download_report', array($this, 'download_report'));
+		add_submenu_page('edit.php?post_type=event-entry', 'Export', 'Export', 'manage_options', 'download_report', array($this, 'download_report'));
 	}
 
 	/**
@@ -65,11 +65,12 @@ class CSVExport
 	{
 		echo '<div class="wrap">';
 		echo '<div id="icon-tools" class="icon32"></div>';
-		echo '<h2>CSV Export</h2>';
+		echo '<h2>Export Event Entries</h2>';
 
 
 		echo '<p>Export the event entries</p>';
-		//$url = site_url();
+
+		echo '<a href="' . $_SERVER['REQUEST_URI'] . '&download_report=1">Download</a>';
 	}
 
 	/**
