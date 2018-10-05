@@ -702,3 +702,171 @@ function my_get_the_product_thumbnail_url( $size = 'shop_catalog' ) {
   $image_size = apply_filters( 'single_product_archive_thumbnail_size', $size );
   return get_the_post_thumbnail_url( $post->ID, $image_size );
 }
+
+
+
+/***************************************
+** My Account
+***************************************/
+
+function prospect_get_userdata( $user_id, $key ) {
+   if ( ! prospect_is_userdata( $key ) ) {
+       return get_user_meta( $user_id, $key );
+   }
+
+   $userdata = get_userdata( $user_id );
+
+   if ( ! $userdata || ! isset( $userdata->{$key} ) ) {
+       return '';
+   }
+
+   return $userdata->{$key};
+}
+
+/*
+** Additional account fields
+*/
+function prospect_get_account_fields() {
+    return apply_filters( 'prospect_account_fields', array(
+        'fundraising_opt_in' => array(
+            'type'        => 'checkbox',
+            'label'       => __( 'I\'m happy to receive communications regarding fundraising events & ideas', 'prospect' ),
+            //'placeholder' => __( 'Some text...', 'prospect' ),
+            'required'    => false,
+        ),
+        'job_opt_in' => array(
+            'type'        => 'checkbox',
+            'label'       => __( 'I\'m happy to be considered for similar jobs i have previously applied for', 'prospect' ),
+            'required'    => false,
+        ),
+    ) );
+}
+
+/**
+ * Add fields to registration form and account area.
+*/
+function prospect_print_user_frontend_fields() {
+    $fields            = prospect_get_account_fields();
+    $is_user_logged_in = is_user_logged_in();
+
+    foreach ( $fields as $key => $field_args ) {
+        $value = null;
+
+        if ( $is_user_logged_in && ! empty( $field_args['hide_in_account'] ) ) {
+            continue;
+        }
+
+        if ( ! $is_user_logged_in && ! empty( $field_args['hide_in_registration'] ) ) {
+            continue;
+        }
+
+        if ( $is_user_logged_in ) {
+            $user_id = prospect_get_edit_user_id();
+            $value   = prospect_get_userdata( $user_id, $key );
+        }
+
+        $value = isset( $field_args['value'] ) ? $field_args['value'] : $value;
+
+        woocommerce_form_field( $key, $field_args, array_shift($value) );
+    }
+}
+add_action( 'woocommerce_edit_account_form', 'prospect_print_user_frontend_fields', 10 );
+
+/**
+ * Add fields to admin area.
+*/
+function prospect_print_user_admin_fields() {
+    $fields = prospect_get_account_fields();
+    ?>
+    <h2><?php _e( 'Additional Information', 'iconic' ); ?></h2>
+    <table class="form-table" id="iconic-additional-information">
+        <tbody>
+        <?php foreach ( $fields as $key => $field_args ) { ?>
+            <?php
+            if ( ! empty( $field_args['hide_in_admin'] ) ) {
+                continue;
+            }
+
+            $user_id = prospect_get_edit_user_id();
+            $value   = prospect_get_userdata( $user_id, $key );
+            ?>
+            <tr>
+                <th>
+                    <label for="<?php echo $key; ?>"><?php echo $field_args['label']; ?></label>
+                </th>
+                <td>
+                    <?php $field_args['label'] = false; ?>
+                    <?php woocommerce_form_field( $key, $field_args, array_shift($value) ); ?>
+                </td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php
+}
+add_action( 'show_user_profile', 'prospect_print_user_admin_fields', 30 ); // admin: edit profile
+add_action( 'edit_user_profile', 'prospect_print_user_admin_fields', 30 ); // admin: edit other users
+
+/**
+ * Get currently editing user ID (frontend account/edit profile/edit other user).
+*/
+function prospect_get_edit_user_id() {
+    return isset( $_GET['user_id'] ) ? (int) $_GET['user_id'] : get_current_user_id();
+}
+
+
+function prospect_is_userdata( $key ) {
+    $userdata = array(
+        'user_pass',
+        'user_login',
+        'user_nicename',
+        'user_url',
+        'user_email',
+        'display_name',
+        'nickname',
+        'first_name',
+        'last_name',
+        'description',
+        'rich_editing',
+        'user_registered',
+        'role',
+        'jabber',
+        'aim',
+        'yim',
+        'show_admin_bar_front',
+    );
+
+    return in_array( $key, $userdata );
+}
+
+
+
+function prospect_save_account_fields( $customer_id ) {
+    $fields = prospect_get_account_fields();
+    $sanitized_data = array();
+
+    foreach ( $fields as $key => $field_args ) {
+
+        $sanitize = isset( $field_args['sanitize'] ) ? $field_args['sanitize'] : 'wc_clean';
+        $value    = isset( $_POST[ $key ] ) ? call_user_func( $sanitize, $_POST[ $key ] ) : '';
+
+        if ( prospect_is_userdata( $key ) ) {
+    			$sanitized_data[ $key ] = $value;
+    			continue;
+    		}
+
+        update_user_meta( $customer_id, $key, $value );
+    }
+
+
+    if ( ! empty( $sanitized_data ) ) {
+        $sanitized_data['ID'] = $customer_id;
+        wp_update_user( $sanitized_data );
+    }
+
+}
+
+add_action( 'woocommerce_created_customer', 'prospect_save_account_fields' ); // register/checkout
+add_action( 'personal_options_update', 'prospect_save_account_fields' ); // edit own account admin
+add_action( 'edit_user_profile_update', 'prospect_save_account_fields' ); // edit other account admin
+add_action( 'woocommerce_save_account_details', 'prospect_save_account_fields' ); // edit WC account
