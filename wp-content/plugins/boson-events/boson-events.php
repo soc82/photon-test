@@ -19,6 +19,7 @@ require_once('acf-fields.php');
   Register event submissions post type
 *****************************/
 include(plugin_dir_path( __FILE__ ) . 'boson-event-submissions.php');
+include(plugin_dir_path( __FILE__ ) . 'boson-events-export.php');
 
 
 // Event query for calendar
