@@ -645,7 +645,7 @@ add_action('acf/save_post', function ($post_id) {
 }, 20);
 
 function send_attendee_complete_mail($post_id) {
-	$to = get_field('email_address', $post_id);
+	$to = get_field('config_primary_email', 'options');
 	$subject = get_field('attendee_complete_email_subject', 'options');
 	$link_text = get_field('attendee_complete_email_link_text', 'options');
 
@@ -657,7 +657,14 @@ function send_attendee_complete_mail($post_id) {
 		"Content-Type: text/html;charset=utf-8"
 	);
 
-	$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
+	// @TODO - include prospect - uncomment below
+//	$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
+
+	$user = get_field('lead_user_id', $post_id);
+	if (!$user) $user = get_field('event_user_id', $post_id);
+	$user = new WP_User($user);
+	$mail = wp_mail( $user->user_email, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
+
 }
 
 
@@ -732,13 +739,10 @@ add_filter('acf/get_field_group', function ($group) {
 		if ($get_current_screen->post_type == 'event-entry') {
 			$entry_id = $_GET['post'];
 			$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry_id, 'event_id', true));
-print_r($fieldset);
 
 			if (
 				$group['key'] == $fieldset
 			) {
-//				var_dump('a');
-//				exit;
 				$group['location'] = array(
 					array(
 						array(
