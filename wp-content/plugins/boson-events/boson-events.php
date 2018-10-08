@@ -397,9 +397,11 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 			$type = get_field('ticket_type', $cart_item['event_entry']);
 			$price = $prices[$type];
 			$additional_attendees = get_field( 'additional_attendees', $cart_item['event_entry']);
-			foreach ($additional_attendees as $additional_attendee) {
-				$price += $prices[$additional_attendee['ticket_type']];
-			}
+      if($additional_attendees){
+  			foreach ($additional_attendees as $additional_attendee) {
+  				$price += $prices[$additional_attendee['ticket_type']];
+  			}
+      }
 			$cart_item['data']->set_price($price);
 		}
 	}
