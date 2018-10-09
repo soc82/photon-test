@@ -332,7 +332,7 @@ function get_event_attendee_fieldset_id($id)
 	if (!$fields_id) return false;
 
 	global $wpdb;
-	$data = $wpdb->get_var("SELECT p2.post_content FROM {$wpdb->prefix}posts p1 LEFT JOIN {$wpdb->prefix}posts p2 ON p1.ID = p2.post_parent WHERE p1.post_parent = 307 AND p1.post_excerpt = 'additional_attendees'");
+	$data = $wpdb->get_var("SELECT p2.post_content FROM {$wpdb->prefix}posts p1 LEFT JOIN {$wpdb->prefix}posts p2 ON p1.ID = p2.post_parent WHERE p1.post_parent = $fields_id AND p1.post_excerpt = 'additional_attendees'");
 	$data = unserialize($data);
 	return $data['clone'][0];
 }
