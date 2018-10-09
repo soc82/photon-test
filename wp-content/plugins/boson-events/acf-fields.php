@@ -429,7 +429,7 @@ if( function_exists('acf_add_local_field_group') ):
 										  'name' => 'ticket_types',
 										  'type' => 'repeater',
 										  'instructions' => 'Enter your ticket options and prices, 1 per line. Enter the ticket \'name\' first followed by a : and then the price.',
-										  'required' => 1,
+										  'required' => 0,
 										  'conditional_logic' => 0,
 										  'wrapper' => array(
 											  'width' => '',
@@ -448,7 +448,7 @@ if( function_exists('acf_add_local_field_group') ):
 												  'name' => 'name',
 												  'type' => 'text',
 												  'instructions' => '',
-												  'required' => 1,
+												  'required' => 0,
 												  'conditional_logic' => 0,
 												  'wrapper' => array(
 													  'width' => '',
@@ -467,7 +467,7 @@ if( function_exists('acf_add_local_field_group') ):
 												  'name' => 'price',
 												  'type' => 'number',
 												  'instructions' => '',
-												  'required' => 1,
+												  'required' => 0,
 												  'conditional_logic' => 0,
 												  'wrapper' => array(
 													  'width' => '',
