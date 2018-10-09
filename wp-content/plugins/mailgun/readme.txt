@@ -5,7 +5,7 @@ Contributors: Mailgun, sivel, lookahead.io, m35dev
 Tags: mailgun, smtp, http, api, mail, email
 Requires at least: 3.3
 Tested up to: 4.9.8
-Stable tag: 1.5.13.1
+Stable tag: 1.6
 License: GPLv2 or later
 
 
@@ -54,7 +54,8 @@ Yes, using the following constants that can be placed in wp-config.php:
 
 `
 MAILGUN_REGION       Type: string   Choices: 'us' or 'eu'
-MAILGUN_USEAPI       Type: boolean
+     ex. define('MAILGUN_REGION', 'us');
+MAILGUN_USEAPI       Type: boolean  Choices: '0' or '1' (0 = false/no)
 MAILGUN_APIKEY       Type: string
 MAILGUN_DOMAIN       Type: string
 MAILGUN_USERNAME     Type: string
@@ -128,7 +129,17 @@ MAILGUN_FROM_ADDRESS Type: string
 
 == Changelog ==
 
-= 1.5.13.1 (2018-08-15)
+= 1.6 (2018-9-21): =
+- Refactor admin notifications
+- Enable Settings page for all WordPress install types
+- Enable Test Configuration for all WordPress install types
+- Test plugin up to WordPress 4.9.8.
+
+= 1.5.14 (2018-09-11): =
+- Force SSL-secured SMTP connections to use port 465 (SMTPS) to connect, 587 for plain and TLS
+- Support region endpoint switching for SMTP
+
+= 1.5.13.1 (2018-08-15): =
 - Fix line breaks in Test Configuration email
 
 = 1.5.13 (2018-08-14): =
