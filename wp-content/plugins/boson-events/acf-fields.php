@@ -484,6 +484,29 @@ if( function_exists('acf_add_local_field_group') ):
 											  ),
 										  ),
 									  ),
+										array(
+										  'key' => 'field_5b4e0677667b2',
+										  'label' => 'Event Form',
+										  'name' => 'event_form',
+										  'type' => 'post_object',
+										  'instructions' => 'Select the form that is used for this booking.',
+										  'required' => 0,
+										  'conditional_logic' => 0,
+										  'wrapper' => array(
+											  'width' => '',
+											  'class' => '',
+											  'id' => '',
+										  ),
+										  'post_type' => array(
+											  0 => 'acf-field-group',
+										  ),
+										  'taxonomy' => array(
+										  ),
+										  'allow_null' => 1,
+										  'multiple' => 0,
+										  'return_format' => 'object',
+										  'ui' => 1,
+									  ),
 								  ),
 								  'location' => array(
 									  array(

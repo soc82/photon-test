@@ -320,7 +320,11 @@ function prospect_get_event_form( ) {
  */
 function get_event_booking_fieldset_id($id)
 {
-	$fields_id = get_post_meta($id, 'booking_form_post_id', true);
+	//$fields_id = get_post_meta($id, 'booking_form_post_id', true);
+  $fields_id = get_field('event_form', $id);
+  if($fields_id) {
+    $fields_id = $fields_id->ID;
+  }
 
 	return $fields_id;
 }
