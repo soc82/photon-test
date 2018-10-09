@@ -71,26 +71,17 @@ function prospect_product_admin_js() {
 
         jQuery( function($){
             $( 'body' ).on( 'woocommerce-product-type-change', function( event, select_val, select ) {
-
+              console.log(select_val);
                 if ( select_val === 'prospect_event' ) {
-
-                    //$('.product_data_tabs .general_tab').show();
-//                    $('.woocommerce_options_panel').show();
-                    //$('.woocommerce_options_panel .pricing').hide();
-                    //$('.inventory_options').show();
-                    //$('#inventory_product_data ._manage_stock_field').show();
-                    $('#event_details').show();
-                    $( '.event_details_tab' ).show();
-                    $('.shipping_options').hide();
-                    $('.attribute_options').hide();
-                    $('.advanced_options').hide();
-                    $('.linked_product_options').hide();
+                    $('#event_details, #acf-group_5b6013b903006, .event_details_tab').show();
+                    $('.advanced_options, .linked_product_options, .attribute_options, .shipping_options, .inventory_options').hide();
                     $('.event_details_options a').trigger('click');
-                    jQuery('#acf-group_5b6013b903006').show();
-                } else {
-                    $( '.event_details_tab' ).hide();
-                    jQuery('#acf-group_5b6013b903006').hide();
-
+                } else if ( select_val === 'simple' ) {
+                    $('#event_details, .inventory_options, #acf-group_5b6013b903006, .event_details_tab').hide();
+                    $('.general_options, .pricing, .inventory_tab, .shipping_options, .linked_product_tab, .attribute_tab, .advanced_tab').show();
+                } else if ( select_val === 'variable' ) {
+                    $('#event_details, .inventory_options, #acf-group_5b6013b903006, .event_details_tab').hide();
+                    $('.variations_tab, .inventory_tab, .shipping_options, .linked_product_tab, .attribute_tab, .advanced_tab').show();
                 }
             } );
             $( 'select#product-type' ).change();
@@ -112,6 +103,9 @@ function prospect_product_admin_js() {
             $( '#event_bookable' ).change();
         } );
     </script>
+    <style>
+    .show_if_event { display: none; }
+    </style>
 		<script>
       function initAutocomplete() {
         var map = new google.maps.Map(document.getElementById('map'), {
