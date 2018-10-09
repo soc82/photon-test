@@ -735,7 +735,7 @@ add_filter( 'password_reset_expiration', function( $expiration ) {
 
 add_filter('acf/get_field_group', function ($group) {
 	static $filtering = [];
-	if (!isset($filtering[$group['key']]) && is_admin()) {
+	if (!isset($filtering[$group['key']]) && is_admin() && function_exists('get_current_screen')) {
 		$filtering[$group['key']] = true;
 		$get_current_screen = get_current_screen();
 		if ($get_current_screen->post_type == 'event-entry') {
