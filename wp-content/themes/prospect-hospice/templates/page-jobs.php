@@ -69,7 +69,7 @@ get_header(); ?>
 	<?php if ( $items->posts ) : ?>
 		<div class="row jobs-list section">
 			<?php foreach ($items->posts as $item) : ?>
-				<div class="col-12 col-md-6 col-lg-4">
+				<div class="col-12 col-md-6 col-xl-4">
 					<div class="item bg-green">
 						<a href="<?php the_permalink($item);?>"><h3><?php echo $item->post_title;?></h3></a>
 						<div class="reference">Ref: <?php echo get_field('reference', $item->ID); ?></div>
