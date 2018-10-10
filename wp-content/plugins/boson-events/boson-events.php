@@ -584,7 +584,7 @@ function prospect_woo_account_menu_events($menu) {
 	$menu = array_slice($menu, 0, 5, true) +
 		[
 			'savedbookings'     => __('Saved Bookings', 'prospect'),
-			'attendingevents' => __('Event Atendees', 'prospect')
+			'attendingevents' => __('Event Attendees', 'prospect')
 		] +
 		array_slice($menu, 5, count($menu)-5, true);
 	return $menu;
