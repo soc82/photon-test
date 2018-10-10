@@ -25,6 +25,7 @@
 	    border: none;
 	    padding: 15px 30px;
 	}
+
 	.dropdown:after {
 	    content: "";
 	    position: absolute;
@@ -37,6 +38,16 @@
 	    border-left: 10px solid transparent;
 	    border-right: 10px solid transparent;
 	    border-top: 10px solid $black;
+	}
+	@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+		.dropdown:after {
+			display: none;
+		}
+	}
+	@supports (-ms-accelerator:true) {
+		.dropdown:after {
+			display: none;
+		}
 	}
 
 }

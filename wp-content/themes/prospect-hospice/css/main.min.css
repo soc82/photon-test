@@ -9387,6 +9387,12 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-top: 10px solid #222222; }
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .filter .dropdown:after {
+    display: none; } }
+@supports (-ms-accelerator: true) {
+  .filter .dropdown:after {
+    display: none; } }
 
 /* Top Filter */
 .top-filter-wrapper {
