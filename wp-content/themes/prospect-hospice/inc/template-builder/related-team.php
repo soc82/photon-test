@@ -41,7 +41,7 @@ $color_class = prospect_dark_colour_class(); ?>
 	                    <?php $job_title = get_field('job_title', $team->ID);
 	                    if($job_title) : ?>
 	                        <p class="job_title"><?php echo $job_title;?></p>
-	                    <?php endif;?>s
+	                    <?php endif;?>
 	                    <p><?php echo $team->post_content;?></p>
 	                    <p><a href="#" rel="modal:close">Close</a></p>
 	                </div>
