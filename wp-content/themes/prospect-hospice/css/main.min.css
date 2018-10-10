@@ -8582,8 +8582,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    position: relative;
-    min-height: 340px; }
+    position: relative; }
     .block.hero-banner .overlay {
       display: block;
       position: absolute;
