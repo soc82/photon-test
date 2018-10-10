@@ -3,12 +3,21 @@
  * Template Name: Vacant Positions Template
 **/
 
+$today = date('Ymd');
 $query_args = array(
 	'post_type' => 'jobs',
 	'posts_per_page'  => -1,
 	'meta_key' => 'closing_date',
 	'order' => 'ASC',
 	'orderby' => 'meta_value',
+	'meta_key' => 'closing_date',
+	'meta_query' => array(
+		array(
+            'key' => 'closing_date',
+            'value' => $today,
+            'compare' => '>='
+        )
+	),
 );
 // Use a tax_query if the user has specified a jobtype
 if (isset($_GET['type']) && $_GET['type'] && $_GET['type'] != 'all') {
