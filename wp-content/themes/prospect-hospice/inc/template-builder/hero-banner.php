@@ -5,11 +5,9 @@ $second_heading = (get_sub_field('second_heading') ? get_sub_field('second_headi
 $description = (get_sub_field('description') ? get_sub_field('description') : get_field('hero_banner_description'));
 $link_url = (get_sub_field('link_url') ? get_sub_field('link_url') : get_field('hero_banner_link_url'));
 ?>
-
-<?php if(isset($image)):?>
-    <div class="hero-banner block" <?php if($image) echo 'style="background-image:url(' . $image . ');"'; ?>>
-        <div class="overlay"></div>
-        
+<div class="hero-banner block" <?php if($image) echo 'style="background-image:url(' . $image . ');"'; ?>>
+    <div class="overlay"></div>
+    <?php if($heading || $second_heading): ?>
         <div class="container hero-banner-content">
             <div class="row">
                 <div class="col-12">
@@ -25,10 +23,10 @@ $link_url = (get_sub_field('link_url') ? get_sub_field('link_url') : get_field('
                 </div>
             </div>
         </div>
+    <?php endif;?>
 
-        <?php if($link_url) : ?>
-            <a class="btn-circle" href="<?php echo $link_url;?>"><i class="fal fa-arrow-right"></i></a>
-        <?php endif; ?>
+    <?php if($link_url) : ?>
+        <a class="btn-circle" href="<?php echo $link_url;?>"><i class="fal fa-arrow-right"></i></a>
+    <?php endif; ?>
 
-    </div>
-<?php endif;?>
+</div>
