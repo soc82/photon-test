@@ -49,7 +49,7 @@ wp_reset_postdata();
 					<div class="row">
 
 						<?php foreach($team_members as $team) : ?>
-			                <div class="col-12 col-md-6 col-lg-4">
+			                <div class="col-12 col-md-6 col-lg-3">
 			                    <?php //print_r($team);?>
 			                    <div class="team">
 			                        <a href="#team-<?php echo $team->ID;?>" rel="modal:open">

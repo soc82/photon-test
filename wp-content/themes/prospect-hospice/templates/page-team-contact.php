@@ -53,7 +53,7 @@ $related_team = get_field('related_team'); ?>
                 </div>
                 <div class="row">
                     <?php foreach($related_team as $team) : ?>
-                        <div class="col-12 col-md-6 col-lg-4">
+                        <div class="col-12 col-md-6 col-lg-3">
                             <div class="team">
                                 <a href="#team-<?php echo $team->ID;?>" rel="modal:open">
                                     <?php $image = get_field('image', $team->ID);

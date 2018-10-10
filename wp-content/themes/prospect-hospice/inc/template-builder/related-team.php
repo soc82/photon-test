@@ -18,7 +18,7 @@ $color_class = prospect_dark_colour_class(); ?>
 		    <?php endif;?>
 	        <div class="row">
 	            <?php foreach($related_team as $team) : ?>
-	                <div class="col-12 col-md-6 col-lg-4">
+	                <div class="col-12 col-md-6 col-lg-3">
 	                    <?php //print_r($team);?>
 	                    <div class="team">
 	                        <a href="#team-<?php echo $team->ID;?>" rel="modal:open">

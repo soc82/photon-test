@@ -84,7 +84,7 @@ acf_add_local_field_group(array(
 		),
 		array (
 			'key' => 'field_5774f15571516',
-			'label' => 'Company Number',
+			'label' => 'Charity Number',
 			'name' => 'config_company_number',
 			'type' => 'text',
 			'instructions' => '',

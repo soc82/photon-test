@@ -68,7 +68,7 @@ get_header(); ?>
 	<?php if ( $items->posts ) : ?>
 		<div class="row jobs-list section">
 			<?php foreach ($items->posts as $item) : ?>
-				<div class="col-12 col-md-6 col-lg-4">
+				<div class="col-12 col-md-6 col-lg-3">
 					<div class="item bg-very-light-grey">
 						<a href="<?php the_permalink($item);?>"><h3 class="color-grey"><?php echo $item->post_title;?></h3></a>
 						<div class="voluntry title-block bg-yellow"><i class="fal fa-heart"></i> Voluntary</div>
