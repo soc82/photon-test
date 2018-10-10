@@ -1,4 +1,7 @@
 <?php
+
+wp_reset_postdata();
+
 $background_image = (get_sub_field('background_image') ? get_sub_field('background_image') : get_field('background_image'));
 $heading = (get_sub_field('heading') ? get_sub_field('heading') : get_field('heading'));
 $content = (get_sub_field('content') ? get_sub_field('content') : get_field('content'));
