@@ -166,7 +166,7 @@ require_once('inc/form_processing.php');
 function prospect_woo_account_menu($menu) {
 	unset($menu['downloads']);
 	unset($menu['payment-methods']);
-	$menu['orders'] =  __('Orders & Events', 'prospect');
+	$menu['orders'] =  __('Orders', 'prospect');
 
 	$menu = array_slice($menu, 0, 4, true) +
 		['applications' => __( 'Job Applications', 'prospect' )] +

@@ -31,16 +31,29 @@ $users_events = new WP_Query($args);
       	</tr>
     	</thead>
     	<tbody>
-      <?php foreach ($users_events->posts as $event) : ?>
+      <?php foreach ($users_events->posts as $event) : //print_r($event);?>
+
         <?php 
         $event_id = get_post_meta($event->ID, 'event_id', true);
         $event_title = get_the_title($event_id);
+
+        $event_start_date = get_field('event_start_date', $event_id);
+        $datetime1 = new DateTime(date('Y-m-d'));
+        $datetime2 = new DateTime($event_start_date);
+        $interval = $datetime1->diff($datetime2);
+        $daysToEvent = $interval->format('%a');
+
         ?>
   		  <tr>
   	      	<th scope="row"><?php echo $event_title; ?></th>
               <td><?php echo get_field('first_name', $event->ID) . ' ' . get_field('last_name', $event->ID) ?></td>
   	      	<td><?php echo is_attendee_complete($event) ? 'Yes' : 'No' ?></td>
-              <td><a  class="woocommerce-button button view" href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
+            <td>
+              <?php if($daysToEvent > 7) :?>
+                <a  class="woocommerce-button button view" href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
+              <?php else : ?>
+                Can't edit details as the event is <?php echo $daysToEvent;?> days away
+              <?php endif;?>
   	    </tr>
   	<?php endforeach; ?>
     	</tbody>
