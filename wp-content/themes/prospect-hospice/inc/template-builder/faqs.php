@@ -15,6 +15,7 @@ if (is_page_template('templates/flexible-template.php') || $template == 'page.ph
 								$i = 0;
 								foreach($faq_items as $faq):
 										$q = get_field('question', $faq->ID);
+										if(!isset($q)) $q = $faq->post_title;
 										$a = get_field('answer', $faq->ID); ?>
 										<div class="faq-item <?php if($i == 0) echo 'active-faq'; ?>">
 											<?php if($q) echo '<p class="faq-question">' . $q . '</p>';
