@@ -21,8 +21,17 @@ $buttons = (get_sub_field('buttons') ? get_sub_field('buttons') : get_field('but
 				<?php endif; ?>
 				<?php if ($buttons) : ?>
 					<?php foreach ($buttons as $button) :
+
+						if(isset($button['button_link']['url'])) {
+							$button_link = $button['button_link']['url'];
+						} elseif($button['button_link']) {
+							$button_link = $button['button_link'];
+						}
+
+						if($button_link == '' || empty($button_link)) $button_link = $button['button_link']['url'];
+
 						if($button['button_link']): ?>
-							<a href="<?php echo $button['button_link']['url']; ?>" class="btn <?php echo $button['button_type']; ?>"><?php echo $button['button_text']; ?></a>
+							<a href="<?php echo $button_link; ?>" class="btn <?php echo $button['button_type']; ?>"><?php echo $button['button_text']; ?></a>
 					<?php endif;
 				endforeach; ?>
 				<?php endif; ?>
