@@ -41,20 +41,23 @@ $users_events = new WP_Query($args);
         $datetime1 = new DateTime(date('Y-m-d'));
         $datetime2 = new DateTime($event_start_date);
         $interval = $datetime1->diff($datetime2);
-        $daysToEvent = $interval->format('%a');
+        $daysToEvent = $interval->format("%r%a");
 
         ?>
-  		  <tr>
-  	      	<th scope="row"><?php echo $event_title; ?></th>
+
+        <?php if($daysToEvent > 0) : // NOTE: Passed events should be deleted at some point, will asked for me to add this comment ?>
+    		  <tr>
+    	      	<th scope="row"><?php echo $event_title; ?></th>
               <td><?php echo get_field('first_name', $event->ID) . ' ' . get_field('last_name', $event->ID) ?></td>
-  	      	<td><?php echo is_attendee_complete($event) ? 'Yes' : 'No' ?></td>
-            <td>
-              <?php if($daysToEvent > 7) :?>
-                <a  class="woocommerce-button button view" href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
-              <?php else : ?>
-                Can't edit details as the event is <?php echo $daysToEvent;?> days away
-              <?php endif;?>
-  	    </tr>
+    	      	<td><?php echo is_attendee_complete($event) ? 'Yes' : 'No' ?></td>
+              <td>
+                <?php if($daysToEvent > 7) :?>
+                  <a class="woocommerce-button button view" href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a></td>
+                <?php else : ?>
+                  Can't edit details as the event is <?php echo $daysToEvent;?> days away
+                <?php endif;?>
+    	    </tr>
+        <?php endif;?>
   	<?php endforeach; ?>
     	</tbody>
   </table>
