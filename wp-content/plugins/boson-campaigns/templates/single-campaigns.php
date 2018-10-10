@@ -31,7 +31,7 @@
 							if($campaign_query->have_posts()):
 								echo '<ul>';
 								while($campaign_query->have_posts()): $campaign_query->the_post();
-									echo '<li>' . get_the_title() . '</li>';
+									echo '<li><a title="'.get_the_title().'" href="'.get_permalink().'">' . get_the_title() . '</a></li>';
 								endwhile;
 								echo '</ul>';
 							endif; ?>
