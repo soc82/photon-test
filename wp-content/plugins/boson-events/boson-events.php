@@ -412,8 +412,14 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 });
 
 function process_attendee_email($message, $attendee) {
+  $user = get_field('lead_user_id', $post_id);
+  if ($user) {
+	  $user = new WP_User($user);
+	  $message = str_replace('{booker_name}', $user->display_name, $message);
+  }
   $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
   $message = str_replace('{attendee_full_name}', get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
+  $message = str_replace('{event_name}', get_field('event', $attendee->ID), $message);
   return $message;
 }
 
