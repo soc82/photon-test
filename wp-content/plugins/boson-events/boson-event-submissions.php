@@ -23,8 +23,8 @@ function custom_post_type_event() {
 	);
 
 	$args_events_entries = array(
-		'label'               => __( 'Draft Event Entries', 'vanilla' ),
-		'description'         => __( 'Draft entry data from event form', 'vanilla' ),
+		'label'               => __( 'Saved Event Bookings', 'vanilla' ),
+		'description'         => __( 'Saved entry data from event form', 'vanilla' ),
 		'labels'              => $labels_event_entries,
 		'supports'            => array( 'title' ),
 		'public'              => false,
