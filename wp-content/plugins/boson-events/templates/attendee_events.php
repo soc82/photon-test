@@ -21,6 +21,7 @@ $users_events = new WP_Query($args);
 
 ?>
 <?php if ($users_events->posts) : ?>
+  <p>Please note that after the event, this information will be deleted.</p>
   <table id="events-table" class="woocommerce-orders-table woocommerce-MyAccount-orders shop_table shop_table_responsive my_account_orders account-orders-table">
     	<thead>
       	<tr>
