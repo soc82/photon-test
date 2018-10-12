@@ -589,8 +589,8 @@ add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
 function prospect_woo_account_menu_events($menu) {
 	$menu = array_slice($menu, 0, 5, true) +
 		[
-			'savedbookings'     => __('Saved Bookings', 'prospect'),
-			'attendingevents' => __('Event Attendees', 'prospect')
+			'savedbookings'     => __('Saved Event Bookings', 'prospect'),
+			'attendingevents' => __('Your Event Attendees', 'prospect')
 		] +
 		array_slice($menu, 5, count($menu)-5, true);
 	return $menu;
@@ -684,9 +684,13 @@ add_action('wp', function () {
 	if (! wp_next_scheduled ( 'send_event_reminder_emails' )) {
 		wp_schedule_event(time(), 'daily', 'send_event_reminder_emails');
 	}
+	if (! wp_next_scheduled ( 'clear_passed_event_data' )) {
+		wp_schedule_event(time(), 'daily', 'clear_passed_event_data');
+	}
 });
 
 add_action('send_event_reminder_emails', 'do_send_event_reminder_emails');
+add_action('clear_passed_event_data', 'do_clear_passed_event_data');
 
 function do_send_event_reminder_emails() {
 
@@ -774,5 +778,51 @@ add_filter('acf/get_field_group', function ($group) {
 	return $group;
 });
 
+function do_clear_passed_event_data() {
+	$args = array(
+		'post_type'      => 'product',
+		'posts_per_page' => -1,
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'product_type',
+				'field'    => 'slug',
+				'terms'    => 'prospect_event',
+			),
+		),
+	);
+	$posts = get_posts($args);
+	foreach ($posts as $post) {
+		if (empty(get_post_meta($post->ID, 'event_end_date', true))) continue;
+		$end = new DateTime(get_post_meta($post->ID, 'event_end_date', true) . ' ' . get_post_meta($post->ID, 'event_end_time', true));
+		if (!$end) continue;
 
-//add_action('wp', 'do_send_event_reminder_emails');
+		$now = new DateTime;
+		if ($end > $now) continue;
+
+		$entryargs = [
+			'post_type'      => 'event-entry',
+			'posts_per_page' => -1,
+			'meta_query'     => array(
+				array(
+					'key'   => 'event_id',
+					'value' => $post->ID
+				),
+			)
+		];
+		$entries = get_posts($entryargs);
+		foreach ($entries as $entry) {
+			wp_delete_post($entry->ID);
+		}
+
+		$entryargs['post_type'] = 'draft-event-entry';
+		$entries = get_posts($entryargs);
+		foreach ($entries as $entry) {
+			wp_delete_post($entry->ID);
+		}
+
+		wp_trash_post($post->ID);
+	}
+
+}
+
+//add_action('wp', 'do_clear_passed_event_data');
