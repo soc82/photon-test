@@ -6,6 +6,7 @@
 ?>
 
 <?php get_header(); ?>
+<?php prospect_events_calendar_query(); ?>
 <div class="inner-page-wrapper">
 
   <?php  
@@ -56,6 +57,13 @@
 
   <div class="container">
     <div class="row">
+        <div class="col-12 text-center event-calendar-filters">
+            <?php foreach (get_terms( [ 'taxonomy' => 'event-type' ] ) as $term): ?>
+                <label style="background-color: <?php the_field('colour', 'event-type_' . $term->term_id) ?> " class="event-calendar-type"><input type="checkbox" name="calendar_event_types[]" value="<?php echo $term->slug ?>" checked /><?php echo $term->name ?></label>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="row">
       <div class="col-12">
         <div id="event-calendar"></div>
       </div>
@@ -92,7 +100,13 @@ jQuery(document).ready(function() {
       handleWindowResize: true,
       editable: false,
       eventRender: function(event, $el) {
-        console.log($el);
+          var vals = [];
+          jQuery('[name^=calendar_event_types]:checked').each(function () {
+              vals.push(jQuery(this).val());
+          });
+          if ( vals.indexOf(event.type) == -1 ) {
+              return false;
+          }
         $el.find('.fc-title').append("<span class='event-location'>" + event.location + "</span>");
         $el.addClass(event.type);
         $el.css('background-color', event.color);
@@ -117,6 +131,15 @@ jQuery(document).ready(function() {
       },
     })
     fullCalendar_resize();
+
+    var $filters =
+    jQuery('[name^=calendar_event_types]').on('change', function () {
+console.log('d');
+        jQuery('#event-calendar').fullCalendar('rerenderEvents');
+    });
+
+
+
 });
 
 
