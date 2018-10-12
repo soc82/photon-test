@@ -49,7 +49,7 @@ function custom_post_type_testimonials() {
     'menu_icon'           => 'dashicons-format-status',
     'can_export'          => true,
     'has_archive'         => true, // index Page
-    'exclude_from_search' => false,
+    'exclude_from_search' => true,
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
