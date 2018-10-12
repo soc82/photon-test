@@ -415,14 +415,14 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 });
 
 function process_attendee_email($message, $attendee) {
-  $user = get_field('lead_user_id', $post_id);
+  $user = get_field('lead_user_id', $attendee->ID);
   if ($user) {
 	  $user = new WP_User($user);
 	  $message = str_replace('{booker_name}', $user->display_name, $message);
   }
   $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
   $message = str_replace('{attendee_full_name}', get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
-  $message = str_replace('{event_name}', get_field('event', $attendee->ID), $message);
+  $message = str_replace('{event_name}', get_the_title(get_field('event_id', $attendee->ID)), $message);
   return $message;
 }
 
@@ -772,7 +772,6 @@ add_filter('acf/get_field_group', function ($group) {
 					),
 				);
 			}
-//			var_dump($group); exit;
 
 		}
 		unset($filtering[$group['key']]);
@@ -843,3 +842,4 @@ function days_to_event($event_id) {
 }
 
 //add_action('wp', 'do_clear_passed_event_data');
+//add_action('wp', function () { send_attendee_complete_mail(1249); } );
