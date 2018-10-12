@@ -260,6 +260,9 @@ function prospect_get_attendee_form() {
 	$event_entry = check_event_entry();
 	if (!$event_entry) return;
 
+	$event_id = get_post_meta($event_entry, 'event_id', true);
+	if (!event_are_attendees_editable($event_id)) return;
+
 	$fieldset = get_event_attendee_fieldset_id(get_post_meta($event_entry, 'event_id', true));
 
     acf_form(array(
@@ -823,6 +826,20 @@ function do_clear_passed_event_data() {
 		wp_trash_post($post->ID);
 	}
 
+}
+
+function event_are_attendees_editable($event_id)
+{
+	return days_to_event($event_id) > 7;
+}
+
+function days_to_event($event_id) {
+	$event_start_date = get_field('event_start_date', $event_id);
+	if (empty($event_start_date)) return 0; // what else can we do? no bookings is safer - client will notice and raise it
+	$datetime1 = new DateTime(date('Y-m-d'));
+	$datetime2 = new DateTime($event_start_date);
+	$interval = $datetime1->diff($datetime2);
+	return $interval->format("%r%a");
 }
 
 //add_action('wp', 'do_clear_passed_event_data');
