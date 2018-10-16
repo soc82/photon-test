@@ -12,6 +12,12 @@ $care-color: $green;
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
 			background-color: $care-color;
+			a, li, h3 {
+				color: #FFFFFF;
+			}
+			li:before {
+				color: rgba(255,255,255,0.4);
+			}
 			&:after {
 				background-color: $care-color;
 			}
@@ -66,6 +72,12 @@ $education-color: $burgundy;
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
 			background-color: $education-color;
+			a, li, h3 {
+				color: #FFFFFF;
+			}
+			li:before {
+				color: rgba(255,255,255,0.4);
+			}
 			&:after {
 				background-color: $education-color;
 			}
@@ -93,6 +105,12 @@ $volunteering-color: $teal;
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
 			background-color: $volunteering-color;
+			a, li, h3 {
+				color: #FFFFFF;
+			}
+			li:before {
+				color: rgba(255,255,255,0.4);
+			}
 			&:after {
 				background-color: $volunteering-color;
 			}
@@ -120,6 +138,12 @@ $retail-color: $dark-green !important;
 	.content-with-sub-menu {
 		.sidebar-sub-menu {
 			background-color: $retail-color;
+			a, li, h3 {
+				color: #FFFFFF;
+			}
+			li:before {
+				color: rgba(255,255,255,0.4);
+			}
 			&:after {
 				background-color: $retail-color;
 			}

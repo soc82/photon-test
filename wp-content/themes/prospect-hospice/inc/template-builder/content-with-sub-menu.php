@@ -13,15 +13,8 @@ $color_class = prospect_dark_colour_class();
 				<?php if($heading) echo '<h3>' . $heading . '</h3>' ?>
 				<?php if($content) echo '<p>' . $content . '</p>'; ?>
 			</div>
-			<?php if ($background_colour && $background_colour != 'section') : ?>
-			<style>
-				.sidebar-sub-menu:after {
-					background-color: <?php echo $background_colour; ?> !important;
-				}
-			</style>
-			<?php endif; ?>
 			<div class="col-12 col-md-4">
-				<div class="sidebar-sub-menu" <?php if($background_colour && $background_colour != 'section') : echo 'style="background-color:' . $background_colour . '"'; else: echo 'style="background-color:#f3cc30"'; endif; ?>>
+				<div class="sidebar-sub-menu" >
 					<div class="sidebar-inner">
 						<?php
 							$parent = get_post(get_the_ID())->post_parent;
