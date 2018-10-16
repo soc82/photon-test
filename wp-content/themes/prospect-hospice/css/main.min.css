@@ -9472,7 +9472,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
 
 .sidebar-sub-menu {
   position: relative;
-  margin: 0 0 40px 0; }
+  margin: 0 0 40px 0;
+  background: #f3cc30; }
   .sidebar-sub-menu:after {
     content: '';
     background: #f3cc30;
@@ -9494,7 +9495,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     .sidebar-sub-menu .sidebar-inner h3 {
       margin: 0 0 15px 0;
       font-size: 1.4em;
-      line-height: 1.35em; }
+      line-height: 1.35em;
+      color: #222222; }
       @media (min-width: 992px) {
         .sidebar-sub-menu .sidebar-inner h3 {
           font-size: 1.45em; } }

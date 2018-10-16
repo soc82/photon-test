@@ -1,6 +1,7 @@
 .sidebar-sub-menu {
 	position: relative;
 	margin: 0 0 40px 0;
+	background: $yellow;
 	&:after {
 		content: '';
 		background: $yellow;
@@ -24,6 +25,7 @@
 			margin: 0 0 15px 0;
 			font-size: 1.4em;
 			line-height: 1.35em;
+			color: $black;
 			@include media-breakpoint-up(lg) {
 				font-size: 1.45em;
 			}

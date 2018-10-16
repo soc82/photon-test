@@ -2,8 +2,6 @@
 $heading = get_sub_field('heading', $post->ID);
 $content = get_sub_field('content', $post->ID);
 $background_colour = get_sub_field('background_colour', $post->ID);
-$color_class = prospect_dark_colour_class();
-
 ?>
 
 <div class="content-with-sub-menu block" >
@@ -29,10 +27,10 @@ $color_class = prospect_dark_colour_class();
 								$page_query = new WP_Query($args);
 								if($page_query->have_posts()) :
 									$parentURL = get_the_permalink($parent);
-									echo '<a href="' . $parentURL . '"><h3 class="' . $color_class . '">' . get_the_title($parent) . '</h3></a>';
+									echo '<a href="' . $parentURL . '"><h3>' . get_the_title($parent) . '</h3></a>';
 									echo '<ul>';
 										while($page_query->have_posts()): $page_query->the_post();
-											echo '<li class="' . $color_class . '" ><a href="' . get_permalink(get_the_ID()) . '" class="' . $color_class . '">' . get_the_title() . '</a></li>';
+											echo '<li ><a href="' . get_permalink(get_the_ID()) . '">' . get_the_title() . '</a></li>';
 										endwhile;
 										wp_reset_postdata();
 									echo '</ul>';
