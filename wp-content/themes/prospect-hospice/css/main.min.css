@@ -8650,28 +8650,27 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           .block.hero-banner .hero-banner-content p {
             max-width: 50%; } }
   .block.full-width-content h2 {
-    font-size: 1em;
-    line-height: 1.2em; }
+    font-size: 1.4em;
+    line-height: 1.3em; }
     @media (min-width: 768px) {
       .block.full-width-content h2 {
         font-size: 1.8em;
         line-height: 1.2em; } }
     .block.full-width-content h2.below_hero {
       display: inline-block;
-      position: absolute;
+      position: relative;
       top: -75px;
-      padding: 10px 30px;
+      margin-bottom: -85px;
+      padding: 15px 30px;
       color: #fff;
       transform: rotate(-3deg); }
       @media (min-width: 992px) {
         .block.full-width-content h2.below_hero {
           padding: 20px 45px; } }
-  .block.full-width-content .content-below-hero {
-    margin-top: 50px; }
-    @media (min-width: 992px) {
-      .block.full-width-content .content-below-hero {
-        font-size: 1.05em;
-        line-height: 1.25em; } }
+  @media (min-width: 992px) {
+    .block.full-width-content .content-below-hero {
+      font-size: 1.05em;
+      line-height: 1.25em; } }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;

@@ -66,17 +66,18 @@
 
 	&.full-width-content {
 		h2 {
-			font-size: 1em;
-			line-height: 1.2em;
+			font-size: 1.4em;
+			line-height: 1.3em;
 			@include media-breakpoint-up(md) {
 				font-size: 1.8em;
 				line-height: 1.2em;
 			}
 			&.below_hero {
 				display: inline-block;
-				position: absolute;
+				position: relative;
 				top: -75px;
-				padding: 10px 30px;
+				margin-bottom: -85px;
+				padding: 15px 30px;
 				color: #fff;
 				transform: rotate(-3deg);
 				@include media-breakpoint-up(lg) {
@@ -85,7 +86,6 @@
 			}
 		}
 		.content-below-hero {
-			margin-top: 50px;
 			@include media-breakpoint-up(lg) {
 				font-size: 1.05em;
 				line-height: 1.25em;
