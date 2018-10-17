@@ -8663,13 +8663,14 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       margin-bottom: -85px;
       padding: 15px 30px;
       color: #fff;
-      transform: rotate(-3deg); }
+      transform: rotate(-3deg);
+      max-width: 650px; }
       @media (min-width: 992px) {
         .block.full-width-content h2.below_hero {
           padding: 20px 45px; } }
   @media (min-width: 992px) {
     .block.full-width-content .content-below-hero {
-      font-size: 1.05em;
+      font-size: 1.15em;
       line-height: 1.25em; } }
   .block.cta-block {
     margin-top: 0;

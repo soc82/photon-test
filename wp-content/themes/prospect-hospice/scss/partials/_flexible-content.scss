@@ -80,6 +80,7 @@
 				padding: 15px 30px;
 				color: #fff;
 				transform: rotate(-3deg);
+				max-width: 650px;
 				@include media-breakpoint-up(lg) {
 					padding: 20px 45px;
 				}
@@ -87,7 +88,7 @@
 		}
 		.content-below-hero {
 			@include media-breakpoint-up(lg) {
-				font-size: 1.05em;
+				font-size: 1.2em;
 				line-height: 1.25em;
 			}
 		}
