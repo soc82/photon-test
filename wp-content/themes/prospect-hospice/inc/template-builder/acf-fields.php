@@ -127,6 +127,7 @@ acf_add_local_field_group(array(
 					'min' => '',
 					'max' => '',
 				),
+				/*
 				'd7v45f03cfca5' => array(
 					'key' => 'd7v45f03cfca5',
 					'name' => 'intro_block',
@@ -210,6 +211,7 @@ acf_add_local_field_group(array(
 					'min' => '',
 					'max' => '',
 				),
+				*/
 				'layout_5b59b74baee50' => array(
 					'key' => 'layout_5b59b74baee50',
 					'name' => 'latest_news',
