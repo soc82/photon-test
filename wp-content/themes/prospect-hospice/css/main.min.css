@@ -8665,7 +8665,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       transform: rotate(-3deg); }
       @media (min-width: 992px) {
         .block.full-width-content h2.below_hero {
-          padding: 20px 40px; } }
+          padding: 20px 45px; } }
   .block.full-width-content .content-below-hero {
     margin-top: 50px; }
     @media (min-width: 992px) {
