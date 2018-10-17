@@ -156,3 +156,38 @@ $retail-color: $dark-green !important;
 		background-color: $retail-color;
 	}
 }
+
+
+
+$working-color: $navy !important;
+
+.working-for-us {
+	.flexible-content-wrapper {
+		.two-column-block {
+			background-color: $working-color;
+			.btn {
+
+			}
+		}
+	}
+	.content-with-sub-menu {
+		.sidebar-sub-menu {
+			background-color: $working-color;
+			a, li, h3 {
+				color: #FFFFFF;
+			}
+			li:before {
+				color: rgba(255,255,255,0.4);
+			}
+			&:after {
+				background-color: $working-color;
+			}
+		}
+	}
+	.team-block {
+		background-color: $working-color;
+	}
+	.testimonial-block {
+		background-color: $working-color;
+	}
+}

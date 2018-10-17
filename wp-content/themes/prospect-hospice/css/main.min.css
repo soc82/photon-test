@@ -7597,6 +7597,21 @@ div.form_saved_message div.form_saved_message_emailform form input[type=submit] 
 .retail .testimonial-block {
   background-color: #6A963B !important; }
 
+.working-for-us .flexible-content-wrapper .two-column-block {
+  background-color: #002b5c !important; }
+.working-for-us .content-with-sub-menu .sidebar-sub-menu {
+  background-color: #002b5c !important; }
+  .working-for-us .content-with-sub-menu .sidebar-sub-menu a, .working-for-us .content-with-sub-menu .sidebar-sub-menu li, .working-for-us .content-with-sub-menu .sidebar-sub-menu h3 {
+    color: #FFFFFF; }
+  .working-for-us .content-with-sub-menu .sidebar-sub-menu li:before {
+    color: rgba(255, 255, 255, 0.4); }
+  .working-for-us .content-with-sub-menu .sidebar-sub-menu:after {
+    background-color: #002b5c !important; }
+.working-for-us .team-block {
+  background-color: #002b5c !important; }
+.working-for-us .testimonial-block {
+  background-color: #002b5c !important; }
+
 .intro h2 {
   margin: 0 auto; }
 .intro p {
@@ -8634,17 +8649,29 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
         @media (min-width: 992px) {
           .block.hero-banner .hero-banner-content p {
             max-width: 50%; } }
-  .block.full-width-content h2.below_hero {
-    display: inline-block;
-    position: absolute;
-    top: -75px;
-    padding: 20px 65px;
-    color: #fff;
-    transform: rotate(-3deg); }
+  .block.full-width-content h2 {
+    font-size: 1em;
+    line-height: 1.2em; }
+    @media (min-width: 768px) {
+      .block.full-width-content h2 {
+        font-size: 1.8em;
+        line-height: 1.2em; } }
+    .block.full-width-content h2.below_hero {
+      display: inline-block;
+      position: absolute;
+      top: -75px;
+      padding: 10px 30px;
+      color: #fff;
+      transform: rotate(-3deg); }
+      @media (min-width: 992px) {
+        .block.full-width-content h2.below_hero {
+          padding: 20px 40px; } }
   .block.full-width-content .content-below-hero {
-    margin-top: 50px;
-    font-size: 1.2em;
-    line-height: 1.35em; }
+    margin-top: 50px; }
+    @media (min-width: 992px) {
+      .block.full-width-content .content-below-hero {
+        font-size: 1.05em;
+        line-height: 1.25em; } }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;

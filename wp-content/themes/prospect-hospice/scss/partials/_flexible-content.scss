@@ -66,19 +66,30 @@
 
 	&.full-width-content {
 		h2 {
+			font-size: 1em;
+			line-height: 1.2em;
+			@include media-breakpoint-up(md) {
+				font-size: 1.8em;
+				line-height: 1.2em;
+			}
 			&.below_hero {
 				display: inline-block;
 				position: absolute;
 				top: -75px;
-				padding: 20px 65px;
+				padding: 10px 30px;
 				color: #fff;
 				transform: rotate(-3deg);
+				@include media-breakpoint-up(lg) {
+					padding: 20px 45px;
+				}
 			}
 		}
 		.content-below-hero {
 			margin-top: 50px;
-			font-size: 1.2em;
-			line-height: 1.35em;
+			@include media-breakpoint-up(lg) {
+				font-size: 1.05em;
+				line-height: 1.25em;
+			}
 		}
 	}
 
@@ -620,7 +631,7 @@
 						line-height: 1.5em;
 					}
 				}
-				
+
 				span {
 					display: inline-block;
 					margin-bottom: 15px;
@@ -649,7 +660,7 @@
 						}
 					}
 				}
-				
+
 			}
 		}
 		.slick-dots {
