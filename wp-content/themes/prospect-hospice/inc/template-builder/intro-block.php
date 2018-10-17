@@ -1,3 +1,4 @@
+<?php /*
 <div class="hero-banner block" <?php if(isset($image)) echo 'style="background-image:url(' . $image . ');"'; ?>>
     <div class="overlay"></div>
     <?php if(isset($heading) || isset($second_heading)): ?>
@@ -23,3 +24,4 @@
     <?php endif; ?>
 
 </div>
+*/ ?>
