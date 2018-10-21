@@ -7,7 +7,7 @@ if(is_page_template('templates/flexible-template.php') || $template == 'page.php
 
 // Gallery on Products / events
 elseif(is_page_template('templates/flexible-template.php') || $template == 'page.php' && get_post_type() == 'product') :
-	$gallery = get_field('gallery_item');
+	$gallery = get_sub_field('gallery_item');
 
 // Others
 else:

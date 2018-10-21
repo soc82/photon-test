@@ -30,7 +30,7 @@ if (is_page_template('templates/flexible-template.php') || $template == 'page.ph
 		</div>
 	<?php endif;
 else:
-	$faqs = get_field("faqs");
+	$faqs = get_sub_field("faqs");
 	if($faqs && array_filter($faqs)): ?>
 		<div class="faqs-block block">
 			<div class="container">

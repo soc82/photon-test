@@ -9,10 +9,7 @@ get_header(); ?>
 $event = prospect_get_event_info();
 $banner = get_field('event_banner');
 $event_page = get_field('events_calendar_page', 'options');
-$gallery = get_field('gallery_item');
-$volunteering = get_field('volunteering?');
-$volunteering_block = get_field('volunteering_block');
-$sponsorship = get_field('sponsorship_block');
+
 if($banner): ?>
       </div>
     </div>
@@ -78,50 +75,53 @@ if($banner): ?>
   </div>
 </div>
 
+<?php if (have_rows('content_blocks')) while ( have_rows('content_blocks') ) : the_row(); ?>
 
-<?php if($gallery):
-    echo get_template_part('inc/template-builder/image-gallery');
-endif; ?>
+	<?php if( get_row_layout() == 'gallery' ): ?>
 
-<?php if($volunteering): ?>
-  <?php if($volunteering_block && array_filter($volunteering_block)): ?>
-      <div class="event-volunteering-block block" <?php if($event['color']) echo 'style="background:' . $event['color'] . '"'; ?>>
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <?php if($volunteering_block['heading']) echo '<h3 class="section-heading">' . $volunteering_block['heading'] . '</h3>'; ?>
-              <?php if($volunteering_block['form_id']) gravity_form(1, false, false, false, '', true); ?>
+        <?php echo get_template_part('inc/template-builder/image-gallery'); ?>
+
+    <?php elseif( get_row_layout() == 'sponsorship' ): ?>
+
+        <div class="event-sponsorship-block block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-10 offset-md-1 text-center">
+						<?php if(get_sub_field('heading')) echo '<h3 class="section-heading">' . get_sub_field('heading') . '</h3>'; ?>
+						<?php if(get_sub_field('content')) echo '<p class="content-block">' . get_sub_field('content')  . '</p>'; ?>
+						<?php if (get_sub_field('buttons')) :
+							echo '<div class="btn-set">';
+							foreach (get_sub_field('buttons') as $button):
+								if($button['button_text'] && $button['button_link'])
+									echo '<a href="' . $button['button_link'] . '" class="btn btn-arrow-right">' . $button['button_text'] . '</a>';
+							endforeach;
+							echo '</div>';
+						endif; ?>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-  <?php endif; ?>
-<?php endif; ?>
 
-<?php if($sponsorship): ?>
-  <?php if($sponsorship && array_filter($sponsorship)): ?>
-    <div class="event-sponsorship-block block">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-10 offset-md-1 text-center">
-              <?php if($sponsorship['heading']) echo '<h3 class="section-heading">' . $sponsorship['heading'] . '</h3>'; ?>
-              <?php if($sponsorship['content']) echo '<p class="content-block">' . $sponsorship['content']  . '</p>'; ?>
-              <?php if ($sponsorship['buttons']) :
-                echo '<div class="btn-set">';
-    					     foreach ($sponsorship['buttons'] as $button):
-                      if($button['button_text'] && $button['button_link'])
-  						            echo '<a href="' . $button['button_link'] . '" class="btn btn-arrow-right">' . $button['button_text'] . '</a>';
-    				      endforeach;
-                  echo '</div>';
-    				    endif; ?>
-          </div>
+    <?php elseif( get_row_layout() == 'faqs' ): ?>
+
+		<?php echo get_template_part('inc/template-builder/faqs'); ?>
+
+    <?php elseif( get_row_layout() == 'volunteering' ): ?>
+
+        <div class="event-volunteering-block block" <?php if($event['color']) echo 'style="background:' . $event['color'] . '"'; ?>>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <?php if(get_sub_field('heading')) echo '<h3 class="section-heading">' . get_sub_field('heading') . '</h3>'; ?>
+                        <?php if(get_sub_field('form_id')) gravity_form(get_sub_field('form_id'), false, false, false, '', true); ?>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  <?php endif;
-endif; ?>
 
-<?php echo get_template_part('inc/template-builder/faqs'); ?>
+	<?php endif; ?>
+
+<?php endwhile; ?>
 
 
 <?php get_footer(); ?>

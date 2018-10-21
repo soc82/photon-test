@@ -479,8 +479,8 @@ function have_rows( $selector, $post_id = false ) {
 			$post_id = $active_loop['post_id'];
 			
 		}
-		
-		
+
+
 		// bail early if value is either empty or a non array
 		if( !acf_is_array($value) ) return false;
 		
