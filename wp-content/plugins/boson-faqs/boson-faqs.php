@@ -53,6 +53,16 @@ function custom_post_type_faqs() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
+    'capabilities' => array(
+      'edit_post'          => 'edit_faq', 
+      'read_post'          => 'read_faq', 
+      'delete_post'        => 'delete_faq', 
+      'edit_posts'         => 'edit_faqs', 
+      'edit_others_posts'  => 'edit_others_faqs', 
+      'publish_posts'      => 'publish_faqs',       
+      'read_private_posts' => 'read_private_faqs', 
+      'create_posts'       => 'edit_faqs', 
+    ),
 
   );
 

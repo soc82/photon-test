@@ -53,7 +53,16 @@ function custom_post_type_downloads() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-
+    'capabilities' => array(
+      'edit_post'          => 'edit_download', 
+      'read_post'          => 'read_download', 
+      'delete_post'        => 'delete_download', 
+      'edit_posts'         => 'edit_downloads', 
+      'edit_others_posts'  => 'edit_others_downloads', 
+      'publish_posts'      => 'publish_downloads',       
+      'read_private_posts' => 'read_private_downloads', 
+      'create_posts'       => 'edit_downloads', 
+    ),
   );
 
   // Registering your Custom Post Type

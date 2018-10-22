@@ -52,7 +52,16 @@ function custom_post_type_campaigns() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-
+    'capabilities' => array(
+      'edit_post'          => 'edit_campaign', 
+      'read_post'          => 'read_campaign', 
+      'delete_post'        => 'delete_campaign', 
+      'edit_posts'         => 'edit_campaigns', 
+      'edit_others_posts'  => 'edit_others_campaigns', 
+      'publish_posts'      => 'publish_campaigns',       
+      'read_private_posts' => 'read_private_campaigns', 
+      'create_posts'       => 'edit_campaigns', 
+    ),
   );
 
   // Registering your Custom Post Type
