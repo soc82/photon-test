@@ -90,11 +90,16 @@ function wpse28782_remove_menu_items() {
         if (!current_user_can( 'volunteering' )) {
             remove_menu_page('edit.php?post_type=page'); // Pages
         }
+        remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
         remove_menu_page('plugins.php'); // Plugins
         remove_menu_page('themes.php'); // Appearance
         remove_menu_page('users.php'); // Users
         remove_menu_page('tools.php'); // Tools
         remove_menu_page('options-general.php'); // Settings
+    endif;
+    if ( current_user_can('fundraising')):
+        remove_menu_page('edit.php'); // Newss
+        remove_menu_page('tools.php'); // Tools
     endif;
 }
 add_action( 'admin_menu', 'wpse28782_remove_menu_items' );
