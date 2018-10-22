@@ -96,13 +96,3 @@ function wpse28782_remove_menu_items() {
     endif;
 }
 add_action( 'admin_menu', 'wpse28782_remove_menu_items' );
-
-/*
-** Removing unused default user roles
-*/
-function prospect_remove_role() {
-    remove_role( 'editor' );
-    remove_role( 'author' );
-    remove_role( 'contributor' );
-}
-add_action( 'init', 'prospect_remove_role' );
