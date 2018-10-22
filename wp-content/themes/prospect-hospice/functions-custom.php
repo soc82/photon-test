@@ -96,3 +96,20 @@ function wpse28782_remove_menu_items() {
     endif;
 }
 add_action( 'admin_menu', 'wpse28782_remove_menu_items' );
+
+
+add_action( 'editable_roles' , 'prospect_hide_unused_roles' );
+function prospect_hide_unused_roles( $roles ){
+    if (current_user_can('administrator')) {
+        // return $roles;
+    }
+    unset($roles['author']);
+    unset($roles['content_keeper']);
+    unset($roles['contributor']);
+    unset($roles['wpseo_editor']);
+    unset($roles['wpseo_manager']);
+    unset($roles['editor']);
+    unset($roles['shop_manager']);
+
+    return $roles;
+}
