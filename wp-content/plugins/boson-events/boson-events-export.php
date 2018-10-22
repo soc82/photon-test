@@ -89,7 +89,7 @@ class CSVExport
 					<th scope="row"><label>Event</label></th>
 					<td>
 						<select name="event_id">
-							<option>All Events</option>
+							<option value="">All Events</option>
 							<?php foreach ($posts as $post): ?>
 								<option value="<?php echo $post->ID ?>"><?php echo $post->post_title ?></option>
 							<?php endforeach; ?>
