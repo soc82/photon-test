@@ -97,7 +97,14 @@ function wpse28782_remove_menu_items() {
         remove_menu_page('tools.php'); // Tools
         remove_menu_page('options-general.php'); // Settings
     endif;
-    if ( current_user_can('fundraising')):
+    if ( current_user_can('fundraising') || current_user_can('retail')):
+        remove_menu_page('edit.php'); // Newss
+        remove_menu_page('tools.php'); // Tools
+    endif;
+
+    if ( current_user_can('retail')):
+        remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
+        remove_menu_page('edit.php?post_type=event-entry'); // Event entries
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('tools.php'); // Tools
     endif;
