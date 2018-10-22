@@ -40,6 +40,16 @@ function custom_post_type_event() {
 		'exclude_from_search' => false,
 		'publicly_queryable'  => false,
 		'capability_type'     => 'post',
+		'capabilities' => array(
+	      'edit_post'          => 'edit_draft_event_entry', 
+	      'read_post'          => 'read_draft_event_entry', 
+	      'delete_post'        => 'delete_draft_event_entry', 
+	      'edit_posts'         => 'edit_draft_event_entrys', 
+	      'edit_others_posts'  => 'edit_others_draft_event_entrys', 
+	      'publish_posts'      => 'publish_draft_event_entrys',       
+	      'read_private_posts' => 'read_private_draft_event_entrys', 
+	      'create_posts'       => 'edit_draft_event_entrys', 
+	    ),
 	);
 
 	// Registering your Custom Post Type
@@ -83,6 +93,17 @@ function custom_post_type_event() {
     'exclude_from_search' => false,
     'publicly_queryable'  => false,
     'capability_type'     => 'post',
+    'capabilities' => array(
+      'edit_post'          => 'edit_event_entry', 
+      'read_post'          => 'read_event_entry', 
+      'delete_post'        => 'delete_event_entry', 
+      'edit_posts'         => 'edit_event_entrys', 
+      'edit_others_posts'  => 'edit_others_event_entrys', 
+      'publish_posts'      => 'publish_event_entrys',       
+      'read_private_posts' => 'read_private_event_entrys', 
+      'create_posts'       => 'edit_event_entrys', 
+    ),
+
   );
 
   // Registering your Custom Post Type
