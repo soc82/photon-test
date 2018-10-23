@@ -53,16 +53,6 @@ function custom_post_type_testimonials() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-    'capabilities' => array(
-      'edit_post'          => 'edit_testimonial', 
-      'read_post'          => 'read_testimonial', 
-      'delete_post'        => 'delete_testimonial', 
-      'edit_posts'         => 'edit_testimonials', 
-      'edit_others_posts'  => 'edit_others_testimonials', 
-      'publish_posts'      => 'publish_testimonials',       
-      'read_private_posts' => 'read_private_testimonials', 
-      'create_posts'       => 'edit_testimonials', 
-    ),
   );
 
   // Registering your Custom Post Type

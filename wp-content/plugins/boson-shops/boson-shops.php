@@ -52,16 +52,6 @@ function custom_post_type_shops() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-    'capabilities' => array(
-        'edit_post' => 'edit_shop',
-        'edit_posts' => 'edit_shops',
-        'edit_others_posts' => 'edit_other_shops',
-        'publish_posts' => 'publish_shops',
-        'read_post' => 'read_shop',
-        'read_private_posts' => 'read_private_shops',
-        'delete_post' => 'delete_shop'
-    ),
-
   );
 
   // Registering your Custom Post Type

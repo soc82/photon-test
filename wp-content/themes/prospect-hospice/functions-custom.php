@@ -81,15 +81,13 @@ function prospect_add_close_item($items, $args){
 function wpse28782_remove_menu_items() {
 
     // If HR User ...
-    if( current_user_can( 'hr' ) || current_user_can( 'volunteering' )):
+    if( current_user_can( 'hr' )):
         remove_menu_page('edit.php?post_type=event-entry'); // Event Entry
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('upload.php'); // Media
         remove_menu_page('link-manager.php'); // Links
         remove_menu_page('edit-comments.php'); // Comments
-        if (!current_user_can( 'volunteering' )) {
-            remove_menu_page('edit.php?post_type=page'); // Pages
-        }
+        remove_menu_page('edit.php?post_type=page'); // Pages
         remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
         remove_menu_page('plugins.php'); // Plugins
         remove_menu_page('themes.php'); // Appearance
@@ -97,7 +95,34 @@ function wpse28782_remove_menu_items() {
         remove_menu_page('tools.php'); // Tools
         remove_menu_page('options-general.php'); // Settings
     endif;
-    if ( current_user_can('fundraising') || current_user_can('retail')):
+
+    if(current_user_can( 'volunteering' )):
+        remove_menu_page('edit.php?post_type=event-entry'); // Event Entry
+        remove_menu_page('edit.php'); // Newss
+        remove_menu_page('upload.php'); // Media
+        remove_menu_page('link-manager.php'); // Links
+        remove_menu_page('edit-comments.php'); // Comments
+        remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
+        remove_menu_page('plugins.php'); // Plugins
+        remove_menu_page('themes.php'); // Appearance
+        remove_menu_page('users.php'); // Users
+        remove_menu_page('tools.php'); // Tools
+        remove_menu_page('options-general.php'); // Settings
+        remove_menu_page('edit.php?post_type=downloads'); // Downloads
+        remove_menu_page('edit.php?post_type=courses'); // Courses
+        remove_menu_page('edit.php?post_type=faqs'); // FAQs
+        remove_menu_page('edit.php?post_type=shop'); // Shops
+        remove_menu_page('edit.php?post_type=team'); // Team
+        remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
+    endif;
+
+    if (current_user_can('fundraising')):
+        remove_menu_page('edit.php?post_type=downloads'); // Downloads
+        remove_menu_page('edit.php?post_type=courses'); // Courses
+        remove_menu_page('edit.php?post_type=faqs'); // FAQs
+        remove_menu_page('edit.php?post_type=shop'); // Shops
+        remove_menu_page('edit.php?post_type=team'); // Team
+        remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('tools.php'); // Tools
     endif;
@@ -108,6 +133,15 @@ function wpse28782_remove_menu_items() {
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('tools.php'); // Tools
     endif;
+
+    if ( current_user_can('comms_team')):
+
+    endif;
+
+    if ( current_user_can('super_user')):
+        remove_menu_page('tools.php'); // Tools
+    endif;
+
 }
 add_action( 'admin_menu', 'wpse28782_remove_menu_items' );
 

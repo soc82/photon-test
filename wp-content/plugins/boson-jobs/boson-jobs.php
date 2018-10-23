@@ -52,17 +52,7 @@ function custom_post_type_jobs() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type' => 'jobs',
-    'capabilities' => array(
-        'edit_post' => 'edit_job',
-        'edit_posts' => 'edit_jobs',
-        'edit_others_posts' => 'edit_other_jobs',
-        'publish_posts' => 'publish_jobs',
-        'read_post' => 'read_job',
-        'read_private_posts' => 'read_private_jobs',
-        'delete_post' => 'delete_job'
-    ),
     'map_meta_cap' => true
-
   );
 
   // Registering your Custom Post Type

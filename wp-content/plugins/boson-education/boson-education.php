@@ -52,17 +52,6 @@ function custom_post_type_courses() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-    'capabilities' => array(
-      'edit_post'          => 'edit_course', 
-      'read_post'          => 'read_course', 
-      'delete_post'        => 'delete_course', 
-      'edit_posts'         => 'edit_courses', 
-      'edit_others_posts'  => 'edit_others_courses', 
-      'publish_posts'      => 'publish_courses',       
-      'read_private_posts' => 'read_private_courses', 
-      'create_posts'       => 'edit_courses', 
-    ),
-
   );
 
   // Registering your Custom Post Type
