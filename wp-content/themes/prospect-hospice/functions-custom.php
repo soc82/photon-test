@@ -135,7 +135,7 @@ function wpse28782_remove_menu_items() {
     endif;
 
     if ( current_user_can('comms_team')):
-
+        remove_menu_page('tools.php'); // Tools
     endif;
 
     if ( current_user_can('super_user')):
