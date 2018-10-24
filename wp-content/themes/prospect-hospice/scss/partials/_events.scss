@@ -345,6 +345,9 @@
           display: inline-block;
           vertical-align: middle;
         }
+        .gfield_html, .ginput_container_checkbox {
+            color:white;
+          }
         .gfield {
           margin:0 0 10px 0 !important;
           @include media-breakpoint-up(md) {
@@ -352,7 +355,6 @@
             vertical-align: top;
             width: 33%;
           }
-
           .gfield_label {
             display: none;
           }
