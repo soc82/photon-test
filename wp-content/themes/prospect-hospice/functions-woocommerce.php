@@ -725,7 +725,7 @@ function prospect_get_userdata( $user_id, $key ) {
 */
 function prospect_get_account_fields() {
 
-  echo "How you would like to hear from us <a href='http://prospecthosp.staging.wpengine.com/how-you-hear-from-us/'>Click Here</a>";
+  echo "How you would like to hear from us <a href='/how-you-hear-from-us/'>Click Here</a>";
 
     return apply_filters( 'prospect_account_fields', array(
         /*'fundraising_opt_in' => array(
