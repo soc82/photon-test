@@ -34,7 +34,7 @@ function custom_post_type_event() {
 		'hierarchical'        => true,
 		'show_in_admin_bar'   => false,
 		'menu_position'       => 4,
-		'menu_icon'           => 'dashicons-yes',
+		'menu_icon'           => 'dashicons-calendar-alt',
 		'can_export'          => true,
 		'has_archive'         => false, // index Page
 		'exclude_from_search' => false,
