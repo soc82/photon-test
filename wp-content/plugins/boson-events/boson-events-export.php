@@ -34,7 +34,7 @@ class CSVExport
 	 */
 	public function admin_menu()
 	{
-		add_submenu_page('edit.php?post_type=event-entry', 'Export', 'Export', 'manage_options', 'download_report', array($this, 'download_report'));
+		add_submenu_page('edit.php?post_type=event-entry', 'Export', 'Export', 'view_woocommerce_reports', 'download_report', array($this, 'download_report'));
 	}
 
 	/**
