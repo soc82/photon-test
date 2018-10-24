@@ -870,3 +870,28 @@ add_action( 'woocommerce_created_customer', 'prospect_save_account_fields' ); //
 add_action( 'personal_options_update', 'prospect_save_account_fields' ); // edit own account admin
 add_action( 'edit_user_profile_update', 'prospect_save_account_fields' ); // edit other account admin
 add_action( 'woocommerce_save_account_details', 'prospect_save_account_fields' ); // edit WC account
+
+
+/*
+** Send email notifications to different people based on product
+*/
+add_filter( 'woocommerce_email_recipient_new_order', 'woocommerce_event_recipient_email', 10, 2 );
+function woocommerce_event_recipient_email( $recipient, $order ) {
+    if ( ! is_a( $order, 'WC_Order' ) ) return $recipient;
+
+    $events = false;
+    foreach( $order->get_items() as $item_id => $line_item ){
+
+        $product = wc_get_product( $line_item->get_product_id() );
+        if( $product->is_type( 'prospect_event' ) ) {
+          $events = true;
+          continue;
+        }
+    }
+
+    if($events){
+      $recipient .= ', fundraising&events@prospect-hospice.net';
+    }
+
+    return $recipient;
+}
