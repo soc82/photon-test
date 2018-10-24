@@ -119,6 +119,14 @@ if($banner): ?>
             </div>
         </div>
 
+  <?php elseif( get_row_layout() == 'documents' ): ?>
+
+    <?php echo get_template_part('inc/template-builder/documents'); ?>
+
+  <?php elseif( get_row_layout() == 'two_column_video_left' ): ?>
+
+      <?php echo get_template_part('inc/template-builder/two-column-image-right'); ?>
+
 	<?php endif; ?>
 
 <?php endwhile; ?>
