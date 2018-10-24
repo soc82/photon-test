@@ -78,6 +78,13 @@ function prospect_add_close_item($items, $args){
     return $items;
 }
 
+
+/*
+** Stop GF anchor scrolling on form submission
+*/
+add_filter( 'gform_confirmation_anchor', '__return_false' );
+
+
 function wpse28782_remove_menu_items() {
 
     // Hide draft event entries for all
