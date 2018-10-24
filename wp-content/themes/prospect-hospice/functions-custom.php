@@ -80,6 +80,9 @@ function prospect_add_close_item($items, $args){
 
 function wpse28782_remove_menu_items() {
 
+    // Hide draft event entries for all
+    remove_menu_page('edit.php?post_type=draft-event-entry'); // Event Entry
+
     // If HR User ...
     if( current_user_can( 'hr' )):
         remove_menu_page('edit.php?post_type=event-entry'); // Event Entry
