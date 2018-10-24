@@ -11,8 +11,8 @@ $donate_button_link = get_sub_field('donate_button_link');
 		<div class="row">
 			<div class="col-12 header">
 				<h2><?php echo $heading; ?></h2>
-				<?php if ($show_donate_button) : ?>
-					<a class="btn btn-donate" href="#">Donate</a>
+				<?php if ($show_donate_button && $donate_button_link) : ?>
+					<a class="btn btn-donate" href="<?php echo $donate_button_link;?>">Donate</a>
 				<?php endif; ?>
 			</div>
 		</div>
