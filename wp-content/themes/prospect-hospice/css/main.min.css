@@ -9905,6 +9905,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           width: 82%;
           display: inline-block;
           vertical-align: middle; } }
+      .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield_html {
+        color: white; }
       .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield {
         margin: 0 0 10px 0 !important; }
         @media (min-width: 768px) {
