@@ -890,9 +890,7 @@ function woocommerce_event_recipient_email( $recipient, $order ) {
     }
 
     if($events){
-      $recipient = 'fundraising&events@prospect-hospice.net';
-    } else {
-      $recipient = 'alisonMoore@prospect-hospice.net';
+      $recipient .= ', fundraising&events@prospect-hospice.net';
     }
 
     return $recipient;
