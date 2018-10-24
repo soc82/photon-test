@@ -872,6 +872,7 @@ add_action( 'edit_user_profile_update', 'prospect_save_account_fields' ); // edi
 add_action( 'woocommerce_save_account_details', 'prospect_save_account_fields' ); // edit WC account
 
 
+
 /*
 ** Send email notifications to different people based on product
 */
@@ -894,4 +895,54 @@ function woocommerce_event_recipient_email( $recipient, $order ) {
     }
 
     return $recipient;
+}
+
+// Hook in
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+
+// Our hooked in function - $fields is passed via the filter!
+function custom_override_checkout_fields( $fields ) {
+
+  $chosen_methods = WC()->session->get('chosen_shipping_methods');
+  $chosen_shipping = $chosen_methods[0];
+
+  // If store collection
+  if($chosen_shipping && $chosen_shipping == 'local_pickup:2') :
+
+    $store_args = array(
+      'post_type' => 'shop',
+      'posts_per_page'  => -1,
+      'order' => 'ASC',
+      'orderby' => 'name',
+    );
+    $stores_array = array();
+    $stores = new WP_Query($store_args);
+    if($stores) : 
+      foreach ($stores->posts as $store) :
+        $stores_array[$store->post_name] = $store->post_title;
+      endforeach;
+    endif;
+
+    $fields['shipping']['shipping_store'] = array(
+      'type'          => 'select',
+      'label'     => __('Which store will you want to collect it from?', 'woocommerce'),
+      'options'       => $stores_array,
+      'required'  => true,
+      'class'     => array('form-row-wide'),
+      'clear'     => true
+    );
+  endif;
+
+  return $fields;
+
+}
+
+/**
+ * Display field value on the order edit page
+ */
+ 
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+
+function my_custom_checkout_field_display_admin_order_meta($order){
+    echo '<p><strong>'.__('Phone From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_phone', true ) . '</p>';
 }
