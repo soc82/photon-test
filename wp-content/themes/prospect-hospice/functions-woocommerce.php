@@ -919,7 +919,7 @@ function custom_override_checkout_fields( $fields ) {
     $stores = new WP_Query($store_args);
     if($stores) : 
       foreach ($stores->posts as $store) :
-        $stores_array[$store->post_name] = $store->post_title;
+        $stores_array[$store->post_title] = $store->post_title;
       endforeach;
     endif;
 
@@ -944,5 +944,21 @@ function custom_override_checkout_fields( $fields ) {
 add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 function my_custom_checkout_field_display_admin_order_meta($order){
-    echo '<p><strong>'.__('Phone From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_phone', true ) . '</p>';
+    echo '<p><strong>'.__('Store Pickup From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_store', true ) . '</p>';
+}
+
+/**
+ * Update the order meta with field value
+**/
+add_action('woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta');
+function my_custom_checkout_field_update_order_meta( $order_id ) {
+    if ($_POST['shipping_store']) update_post_meta( $order_id, 'Store Pickup', esc_attr($_POST['shipping_store']));
+}
+/**
+ * Add the field to order emails
+ **/
+add_filter('woocommerce_email_order_meta_keys', 'my_custom_checkout_field_order_meta_keys');
+function my_custom_checkout_field_order_meta_keys( $keys ) {
+    $keys[] = 'Store Pickup';
+    return $keys;
 }
