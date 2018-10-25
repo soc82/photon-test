@@ -276,6 +276,9 @@ body.single-product {
 /*
 ** Cart
 */
+.return-to-shop{
+	display:none !important;
+}
 body.woocommerce-cart {
 	.empty-cart-block .button.active {
 		display:none !important;

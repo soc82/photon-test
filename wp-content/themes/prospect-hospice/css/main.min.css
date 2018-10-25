@@ -10719,6 +10719,9 @@ body.single-product .product .up-sells, body.single-product .product .related {
 /*
 ** Cart
 */
+.return-to-shop {
+  display: none !important; }
+
 body.woocommerce-cart .empty-cart-block .button.active {
   display: none !important; }
 body.woocommerce-cart .entry-title {
