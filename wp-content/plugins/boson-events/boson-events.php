@@ -345,6 +345,20 @@ function get_event_attendee_fieldset_id($id)
 }
 
 
+function get_attendee_post_meta($post_id) {
+
+  $meta_array = array();
+  $post_meta = get_post_meta($post_id);
+  foreach($post_meta as $key => $value) {
+    //if (substr($key, 0, 1) != '_') {
+      $meta_array[$key] = $value[0];
+    //}
+  }
+  return $meta_array;
+
+}
+
+
 /**
  * @return bool
  */
@@ -414,6 +428,47 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 	}
 });
 
+
+
+// Function for sending attendee email details to Prospect
+function process_admin_attendee_email($attendee) {
+
+  $attendee_details = get_attendee_post_meta($attendee->ID);
+  $event_id = get_post_meta($attendee->ID, 'event_id', true);
+
+  $message = '<p style="font-size:18px;">New completed attendee details for: ' . get_the_title($event_id) . '<br/></p>';
+
+  if($attendee_details){
+    $message .= '<table cellpadding="7" style="border-collapse: collapse;" >';
+    foreach($attendee_details as $key => $value) {
+      if (substr($key, 0, 1) != '_') {
+        if($key == 'event_id') {
+          $key = 'Event';
+          $value = get_the_title($value[0]);
+        } else {
+          $value = $value;
+        }
+        $message .= '<tr>';
+        $message .= '<td width="40%" style="border: 1px solid #999; padding: 0.5rem; text-align: left; text-transform: capitalize;">' . str_replace("_", " ", $key) . '</td>';
+        $message .= '<td width="60%" style="border: 1px solid #999; padding: 0.5rem; text-align: left;">' . $value . '</td>';
+        $message .= '</tr>';
+      }
+    }
+    $message .= '</table>';
+  }
+
+  $subject = 'New attendee completed';
+
+  $headers = array(
+    "MIME-Version: 1.0",
+    "Content-Type: text/html;charset=utf-8"
+  );
+
+  $admin_email = get_field('event_email_adress', 'options');
+  $mail = wp_mail( 'will.lawrence@bosonweb.net', $subject, $message, implode("\r\n", $headers) );
+
+}
+
 function process_attendee_email($message, $attendee) {
   $user = get_field('lead_user_id', $attendee->ID);
   if ($user) {
@@ -477,6 +532,9 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 		$post_data['post_parent'] = $lead;
 
+    // Send Prospect email with lead booker details
+    process_admin_attendee_email(get_post($lead));
+
 		foreach ($additional_attendees as $ak=>$attendee) {
 			$new_attendee = wp_insert_post($post_data);
 			foreach ($attendee as $k=>$v) {
@@ -521,7 +579,12 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				);
 
 				$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($new_attendee) ), implode("\r\n", $headers) );
-			}
+      // If attendee is completed, send admin
+			} else {
+
+        process_admin_attendee_email(get_post($new_attendee) );
+
+      }
 			$order_item->add_meta_data('_entry_' . $ak, $new_attendee);
 
 		}
@@ -529,6 +592,9 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		$order_item->save_meta_data();
 	}
 }, 10, 1 );
+
+
+
 
 // Save event entry post id to cart item when added to cart
 add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
@@ -650,17 +716,29 @@ function is_attendee_complete($entry) {
 add_action('acf/save_post', function ($post_id) {
 
 	if (get_post_type($post_id) != 'event-entry') return;
-	if (get_post_meta($post_id, '_attendee_complete_email_sent', true)) return;
-	if (!(is_attendee_complete($post_id))) return;
+  if (!(is_attendee_complete($post_id))) return;
+  //	if (get_post_meta($post_id, '_attendee_complete_email_sent', true)) return;
 
-	update_post_meta($post_id, '_attendee_complete', 1);
-	send_attendee_complete_mail($post_id);
+  $attendee_meta = get_attendee_post_meta($post_id);
+  unset($attendee_meta['_last_emailed_hash']);
+  $hash = md5(serialize($attendee_meta));
 
+  if ($hash != get_post_meta($post_id, '_last_emailed_hash', true)) {
+    process_admin_attendee_email(get_post($post_id));
+    update_post_meta($post_id, '_last_emailed_hash', $hash);
+  }
+
+  // If attendee completed hasn't already been sent, send to lead booker
+  if (!get_post_meta($post_id, '_attendee_complete_email_sent', true)) {
+  	send_attendee_complete_mail($post_id);
+  }
+
+  update_post_meta($post_id, '_attendee_complete', 1);
 	update_post_meta($post_id, '_attendee_complete_email_sent', 1);
+
 }, 20);
 
 function send_attendee_complete_mail($post_id) {
-	$to = get_field('config_primary_email', 'options');
 	$subject = get_field('attendee_complete_email_subject', 'options');
 	$link_text = get_field('attendee_complete_email_link_text', 'options');
 
@@ -672,8 +750,6 @@ function send_attendee_complete_mail($post_id) {
 		"Content-Type: text/html;charset=utf-8"
 	);
 
-	// @TODO - include prospect - uncomment below
-//	$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
 
 	$user = get_field('lead_user_id', $post_id);
 	if (!$user) $user = get_field('event_user_id', $post_id);
