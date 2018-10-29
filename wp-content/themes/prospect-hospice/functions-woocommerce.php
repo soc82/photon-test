@@ -917,7 +917,7 @@ function custom_override_checkout_fields( $fields ) {
     );
     $stores_array = array();
     $stores = new WP_Query($store_args);
-    if($stores) : 
+    if($stores) :
       foreach ($stores->posts as $store) :
         $stores_array[$store->post_title] = $store->post_title;
       endforeach;
@@ -940,7 +940,7 @@ function custom_override_checkout_fields( $fields ) {
 /**
  * Display field value on the order edit page
  */
- 
+
 add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 function my_custom_checkout_field_display_admin_order_meta($order){
@@ -961,4 +961,21 @@ add_filter('woocommerce_email_order_meta_keys', 'my_custom_checkout_field_order_
 function my_custom_checkout_field_order_meta_keys( $keys ) {
     $keys[] = 'Store Pickup';
     return $keys;
+}
+
+
+
+/*
+** Add custom content to order confirmation page
+*/
+add_filter('woocommerce_thankyou_order_received_text', 'woo_change_order_received_text', 10, 2 );
+function woo_change_order_received_text( $str, $order ) {
+    $items = $order->get_items();
+    foreach($items as $item){
+      $confirmation_text = get_field('confirmation_message', $item['product_id']);
+      if($confirmation_text){
+        $str = $str . '<p class="woocommerce-thankyou-order-received">' . $confirmation_text . '</p>';
+      }
+    }
+    return $str;
 }
