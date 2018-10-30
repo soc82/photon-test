@@ -20,7 +20,7 @@ if (!class_exists("Simple301redirects")) {
 		 * @return void
 		 */
 		function create_menu() {
-		  add_options_page('301 Redirects', '301 Redirects', 'manage_redirects', '301options', array($this,'options_page'));
+		  add_menu_page('301 Redirects', '301 Redirects', 'manage_redirects', '301options', array($this,'options_page'));
 		}
 
 		/**
