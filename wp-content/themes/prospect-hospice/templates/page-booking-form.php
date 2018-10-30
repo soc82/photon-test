@@ -18,7 +18,9 @@ get_header(); ?>
   </div>
 </div>
 <?php get_footer(); ?>
-
+<?php if(isset($_GET['event']) && $_GET['event']) {
+  $terms_conditions = get_field('terms_conditions', $_GET['event']);
+} ?>
 <script>
     function calculate() {
 
@@ -42,5 +44,13 @@ get_header(); ?>
     jQuery('.acf-repeater').on('change', calculate);
     jQuery(document).on('change', '[data-name=ticket_type] select', calculate);
     calculate();
+
+    <?php if($terms_conditions){ ?>
+      jQuery(document).ready(function($){
+        var newTerms = $('[data-name="terms_&_conditions"] span.message').text().replace("Terms and Conditions", '<a href="<?php echo $terms_conditions['url']; ?>" target="_blank">Terms and Conditions</a>');
+        jQuery('[data-name="terms_&_conditions"] span.message').html(newTerms);
+    });
+    <?php } ?>
+
 
 </script>
