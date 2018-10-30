@@ -133,6 +133,19 @@ function prospect_file_type_icon($post_id) {
 }
 
 
+/*
+** Remove single post screen
+*/
+add_action( 'template_redirect', 'prospect_download_single_redirect' );
+function prospect_download_single_redirect() {
+  $queried_post_type = get_query_var('post_type');
+  if ( is_single() && 'downloads' ==  $queried_post_type ) {
+    wp_redirect( home_url(), 301 );
+    exit;
+  }
+}
+
+
 /****************************
 LOAD ACF FIELDS
 *****************************/
