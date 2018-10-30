@@ -465,7 +465,7 @@ function process_admin_attendee_email($attendee) {
   );
 
   $admin_email = get_field('event_email_adress', 'options');
-  $mail = wp_mail( 'will.lawrence@bosonweb.net', $subject, $message, implode("\r\n", $headers) );
+  $mail = wp_mail( $admin_email, $subject, $message, implode("\r\n", $headers) );
 
 }
 
