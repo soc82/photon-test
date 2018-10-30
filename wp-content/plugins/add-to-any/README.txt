@@ -4,7 +4,7 @@ Tags: buttons, share, icons, social media, share buttons, sharing, share button,
 Requires at least: 3.7
 Tested up to: 5.0
 Requires PHP: 5.2
-Stable tag: 1.7.30
+Stable tag: 1.7.32
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -349,6 +349,17 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.32 =
+* Fix the option to hide a floating bar when scrolled to a footer region
+* Fix placeholders and add a description for translating a string in admin (thanks Andreas)
+* Remove unnecessary data attributes from AddToAny Follow widgets
+* Add some supplementary escaping
+* Simplify some variable assignments
+
+= 1.7.31 =
+* Update language template file and extension
+* Remove StumbleUpon
 
 = 1.7.30 =
 * Fix issue where the "Show count" checkbox was unavailable for some services in settings
@@ -986,6 +997,9 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 * For all prior versions, see 1.6.12 or earlier
 
 == Upgrade Notice ==
+
+= 1.7.31 =
+Using the Facebook Like button? You can enable its counter by clicking the down arrow below the Facebook Like button in AddToAny settings. For accurate counts when you enable [AddToAny Share Count Recovery](https://www.addtoany.com/blog/fix-share-counts-after-https-domain-url-change/), switch to AddToAny's standard Facebook share button instead of the Like button, because the Facebook Like button does not offer a way for previous counts to be recovered.
 
 = 1.7.28 =
 New floating options! Hide a bar until the page is scrolled past a header. Hide a bar where it would overlap a footer. Center your floating horizontal bar, too.

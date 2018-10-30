@@ -587,7 +587,7 @@ function A2A_SHARE_SAVE_options_page() {
 				<label>
 					<input id="A2A_SHARE_SAVE_display_in_posts" name="A2A_SHARE_SAVE_display_in_posts" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_posts'] ) || $options['display_in_posts'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
-					<?php printf(__('Display at the %s of posts', 'add-to-any'), _a2a_position_in_content( $options, true )); ?>
+					<?php printf( __( 'Display at the %s of posts', 'add-to-any' ), _a2a_position_in_content( $options, true ) ); ?>
 				</label>
 				<br/>
 				<label>
@@ -595,7 +595,7 @@ function A2A_SHARE_SAVE_options_page() {
 						if ( ! isset( $options['display_in_posts_on_front_page'] ) || $options['display_in_posts_on_front_page'] != '-1' ) echo ' checked="checked"';
 						if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
 						?> value="1"/>
-					<?php printf(__('Display at the %s of posts on the front page', 'add-to-any'), _a2a_position_in_content( $options )); ?>
+					<?php printf( __( 'Display at the %s of posts on the front page', 'add-to-any' ), _a2a_position_in_content( $options ) ); ?>
 				</label>
 				<br/>
 				<label>
@@ -603,7 +603,7 @@ function A2A_SHARE_SAVE_options_page() {
 						if ( ! isset( $options['display_in_posts_on_archive_pages'] ) || $options['display_in_posts_on_archive_pages'] != '-1' ) echo ' checked="checked"';
 						if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
 						?> value="1"/>
-					<?php printf(__('Display at the %s of posts on archive pages', 'add-to-any'), _a2a_position_in_content( $options )); ?>
+					<?php printf( __( 'Display at the %s of posts on archive pages', 'add-to-any' ), _a2a_position_in_content( $options ) ); ?>
 				</label>
 				<br/>
 				<label>
@@ -611,26 +611,26 @@ function A2A_SHARE_SAVE_options_page() {
 						if ( ! isset( $options['display_in_feed'] ) || $options['display_in_feed'] != '-1' ) echo ' checked="checked"'; 
 						if ( isset( $options['display_in_posts'] ) && $options['display_in_posts'] == '-1' ) echo ' disabled="disabled"';
 						?> value="1"/>
-					<?php printf(__('Display at the %s of posts in the feed', 'add-to-any'), _a2a_position_in_content( $options )); ?>
+					<?php printf( __( 'Display at the %s of posts in the feed', 'add-to-any' ), _a2a_position_in_content( $options ) ); ?>
 				</label>
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_excerpts" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_excerpts'] ) || $options['display_in_excerpts'] != '-1' ) echo ' checked="checked"';
 						?> value="1"/>
-					<?php printf(__('Display at the %s of excerpts', 'add-to-any'), _a2a_position_in_content( $options, false )); ?>
+					<?php printf( __( 'Display at the %s of excerpts' , 'add-to-any'), _a2a_position_in_content( $options, false ) ); ?>
 				</label>
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_pages" type="checkbox"<?php if ( ! isset( $options['display_in_pages'] ) || $options['display_in_pages'] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
-					<?php printf(__('Display at the %s of pages', 'add-to-any'), _a2a_position_in_content( $options, false )); ?>
+					<?php printf( __( 'Display at the %s of pages', 'add-to-any' ), _a2a_position_in_content( $options, false ) ); ?>
 				</label>
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_attachments" type="checkbox"<?php 
 						if ( ! isset( $options['display_in_attachments'] ) || $options['display_in_attachments'] != '-1' ) echo ' checked="checked"';
 						?> value="1"/>
-					<?php printf(__('Display at the %s of media pages', 'add-to-any'), _a2a_position_in_content( $options, false )); ?>
+					<?php printf( __( 'Display at the %s of media pages', 'add-to-any' ), _a2a_position_in_content( $options, false ) ); ?>
 				</label>
 				
 			<?php 
@@ -642,7 +642,12 @@ function A2A_SHARE_SAVE_options_page() {
 				<br/>
 				<label>
 					<input name="A2A_SHARE_SAVE_display_in_cpt_<?php echo $placement_name; ?>" type="checkbox"<?php if ( ! isset( $options['display_in_cpt_' . $placement_name] ) || $options['display_in_cpt_' . $placement_name] != '-1' ) echo ' checked="checked"'; ?> value="1"/>
-					<?php printf(__('Display at the %s of %s', 'add-to-any'), _a2a_position_in_content( $options, false ), esc_html( $placement_label ) ); ?>
+					<?php printf(
+						/* translators: 1: Position in content 2: Name of the custom post type */
+						__( 'Display at the %1$s of %2$s', 'add-to-any' ),
+						_a2a_position_in_content( $options, false ),
+						esc_html( $placement_label )
+					); ?>
 				</label>
 			<?php endforeach; ?>
 				
@@ -1002,8 +1007,9 @@ function A2A_SHARE_SAVE_admin_head() {
 			
 			if (jQuery('#addtoany_services_sortable li').not('.dummy').length == 0)
 				jQuery('#addtoany_services_sortable').find('.dummy').hide();
-				
-			if (this_service_is_special) {
+			
+			// If special service that has special options
+			if ( this_service_is_special && jQuery.inArray( this_service_name, ['twitter_tweet', 'google_plusone', 'google_plus_share'] ) === -1 ) {
 				// Common "Show count" for facebook, pinterest, pinterest_pin, etc.
 				if (service_options[this_service_name] && service_options[this_service_name].show_count) {
 					checked = ' checked="checked"';

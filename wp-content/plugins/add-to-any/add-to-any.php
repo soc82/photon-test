@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.30
+Version: 1.7.32
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -49,11 +49,16 @@ function A2A_SHARE_SAVE_init() {
 }
 add_filter( 'init', 'A2A_SHARE_SAVE_init' );
 
-function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmedia = false, $use_current_page = false ) {
+function A2A_SHARE_SAVE_link_vars( $args = array() ) {
 	global $post;
 	
-	// Set linkname
-	if ( ! $linkname ) {
+	$linkname = empty( $args['linkname'] ) ? '' : $args['linkname'];
+	$linkurl = empty( $args['linkurl'] ) ? '' : $args['linkurl'];
+	$linkmedia = empty( $args['linkmedia'] ) ? '' : $args['linkmedia'];
+	$use_current_page = isset( $args['use_current_page'] ) ? $args['use_current_page'] : false;
+
+	// Set linkname if needed, and not a Follow kit
+	if ( ! $linkname && empty( $args['is_follow'] ) ) {
 		if ( $use_current_page ) {
 			$linkname = is_home() || is_front_page() ? get_bloginfo( 'name' ) : rtrim( wp_title( '', false, 'right' ) );
 		} elseif ( isset( $post ) ) {
@@ -65,8 +70,8 @@ function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmed
 	
 	$linkname_enc = rawurlencode( $linkname );
 	
-	// Set linkurl
-	if ( ! $linkurl ) {
+	// Set linkurl if needed, and not a Follow kit
+	if ( ! $linkurl && empty( $args['is_follow'] ) ) {
 		if ( $use_current_page ) {
 			$linkurl = esc_url_raw( home_url( $_SERVER['REQUEST_URI'] ) );
 		} elseif ( isset( $post ) ) {
@@ -79,29 +84,24 @@ function A2A_SHARE_SAVE_link_vars( $linkname = false, $linkurl = false, $linkmed
 	$linkurl_enc = rawurlencode( $linkurl );
 	
 	// Set linkmedia (only applies to services that explicitly accept media; Pinterest does, most do not)
-	$linkmedia_enc = ! empty( $linkmedia ) ? rawurlencode( $linkmedia ) : false;
+	$linkmedia_enc = ! empty( $args['linkmedia'] ) ? rawurlencode( $args['linkmedia'] ) : '';
 	
-	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc', 'linkmedia', 'linkmedia_enc' );
+	return compact( 'linkname', 'linkname_enc', 'linkurl', 'linkurl_enc', 'linkmedia', 'linkmedia_enc', 'use_current_page' );
 }
 
 // Combine ADDTOANY_SHARE_SAVE_ICONS and ADDTOANY_SHARE_SAVE_BUTTON
 function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	$options = get_option( 'addtoany_options', array() );
 	
-	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
-	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
-	$linkmedia = isset( $args['linkmedia'] ) ? $args['linkmedia'] : false;
-	$use_current_page = isset( $args['use_current_page'] ) ? $args['use_current_page'] : false;
-	
-	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia, $use_current_page ) ); // linkname_enc, etc.
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $args ) ); // linkname_enc, etc.
 	
 	$defaults = array(
 		'output_later'     => false,
 		'icon_size'        => isset( $options['icon_size'] ) ? $options['icon_size'] : '32',
+		'is_follow'        => false,
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
-	extract( $args );
 	
 	// If universal button disabled, and not manually disabled through args
 	if ( isset( $options['button'] ) && $options['button'] == 'NONE' && ! isset( $args['no_universal_button'] ) ) {
@@ -114,10 +114,10 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	$custom_icons = ( isset( $options['custom_icons'] ) && $options['custom_icons'] == 'url' && isset( $options['custom_icons_url'] ) ) ? true : false;
 	
 	$kit_additional_classes = '';
-	$kit_data_media = empty( $linkmedia ) ? '' : ' data-a2a-media="' . $linkmedia . '"';
-	$kit_data_title = empty( $linkname ) || $use_current_page ? '' : ' data-a2a-title="' . $linkname . '"';
-	$kit_data_url = empty( $linkurl ) || $use_current_page ? '' : ' data-a2a-url="' . $linkurl . '"';
-	$kit_data_scroll_show = empty( $scroll_show ) ? '' : ' data-a2a-scroll-show="' . $scroll_show . '"';
+	$kit_data_media = empty( $args['linkmedia'] ) ? '' : ' data-a2a-media="' . esc_attr( $args['linkmedia'] ) . '"';
+	$kit_data_title = empty( $args['linkname'] ) || $args['use_current_page'] ? '' : ' data-a2a-title="' . esc_attr( $args['linkname'] ) . '"';
+	$kit_data_url = empty( $args['linkurl'] ) || $args['use_current_page'] ? '' : ' data-a2a-url="' . esc_attr( $args['linkurl'] ) . '"';
+	$kit_data_scroll_show = empty( $args['scroll_show'] ) ? '' : ' data-a2a-scroll-show="' . esc_attr( $args['scroll_show'] ) . '"';
 	$kit_style = '';
 	
 	// Add additional classNames to .a2a_kit
@@ -138,7 +138,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 		}
 	// a2a_kit_size_## icon size
 	} else {
-		$icon_size_classname = ' a2a_kit_size_' . $icon_size;
+		$icon_size_classname = ' a2a_kit_size_' . $args['icon_size'];
 	}
 	
 	// Add addtoany_list className unless disabled (for floating buttons)
@@ -147,12 +147,12 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	}
 	
 	// Add style attribute if set
-	if ( isset( $args['kit_style'] ) ) {
-		$kit_style = ' style="' . $args['kit_style'] . '"';
+	if ( ! empty( $args['kit_style'] ) ) {
+		$kit_style = ' style="' . esc_attr( $args['kit_style'] ) . '"';
 	}
 	
 	if ( ! isset( $args['html_container_open'] ) ) {
-		$args['html_container_open'] = '<div class="a2a_kit' . $icon_size_classname . $kit_additional_classes . '"'
+		$args['html_container_open'] = '<div class="a2a_kit' . esc_attr( $icon_size_classname . $kit_additional_classes ) . '"'
 			. $kit_data_url . $kit_data_title . $kit_data_media . $kit_data_scroll_show . $kit_style . '>';
 		$args['is_kit'] = true;
 	}
@@ -174,7 +174,7 @@ function ADDTOANY_SHARE_SAVE_KIT( $args = array() ) {
 	
 	$kit_html .= ADDTOANY_SHARE_SAVE_BUTTON( $args );
 	
-	if ( true == $output_later )
+	if ( true == $args['output_later'] )
 		return $kit_html;
 	else
 		echo $kit_html;
@@ -189,11 +189,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	
 	$options = get_option( 'addtoany_options', array() );
 	
-	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
-	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
-	$linkmedia = isset( $args['linkmedia'] ) ? $args['linkmedia'] : false;
-	
-	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia ) ); // linkname_enc, etc.
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $args ) ); // linkname_enc, etc.
 	
 	$defaults = array(
 		'linkname'             => '',
@@ -215,7 +211,6 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
-	extract( $args );
 	
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
 	$amp_css = '.a2a_dd img{background-color:#0166FF;}';
@@ -238,13 +233,13 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 	}
 	
 	// If Follow kit
-	if ( $is_follow ) {
+	if ( $args['is_follow'] ) {
 		// Make available services extensible via plugins, themes (functions.php), etc.
 		$services = apply_filters( 'A2A_FOLLOW_services', $A2A_FOLLOW_services );
 		$service_codes = ( is_array( $services ) ) ? array_keys( $services ) : array();
 		
 		// Services set by "buttons" arg
-		$active_services = ! empty ( $buttons ) ? array_keys( $buttons ) : array();
+		$active_services = empty( $args['buttons'] ) ? array() : array_keys( $args['buttons'] );
 	// Else Share kit
 	} else {
 		// Make available services extensible via plugins, themes (functions.php), etc.
@@ -252,17 +247,17 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 		$service_codes = ( is_array( $services ) ) ? array_keys( $services ) : array();
 		
 		// Include Facebook Like and Twitter Tweet etc. unless no_special_services arg is true
-		if ( ! isset( $no_special_services ) || false == $no_special_services ) {
+		if ( ! isset( $args['no_special_services'] ) || false == $args['no_special_services'] ) {
 			array_unshift( $service_codes, 'facebook_like', 'twitter_tweet', 'google_plusone', 'google_plus_share', 'pinterest_pin' );
 		}
 	
 		// Use default services if services have not been selected yet
-		$active_services = ( isset( $options['active_services'] ) ) ? $options['active_services'] : array( 'facebook', 'twitter', 'google_plus' );
+		$active_services = isset( $options['active_services'] ) ? $options['active_services'] : array( 'facebook', 'twitter', 'google_plus' );
 		// Services set by "buttons" arg? Then use "buttons" arg instead
-		$active_services = ! empty ( $buttons ) ? $buttons : $active_services;
+		$active_services = empty( $args['buttons'] ) ? $active_services : $args['buttons'];
 	}
 	
-	$ind_html = "" . $html_container_open;
+	$ind_html = "" . $args['html_container_open'];
 	
 	foreach( $active_services as $active_service ) {
 		
@@ -281,8 +276,8 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$name = $service['name'];
 			
 			// If Follow kit and HREF specified
-			if ( $is_follow && isset( $service['href'] ) ) {
-				$follow_id = $buttons[ $active_service ]['id'];
+			if ( $args['is_follow'] && isset( $service['href'] ) ) {
+				$follow_id = $args['buttons'][ $active_service ]['id'];
 				$is_url = in_array( parse_url( $follow_id, PHP_URL_SCHEME ), array( 'http', 'https' ) );
 				
 				// If it's a URL instead of a service ID
@@ -304,11 +299,11 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 				$custom_service = true;
 				$href = $service['href'];
 				if ( isset( $service['href_js_esc'] ) ) {
-					$href_linkurl = str_replace( "'", "\'", $linkurl );
-					$href_linkname = str_replace( "'", "\'", $linkname );
+					$href_linkurl = str_replace( "'", "\'", $args['linkurl'] );
+					$href_linkname = str_replace( "'", "\'", $args['linkname'] );
 				} else {
-					$href_linkurl = $linkurl_enc;
-					$href_linkname = $linkname_enc;
+					$href_linkurl = $args['linkurl_enc'];
+					$href_linkname = $args['linkname_enc'];
 				}
 				$href = str_replace( "A2A_LINKURL", $href_linkurl, $href );
 				$href = str_replace( "A2A_LINKNAME", $href_linkname, $href );
@@ -316,7 +311,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			}
 			
 			// AddToAny counter enabled?
-			$counter_enabled = ( ! $is_follow // Disable counters on Follow Kits
+			$counter_enabled = ( ! $args['is_follow'] // Disable counters on Follow Kits
 				&& in_array( $active_service, array( 'facebook', 'pinterest', 'reddit' ) )
 				&& isset( $options['special_' . $active_service . '_options'] )
 				&& isset( $options['special_' . $active_service . '_options']['show_count'] ) 
@@ -327,22 +322,22 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$icon_url = isset( $service['icon_url'] ) ? $service['icon_url'] : false;
 			$icon_url = $is_amp && ! $icon_url ? 'https://static.addtoany.com/buttons/' . $icon . '.svg' : $icon_url;
 			$width_attr = isset( $service['icon_width'] ) ? ' width="' . $service['icon_width'] . '"' : ' width="16"';
-			$width_attr = $is_amp && ! empty( $icon_size ) ? ' width="' . $icon_size . '"' : $width_attr;
+			$width_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' width="' . $args['icon_size'] . '"' : $width_attr;
 			$height_attr = isset( $service['icon_height'] ) ? ' height="' . $service['icon_height'] . '"' : ' height="16"';
-			$height_attr = $is_amp && ! empty( $icon_size ) ? ' height="' . $icon_size . '"' : $height_attr;
+			$height_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' height="' . $args['icon_size'] . '"' : $height_attr;
 			
 			$amp_css .= $is_amp && ! empty( $service['color'] ) ? '.a2a_button_' . $safe_name . ' img{background-color:#' . $service['color'] . ';}' : '';
 			
-			$url = isset( $href ) ? $href : 'https://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $linkurl_enc .'&amp;linkname=' . $linkname_enc;
+			$url = isset( $href ) ? $href : 'https://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $args['linkurl_enc'] .'&amp;linkname=' . $args['linkname_enc'];
 			$src = $icon_url ? $icon_url : $icons_dir . $icon . '.' . $icons_type;
 			$counter = $counter_enabled ? ' a2a_counter' : '';
 			$class_attr = $custom_service ? '' : ' class="a2a_button_' . $safe_name . $counter . '"';
-			$href_attr = $basic_html && ! isset( $href ) ? '' : ' href="' . $url . '"';
-			$title_attr = $basic_html ? '' : ' title="' . $name . '"';
+			$href_attr = $args['basic_html'] && ! isset( $href ) ? '' : ' href="' . esc_attr( $url ) . '"';
+			$title_attr = $args['basic_html'] ? '' : ' title="' . esc_attr( $name ) . '"';
 
 			if ( isset( $service['target'] ) ) {
-				$target_attr = empty( $service['target'] ) ? '' : ' target="' . $service['target'] . '"';
-			} elseif ( ! $basic_html ) {
+				$target_attr = empty( $service['target'] ) ? '' : ' target="' . esc_attr( $service['target'] ) . '"';
+			} elseif ( ! $args['basic_html'] ) {
 				$target_attr = ' target="_blank"';
 			} else {
 				$target_attr = '';
@@ -351,8 +346,8 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			// Use rel="noopener" for links that open in a new tab/window
 			$rel_noopener = $custom_service || ! $target_attr ? '' : ' noopener';
 			$rel_noopener_only = $rel_noopener || $target_attr ? ' rel="noopener"' : '';
-			$rel_attr = $is_follow ? $rel_noopener_only : ' rel="nofollow' . $rel_noopener . '"'; // ($is_follow indicates a Follow Kit. 'nofollow' is for search crawlers. Different things)
-			$rel_attr = $basic_html ? '' : $rel_attr;
+			$rel_attr = $args['is_follow'] ? $rel_noopener_only : ' rel="nofollow' . $rel_noopener . '"'; // ($args['is_follow'] indicates a Follow Kit. 'nofollow' is for search crawlers. Different things)
+			$rel_attr = $args['basic_html'] ? '' : $rel_attr;
 
 			// Set dimension attributes if using custom icons and dimension is specified
 			if ( isset( $custom_icons ) ) {
@@ -360,22 +355,22 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 				$height_attr = ! empty( $icons_height ) ? ' height="' . $icons_height . '"' : '';
 			}
 			
-			$link = $html_wrap_open . "<a$class_attr$href_attr$title_attr$rel_attr$target_attr>";
-			$link .= ( $large_icons && ! isset( $custom_icons ) && ! $custom_service ) ? "" : "<img src=\"$src\"" . $width_attr . $height_attr . " alt=\"$name\"/>";
-			$link .= "</a>" . $html_wrap_close;
+			$link = $args['html_wrap_open'] . "<a$class_attr$href_attr$title_attr$rel_attr$target_attr>";
+			$link .= ( $large_icons && ! isset( $custom_icons ) && ! $custom_service ) ? '' : '<img src="' . esc_attr( $src ) . '"' . $width_attr . $height_attr . ' alt="' . esc_attr( $name ) . '">';
+			$link .= "</a>" . $args['html_wrap_close'];
 		}
 		
 		$ind_html .= $link;
 	}
 	
-	$ind_html .= $html_container_close;
+	$ind_html .= $args['html_container_close'];
 	
 	if ( $is_amp ) {
 		$A2A_SHARE_SAVE_amp_icons_css = $amp_css;
 		add_action( 'amp_post_template_css', 'addtoany_amp_icons_css' );
 	}
 	
-	if ( true == $output_later )
+	if ( true == $args['output_later'] )
 		return $ind_html;
 	else
 		echo $ind_html;
@@ -386,12 +381,8 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	// $args array = output_later, html_container_open, html_container_close, html_wrap_open, html_wrap_close, linkname, linkurl, no_universal_button
 	
 	$options = get_option( 'addtoany_options', array() );
-	
-	$linkname = isset( $args['linkname'] ) ? $args['linkname'] : false;
-	$linkurl = isset( $args['linkurl'] ) ? $args['linkurl'] : false;
-	$linkmedia = isset( $args['linkmedia'] ) ? $args['linkmedia'] : false;
 
-	$args = array_merge($args, A2A_SHARE_SAVE_link_vars($linkname, $linkurl, $linkmedia)); // linkname_enc, etc.
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $args ) ); // linkname_enc, etc.
 	
 	$defaults = array(
 		'linkname' => '',
@@ -414,16 +405,15 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
-	extract( $args );
 	
 	$is_feed = is_feed();
 	$is_amp = function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() ? true : false;
 	$button_class = '';
-	$button_data_media = $is_kit || empty( $linkmedia ) ? '' : ' data-a2a-media="' . $linkmedia . '"';
-	$button_data_title = $is_kit || empty( $linkname ) ? '' : ' data-a2a-title="' . $linkname . '"';
-	$button_data_url = $is_kit || empty( $linkurl ) ? '' : ' data-a2a-url="' . $linkurl . '"';
+	$button_data_media = $args['is_kit'] || empty( $args['linkmedia'] ) ? '' : ' data-a2a-media="' . esc_attr( $args['linkmedia'] ) . '"';
+	$button_data_title = $args['is_kit'] || empty( $args['linkname'] ) ? '' : ' data-a2a-title="' . esc_attr( $args['linkname'] ) . '"';
+	$button_data_url = $args['is_kit'] || empty( $args['linkurl'] ) ? '' : ' data-a2a-url="' . esc_attr( $args['linkurl'] ) . '"';
 	$button_target = $is_amp ? ' target="_blank"' : '';
-	$button_href_querystring = ($is_feed || $is_amp) ? '#url=' . $linkurl_enc . '&amp;title=' . $linkname_enc : '';
+	$button_href_querystring = ($is_feed || $is_amp) ? '#url=' . $args['linkurl_enc'] . '&amp;title=' . $args['linkname_enc'] : '';
 	
 	// If universal button is enabled
 	if ( ! $args['no_universal_button'] ) {
@@ -443,8 +433,8 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			if ( $is_amp ) {
 				// AMP (Accelerated Mobile Page)
 				$button_src    = 'https://static.addtoany.com/buttons/a2a.svg';
-				$button_width  = ! empty( $icon_size ) ? ' width="' . $icon_size .'"'  : ' width="32"';
-				$button_height = ! empty( $icon_size ) ? ' height="' . $icon_size .'"'  : ' height="32"';
+				$button_width  = ! empty( $args['icon_size'] ) ? ' width="' . $args['icon_size'] .'"'  : ' width="32"';
+				$button_height = ! empty( $args['icon_size'] ) ? ' height="' . $args['icon_size'] .'"'  : ' height="32"';
 			}
 		}
 		
@@ -465,7 +455,8 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 			$button_class .= ' a2a_counter';
 		}
 		
-		$button_html = $html_container_open . $html_wrap_open . '<a class="a2a_dd' . $button_class . $button_additional_classes . ' addtoany_share_save addtoany_share" href="https://www.addtoany.com/share' .$button_href_querystring . '"'
+		$button_html = $args['html_container_open'] . $args['html_wrap_open'] . '<a class="a2a_dd' . $button_class . $button_additional_classes . ' addtoany_share_save addtoany_share" href="' 
+			. esc_url( 'https://www.addtoany.com/share' .$button_href_querystring ) . '"'
 			. $button_data_url . $button_data_title . $button_data_media . $button_target
 			. '>' . $button . '</a>';
 	
@@ -475,9 +466,9 @@ function ADDTOANY_SHARE_SAVE_BUTTON( $args = array() ) {
 	}
 	
 	// Closing tags come after <script> to validate in case the container is a list element
-	$button_html .= $html_wrap_close . $html_container_close;
+	$button_html .= $args['html_wrap_close'] . $args['html_container_close'];
 	
-	if ( isset( $output_later ) && $output_later == true )
+	if ( isset( $args['output_later'] ) && $args['output_later'] == true )
 		return $button_html;
 	else
 		echo $button_html;
@@ -492,12 +483,7 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 	
 	$options = get_option( 'addtoany_options', array() );
 	
-	$linkname = ( isset( $args['linkname'] ) ) ? $args['linkname'] : false;
-	$linkurl = ( isset( $args['linkurl'] ) ) ? $args['linkurl'] : false;
-	$linkmedia = ( isset( $args['linkmedia'] ) ) ? $args['linkmedia'] : false;
-	
-	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $linkname, $linkurl, $linkmedia ) ); // linkname_enc, etc.
-	extract( $args );
+	$args = array_merge( $args, A2A_SHARE_SAVE_link_vars( $args ) ); // linkname_enc, etc.
 	
 	$special_anchor_template = '<a class="a2a_button_%1$s addtoany_special_service"%2$s></a>';
 	$custom_attributes = '';
@@ -507,35 +493,35 @@ function ADDTOANY_SHARE_SAVE_SPECIAL( $special_service_code, $args = array() ) {
 			&& 'recommend' == $options['special_facebook_like_options']['verb'] ) ? ' data-action="recommend"' : '';
 		$custom_attributes .= ( isset( $options['special_facebook_like_options']['show_count'] )
 			&& $options['special_facebook_like_options']['show_count'] == '1' ) ? '' : ' data-layout="button"';
-		$custom_attributes .= ' data-href="' . $linkurl . '"';
+		$custom_attributes .= ' data-href="' . esc_attr( $args['linkurl'] ) . '"';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
 	
 	elseif ( $special_service_code == 'twitter_tweet' ) {
-		$custom_attributes .= ' data-url="' . $linkurl . '"';
-		$custom_attributes .= ' data-text="' . $linkname . '"';
+		$custom_attributes .= ' data-url="' . esc_attr( $args['linkurl'] ) . '"';
+		$custom_attributes .= ' data-text="' . esc_attr( $args['linkname'] ) . '"';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
 	
 	elseif ( $special_service_code == 'google_plusone' ) {
-		$custom_attributes .= ' data-href="' . $linkurl . '"';
+		$custom_attributes .= ' data-href="' . esc_attr( $args['linkurl'] ) . '"';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
 	
 	elseif ( $special_service_code == 'google_plus_share' ) {
-		$custom_attributes .= ' data-href="' . $linkurl . '"';
+		$custom_attributes .= ' data-href="' . esc_attr( $args['linkurl'] ) . '"';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
 	
 	elseif ( $special_service_code == 'pinterest_pin' ) {
 		$custom_attributes .= ( isset( $options['special_pinterest_pin_options']['show_count'] )
 			&& $options['special_pinterest_pin_options']['show_count'] == '1' ) ? '' : ' data-pin-config="none"';
-		$custom_attributes .= ' data-url="' . $linkurl . '"';
-		$custom_attributes .= ( ! empty( $linkmedia ) ) ? ' data-media="' . $linkmedia . '"' : '';
+		$custom_attributes .= ' data-url="' . esc_attr( $args['linkurl'] ) . '"';
+		$custom_attributes .= ( empty( $args['linkmedia'] ) ) ? '' : ' data-media="' . esc_attr( $args['linkmedia'] ) . '"';
 		$special_html = sprintf( $special_anchor_template, $special_service_code, $custom_attributes );
 	}
 	
-	if ( isset( $output_later ) && $output_later == true )
+	if ( isset( $args['output_later'] ) && $args['output_later'] == true )
 		return $special_html;
 	else
 		echo $special_html;
@@ -682,7 +668,7 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 				&& isset( $options['floating_vertical_scroll_top_pixels'] ) 
 				&& is_numeric( $options['floating_vertical_scroll_top_pixels'] ) ? $options['floating_vertical_scroll_top_pixels'] : '';
 			// Show on scroll value from the bottom
-			$vertical_scroll_show_bottom = isset( $options['floating_vertical_scroll_bottom'] ) && '1' == $options['floating_vertical_scroll_top']
+			$vertical_scroll_show_bottom = isset( $options['floating_vertical_scroll_bottom'] ) && '1' == $options['floating_vertical_scroll_bottom']
 				&& isset( $options['floating_vertical_scroll_bottom_pixels'] ) 
 				&& is_numeric( $options['floating_vertical_scroll_bottom_pixels'] ) ? $options['floating_vertical_scroll_bottom_pixels'] : '';
 			// Merge values as required
@@ -727,7 +713,7 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 				&& isset( $options['floating_horizontal_scroll_top_pixels'] ) 
 				&& is_numeric( $options['floating_horizontal_scroll_top_pixels'] ) ? $options['floating_horizontal_scroll_top_pixels'] : '';
 			// Show on scroll value from the bottom
-			$horizontal_scroll_show_bottom = isset( $options['floating_horizontal_scroll_bottom'] ) && '1' == $options['floating_horizontal_scroll_top']
+			$horizontal_scroll_show_bottom = isset( $options['floating_horizontal_scroll_bottom'] ) && '1' == $options['floating_horizontal_scroll_bottom']
 				&& isset( $options['floating_horizontal_scroll_bottom_pixels'] ) 
 				&& is_numeric( $options['floating_horizontal_scroll_bottom_pixels'] ) ? $options['floating_horizontal_scroll_bottom_pixels'] : '';
 			// Merge values as required
@@ -1011,9 +997,9 @@ function A2A_SHARE_SAVE_shortcode( $attributes ) {
 		'buttons' => '',
 	), $attributes, 'addtoany' );
 	
-	$linkname =  ! empty( $attributes['title'] ) ? $attributes['title'] : false;
-	$linkurl =  ! empty( $attributes['url'] ) ? $attributes['url'] : false;
-	$linkmedia = ! empty( $attributes['media'] ) ? $attributes['media'] : false;
+	$linkname =  $attributes['title'];
+	$linkurl = $attributes['url'];
+	$linkmedia = $attributes['media'];
 	$buttons = ! empty( $attributes['buttons'] ) ? explode( ',', $attributes['buttons'] ) : array();
 	
 	$output_later = true;
