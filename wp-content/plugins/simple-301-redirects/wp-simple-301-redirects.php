@@ -4,7 +4,7 @@ Plugin Name: 301 Redirects
 Plugin URI: http://www.bosonweb.net
 Description: Modified 301 redirect plugin to handle pretty links
 Version: 1
-Author: Boson Webs
+Author: Boson Web
 Author URI:  http://www.bosonweb.net
 */
 
@@ -300,3 +300,13 @@ if(!function_exists('str_ireplace')){
     return $subject;
   }
 }
+
+
+/*
+** Prevent plugin updates
+*/
+function filter_plugin_updates( $value ) {
+    unset( $value->response['simple-301-redirects/wp-simple-301-redirects.php'] );
+    return $value;
+}
+add_filter( 'site_transient_update_plugins', 'filter_plugin_updates' );
