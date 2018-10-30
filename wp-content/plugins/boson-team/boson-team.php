@@ -47,11 +47,11 @@ function custom_post_type_team() {
             'menu_icon'           => 'dashicons-groups',
             'can_export'          => true,
             'has_archive'         => true, // index Page
-            'exclude_from_search' => false,
+            'exclude_from_search' => true,
             'publicly_queryable'  => true,
             'capability_type'     => 'page',
     );
-    
+
     // Registering your Custom Post Type
     register_post_type( 'team', $args_team );
 }
@@ -133,7 +133,7 @@ function add_default_page_team()
           'post_status' => 'publish' ,
           'post_title' => 'Our Team',
           'post_type' => 'page',
-    );  
+    );
     //insert page and save the id
     $pageItem = wp_insert_post( $post, false );
 
