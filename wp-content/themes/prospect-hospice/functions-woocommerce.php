@@ -875,27 +875,39 @@ add_action( 'woocommerce_save_account_details', 'prospect_save_account_fields' )
 
 /*
 ** Send email notifications to different people based on product
+** This now overrides the standard woocommerce email recipient settings
 */
 add_filter( 'woocommerce_email_recipient_new_order', 'woocommerce_event_recipient_email', 10, 2 );
 function woocommerce_event_recipient_email( $recipient, $order ) {
     if ( ! is_a( $order, 'WC_Order' ) ) return $recipient;
 
     $events = false;
+    $standard = false;
+
     foreach( $order->get_items() as $item_id => $line_item ){
 
         $product = wc_get_product( $line_item->get_product_id() );
         if( $product->is_type( 'prospect_event' ) ) {
           $events = true;
-          continue;
+        } else {
+          $standard = true;
         }
+
     }
 
-    if($events){
+    if($events && $standard){
       $recipient .= ', fundraising&events@prospect-hospice.net';
+    } else if($events) {
+      $recipient = 'fundraising&events@prospect-hospice.net';
+    } else {
+      $recipient = 'alisonmoore@prospect-hospice.net';
     }
+
 
     return $recipient;
 }
+
+
 
 // Hook in
 add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
