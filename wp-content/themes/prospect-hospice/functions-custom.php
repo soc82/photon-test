@@ -80,6 +80,21 @@ function prospect_add_close_item($items, $args){
 
 
 /*
+** Change Wordpress sender email and name
+*/
+function prospect_sender_email( $original_email_address ) {
+    return 'webmaster@prospect-hospice.net ';
+}
+
+function prospect_sender_name( $original_email_from ) {
+    return 'Prospect Hospice';
+}
+
+add_filter( 'wp_mail_from', 'prospect_sender_email' );
+add_filter( 'wp_mail_from_name', 'prospect_sender_name' );
+
+
+/*
 ** Stop GF anchor scrolling on form submission
 */
 add_filter( 'gform_confirmation_anchor', '__return_false' );
