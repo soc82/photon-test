@@ -161,7 +161,7 @@ if (!class_exists("Simple301redirects")) {
 		 * @return void
 		 */
 		function save_redirects($data) {
-			if ( !current_user_can('manage_options') )  { wp_die( 'You do not have sufficient permissions to access this page.' ); }
+			if ( !current_user_can('manage_redirects') )  { wp_die( 'You do not have sufficient permissions to access this page.' ); }
 			check_admin_referer( 'save_redirects', '_s301r_nonce' );
 
 			$data = $_POST['301_redirects'];
