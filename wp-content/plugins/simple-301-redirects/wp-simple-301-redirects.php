@@ -62,7 +62,7 @@ if (!class_exists("Simple301redirects")) {
 
 			<h2>Simple 301 Redirects</h2>
 
-			<form method="post" id="simple_301_redirects_form" action="options-general.php?page=301options&savedata=true">
+			<form method="post" id="simple_301_redirects_form" action="admin.php?page=301options&savedata=true">
 
 			<?php wp_nonce_field( 'save_redirects', '_s301r_nonce' ); ?>
 
@@ -162,7 +162,7 @@ if (!class_exists("Simple301redirects")) {
 		 */
 		function save_redirects($data) {
 			if ( !current_user_can('manage_redirects') )  { wp_die( 'You do not have sufficient permissions to access this page.' ); }
-			//check_admin_referer( 'save_redirects', '_s301r_nonce' );
+			check_admin_referer( 'save_redirects', '_s301r_nonce' );
 
 			$data = $_POST['301_redirects'];
 
