@@ -935,7 +935,8 @@ function custom_override_checkout_fields( $fields ) {
       endforeach;
     endif;
 
-    $fields['shipping']['shipping_store'] = array(
+
+    $fields['order']['shipping_store'] = array(
       'type'          => 'select',
       'label'     => __('Which store will you want to collect it from?', 'woocommerce'),
       'options'       => $stores_array,
@@ -944,6 +945,7 @@ function custom_override_checkout_fields( $fields ) {
       'clear'     => true
     );
   endif;
+
 
   return $fields;
 
