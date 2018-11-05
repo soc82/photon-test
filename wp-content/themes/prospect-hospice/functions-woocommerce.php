@@ -685,7 +685,7 @@ function prospect_add_product_to_cart($post_id) {
 
 /*
 ** Redirect after add to cart - removes the add-to-cart query arg used in event template
-*/
+
 add_action('woocommerce_add_to_cart_redirect', 'prospect_to_cart_redirect');
 function prospect_to_cart_redirect($url = false) {
   if(!empty($url)) {
@@ -693,6 +693,7 @@ function prospect_to_cart_redirect($url = false) {
   }
   return wc_get_cart_url() . add_query_arg(array(), remove_query_arg(array('add-to-cart', 'quantity', 'event_entry_id')));
 }
+*/
 
 function my_get_the_product_thumbnail_url( $size = 'shop_catalog' ) {
   global $post;
