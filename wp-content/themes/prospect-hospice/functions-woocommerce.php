@@ -1010,6 +1010,7 @@ function woo_shipping_fields_show_hide() {
                 $('.woocommerce-shipping-fields').show();
               }
             });
+            $(document.body).trigger('update_checkout');
         });
     </script>
     <?php
