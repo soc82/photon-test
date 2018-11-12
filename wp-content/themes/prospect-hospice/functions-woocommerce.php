@@ -979,7 +979,6 @@ function my_custom_checkout_field_order_meta_keys( $keys ) {
 }
 
 
-
 /*
 ** Add custom content to order confirmation page
 */
@@ -993,4 +992,25 @@ function woo_change_order_received_text( $str, $order ) {
       }
     }
     return $str;
+}
+
+
+// JS to show/hide shipping fields if shipping method is changed
+add_action('wp_footer', 'woo_shipping_fields_show_hide', 50);
+function woo_shipping_fields_show_hide() {
+    if ( ! is_checkout() ) return;
+    ?>
+    <script type="text/javascript">
+        jQuery(function($){
+            $( document.body ).on( 'update_checkout', function(){
+              var selectedShipping = $('.shipping_method:checked').val();
+              if(selectedShipping == 'local_pickup:2'){
+                $('.woocommerce-shipping-fields').hide();
+              } else {
+                $('.woocommerce-shipping-fields').show();
+              }
+            });
+        });
+    </script>
+    <?php
 }
