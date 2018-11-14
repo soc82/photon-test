@@ -221,6 +221,7 @@ add_action('pre_get_posts', 'prospect_view_draft_jobs');
 /*
 ** Only display job vacancies user is a manager of
 */
+/*
 add_action( 'pre_get_posts', 'prospect_manager_filter' );
 function prospect_manager_filter($query) {
   if ( !is_admin()) return;
@@ -235,3 +236,5 @@ function prospect_manager_filter($query) {
     return;
   }
 }
+*/
+
