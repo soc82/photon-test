@@ -1003,11 +1003,15 @@ function woo_shipping_fields_show_hide() {
     <script type="text/javascript">
         jQuery(function($){
             $( document.body ).on( 'update_checkout', function(){
+              console.log('test');
               var selectedShipping = $('.shipping_method:checked').val();
               if(selectedShipping == 'local_pickup:2'){
                 $('.woocommerce-shipping-fields').hide();
+                $('#shipping_store_field').show();
               } else {
                 $('.woocommerce-shipping-fields').show();
+                $('#shipping_store_field').hide();
+
               }
             });
             $(document.body).trigger('update_checkout');
