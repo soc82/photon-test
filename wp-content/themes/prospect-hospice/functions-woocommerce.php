@@ -919,9 +919,6 @@ function custom_override_checkout_fields( $fields ) {
   $chosen_methods = WC()->session->get('chosen_shipping_methods');
   $chosen_shipping = $chosen_methods[0];
 
-  // If store collection
-  if($chosen_shipping && $chosen_shipping == 'local_pickup:2') :
-
     $store_args = array(
       'post_type' => 'shop',
       'posts_per_page'  => -1,
@@ -945,8 +942,6 @@ function custom_override_checkout_fields( $fields ) {
       'class'     => array('form-row-wide'),
       'clear'     => true
     );
-  endif;
-
 
   return $fields;
 
