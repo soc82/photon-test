@@ -192,3 +192,19 @@ function prospect_hide_unused_roles( $roles ){
 
     return $roles;
 }
+
+add_filter('gform_form_post_get_meta', function ($meta) {
+
+	$meta['gravity-forms-entry-expiration'] = array (
+		'deletionEnable' => '1',
+		'deletionDate' => array (
+			'number' => '28',
+			'unit' => 'days'
+		),
+		'deletionRunTime' => array (
+			'number' => '12',
+			'unit' => 'hours'
+		) );
+
+	return $meta;
+});
