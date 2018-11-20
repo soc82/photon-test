@@ -34,11 +34,24 @@ if ($terms) {
 	<!-- mobile-menu -->
 	<nav id="mobile-menu" class="mobile-menu">
 		<div class="menu-level">
+
+			<?php $menu = wp_nav_menu( array(
+                'menu_id' => 'mobile-menu',
+                'theme_location'=> 'top-navigation',
+                'fallback_cb'	=> false,
+                'container'		=> '',
+                'items_wrap' => '%3$s',
+                'echo' => false,
+                'walker'  => new wp_bootstrap_navwalker() //use our custom walker
+            ) ); ?>
+
+
 			<?php wp_nav_menu(array(
+                'menu_id' => 'mobile-menu',
 				'container_class' => false,
 				'theme_location'	=> 'main-navigation',
 				'menu_class' => false,
-				'menu_id'	=> false,
+				'items_wrap' => '<ul id="%1$s" class="%2$s">' . $menu . ' %3$s</ul>',
 				'walker'  => new wp_bootstrap_navwalker() //use our custom walker
 			));?>
 
@@ -53,6 +66,7 @@ if ($terms) {
 						<div class="row">
 							<div class="col-12">
 								<?php wp_nav_menu(array(
+                                    'menu_id'         => 'top-navigation',
 									'container_class' => 'top-navigation-wrapper',
 									'theme_location'	=> 'top-navigation',
 									'menu_class' => 'top-navigiation'));?>
@@ -76,6 +90,7 @@ if ($terms) {
 							<a href="#" id="trigger" class="menu-trigger"><i class="far fa-bars"></i></a>
 							<div class="col-12 col-md-9 col-lg-10 desktop-navigation">
 								<?php wp_nav_menu(array(
+                                    'menu_id'         => 'main-navigation',
 									'container_class' => 'main-navigation-wrapper',
 									'theme_location'	=> 'main-navigation',
 									'menu_class' => 'main-navigiation',

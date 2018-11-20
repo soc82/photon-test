@@ -8,12 +8,12 @@
 ** Add search form to top navigation
 */
 function prospect_search_form_to_menu ( $items, $args ) {
-	if( 'top-navigation' === $args->theme_location ) {
-    $search_form = '';
-    $search_form .= '<li class="menu-item menu-item-search">';
-    $search_form .= '<form method="get" class="menu-search-form" action="' . esc_url( home_url( '/' ) ) . '" /"><input class="text_input" type="text" placeholder="Search" name="s" id="s" /></form>';
-    $search_form .= '</li>';
-    $items = $search_form . $items;
+	if( 'top-navigation' === $args->theme_location && $args->menu_id == 'top-navigation') {
+		$search_form = '';
+		$search_form .= '<li class="menu-item menu-item-search">';
+		$search_form .= '<form method="get" class="menu-search-form" action="' . esc_url( home_url( '/' ) ) . '" /"><input class="text_input" type="text" placeholder="Search" name="s" id="s" /></form>';
+		$search_form .= '</li>';
+		$items = $search_form . $items;
 	}
   return $items;
 }
@@ -72,8 +72,15 @@ function prospect_dark_colour_class() {
 */
 add_filter('wp_nav_menu_items', 'prospect_add_close_item', 10, 2);
 function prospect_add_close_item($items, $args){
-    if( $args->theme_location == 'main-navigation' ){
-        $items = '<a class="mp-close close">&nbsp;</a>' . $items;
+    if( $args->theme_location == 'top-navigation' && $args->menu_id == 'mobile-menu' ){
+		$items = '<a class="mp-close close">&nbsp;</a>' . $items;
+
+    	$search_form = '';
+		$search_form .= '<li class="menu-item mobile-menu-item-search">';
+		$search_form .= '<form method="get" class="menu-search-form" action="' . esc_url( home_url( '/' ) ) . '" /"><input class="text_input" type="text" placeholder="Search" name="s" id="s" /></form>';
+		$search_form .= '</li>';
+		$items = $search_form . $items;
+
     }
     return $items;
 }

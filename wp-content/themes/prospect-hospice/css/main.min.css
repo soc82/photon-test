@@ -7920,7 +7920,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
   -webkit-transform: translate3d(-40px, 0, 0);
   -moz-transform: translate3d(-40px, 0, 0);
-  transform: translate3d(-40px, 0, 0); }
+  transform: translate3d(-40px, 0, 0);
+  z-index: 20; }
 
 /* First level */
 .mobile-menu > .menu-level,
@@ -8040,6 +8041,29 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       right: 10px;
       font-size: 1.6em;
       color: white; }
+
+.mobile-menu-item-search {
+  z-index: 10;
+  position: absolute;
+  top: 5px;
+  left: 30px;
+  right: 40px; }
+  .mobile-menu-item-search:before {
+    display: none; }
+  .mobile-menu-item-search input {
+    padding: 4px;
+    width: 100%; }
+  .mobile-menu-item-search form:after {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 3px;
+    content: '\f002';
+    font-family: 'Font Awesome 5 Pro';
+    color: #444;
+    font-size: 0.9em;
+    padding-right: 5px;
+    font-weight: 400; }
 
 .menu-level > ul > li:first-child > a {
   box-shadow: inset 0 -1px rgba(0, 0, 0, 0.2), inset 0 1px rgba(0, 0, 0, 0.2); }
@@ -8670,7 +8694,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           padding: 20px 45px; } }
   @media (min-width: 992px) {
     .block.full-width-content .content-below-hero {
-      font-size: 1.15em;
+      font-size: 1.2em;
       line-height: 1.25em; } }
   .block.cta-block {
     margin-top: 0;
