@@ -685,7 +685,7 @@ function prospect_add_product_to_cart($post_id) {
 
 /*
 ** Redirect after add to cart - removes the add-to-cart query arg used in event template
-*/
+
 add_action('woocommerce_add_to_cart_redirect', 'prospect_to_cart_redirect');
 function prospect_to_cart_redirect($url = false) {
   if(!empty($url)) {
@@ -693,6 +693,7 @@ function prospect_to_cart_redirect($url = false) {
   }
   return wc_get_cart_url() . add_query_arg(array(), remove_query_arg(array('add-to-cart', 'quantity', 'event_entry_id')));
 }
+*/
 
 function my_get_the_product_thumbnail_url( $size = 'shop_catalog' ) {
   global $post;
@@ -724,8 +725,11 @@ function prospect_get_userdata( $user_id, $key ) {
 ** Additional account fields
 */
 function prospect_get_account_fields() {
+
+  echo "How you would like to hear from us <a href='/how-you-hear-from-us/'>Click Here</a>";
+
     return apply_filters( 'prospect_account_fields', array(
-        'fundraising_opt_in' => array(
+        /*'fundraising_opt_in' => array(
             'type'        => 'checkbox',
             'label'       => __( 'I\'m happy to receive communications regarding fundraising events & ideas', 'prospect' ),
             //'placeholder' => __( 'Some text...', 'prospect' ),
@@ -735,7 +739,7 @@ function prospect_get_account_fields() {
             'type'        => 'checkbox',
             'label'       => __( 'I\'m happy to be considered for similar jobs i have previously applied for', 'prospect' ),
             'required'    => false,
-        ),
+        ),*/
     ) );
 }
 
@@ -867,3 +871,146 @@ add_action( 'woocommerce_created_customer', 'prospect_save_account_fields' ); //
 add_action( 'personal_options_update', 'prospect_save_account_fields' ); // edit own account admin
 add_action( 'edit_user_profile_update', 'prospect_save_account_fields' ); // edit other account admin
 add_action( 'woocommerce_save_account_details', 'prospect_save_account_fields' ); // edit WC account
+
+
+
+/*
+** Send email notifications to different people based on product
+** This now overrides the standard woocommerce email recipient settings
+*/
+add_filter( 'woocommerce_email_recipient_new_order', 'woocommerce_event_recipient_email', 10, 2 );
+function woocommerce_event_recipient_email( $recipient, $order ) {
+    if ( ! is_a( $order, 'WC_Order' ) ) return $recipient;
+
+    $events = false;
+    $standard = false;
+
+    foreach( $order->get_items() as $item_id => $line_item ){
+
+        $product = wc_get_product( $line_item->get_product_id() );
+        if( $product->is_type( 'prospect_event' ) ) {
+          $events = true;
+        } else {
+          $standard = true;
+        }
+
+    }
+
+    if($events && $standard){
+      $recipient .= ', fundraising&events@prospect-hospice.net';
+    } else if($events) {
+      $recipient = 'fundraising&events@prospect-hospice.net';
+    } else {
+      $recipient = 'alisonmoore@prospect-hospice.net';
+    }
+
+
+    return $recipient;
+}
+
+
+
+// Hook in
+add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields' );
+
+// Our hooked in function - $fields is passed via the filter!
+function custom_override_checkout_fields( $fields ) {
+
+  $chosen_methods = WC()->session->get('chosen_shipping_methods');
+  $chosen_shipping = $chosen_methods[0];
+
+    $store_args = array(
+      'post_type' => 'shop',
+      'posts_per_page'  => -1,
+      'order' => 'ASC',
+      'orderby' => 'name',
+    );
+    $stores_array = array();
+    $stores = new WP_Query($store_args);
+    if($stores) :
+      foreach ($stores->posts as $store) :
+        $stores_array[$store->post_title] = $store->post_title;
+      endforeach;
+    endif;
+
+
+    $fields['order']['shipping_store'] = array(
+      'type'          => 'select',
+      'label'     => __('Which store will you want to collect it from?', 'woocommerce'),
+      'options'       => $stores_array,
+      'required'  => true,
+      'class'     => array('form-row-wide'),
+      'clear'     => true
+    );
+
+  return $fields;
+
+}
+
+/**
+ * Display field value on the order edit page
+ */
+
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+
+function my_custom_checkout_field_display_admin_order_meta($order){
+    echo '<p><strong>'.__('Store Pickup From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_store', true ) . '</p>';
+}
+
+/**
+ * Update the order meta with field value
+**/
+add_action('woocommerce_checkout_update_order_meta', 'my_custom_checkout_field_update_order_meta');
+function my_custom_checkout_field_update_order_meta( $order_id ) {
+    if ($_POST['shipping_store']) update_post_meta( $order_id, 'Store Pickup', esc_attr($_POST['shipping_store']));
+}
+/**
+ * Add the field to order emails
+ **/
+add_filter('woocommerce_email_order_meta_keys', 'my_custom_checkout_field_order_meta_keys');
+function my_custom_checkout_field_order_meta_keys( $keys ) {
+    $keys[] = 'Store Pickup';
+    return $keys;
+}
+
+
+/*
+** Add custom content to order confirmation page
+*/
+add_filter('woocommerce_thankyou_order_received_text', 'woo_change_order_received_text', 10, 2 );
+function woo_change_order_received_text( $str, $order ) {
+    $items = $order->get_items();
+    foreach($items as $item){
+      $confirmation_text = get_field('confirmation_message', $item['product_id']);
+      if($confirmation_text){
+        $str = $str . '<p class="woocommerce-thankyou-order-received">' . $confirmation_text . '</p>';
+      }
+    }
+    return $str;
+}
+
+
+// JS to show/hide shipping fields if shipping method is changed
+add_action('wp_footer', 'woo_shipping_fields_show_hide', 50);
+function woo_shipping_fields_show_hide() {
+    if ( ! is_checkout() ) return;
+    ?>
+    <script type="text/javascript">
+        jQuery(function($){
+            $( document.body ).on( 'update_checkout', function(){
+              console.log('test');
+              var selectedShipping = $('.shipping_method:checked').val();
+              if(selectedShipping == 'local_pickup:2'){
+                $('.woocommerce-shipping-fields').hide();
+                $('#shipping_store_field').show();
+              } else {
+                $('.woocommerce-shipping-fields').show();
+                $('#shipping_store_field').hide();
+
+              }
+            });
+            $(document.body).trigger('update_checkout');
+        });
+    </script>
+    <?php
+}

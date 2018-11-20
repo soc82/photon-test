@@ -7971,6 +7971,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
     -webkit-transition: background 0.3s, box-shadow 0.3s;
     -moz-transition: background 0.3s, box-shadow 0.3s;
     transition: background 0.3s, box-shadow 0.3s; }
+  .mobile-menu ul li.description-item-hide {
+    display: none; }
   .mobile-menu ul li.donate {
     padding: 0;
     margin: 20px;
@@ -8695,7 +8697,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   @media (min-width: 992px) {
     .block.full-width-content .content-below-hero {
       font-size: 1.2em;
-      line-height: 1.25em; } }
+      line-height: 1.4em; } }
   .block.cta-block {
     margin-top: 0;
     margin-bottom: 0;
@@ -9929,6 +9931,8 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
           width: 82%;
           display: inline-block;
           vertical-align: middle; } }
+      .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield_html, .prospect_event .event-volunteering-block .gform_wrapper .gform_body .ginput_container_checkbox {
+        color: white; }
       .prospect_event .event-volunteering-block .gform_wrapper .gform_body .gfield {
         margin: 0 0 10px 0 !important; }
         @media (min-width: 768px) {
@@ -10741,6 +10745,11 @@ body.single-product .product .up-sells, body.single-product .product .related {
 /*
 ** Cart
 */
+.return-to-shop {
+  display: none !important; }
+
+body.woocommerce-cart .empty-cart-block .button.active {
+  display: none !important; }
 body.woocommerce-cart .entry-title {
   display: none; }
 body.woocommerce-cart .woocommerce {
@@ -10808,8 +10817,10 @@ body.woocommerce-cart .woocommerce {
 /*
 ** Order Confirmation
 */
+.woocommerce-order-received .woocommerce-thankyou-order-received {
+  margin-bottom: 20px; }
 .woocommerce-order-received ul.order_details {
-  margin: 10px 0;
+  margin: 30px 0 10px 0;
   padding: 0; }
   .woocommerce-order-received ul.order_details li {
     float: none;

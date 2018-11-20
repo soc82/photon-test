@@ -48,11 +48,10 @@ function custom_post_type_courses() {
     'menu_icon'           => 'dashicons-yes',
     'can_export'          => true,
     'has_archive'         => false, // index Page
-    'exclude_from_search' => false,
+    'exclude_from_search' => true,
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-
   );
 
   // Registering your Custom Post Type

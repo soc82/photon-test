@@ -2,6 +2,7 @@
 
 $title = get_sub_field('title');
 $docs = get_sub_field('documents', false);
+if($docs):
 $document_args = array(
 	'post_type' => 'downloads',
 	'posts_per_page'  => -1,
@@ -42,4 +43,5 @@ if($result->have_posts()): ?>
 			wp_reset_postdata(); ?>
 		</div>
 	</div>
-<?php endif; ?>
+<?php endif;
+endif; ?>

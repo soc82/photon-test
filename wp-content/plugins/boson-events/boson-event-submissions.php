@@ -34,7 +34,7 @@ function custom_post_type_event() {
 		'hierarchical'        => true,
 		'show_in_admin_bar'   => false,
 		'menu_position'       => 4,
-		'menu_icon'           => 'dashicons-yes',
+		'menu_icon'           => 'dashicons-calendar-alt',
 		'can_export'          => true,
 		'has_archive'         => false, // index Page
 		'exclude_from_search' => false,
@@ -50,9 +50,9 @@ function custom_post_type_event() {
   Event Entries POST TYPE
   ********************/
   $labels_event_entries = array(
-    'name'                => _x( 'Event Entries', 'Post Type General Name', 'vanilla' ),
-    'singular_name'       => _x( 'Event Entry', 'Post Type Singular Name', 'vanilla' ),
-    'menu_name'           => __( 'Event Entries', 'vanilla' ),
+    'name'                => _x( 'Event Bookings', 'Post Type General Name', 'vanilla' ),
+    'singular_name'       => _x( 'Event Booking', 'Post Type Singular Name', 'vanilla' ),
+    'menu_name'           => __( 'Event Bookings', 'vanilla' ),
     'parent_item_colon'   => __( 'Parent Event Entry', 'vanilla' ),
     'all_items'           => __( 'All Event Entries', 'vanilla' ),
     'view_item'           => __( 'View Event Entry', 'vanilla' ),
@@ -77,7 +77,7 @@ function custom_post_type_event() {
     'hierarchical'        => true,
     'show_in_admin_bar'   => true,
     'menu_position'       => 4,
-    'menu_icon'           => 'dashicons-yes',
+    'menu_icon'           => 'dashicons-calendar-alt',
     'can_export'          => true,
     'has_archive'         => false, // index Page
     'exclude_from_search' => false,

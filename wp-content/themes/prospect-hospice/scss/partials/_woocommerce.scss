@@ -276,7 +276,13 @@ body.single-product {
 /*
 ** Cart
 */
+.return-to-shop{
+	display:none !important;
+}
 body.woocommerce-cart {
+	.empty-cart-block .button.active {
+		display:none !important;
+	}
 	.entry-title {
 		display: none;
 	}
@@ -393,8 +399,11 @@ body.woocommerce-cart {
 */
 
 .woocommerce-order-received {
+	.woocommerce-thankyou-order-received {
+		margin-bottom: 20px;
+	}
 	ul.order_details {
-		margin:10px 0;
+		margin:30px 0 10px 0;
 		padding: 0;
 		li {
 			float: none;

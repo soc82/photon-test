@@ -49,11 +49,10 @@ function custom_post_type_downloads() {
     'menu_icon'           => 'dashicons-download',
     'can_export'          => true,
     'has_archive'         => true, // index Page
-    'exclude_from_search' => false,
+    'exclude_from_search' => true,
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-
   );
 
   // Registering your Custom Post Type
@@ -131,6 +130,19 @@ function prospect_file_type_icon($post_id) {
     $icon = 'fa-file';
   }
   return $icon;
+}
+
+
+/*
+** Remove single post screen
+*/
+add_action( 'template_redirect', 'prospect_download_single_redirect' );
+function prospect_download_single_redirect() {
+  $queried_post_type = get_query_var('post_type');
+  if ( is_single() && 'downloads' ==  $queried_post_type ) {
+    wp_redirect( home_url(), 301 );
+    exit;
+  }
 }
 
 

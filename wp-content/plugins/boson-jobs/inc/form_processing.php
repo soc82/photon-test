@@ -19,15 +19,17 @@ function prospect_woocommerce_login_reg_redirect( $redirect ) {
 	}
     return $redirect;
 };
+
+
 // Form submission
 add_action( 'gform_after_submission_2', 'after_submission', 10, 2 );
-
 function after_submission($entry, $form) {
+
     $user = wp_get_current_user();
     $users_applications = get_field('applications', 'user_' . $user->ID);
 
     // The job applied for
-    $job_id = $entry[5];
+    $job_id = $entry[20];
 
     // Double check to make sure the user hasn't applied twice
     if ($users_applications) {
@@ -48,11 +50,14 @@ function after_submission($entry, $form) {
         'application_date' => time()
     ];
 
+
     update_field('applications', $users_applications, 'user_' . $user->ID);
 
 		add_filter('gform_confirmation_2', 'application_completed_redirect', 100, 4);
 
 }
+
+
 
 add_filter('gform_confirmation_2', 'application_completed_redirect', 100, 4);
 function application_completed_redirect($confirmation, $form, $lead, $ajax){
@@ -67,22 +72,14 @@ function application_completed_redirect($confirmation, $form, $lead, $ajax){
 
 }
 
-function override_form_completed($confirmation, $form, $entry, $ajax) {
-    // The job applied for
-    $job_id = $entry[5];
-    $job = get_post($job_id);
-    $job_title = $job->post_title;
-		$confirmation = str_replace('{job_title}', $job_title, $confirmation);
 
-    return $confirmation;
-}
-
-// Form notification
+/*
+** Modify email notification to applicant
+*/
 add_filter( 'gform_notification_2', 'form_notification', 10, 3 );
-
 function form_notification($notification, $form, $entry) {
     if ($notification['id'] == '5b643d267c53a') {
-        $job_id = $entry[5];
+        $job_id = $entry[20]; // This gets the job post id
         $job = get_post($job_id);
 
         $job_title = $job->post_title;
@@ -98,4 +95,7 @@ function form_notification($notification, $form, $entry) {
         $notification['message'] = str_replace('{job_salary}', $job_salary, $notification['message']);
         $notification['message'] = str_replace('{job_closing_date}', $job_closing_date, $notification['message']);
     }
+
+		return $notification;
+
 }

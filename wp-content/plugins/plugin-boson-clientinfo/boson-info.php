@@ -19,7 +19,7 @@ if( function_exists('acf_add_options_page') ) {
         'page_title'    => 'Utility Settings',
         'menu_title'    => 'Utility Settings',
         'menu_slug'     => 'utility-settings',
-        'capability'    => 'manage_options',
+        'capability'    => 'edit_utility_settings', // Using this capability as only Super Users and admins can do this
         'parent_slug'   => '',
         'position'      => false,
         'icon_url'      => false,

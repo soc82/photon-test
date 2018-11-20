@@ -52,7 +52,6 @@ function custom_post_type_shops() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type'     => 'page',
-
   );
 
   // Registering your Custom Post Type

@@ -52,17 +52,7 @@ function custom_post_type_jobs() {
     'publicly_queryable'  => true,
     'rewrite'               => $rewrite,
     'capability_type' => 'jobs',
-    'capabilities' => array(
-        'edit_post' => 'edit_job',
-        'edit_posts' => 'edit_jobs',
-        'edit_others_posts' => 'edit_other_jobs',
-        'publish_posts' => 'publish_jobs',
-        'read_post' => 'read_job',
-        'read_private_posts' => 'read_private_jobs',
-        'delete_post' => 'delete_job'
-    ),
     'map_meta_cap' => true
-
   );
 
   // Registering your Custom Post Type
@@ -231,6 +221,7 @@ add_action('pre_get_posts', 'prospect_view_draft_jobs');
 /*
 ** Only display job vacancies user is a manager of
 */
+/*
 add_action( 'pre_get_posts', 'prospect_manager_filter' );
 function prospect_manager_filter($query) {
   if ( !is_admin()) return;
@@ -245,3 +236,5 @@ function prospect_manager_filter($query) {
     return;
   }
 }
+*/
+

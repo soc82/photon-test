@@ -37,6 +37,8 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 	public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
 		$indent = ( $depth ) ? str_repeat( "\t", $depth ) : '';
 
+		$custom_content = get_field('menu_content', $item->ID);
+
 		/**
 		 * Dividers, Headers or Disabled
 		 * =============================
@@ -60,10 +62,15 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 			$classes = empty( $item->classes ) ? array() : (array) $item->classes;
 			$classes[] = 'menu-item-' . $item->ID;
 
+
 			$class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
 
 			if ( $args->has_children )
 				$class_names .= ' dropdown';
+
+			if($custom_content){
+				$class_names .= ' description-item-hide';
+			}
 
 			if ( in_array( 'current-menu-item', $classes ) )
 				$class_names .= ' active';

@@ -85,21 +85,112 @@ function prospect_add_close_item($items, $args){
     return $items;
 }
 
+
+/*
+** Change Wordpress sender email and name
+*/
+function prospect_sender_email( $original_email_address ) {
+    return 'webmaster@prospect-hospice.net ';
+}
+
+function prospect_sender_name( $original_email_from ) {
+    return 'Prospect Hospice';
+}
+
+add_filter( 'wp_mail_from', 'prospect_sender_email' );
+add_filter( 'wp_mail_from_name', 'prospect_sender_name' );
+
+
+/*
+** Stop GF anchor scrolling on form submission
+*/
+add_filter( 'gform_confirmation_anchor', '__return_false' );
+
+
 function wpse28782_remove_menu_items() {
 
+    // Hide draft event entries for all
+    remove_menu_page('edit.php?post_type=draft-event-entry'); // Event Entry
+
     // If HR User ...
-    if( current_user_can( 'hr' ) || current_user_can( 'volunteering' )):
+    if( current_user_can( 'hr' )):
         remove_menu_page('edit.php?post_type=event-entry'); // Event Entry
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('upload.php'); // Media
         remove_menu_page('link-manager.php'); // Links
         remove_menu_page('edit-comments.php'); // Comments
         remove_menu_page('edit.php?post_type=page'); // Pages
+        remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
         remove_menu_page('plugins.php'); // Plugins
         remove_menu_page('themes.php'); // Appearance
         remove_menu_page('users.php'); // Users
         remove_menu_page('tools.php'); // Tools
         remove_menu_page('options-general.php'); // Settings
     endif;
+
+    if(current_user_can( 'volunteering' )):
+        remove_menu_page('edit.php?post_type=event-entry'); // Event Entry
+        remove_menu_page('edit.php'); // Newss
+        remove_menu_page('upload.php'); // Media
+        remove_menu_page('link-manager.php'); // Links
+        remove_menu_page('edit-comments.php'); // Comments
+        remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
+        remove_menu_page('plugins.php'); // Plugins
+        remove_menu_page('themes.php'); // Appearance
+        remove_menu_page('users.php'); // Users
+        remove_menu_page('tools.php'); // Tools
+        remove_menu_page('options-general.php'); // Settings
+        remove_menu_page('edit.php?post_type=downloads'); // Downloads
+        remove_menu_page('edit.php?post_type=courses'); // Courses
+        remove_menu_page('edit.php?post_type=faqs'); // FAQs
+        remove_menu_page('edit.php?post_type=shop'); // Shops
+        remove_menu_page('edit.php?post_type=team'); // Team
+        remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
+    endif;
+
+    if (current_user_can('fundraising')):
+        remove_menu_page('edit.php?post_type=downloads'); // Downloads
+        remove_menu_page('edit.php?post_type=courses'); // Courses
+        remove_menu_page('edit.php?post_type=faqs'); // FAQs
+        remove_menu_page('edit.php?post_type=shop'); // Shops
+        remove_menu_page('edit.php?post_type=team'); // Team
+        remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
+        remove_menu_page('edit.php'); // Newss
+        remove_menu_page('tools.php'); // Tools
+    endif;
+
+    if ( current_user_can('retail')):
+        remove_menu_page('edit.php?post_type=draft-event-entry'); // Draft event entries
+        remove_menu_page('edit.php?post_type=event-entry'); // Event entries
+        remove_menu_page('edit.php'); // Newss
+        remove_menu_page('tools.php'); // Tools
+    endif;
+
+    if ( current_user_can('comms_team')):
+        remove_menu_page('tools.php'); // Tools
+    endif;
+
+    if ( current_user_can('super_user')):
+        remove_menu_page('tools.php'); // Tools
+    endif;
+
 }
 add_action( 'admin_menu', 'wpse28782_remove_menu_items' );
+
+
+add_action( 'editable_roles' , 'prospect_hide_unused_roles' );
+function prospect_hide_unused_roles( $roles ){
+    if (current_user_can('administrator')) {
+        return $roles;
+    }
+    unset($roles['author']);
+    unset($roles['content_keeper']);
+    unset($roles['contributor']);
+    unset($roles['wpseo_editor']);
+    unset($roles['wpseo_manager']);
+    unset($roles['editor']);
+    unset($roles['shop_manager']);
+    unset($roles['administrator']);
+
+    return $roles;
+}
