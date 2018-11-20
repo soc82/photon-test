@@ -134,7 +134,6 @@ html, body, .container, .scroller {
 	-webkit-transform: translate3d(-40px, 0, 0);
 	-moz-transform: translate3d(-40px, 0, 0);
 	transform: translate3d(-40px, 0, 0);
-    z-index: 20;
 }
 
 /* First level */
@@ -280,7 +279,6 @@ html, body, .container, .scroller {
   &:before {
     display: none;
   }
-  z-index: 10;
   position: absolute;
   top: 5px;
   left: 30px;

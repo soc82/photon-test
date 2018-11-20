@@ -46,7 +46,7 @@ if ($terms) {
 		<div class="menu-level">
 
 			<?php $menu = wp_nav_menu( array(
-                'menu_id' => 'mobile-menu',
+                'menu_id' => 'mob-menu-top',
                 'theme_location'=> 'top-navigation',
                 'fallback_cb'	=> false,
                 'container'		=> '',
@@ -57,7 +57,7 @@ if ($terms) {
 
 
 			<?php wp_nav_menu(array(
-                'menu_id' => 'mobile-menu',
+                'menu_id' => 'mob-menu-main',
 				'container_class' => false,
 				'theme_location'	=> 'main-navigation',
 				'menu_class' => false,

@@ -7920,8 +7920,7 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
   box-shadow: 1px 0 2px rgba(0, 0, 0, 0.2);
   -webkit-transform: translate3d(-40px, 0, 0);
   -moz-transform: translate3d(-40px, 0, 0);
-  transform: translate3d(-40px, 0, 0);
-  z-index: 20; }
+  transform: translate3d(-40px, 0, 0); }
 
 /* First level */
 .mobile-menu > .menu-level,
@@ -8045,7 +8044,6 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       color: white; }
 
 .mobile-menu-item-search {
-  z-index: 10;
   position: absolute;
   top: 5px;
   left: 30px;
