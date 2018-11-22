@@ -220,8 +220,10 @@ if (url.indexOf('?') == -1) {
 	url += '&thankyou';
 }
 window.history.pushState({}, window.title, url);
-ga( 'gtm1.set', 'page', location.href );
-ga( 'gtm1.send','pageview' );
+jQuery(document).ready(function () {
+	ga( 'gtm1.set', 'page', location.href );
+	ga( 'gtm1.send','pageview' );
+});
 
 
 </script>
