@@ -19,7 +19,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>'; ?>
 			<?php $terms = get_the_terms( get_the_ID() , 'jobtype' ); ?>
 			<job>
 				<title><?php the_title_rss() ?></title>
-				<date><?php the_date_xml() ?></date>
+				<date><?php the_date('D, d M Y H:i:s +0000') ?></date>
 				<referencenumber><![CDATA[<?php the_field('reference') ?>]]></referencenumber>
 				<url><?php the_permalink_rss() ?></url>
 				<company><![CDATA[Prospect Hospice]]></company>
