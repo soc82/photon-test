@@ -233,9 +233,9 @@ EOT;
 }, 10, 4 );
 
 add_action('init', function (){
-	add_feed('indexjobs', 'indexJobsFeed');
+	add_feed('indeedjobs', 'indeedJobsFeed');
 });
 
-function indexJobsFeed(){
-	get_template_part('xml', 'indexjobs');
+function indeedJobsFeed(){
+	get_template_part('xml', 'indeedjobs');
 }
