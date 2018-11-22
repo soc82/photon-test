@@ -232,3 +232,10 @@ EOT;
 	return $confirmation;
 }, 10, 4 );
 
+add_action('init', function (){
+	add_feed('indexjobs', 'indexJobsFeed');
+});
+
+function indexJobsFeed(){
+	get_template_part('xml', 'indexjobs');
+}
