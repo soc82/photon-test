@@ -208,3 +208,25 @@ add_filter('gform_form_post_get_meta', function ($meta) {
 
 	return $meta;
 });
+
+add_filter( 'gform_confirmation', function ($confirmation, $form) {
+	if ( is_string($confirmation ) ) {
+		$confirmation .= <<<EOT
+<script type="text/javascript"> 
+var url = location.href;
+if (url.indexOf('?') == -1) {
+	url += '?thankyou';
+} else {
+	url += '&thankyou';
+}
+window.history.pushState({}, window.title, url);
+ga( 'gtm1.set', 'page', location.href );
+ga( 'gtm1.send','pageview' );
+
+
+</script>
+EOT;
+	}
+	return $confirmation;
+}, 10, 4 );
+
