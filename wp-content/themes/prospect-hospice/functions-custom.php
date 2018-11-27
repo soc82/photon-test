@@ -102,7 +102,7 @@ add_filter( 'wp_mail_from_name', 'prospect_sender_name' );
 /*
 ** Stop GF anchor scrolling on form submission
 */
-add_filter( 'gform_confirmation_anchor', '__return_false' );
+add_filter( 'gform_confirmation_anchor', '__return_true' );
 
 
 function wpse28782_remove_menu_items() {
@@ -231,8 +231,6 @@ EOT;
 	}
 	return $confirmation;
 }, 10, 4 );
-
-add_filter( 'gform_confirmation_anchor', '__return_true' );
 
 add_action('init', function (){
 	add_feed('indeedjobs', 'indeedJobsFeed');
