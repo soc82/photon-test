@@ -1003,7 +1003,7 @@ add_filter('wc_customer_order_csv_export_order_row', function ($orders, $_order)
 			$orders[$k]['meta:_shipping_store'] = '';
 		}
 	}
-	file_put_contents('test.txt', var_export($orders, true));
+	
 	return $orders;
 }, 99, 2);
 
