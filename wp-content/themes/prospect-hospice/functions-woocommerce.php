@@ -981,7 +981,8 @@ function my_custom_checkout_field_display_admin_order_meta($order){
 
 add_filter('wc_customer_order_csv_export_order_row', function ($order_data, $order) {
     $storepickup = false;
-	foreach ( $order->get_shipping_methods() as $shipping_method  ) {
+    
+    foreach ( $order->get_shipping_methods() as $shipping_method  ) {
 		$shipping_method_id = current( explode( ':', $shipping_method['method_id'] ) );
 		if ($shipping_method_id == 'local_pickup') {
 			$storepickup = true;
@@ -989,17 +990,21 @@ add_filter('wc_customer_order_csv_export_order_row', function ($order_data, $ord
 	}
 
 	if ($storepickup) {
-	    foreach ($order_data as $k=>$v) {
-	        if (preg_match('|^shipping\_|i', $k)) {
-	            $order_data[$k] = '';
-            }
-        }
+        $order_data['shipping_company'] = '';
+        $order_data['shipping_address_1'] = '';
+        $order_data['shipping_address_2'] = '';
+        $order_data['shipping_postcode'] = '';
+        $order_data['shipping_city'] = '';
+        $order_data['shipping_state'] = '';
+        $order_data['shipping_state_code'] = '';
+        $order_data['shipping_country'] = '';
     } else {
-	    $order_data['ship_to_store'] = '';
+	    $order_data['meta:_shipping_store'] = '';
     }
 
+
 	return $order_data;
-}, 10, 2);
+}, 99, 2);
 
 /**
  * Update the order meta with field value
