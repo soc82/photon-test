@@ -979,31 +979,32 @@ function my_custom_checkout_field_display_admin_order_meta($order){
 //}, 10, 2);
 //
 
-add_filter('wc_customer_order_csv_export_order_row', function ($order_data, $order) {
+add_filter('wc_customer_order_csv_export_order_row', function ($orders, $_order) {
     $storepickup = false;
-    
-    foreach ( $order->get_shipping_methods() as $shipping_method  ) {
-		$shipping_method_id = current( explode( ':', $shipping_method['method_id'] ) );
-		if ($shipping_method_id == 'local_pickup') {
-			$storepickup = true;
+
+    foreach ($orders as $k=>$order) {
+		foreach ($_order->get_shipping_methods() as $shipping_method) {
+			$shipping_method_id = current(explode(':', $shipping_method['method_id']));
+			if ($shipping_method_id == 'local_pickup') {
+				$storepickup = true;
+			}
+		}
+
+		if ($storepickup) {
+			$orders[$k]['shipping_company']    = '';
+			$orders[$k]['shipping_address_1']  = '';
+			$orders[$k]['shipping_address_2']  = '';
+			$orders[$k]['shipping_postcode']   = '';
+			$orders[$k]['shipping_city']       = '';
+			$orders[$k]['shipping_state']      = '';
+			$orders[$k]['shipping_state_code'] = '';
+			$orders[$k]['shipping_country']    = '';
+		} else {
+			$orders[$k]['meta:_shipping_store'] = '';
 		}
 	}
-
-	if ($storepickup) {
-        $order_data['shipping_company'] = '';
-        $order_data['shipping_address_1'] = '';
-        $order_data['shipping_address_2'] = '';
-        $order_data['shipping_postcode'] = '';
-        $order_data['shipping_city'] = '';
-        $order_data['shipping_state'] = '';
-        $order_data['shipping_state_code'] = '';
-        $order_data['shipping_country'] = '';
-    } else {
-	    $order_data['meta:_shipping_store'] = '';
-    }
-
-
-	return $order_data;
+	file_put_contents('test.txt', var_export($orders, true));
+	return $orders;
 }, 99, 2);
 
 /**
