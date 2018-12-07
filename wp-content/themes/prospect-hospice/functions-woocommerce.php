@@ -995,7 +995,7 @@ add_filter('wc_customer_order_csv_export_order_row', function ($order_data, $ord
             }
         }
     } else {
-	    $order_data['_shipping_store'] = '';
+	    $order_data['ship_to_store'] = '';
     }
 
 	return $order_data;
