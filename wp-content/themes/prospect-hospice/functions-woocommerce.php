@@ -925,7 +925,7 @@ function custom_override_checkout_fields( $fields ) {
       'order' => 'ASC',
       'orderby' => 'name',
     );
-    $stores_array = array();
+    $stores_array = array('-'=>'Please select');
     $stores = new WP_Query($store_args);
     if($stores) :
       foreach ($stores->posts as $store) :
@@ -954,8 +954,52 @@ function custom_override_checkout_fields( $fields ) {
 add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 
 function my_custom_checkout_field_display_admin_order_meta($order){
-    echo '<p><strong>'.__('Store Pickup From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_store', true ) . '</p>';
+    $display = false;
+    foreach ( $order->get_shipping_methods() as $shipping_method  ) {
+		$shipping_method_id = current( explode( ':', $shipping_method['method_id'] ) );
+		if ($shipping_method_id == 'local_pickup') {
+		    $display = true;
+        }
+    }
+    if ($display) echo '<p><strong>'.__('Store Pickup From Checkout Form').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_store', true ) . '</p>';
 }
+
+//add_filter('woocommerce_order_get_shipping_address_1', function ($value, $order) {
+//	$display = false;
+//	foreach ( $order->get_shipping_methods() as $shipping_method  ) {
+//		$shipping_method_id = current( explode( ':', $shipping_method['method_id'] ) );
+//		if ($shipping_method_id != 'local_pickup') {
+//			$display = true;
+//		}
+//		if (!$display) {
+//		    $value = '';
+//        }
+//	}
+//	return $value;
+//}, 10, 2);
+//
+
+add_filter('wc_customer_order_csv_export_order_row', function ($order_data, $order) {
+    $storepickup = false;
+	foreach ( $order->get_shipping_methods() as $shipping_method  ) {
+		$shipping_method_id = current( explode( ':', $shipping_method['method_id'] ) );
+		if ($shipping_method_id == 'local_pickup') {
+			$storepickup = true;
+		}
+	}
+
+	if ($storepickup) {
+	    foreach ($order_data as $k=>$v) {
+	        if (preg_match('|^shipping\_|i', $k)) {
+	            $order_data[$k] = '';
+            }
+        }
+    } else {
+	    $order_data['_shipping_store'] = '';
+    }
+
+	return $order_data;
+}, 10, 2);
 
 /**
  * Update the order meta with field value
@@ -998,7 +1042,7 @@ function woo_shipping_fields_show_hide() {
     <script type="text/javascript">
         jQuery(function($){
             $( document.body ).on( 'update_checkout', function(){
-              console.log('test');
+
               var selectedShipping = $('.shipping_method:checked').val();
               if(selectedShipping == 'local_pickup:2'){
                 $('.woocommerce-shipping-fields').hide();
