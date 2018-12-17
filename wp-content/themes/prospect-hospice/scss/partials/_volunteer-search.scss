@@ -1,0 +1,77 @@
+.volunteering-skills-search {
+	form {
+		.accordion {
+			// Open state
+			&.open {
+				margin-bottom: 0;
+				.accordion-header {
+					&:after {
+				    	content: '\f062';
+					}
+				}
+				.accordion-body {
+					display: block;
+				}
+			}
+			// Closed/default state
+			margin-bottom: 5px;
+
+			.accordion-header {
+				padding: 10px 40px;
+				background-color: $green;
+				color: #fff;
+				font-weight: bold;
+				font-size: 30px;
+				&:after {
+					float: right;
+				    content: '\f063';
+				    font-family: 'Font Awesome 5 Pro';
+				    font-weight: 300;
+				}
+			}
+			.accordion-body {
+				display: none;
+				padding: 25px 25px;
+				border: solid 2px $green;
+				.fields {
+					input {
+						margin-right: 20px;
+						border: solid 1px $green;
+					}
+				}
+				.controls {
+					display: inline-block;
+					width: 100%;
+					.btn {
+						float: right;
+					}
+				}
+			}
+			&.results {
+				margin-top: 5px;
+				.accordion-header {
+					background-color: $yellow;
+				}
+				.accordion-body {
+					border-color: $yellow;
+					.results-intro {
+						font-weight: bold;
+						margin-bottom: 10px;
+					}
+					.result {
+						display: block;
+						width: 50%;
+						font-weight: bold;
+						text-decoration: underline;
+						.score {
+							float: right;
+						}
+					}
+					.results-outro {
+						margin-top: 10px;
+					}
+				}
+			}
+		}
+	}
+}

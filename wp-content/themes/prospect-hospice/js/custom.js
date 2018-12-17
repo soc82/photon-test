@@ -88,6 +88,43 @@ jQuery( document ).ready(function($) {
     jQuery(this).closest("form").submit();
   });
 
+  /*
+  ** Volunteer search
+  */
+
+  jQuery('#volunteering-skills-search .next').click(function(e) {
+    current = jQuery(this).parents('.accordion');
+    next = current.next('.accordion');
+
+    current.removeClass('open').addClass('opened');
+    next.addClass('open');
+  });
+
+  jQuery('#volunteering-skills-search .accordion-header').click(function(e) {
+    current = jQuery(this).parents('.accordion');
+    if (current.hasClass('opened') || getUrlVars()['volunteer-search']) {
+      jQuery('#volunteering-skills-search .open').removeClass('open').addClass('opened');
+      current.addClass('open');
+    }
+  });
+
+  // Scroll the user to the search results on form submission
+  if (getUrlVars()['volunteer-search']) {
+    jQuery('html, body').animate({scrollTop: jQuery('#volunteering-skills-search-form').offset().top - 50}, 250);
+  }
+
+  function getUrlVars()
+  {
+      var vars = [], hash;
+      var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+      for(var i = 0; i < hashes.length; i++)
+      {
+          hash = hashes[i].split('=');
+          vars.push(hash[0]);
+          vars[hash[0]] = hash[1];
+      }
+      return vars;
+  }
 
   /*
   ** Donation page
