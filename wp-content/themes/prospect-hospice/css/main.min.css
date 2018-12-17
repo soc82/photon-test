@@ -10537,9 +10537,14 @@ body.single-shop .shop-details {
     display: none;
     padding: 25px 25px;
     border: solid 2px #84BD00; }
+    .volunteering-skills-search form .accordion .accordion-body .fields .field_group {
+      display: inline-block; }
     .volunteering-skills-search form .accordion .accordion-body .fields input {
       margin-right: 20px;
       border: solid 1px #84BD00; }
+    .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available .field_group {
+      width: 33%;
+      margin-bottom: 10px; }
     .volunteering-skills-search form .accordion .accordion-body .controls {
       display: inline-block;
       width: 100%; }

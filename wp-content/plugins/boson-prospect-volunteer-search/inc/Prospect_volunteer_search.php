@@ -58,10 +58,12 @@ class Prospect_volunteer_search {
 										<?php echo $field['label']; ?>
 									</div>
 									<div class="accordion-body">
-										<div class="fields">
+										<div class="fields <?php echo strtolower(str_replace(' ', '_', $field['label'])); ?>">
 											<?php foreach ($field['sub_fields'] as $sub_field) : ?>
+												<div class="field_group">
 												<label><?php echo $sub_field['label']; ?></label>
 												<input type="checkbox" <?php if (isset($_GET[$sub_field['name']])) echo 'checked="checked"'; ?> name="<?php echo $sub_field['name'] ?>">
+												</div>
 											<?php endforeach; ?>
 										</div>
 										<div class="controls">

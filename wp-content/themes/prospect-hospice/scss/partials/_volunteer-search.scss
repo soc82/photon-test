@@ -34,9 +34,18 @@
 				padding: 25px 25px;
 				border: solid 2px $green;
 				.fields {
+					.field_group {
+						display: inline-block;
+					}
 					input {
 						margin-right: 20px;
 						border: solid 1px $green;
+					}
+					&.when_role_is_available {
+						.field_group {
+							width: 33%;
+							margin-bottom: 10px;
+						}
 					}
 				}
 				.controls {
