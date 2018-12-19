@@ -413,6 +413,7 @@ function have_rows( $selector, $post_id = false ) {
 				// case: Change in $post_id was due to a nested loop ending
 				// action: move up one level through the loops
 				acf_remove_loop('active');
+				$active_loop = $previous_loop;
 			
 			} else {
 				
@@ -435,6 +436,7 @@ function have_rows( $selector, $post_id = false ) {
 				// case: Change in $field_name was due to a nested loop ending
 				// action: move up one level through the loops
 				acf_remove_loop('active');
+				$active_loop = $previous_loop;
 				
 			} else {
 				
@@ -479,8 +481,8 @@ function have_rows( $selector, $post_id = false ) {
 			$post_id = $active_loop['post_id'];
 			
 		}
-
-
+		
+		
 		// bail early if value is either empty or a non array
 		if( !acf_is_array($value) ) return false;
 		

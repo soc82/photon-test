@@ -28,12 +28,14 @@ class Action {
                                     wp_safe_redirect(Helper::getPluginAdminUrl('consents', array('notice' => 'wpgdprc-consent-not-found')));
                                     exit;
                                 }
-                                break;
+	                            Helper::resetCookieBar();
+	                            break;
                             case 'create' :
                                 $consent = new Consent();
                                 $consent->setSiteId(get_current_blog_id());
                                 $id = $consent->save();
                                 if (!empty($id)) {
+                                    Helper::resetCookieBar();
                                     wp_safe_redirect(add_query_arg(
                                         array('notice' => 'wpgdprc-consent-added'),
                                         Consent::getActionUrl($id)

@@ -99,7 +99,13 @@ class Shortcode {
                 );
             }
         } else {
-            $output .= __('This request is expired or doesn\'t exist.', WP_GDPR_C_SLUG);
+            $output .= sprintf(
+                '<div class="wpgdprc-message wpgdprc-message--error"><p>%s</p></div>',
+                sprintf(
+                    __('<strong>ERROR</strong>: %s', WP_GDPR_C_SLUG),
+                    __('This request is expired or doesn\'t exist.', WP_GDPR_C_SLUG)
+                )
+            );
         }
         return $output;
     }

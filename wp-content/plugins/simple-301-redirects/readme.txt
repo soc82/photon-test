@@ -21,11 +21,6 @@ Simple 301 Redirects provides an easy method of redirecting requests to another 
 
 
 == Changelog ==
-
-
-= 1.08 =
-* This has since been modified by Boson to tailor to the user capabilities so Prospect can add these.
-
 = 1.07 =
 * Security Update - Better handling of posted data.
 
