@@ -23,7 +23,7 @@ function A2A_SHARE_SAVE_add_meta_box() {
 			! isset( $options['display_in_cpt_' . $post_type] ) || $options['display_in_cpt_' . $post_type] != '-1'
 		) {
 			// Add meta box
-			add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'advanced', 'high' );
+			add_meta_box( 'A2A_SHARE_SAVE_meta', $title, 'A2A_SHARE_SAVE_meta_box_content', $post_type, 'side', 'default' );
 		}
 	}
 }
@@ -499,8 +499,8 @@ function A2A_SHARE_SAVE_options_page() {
 						$special_service = ( in_array( $service_safe_name, array( 'facebook', 'pinterest', 'reddit' ) ) ) 
 							? ' class="addtoany_special_service"' : '';
 					?>
-						<li data-addtoany-icon-name="<?php echo $site['icon']; ?>"<?php echo $special_service; ?> id="a2a_wp_<?php echo $service_safe_name; ?>" title="<?php echo $site['name']; ?>">
-							<img src="<?php echo (isset($site['icon_url'])) ? $site['icon_url'] : $A2A_SHARE_SAVE_plugin_url.'/icons/'.$site['icon'].'.svg'; ?>" width="<?php echo (isset($site['icon_width'])) ? $site['icon_width'] : '24'; ?>" height="<?php echo (isset($site['icon_height'])) ? $site['icon_height'] : '24'; ?>"<?php if ( isset( $site['color'] ) ) : ?> style="background-color:#<?php echo $site['color']; endif; ?>"><?php echo $site['name']; ?>
+						<li data-addtoany-icon-name="<?php echo esc_attr( $site['icon'] ); ?>"<?php echo $special_service; ?> id="a2a_wp_<?php echo esc_attr( $service_safe_name ); ?>" title="<?php echo esc_attr( $site['name'] ); ?>">
+							<img src="<?php echo esc_attr( isset( $site['icon_url'] ) ? $site['icon_url'] : $A2A_SHARE_SAVE_plugin_url.'/icons/'.$site['icon'].'.svg' ); ?>" width="<?php echo isset( $site['icon_width'] ) ? esc_attr( $site['icon_width'] ) : '24'; ?>" height="<?php echo isset( $site['icon_height'] ) ? esc_attr( $site['icon_height'] ) : '24'; ?>"<?php if ( isset( $site['color'] ) ) : ?> style="background-color:#<?php echo esc_attr( $site['color'] ); endif; ?>"><?php echo esc_html( $site['name'] ); ?>
 						</li>
 				<?php
 					} ?>
@@ -953,6 +953,23 @@ function A2A_SHARE_SAVE_admin_head() {
 			
 			jQuery('.A2A_SHARE_SAVE_position').html($this.find('option:selected').html());
 		});
+
+		var entityMap = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#39;',
+			'/': '&#x2F;',
+			'`': '&#x60;',
+			'=': '&#x3D;'
+		};
+
+		function escapeHtml (string) {
+			return String(string).replace(/[&<>"'`=\/]/g, function fromEntityMap (s) {
+				return entityMap[s];
+			});
+		}
 	
 		var to_input = function(this_sortable){
 			// Clear any previous hidden inputs for storing chosen services
@@ -965,7 +982,7 @@ function A2A_SHARE_SAVE_admin_head() {
 			
 			for (var i=0, service_name, show_count_value, fb_verb_value; i < services_size; i++) {
 				if(services_array[i]!='') { // Exclude dummy icon
-					jQuery('#addtoany_admin_form').append('<input class="addtoany_hidden_options" name="A2A_SHARE_SAVE_active_services[]" type="hidden" value="'+services_array[i]+'"/>');
+					jQuery('#addtoany_admin_form').append('<input class="addtoany_hidden_options" name="A2A_SHARE_SAVE_active_services[]" type="hidden" value="'+escapeHtml(services_array[i])+'"/>');
 					
 					// Special service options?
 					service_name = services_array[i].substr(7);
@@ -1138,8 +1155,13 @@ function A2A_SHARE_SAVE_admin_head() {
 		}
 		?>
 		
-		jQuery.each(services, function(i, val){
-			jQuery('#a2a_wp_'+val).click();
+		jQuery.each(services, function(i, val) {
+			try {
+				jQuery('#a2a_wp_'+escapeHtml(val)).click();
+			} catch(e) {
+				if (console && console.warn)
+					console.warn('Invalid CSS selector: ' + val);
+			}
 		});
 		
 		// Add/Remove Services button

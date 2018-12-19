@@ -2,16 +2,26 @@
 Contributors: facebook
 Tags: Facebook, Facebook Conversion Pixel, Facebook Pixel, Facebook Pixel Events, facebook retargeting, facebook standard events
 Requires at least: 4.4
-Tested up to: 4.9.8
-Requires PHP: 5.6
-Stable tag: 1.7.17
+Tested up to: 5.0.1
+Requires PHP: 5.3
+Stable tag: 1.7.21
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Grow your business with Official Facebook Pixel!
 
 == Description ==
-This plugin will install a Facebook Pixel for your page. There is also built in support for other WordPress plugins, such as Contact Form 7, Easy Digital Downloads, Ninja Forms, and WPForms. The Official Facebook Pixel allows you to fire lower funnel events: Lead, ViewContent, AddToCart, InitiateCheckout and Purchase. Tracking lower funnel events can help you understand the actions people are taking on your website. You can then use this information to make adjustments accordingly in your advertising campaigns.
+***ATTENTION: Due to a known issue, upgrading this plugin may result in plugin deactivation (especially if you are upgrading from version 1.7.10 - 1.7.19). Please go to your site's 'Plugins' tab, refresh the page, and activate the plugin if it's deactivated to prevent losing your future pixel events.***
+
+This plugin will install a Facebook Pixel for your page. There is also built in support for other WordPress plugins. The Official Facebook Pixel allows you to fire lower funnel events: Lead, ViewContent, AddToCart, InitiateCheckout and Purchase. Tracking lower funnel events can help you understand the actions people are taking on your website. You can then use this information to make adjustments accordingly in your advertising campaigns.
+
+Current plugins that we supports:
+* Contact Form 7
+* Easy Digital Downloads
+* Ninja Forms
+* WPForms
+* MailChimp for WordPress
+* WP eCommerce
 
 == Installation ==
 __To install from your WordPress site__ <br />
@@ -38,6 +48,18 @@ If you get stuck, or have any questions, you can ask for help in the [Official F
 Of course! This plugin is open sourced on the Facebook Incubator GitHub. You can find the code and contribution instructions in the [plugin repository](https://github.com/facebookincubator/Facebook-Pixel-for-WordPress).
 
 == Changelog ==
+= 2018-11-30 version 1.7.21 =
+* fix abstract static function
+
+= 2018-11-28 version 1.7.20 =
+* Change plugin file name, Add Supports for MailChimp for WordPress and WP eCommerce
+
+= 2018-11-20 version 1.7.19 =
+* Support php 5.3 onwards
+
+= 2018-11-09 version 1.7.18 =
+* Fix translation and set the advanced matching on by default
+
 = 2018-11-09 version 1.7.17 =
 * Fix Lead event
 
@@ -45,4 +67,4 @@ Of course! This plugin is open sourced on the Facebook Incubator GitHub. You can
 * Fix advance matching
 
 == Upgrade Notice ==
-By upgrading to latest version you will have built in support to fire lower funnel events: Lead, ViewContent, AddToCart, InitiateCheckout and Purchase out of the most popular plugins, such as Contact Form 7, Easy Digital Downloads, Ninja Forms, and WPForms.
+By upgrading to latest version you will have built in support to fire lower funnel events: Lead, ViewContent, AddToCart, InitiateCheckout and Purchase out of the most popular plugins.

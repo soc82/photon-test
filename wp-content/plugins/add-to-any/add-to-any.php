@@ -3,7 +3,7 @@
 Plugin Name: AddToAny Share Buttons
 Plugin URI: https://www.addtoany.com/
 Description: Share buttons for your pages including AddToAny's universal sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp and many more.
-Version: 1.7.32
+Version: 1.7.33
 Author: AddToAny
 Author URI: https://www.addtoany.com/
 Text Domain: add-to-any
@@ -272,7 +272,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$link = ADDTOANY_SHARE_SAVE_SPECIAL( $active_service, $special_args );
 		} else {
 			$service = $services[ $active_service ];
-			$safe_name = $active_service;
+			$code_name = $active_service;
 			$name = $service['name'];
 			
 			// If Follow kit and HREF specified
@@ -288,7 +288,7 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 					// Replace the ID placeholder in the URL template
 					$href = str_replace( '${id}', $follow_id, $service['href'] );
 				}
-				$href = ( 'feed' == $safe_name ) ? $follow_id : $href;
+				$href = ( 'feed' == $code_name ) ? $follow_id : $href;
 				
 				// If icon_url is set, presume custom service
 				if ( isset( $service['icon_url'] ) ) {
@@ -321,17 +321,17 @@ function ADDTOANY_SHARE_SAVE_ICONS( $args = array() ) {
 			$icon = isset( $service['icon'] ) ? $service['icon'] : 'default'; // Just the icon filename
 			$icon_url = isset( $service['icon_url'] ) ? $service['icon_url'] : false;
 			$icon_url = $is_amp && ! $icon_url ? 'https://static.addtoany.com/buttons/' . $icon . '.svg' : $icon_url;
-			$width_attr = isset( $service['icon_width'] ) ? ' width="' . $service['icon_width'] . '"' : ' width="16"';
-			$width_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' width="' . $args['icon_size'] . '"' : $width_attr;
-			$height_attr = isset( $service['icon_height'] ) ? ' height="' . $service['icon_height'] . '"' : ' height="16"';
-			$height_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' height="' . $args['icon_size'] . '"' : $height_attr;
+			$width_attr = isset( $service['icon_width'] ) ? ' width="' . esc_attr( $service['icon_width'] ) . '"' : ' width="16"';
+			$width_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' width="' . esc_attr( $args['icon_size'] ) . '"' : $width_attr;
+			$height_attr = isset( $service['icon_height'] ) ? ' height="' . esc_attr( $service['icon_height'] ) . '"' : ' height="16"';
+			$height_attr = $is_amp && ! empty( $args['icon_size'] ) ? ' height="' . esc_attr( $args['icon_size'] ) . '"' : $height_attr;
 			
-			$amp_css .= $is_amp && ! empty( $service['color'] ) ? '.a2a_button_' . $safe_name . ' img{background-color:#' . $service['color'] . ';}' : '';
+			$amp_css .= $is_amp && ! empty( $service['color'] ) ? '.a2a_button_' . esc_attr( $code_name ) . ' img{background-color:#' . $service['color'] . ';}' : '';
 			
-			$url = isset( $href ) ? $href : 'https://www.addtoany.com/add_to/' . $safe_name . '?linkurl=' . $args['linkurl_enc'] .'&amp;linkname=' . $args['linkname_enc'];
+			$url = isset( $href ) ? $href : 'https://www.addtoany.com/add_to/' . $code_name . '?linkurl=' . $args['linkurl_enc'] .'&amp;linkname=' . $args['linkname_enc'];
 			$src = $icon_url ? $icon_url : $icons_dir . $icon . '.' . $icons_type;
 			$counter = $counter_enabled ? ' a2a_counter' : '';
-			$class_attr = $custom_service ? '' : ' class="a2a_button_' . $safe_name . $counter . '"';
+			$class_attr = $custom_service ? '' : ' class="a2a_button_' . esc_attr( $code_name ) . $counter . '"';
 			$href_attr = $args['basic_html'] && ! isset( $href ) ? '' : ' href="' . esc_attr( $url ) . '"';
 			$title_attr = $args['basic_html'] ? '' : ' title="' . esc_attr( $name ) . '"';
 
@@ -552,7 +552,9 @@ if ( ! function_exists( 'A2A_menu_locale' ) ) {
 	AddToYourFavorites: "' . __( "Add to your favorites", 'add-to-any' ) . '",
 	SendFromWebOrProgram: "' . __( "Send from any email address or email program", 'add-to-any' ) . '",
 	EmailProgram: "' . __( "Email program", 'add-to-any' ) . '",
-	More: "' . __( "More&#8230;", 'add-to-any' ) . '"
+	More: "' . __( "More&#8230;", 'add-to-any' ) . '",
+	ThanksForSharing: "' . __( "Thanks for sharing!", 'add-to-any' ) . '",
+	ThanksForFollowing: "' . __( "Thanks for following!", 'add-to-any' ) . '"
 };
 ';
 		return $A2A_locale;
@@ -607,7 +609,9 @@ function ADDTOANY_SHARE_SAVE_FLOATING( $args = array() ) {
 	$floating_html = '';
 
 	// Overridable by args below
-	$vertical_type = ( isset( $options['floating_vertical'] ) && 'none' != $options['floating_vertical'] ) ? $options['floating_vertical'] : false;
+	$vertical_type = ( isset( $options['floating_vertical'] ) && 'none' != $options['floating_vertical']
+		&& ! in_array( $options['floating_vertical'], array( 'left_attached', 'right_attached' ) )
+	) ? $options['floating_vertical'] : false;
 	$horizontal_type = ( isset( $options['floating_horizontal'] ) && 'none' != $options['floating_horizontal'] ) ? $options['floating_horizontal'] : false;
 
 	if ( is_singular() ) {

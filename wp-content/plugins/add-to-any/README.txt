@@ -4,7 +4,7 @@ Tags: buttons, share, icons, social media, share buttons, sharing, share button,
 Requires at least: 3.7
 Tested up to: 5.0
 Requires PHP: 5.2
-Stable tag: 1.7.32
+Stable tag: 1.7.33
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -263,13 +263,13 @@ To align center:
 
 = How can I remove the button(s) from individual posts and pages? =
 
-When editing a post or page, uncheck "Show sharing buttons", which is located at the bottom of the editor page. Be sure to update or publish to save your changes.
+When editing a post or page, uncheck "Show sharing buttons", which is located next to the WordPress editor. Be sure to update or publish to save your changes.
 
 An older method was to insert the following tag into the page or post (HTML tab) that you do not want the button(s) to appear in: `<!--nosharesave-->`
 
 = How can I force the button(s) to appear in individual posts and pages? =
 
-When editing a post or page, check the "Show sharing buttons" checkbox, which is located at the bottom of the editor page. Be sure to update or publish to save your changes. Note that, by default, AddToAny is setup to display on all posts and pages.
+When editing a post or page, check the "Show sharing buttons" checkbox, which is located next to the WordPress editor. Be sure to update or publish to save your changes. Note that, by default, AddToAny is setup to display on all posts and pages.
 
 An older method was to insert the following tag into the page or post (HTML tab) that you want the button(s) to appear in: `<!--sharesave-->`
 
@@ -349,6 +349,15 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.33 =
+* New translatable strings for the optional [post-share modal](https://www.addtoany.com/buttons/customize/wordpress/thanks)
+ * "Thanks for sharing!"
+ * "Thanks for following!"
+ * You can [configure](https://www.addtoany.com/buttons/customize/wordpress/thanks) the new post-share "Thanks for sharing!" modal and ad unit, rolling out soon for WordPress sites. By default, the modal only displays on pages that have an existing ad tag. You can [enable](https://www.addtoany.com/buttons/customize/wordpress/thanks#enable) and [disable](https://www.addtoany.com/buttons/customize/wordpress/thanks#disable) the modal and the ad, or [add](https://www.addtoany.com/buttons/customize/wordpress/thanks#add-ad) your own ad unit to be rotated along with AddToAny's
+* Move the "Show sharing buttons" meta box to the side of the WordPress editor
+* Fix issue where an extra floating vertical bar could appear when Placement is set to "Attach to content"
+* Add some supplementary escaping
 
 = 1.7.32 =
 * Fix the option to hide a floating bar when scrolled to a footer region
@@ -997,6 +1006,9 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 * For all prior versions, see 1.6.12 or earlier
 
 == Upgrade Notice ==
+
+= 1.7.33 =
+[Configure](https://www.addtoany.com/buttons/customize/wordpress/thanks) the new post-share "Thanks for sharing!" modal and ad unit, rolling out soon for WordPress sites. By default, the modal only displays on pages that have an existing ad tag. You can [enable](https://www.addtoany.com/buttons/customize/wordpress/thanks#enable) and [disable](https://www.addtoany.com/buttons/customize/wordpress/thanks#disable) the modal and the ad, or [add](https://www.addtoany.com/buttons/customize/wordpress/thanks#add-ad) your own ad unit to be rotated along with AddToAny's.
 
 = 1.7.31 =
 Using the Facebook Like button? You can enable its counter by clicking the down arrow below the Facebook Like button in AddToAny settings. For accurate counts when you enable [AddToAny Share Count Recovery](https://www.addtoany.com/blog/fix-share-counts-after-https-domain-url-change/), switch to AddToAny's standard Facebook share button instead of the Like button, because the Facebook Like button does not offer a way for previous counts to be recovered.

@@ -179,9 +179,13 @@ class AccessRequest {
         if ($this->exists($this->getId())) {
             $wpdb->update(
                 self::getDatabaseTableName(),
-                array('expired' => $this->getExpired()),
+                array(
+                    'email_address' => $this->getEmailAddress(),
+                    'ip_address' => $this->getIpAddress(),
+                    'expired' => $this->getExpired()
+                ),
                 array('ID' => $this->getId()),
-                array('%d'),
+                array('%s', '%s', '%d'),
                 array('%d')
             );
             return $this->getId();
@@ -205,6 +209,10 @@ class AccessRequest {
             }
         }
         return false;
+    }
+
+    public function isAnonymised() {
+        return ($this->getIpAddress() === '127.0.0.1');
     }
 
     /**
