@@ -1385,12 +1385,9 @@ class GFSagePayForm extends GFPaymentAddOn {
 	}
 */
 	private function process_ipn( $config, $entry, $status, $transaction_type, $transaction_id, $parent_transaction_id, $subscriber_id, $amount, $pending_reason, $reason, $recurring_amount ) {
-		$this->log_debug( "Firstly here..." );
 		$this->log_debug( "Payment status: {$status} - Transaction Type: {$transaction_type} - Transaction ID: {$transaction_id} - Parent Transaction: {$parent_transaction_id} - Subscriber ID: {$subscriber_id} - Amount: {$amount} - Pending reason: {$pending_reason} - Reason: {$reason}" );
 
 		$action = array();
-
-
 
 		//handles products and donation
 		switch ( $status ) {
@@ -1406,9 +1403,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 				$action['payment_date']     = gmdate( 'y-m-d H:i:s' );
 				$action['payment_method']	= 'SagePay Form';
 				$action['ready_to_fulfill'] = ! $entry['is_fulfilled'] ? true : false;
-
-
-				$this->log_debug( "I have made it here..." );
 
 
 				$this->fulfill_order( $entry, $transaction_id, $amount );
