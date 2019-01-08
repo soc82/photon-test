@@ -1389,7 +1389,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 		$action = array();
 
-
 		//handles products and donation
 		switch ( $status ) {
 		    case "OK" :
@@ -1407,8 +1406,14 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 
 				$this->fulfill_order( $entry, $transaction_id, $amount );
+
+				// Custom thank you email
+				ph_send_donation_email('complete', $action['transaction_id'], $entry, $action['amount']);
+
 				//update lead, add a note
 				GFAPI::update_entry( $entry );
+
+
 
 				if ( ! $this->is_valid_initial_payment_amount( $entry['id'], $amount ) ){
 					//create note and transaction
@@ -1421,6 +1426,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 					GFPaymentAddOn::insert_transaction( $entry['id'], 'payment', $transaction_id, $amount );
 				}
+
 
 				$this->complete_payment( $entry, $action );
 
@@ -1472,7 +1478,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 				}
 
-			   	$redirect_url = !empty($config["meta"]["cancelUrl"]) ? $config["meta"]["cancelUrl"] : home_url();
+			  $redirect_url = !empty($config["meta"]["cancelUrl"]) ? $config["meta"]["cancelUrl"] : home_url();
 				wp_redirect($redirect_url);
 				exit;
 
@@ -1894,8 +1900,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 	public function fulfill_order( &$entry, $transaction_id, $amount, $feed = null ) {
 
-		$this->log_debug( 'Transaction ID:' . $transaction_id );
-		$this->log_debug( 'Transaction amount:' . $amount );
 		if ( ! $feed ) {
 			$feed = $this->get_payment_feed( $entry );
 		}
@@ -1910,7 +1914,8 @@ class GFSagePayForm extends GFPaymentAddOn {
 		if ( rgars( $feed, 'meta/delayNotification' ) ) {
 			//sending delayed notifications
 			$notifications = rgars( $feed, 'meta/selectedNotifications' );
-			GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
+			// Commented out as using custom mail instead
+			//GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
 		}
 
 		$this->log_debug( 'Before gform_sagepay_form_fulfillment.' );

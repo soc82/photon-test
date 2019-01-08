@@ -242,35 +242,98 @@ function indeedJobsFeed(){
 
 
 
-
 /*
-**
+** Custom function to send donation thank you emails to get around priority issues with getting transaction id
 */
-add_filter( 'gform_notification_4', 'ph_change_donate_notification', 10, 3 );
-function ph_change_donate_notification( $notification, $form, $entry ) {
+function ph_send_donation_email($status, $trans_id, $entry, $amount) {
 
-	$notification['message_fomat'] = 'multipart';
+	if($status == 'complete') {
+		$subject = 'Prospect Hospice: Payment received for your online donation: ' . $entry['id'];
+	} else {
+		$subject = 'Prospect Hospice: Payment unsuccessful for your online donation';
+	}
 
-	//$notification['message'] = $entry['transaction_id'];
-	// No white spaces in markup as adds line breaks to emails
-	$notification['message'] .= $transaction_id . '
-	<body style="background:#EEEEEE; font-size: 16px; line-height:22px; color:#151515; font-family: Arial, sans-serif;"><table style="background:#EEEEEE;" width="600" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto 0 auto; width: 600px;"><tr><td height="100"></td></tr><tr><td width="100%" align="center"><table style="background:#FFFFFF" cellpadding="0" cellspacing="0"><tr><td width="25" height="20"></td><td width="175"></td><td width="50"></td><td width="325" align="right"></td><td width="25"></td></tr><tr><td width="25"></td><td width="175"><img src="https://www.prospect-hospice.net/wp-content/themes/prospect-hospice/img/prospect-hospice.png" alt="Prospect Hospice" width="175" /></td><td width="50"></td><td width="325" align="right"><p style="color:#84BD00; font-size: 15px; line-height:21px; text-align:right;">Bringing confidence, comfort and care for patients and families since 1980</p></td><td width="25"></td></tr></table><table style="background:#FFFFFF" cellpadding="0" cellspacing="0" ><tr><td width="25"></td><td width="550" ><p style="color:#151515; font-size: 16px; line-height:22px;">
+	$to = $entry[3] . ', fundraising&events@prospect-hospice.net';
+	$body = '
+	<body style="background:#EEEEEE; font-size: 16px; line-height:22px; color:#151515; font-family: Arial, sans-serif;">
+		<table style="background:#EEEEEE;" width="600" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto 0 auto; width: 600px;">
+			<tr>
+				<td height="100"></td>
+			</tr>
+			<tr>
+				<td width="100%" align="center">
+					<table style="background:#FFFFFF" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="25" height="20"></td>
+							<td width="175"></td>
+							<td width="50"></td>
+							<td width="325" align="right"></td>
+							<td width="25"></td>
+						</tr>
+						<tr>
+							<td width="25"></td>
+							<td width="175"><img src="https://www.prospect-hospice.net/wp-content/themes/prospect-hospice/img/prospect-hospice.png" alt="Prospect Hospice" width="175" /></td>
+							<td width="50"></td>
+							<td width="325" align="right"><p style="color:#84BD00; font-size: 15px; line-height:21px; text-align:right;">Bringing confidence, comfort and care for patients and families since 1980</p></td>
+							<td width="25"></td>
+						</tr>
+					</table>
+					<table style="background:#FFFFFF" cellpadding="0" cellspacing="0" >
+						<tr>
+							<td width="25" height="20"></td>
+							<td width="550" ></td>
+							<td width="25"></td>
+						</tr>
+						<tr>
+							<td width="25"></td>
+							<td width="550" ><p style="color:#151515; font-size: 15px; line-height:21px;">
 							Dear ' . $entry[1] . ' ' . $entry[2] . ',<br/>
-							On behalf of everyone at Prospect Hospice, thank you, we have received your payment for your online donation.<br/>
-							Payment amount: ' . $entry['payment_amount'] . '
-							Payment reference: '. $entry['id'] . '
-							Transaction reference: ' . $entry['transaction_id'] . '
 							<br/>
-							With thanks and kind regards,
+							On behalf of everyone at Prospect Hospice, thank you, we have received your payment for your online donation.<br/>
+							<br/>
+							Payment amount: £' . $amount . '<br/>
+							Payment reference: '. $entry['id'] . '<br/>
+							Transaction reference: ' . $trans_id . '<br/>
+							<br/>
+							With thanks and kind regards,<br/>
+
 							Prospect hospice
-
-							</p></td><td width="25"></td></tr></table><table style="background:#84BD00" cellpadding="0" cellspacing="0"><tr><td width="25" height="20"></td>
-							<td width="550"><td width="25"></td></tr><tr><td width="25"></td>
+							</p>
+							</td>
+							<td width="25"></td>
+						</tr>
+						<tr>
+							<td width="25" height="20"></td>
+							<td width="550" ></td>
+							<td width="25"></td>
+						</tr>
+					</table>
+					<table style="background:#84BD00" cellpadding="0" cellspacing="0">
+						<tr>
+							<td width="25" height="20"></td>
+							<td width="550"><td width="25"></td>
+						</tr>
+						<tr>
+							<td width="25"></td>
 							<td width="550"><p style="color:#FFFFFF; font-size: 12px; line-height:18px;">You have been sent this email as a result of donating, registering or booking a course on the Prospect Hospice website.<br/>
+							<br/>
 							If you do not wish to receive further updates from Prospect Hospice, please click here to opt out.<br/>
+							<br/>
 							Prospect Hospice is a working name of Prospect Hospice Limited. Registered Office: Moormead Road, Wroughton, Swindon, Wiltshire, SN4 9BY. A company limited by guarantee registered in England and Wales (1494909) and a charity registered in England and Wales (280093).</p>
-							</td><td width="25"></td></tr></table></td></tr></table></body>';
+							</td>
+							<td width="25"></td>
+						</tr>
+						<tr>
+							<td width="25" height="20"></td>
+							<td width="550"><td width="25"></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</body>';
 
+	$headers = array('From: Prospect Hospice <communications@prospect-hospice.net>');
 
-  return $notification;
+	wp_mail( $to, $subject, $body, $headers );
 }
