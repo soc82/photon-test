@@ -1411,12 +1411,12 @@ class GFSagePayForm extends GFPaymentAddOn {
 				$this->fulfill_order( $entry, $transaction_id, $amount );
 
 
+
 				// Custom thank you email
 				ph_send_donation_email('complete', $action['transaction_id'], $entry, $action['amount']);
 
 				//update lead, add a note
 				GFAPI::update_entry( $entry );
-
 
 
 				if ( ! $this->is_valid_initial_payment_amount( $entry['id'], $amount ) ){
