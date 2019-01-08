@@ -1410,8 +1410,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 				$this->fulfill_order( $entry, $transaction_id, $amount );
 
-
-
 				// Custom thank you email
 				ph_send_donation_email('complete', $action['transaction_id'], $entry, $action['amount']);
 
