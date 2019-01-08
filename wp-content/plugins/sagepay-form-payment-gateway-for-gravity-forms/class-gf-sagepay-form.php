@@ -1388,9 +1388,10 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( "Payment status: {$status} - Transaction Type: {$transaction_type} - Transaction ID: {$transaction_id} - Parent Transaction: {$parent_transaction_id} - Subscriber ID: {$subscriber_id} - Amount: {$amount} - Pending reason: {$pending_reason} - Reason: {$reason}" );
 
 		$action = array();
-		var_dump($entry);
-		var_dump($status);
-		die();
+
+		$this->log_debug( "{$status}" );
+
+
 		//handles products and donation
 		switch ( $status ) {
 		    case "OK" :
