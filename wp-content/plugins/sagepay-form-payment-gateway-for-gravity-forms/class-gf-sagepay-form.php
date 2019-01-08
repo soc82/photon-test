@@ -1388,7 +1388,9 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( "Payment status: {$status} - Transaction Type: {$transaction_type} - Transaction ID: {$transaction_id} - Parent Transaction: {$parent_transaction_id} - Subscriber ID: {$subscriber_id} - Amount: {$amount} - Pending reason: {$pending_reason} - Reason: {$reason}" );
 
 		$action = array();
-
+		var_dump($entry);
+		var_dump($status);
+		die();
 		//handles products and donation
 		switch ( $status ) {
 		    case "OK" :
@@ -1912,8 +1914,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( 'Before gform_sagepay_form_fulfillment.' );
 		do_action( 'gform_sagepay_form_fulfillment', $entry, $feed, $transaction_id, $amount );
 		$this->log_debug( 'After gform_sagepay_form_fulfillment.' );
-		var_dump($entry);
-		die();
+
 
 	}
 
