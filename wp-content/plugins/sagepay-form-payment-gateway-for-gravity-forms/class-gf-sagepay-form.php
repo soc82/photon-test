@@ -1385,11 +1385,11 @@ class GFSagePayForm extends GFPaymentAddOn {
 	}
 */
 	private function process_ipn( $config, $entry, $status, $transaction_type, $transaction_id, $parent_transaction_id, $subscriber_id, $amount, $pending_reason, $reason, $recurring_amount ) {
+		$this->log_debug( "Firstly here..." );
 		$this->log_debug( "Payment status: {$status} - Transaction Type: {$transaction_type} - Transaction ID: {$transaction_id} - Parent Transaction: {$parent_transaction_id} - Subscriber ID: {$subscriber_id} - Amount: {$amount} - Pending reason: {$pending_reason} - Reason: {$reason}" );
 
 		$action = array();
 
-		$this->log_debug( "Firstly here..." );
 
 
 		//handles products and donation
