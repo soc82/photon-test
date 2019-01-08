@@ -1389,8 +1389,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 		$action = array();
 
-		$this->log_debug( "{$status}" );
-
 
 		//handles products and donation
 		switch ( $status ) {
@@ -1406,6 +1404,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 				$action['payment_date']     = gmdate( 'y-m-d H:i:s' );
 				$action['payment_method']	= 'SagePay Form';
 				$action['ready_to_fulfill'] = ! $entry['is_fulfilled'] ? true : false;
+
 
 				$this->fulfill_order( $entry, $transaction_id, $amount );
 				//update lead, add a note
@@ -1895,6 +1894,8 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 	public function fulfill_order( &$entry, $transaction_id, $amount, $feed = null ) {
 
+		$this->log_debug( 'Transaction ID:' . $transaction_id );
+		$this->log_debug( 'Transaction amount:' . $amount );
 		if ( ! $feed ) {
 			$feed = $this->get_payment_feed( $entry );
 		}
