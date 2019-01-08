@@ -1212,7 +1212,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 	}
 
 
-	//------- PROCESSING WORLDPAY IPN (Callback) -----------//
 
 	public function callback() {
 
@@ -1259,6 +1258,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 		}
 
+
 		$this->log_debug( 'IPN request received. Starting to process...' );
 
 		$transaction_response = $this->decode(str_replace(' ', '+',$_REQUEST['crypt']));
@@ -1297,6 +1297,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( 'Processing IPN...' );
 		$action = $this->process_ipn( $feed, $entry, $transaction_response['Status'], $txn_type, $transaction_response['VendorTxCode'], $transaction_response['VendorTxCode'], rgpost( 'futurePayId' ), $transaction_response['Amount'], rgpost( 'pending_reason' ), rgpost( 'reason_code' ), $transaction_response['Amount'] );
 		$this->log_debug( 'IPN processing complete.' );
+
 
 		if ( rgempty( 'entry_id', $action ) ) {
 			return false;
@@ -1387,6 +1388,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( "Payment status: {$status} - Transaction Type: {$transaction_type} - Transaction ID: {$transaction_id} - Parent Transaction: {$parent_transaction_id} - Subscriber ID: {$subscriber_id} - Amount: {$amount} - Pending reason: {$pending_reason} - Reason: {$reason}" );
 
 		$action = array();
+
 		//handles products and donation
 		switch ( $status ) {
 		    case "OK" :
@@ -1420,7 +1422,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 				$this->complete_payment( $entry, $action );
 
-		       	$redirect_url = !empty($config["meta"]["successUrl"]) ? $config["meta"]["successUrl"] : home_url();
+		    $redirect_url = !empty($config["meta"]["successUrl"]) ? $config["meta"]["successUrl"] : home_url();
 				wp_redirect($redirect_url);
 				exit;
 
@@ -1910,6 +1912,8 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( 'Before gform_sagepay_form_fulfillment.' );
 		do_action( 'gform_sagepay_form_fulfillment', $entry, $feed, $transaction_id, $amount );
 		$this->log_debug( 'After gform_sagepay_form_fulfillment.' );
+		var_dump($entry);
+		die();
 
 	}
 
