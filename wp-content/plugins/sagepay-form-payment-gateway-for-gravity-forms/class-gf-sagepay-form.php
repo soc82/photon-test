@@ -1389,6 +1389,9 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 		$action = array();
 
+		$this->log_debug( "Firstly here..." );
+
+
 		//handles products and donation
 		switch ( $status ) {
 		    case "OK" :
