@@ -1405,9 +1405,11 @@ class GFSagePayForm extends GFPaymentAddOn {
 				$action['ready_to_fulfill'] = ! $entry['is_fulfilled'] ? true : false;
 
 
+				$this->log_debug( "I have made it here..." );
+
+
 				$this->fulfill_order( $entry, $transaction_id, $amount );
 
-				$this->log_debug( "I have made it here..." );
 
 				// Custom thank you email
 				ph_send_donation_email('complete', $action['transaction_id'], $entry, $action['amount']);
