@@ -317,7 +317,7 @@ function ph_send_donation_email($status, $trans_id, $entry, $amount) {
 							<td width="25"></td>
 							<td width="550"><p style="color:#FFFFFF; font-size: 12px; line-height:18px;">You have been sent this email as a result of donating, registering or booking a course on the Prospect Hospice website.<br/>
 							<br/>
-							If you do not wish to receive further updates from Prospect Hospice, please click here to opt out.<br/>
+							You can change your contact preferences and how we communicate with you any time, in any of these three simple ways; call us on 01793 816161, email us on <a href="MAILTO:dataadmin@prospecthospice.net">dataadmin@prospecthospice.net</a> or visit <a href="http://www.prospect-hospice.net/how-you-hear-from-us">http://www.prospect-hospice.net/how-you-hear-from-us</a>. For more guidance on how we use your information please visit <a href="www.prospect-hospice.net/privacy-policy">www.prospect-hospice.net/privacy-policy.</a><br/>
 							<br/>
 							Prospect Hospice is a working name of Prospect Hospice Limited. Registered Office: Moormead Road, Wroughton, Swindon, Wiltshire, SN4 9BY. A company limited by guarantee registered in England and Wales (1494909) and a charity registered in England and Wales (280093).</p>
 							</td>
