@@ -333,7 +333,17 @@ function ph_send_donation_email($status, $trans_id, $entry, $amount) {
 		</table>
 	</body>';
 
-	$headers = array('From: Prospect Hospice <communications@prospect-hospice.net>');
+	$headers  = "MIME-Version: 1.0" . "\r\n";
+	$headers .= "Content-type: text/html; charset=".get_bloginfo('charset')."" . "\r\n";
+	$headers .= "From: Prospect Hospice <communications@prospect-hospice.net>" . "\r\n";
 
 	wp_mail( $to, $subject, $body, $headers );
+}
+
+/*
+** Set sender path to from address 
+*/
+add_action( 'phpmailer_init', 'ph_phpmailer_return_path' );
+function ph_phpmailer_return_path( $phpmailer ) {
+    $phpmailer->Sender = $phpmailer->From;
 }
