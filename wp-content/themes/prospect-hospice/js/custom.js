@@ -168,3 +168,17 @@ jQuery( document ).ready(function($) {
   });
 
 });
+
+jQuery('a[href$=".pdf"]').click(function(){
+  var pdfurl=jQuery(this).attr('href');
+  if (typeof ga !== 'undefined') {
+    ga('gtm1.send','event', 'PDF Download', 'Download', pdfurl);
+  }
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'ViewContent', {
+      type: 'PDF Download',
+      url: pdfurl
+    });
+  }
+  return true;
+});
