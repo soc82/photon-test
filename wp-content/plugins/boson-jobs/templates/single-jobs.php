@@ -30,6 +30,7 @@ $job_section = $terms[0]->slug;
 get_header(); ?>
 
 <div class="inner-page-wrapper">
+	<?php if ($job_section !== 'volunteer') : ?><div class="container"><?php endif; ?>
 	<div class="row">
 		<div class="col-12 <?php if ($job_section !== 'volunteer') : ?>col-lg-9<?php endif; ?>">
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -72,24 +73,25 @@ get_header(); ?>
 				<div class="entry-content">
 					<?php the_content();?>
 				</div>
+				<div class="container">
+					<div class="section apply-job">
+						<?php if ($job_section !== 'volunteer') : ?>
+							<?php if (!$applied) : // If Applied ?>
 
-				<div class="section apply-job">
-					<?php if ($job_section !== 'volunteer') : ?>
-						<?php if (!$applied) : // If Applied ?>
+								<?php if (is_user_logged_in()) : // If user logged in, apply ?>
+									<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 
-							<?php if (is_user_logged_in()) : // If user logged in, apply ?>
-								<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+								<?php else : // else, explain they need to register / login ?>
+									<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+								<?php endif; ?>
 
-							<?php else : // else, explain they need to register / login ?>
-								<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+							<?php else : // else, tell user they have already applied  ?>
+								<?php echo '<p>' . get_field('position_already_applied_for_text', 'option') . '</p>'; ?>
 							<?php endif; ?>
-
-						<?php else : // else, tell user they have already applied  ?>
-							<?php echo '<p>' . get_field('position_already_applied_for_text', 'option') . '</p>'; ?>
 						<?php endif; ?>
-					<?php endif; ?>
-					<a href="<?php echo get_permalink($vacancies_page); ?>" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
+						<a href="<?php echo get_permalink($vacancies_page); ?>" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
 
+					</div>
 				</div>
 
 			</article>
@@ -134,6 +136,7 @@ get_header(); ?>
 		</div>
 		<?php endif; ?>
 	</div>
+	<?php if ($job_section !== 'volunteer') : ?></div><?php endif; ?>
 </div>
 
 <?php get_footer(); ?>
