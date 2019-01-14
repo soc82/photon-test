@@ -132,7 +132,7 @@ jQuery( document ).ready(function($) {
 
 });
 
-jQuery('a[href$=".pdf"]').click(function(){
+jQuery('a[href$=".pdf"]').click(function(e){
   var pdfurl=jQuery(this).attr('href');
   if (typeof ga !== 'undefined') {
     ga('gtm1.send','event', 'PDF Download', 'Download', pdfurl);
@@ -143,5 +143,7 @@ jQuery('a[href$=".pdf"]').click(function(){
       url: pdfurl
     });
   }
-  return true;
+  window.open(pdfurl, 'prospdl');
+  e.preventDefault();
+  return false;
 });
