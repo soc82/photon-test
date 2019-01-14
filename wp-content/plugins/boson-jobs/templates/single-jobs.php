@@ -33,9 +33,6 @@ get_header(); ?>
 	<div class="row">
 		<div class="col-12 <?php if ($job_section !== 'volunteer') : ?>col-lg-9<?php endif; ?>">
 			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-				<div class="page-header">
-					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-				</div>
 				<div class="flexible-content">
 					<?php get_template_part('inc/flexible-content'); ?>
 				</div>
