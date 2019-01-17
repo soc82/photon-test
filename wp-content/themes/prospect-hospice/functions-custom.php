@@ -104,9 +104,7 @@ add_filter( 'wp_mail_from_name', 'prospect_sender_name' );
 */
 add_filter( 'gform_confirmation_anchor', '__return_true' );
 
-
 function wpse28782_remove_menu_items() {
-
     // Hide draft event entries for all
     remove_menu_page('edit.php?post_type=draft-event-entry'); // Event Entry
 
@@ -155,6 +153,7 @@ function wpse28782_remove_menu_items() {
         remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('tools.php'); // Tools
+        remove_menu_page('wc-reports'); // Sales Reports
     endif;
 
     if ( current_user_can('retail')):
