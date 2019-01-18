@@ -92,6 +92,10 @@ class Prospect_volunteer_search {
 									<div class="results-outro">
 										<?php echo get_field('search_text', 'options')['search_results_sub_text']; ?>
 									</div>
+								<?php else : ?>
+									<div class="results-intro">
+										No results found, please try another search.
+									</div>
 								<?php endif; ?>
 							</div>
 						</div>
