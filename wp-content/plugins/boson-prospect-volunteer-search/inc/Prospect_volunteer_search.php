@@ -21,7 +21,7 @@ class Prospect_volunteer_search {
 
 	public function get_specifications_fields()
 	{
-		$specifications_group_id = 2050; 
+		$specifications_group_id = 2805; 
 		$specifications_fields = array();
 
 		$fields = acf_get_fields( $specifications_group_id );
