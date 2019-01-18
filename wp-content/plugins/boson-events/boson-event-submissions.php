@@ -37,7 +37,7 @@ function custom_post_type_event() {
 		'menu_icon'           => 'dashicons-calendar-alt',
 		'can_export'          => true,
 		'has_archive'         => false, // index Page
-		'exclude_from_search' => false,
+		'exclude_from_search' => true,
 		'publicly_queryable'  => false,
 		'capability_type'     => 'post',
 	);
@@ -80,7 +80,7 @@ function custom_post_type_event() {
     'menu_icon'           => 'dashicons-calendar-alt',
     'can_export'          => true,
     'has_archive'         => false, // index Page
-    'exclude_from_search' => false,
+    'exclude_from_search' => true,
     'publicly_queryable'  => false,
     'capability_type'     => 'post',
   );
