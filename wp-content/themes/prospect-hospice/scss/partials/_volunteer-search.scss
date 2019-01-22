@@ -58,8 +58,12 @@
 					}
 					&.when_role_is_available {
 						.field_group {
-							width: 33%;
-							margin-bottom: 10px;
+							width: 49%;
+							margin: 15px 0;
+							@include media-breakpoint-up(md) {
+								width: 33%;
+								margin-bottom: 10px;
+							}
 						}
 						input {
 							margin-left: 0;

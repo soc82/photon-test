@@ -10555,8 +10555,12 @@ body.single-shop .shop-details {
         .volunteering-skills-search form .accordion .accordion-body .fields input {
           margin-left: 0; } }
     .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available .field_group {
-      width: 33%;
-      margin-bottom: 10px; }
+      width: 49%;
+      margin: 15px 0; }
+      @media (min-width: 768px) {
+        .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available .field_group {
+          width: 33%;
+          margin-bottom: 10px; } }
     .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available input {
       margin-left: 0; }
     .volunteering-skills-search form .accordion .accordion-body .controls {
