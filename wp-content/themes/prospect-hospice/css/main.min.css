@@ -10536,19 +10536,38 @@ body.single-shop .shop-details {
     display: none;
     padding: 25px 25px;
     border: solid 2px #84BD00; }
+    .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available .field_group {
+      margin: 15px; }
+      @media (min-width: 768px) {
+        .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available .field_group {
+          margin: 0; } }
     .volunteering-skills-search form .accordion .accordion-body .fields .field_group {
-      display: inline-block; }
+      display: inline-block;
+      margin: 9px; }
+      @media (min-width: 768px) {
+        .volunteering-skills-search form .accordion .accordion-body .fields .field_group {
+          margin: 0; } }
     .volunteering-skills-search form .accordion .accordion-body .fields input {
+      margin-left: 10px;
       margin-right: 20px;
       border: solid 1px #84BD00; }
+      @media (min-width: 768px) {
+        .volunteering-skills-search form .accordion .accordion-body .fields input {
+          margin-left: 0; } }
     .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available .field_group {
       width: 33%;
       margin-bottom: 10px; }
+    .volunteering-skills-search form .accordion .accordion-body .fields.when_role_is_available input {
+      margin-left: 0; }
     .volunteering-skills-search form .accordion .accordion-body .controls {
       display: inline-block;
       width: 100%; }
       .volunteering-skills-search form .accordion .accordion-body .controls .btn, .volunteering-skills-search form .accordion .accordion-body .controls .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .volunteering-skills-search form .accordion .accordion-body .controls .gform_button {
-        float: right; }
+        float: right;
+        margin-top: 20px; }
+        @media (min-width: 768px) {
+          .volunteering-skills-search form .accordion .accordion-body .controls .btn, .volunteering-skills-search form .accordion .accordion-body .controls .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .volunteering-skills-search form .accordion .accordion-body .controls .gform_button {
+            margin-top: 0; } }
   .volunteering-skills-search form .accordion.results {
     margin-top: 5px; }
     .volunteering-skills-search form .accordion.results .accordion-header {
