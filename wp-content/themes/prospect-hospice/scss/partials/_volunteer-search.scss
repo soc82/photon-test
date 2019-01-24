@@ -95,7 +95,7 @@
 					}
 					.result {
 						display: block;
-						width: 100%;
+						max-width: 80%;
 						@include media-breakpoint-up(md) {
 							width: 50%;
 						}
@@ -103,6 +103,10 @@
 						text-decoration: underline;
 						.score {
 							float: right;
+							margin-right: -20%;
+							@include media-breakpoint-up(md) {
+								margin-right: 0;
+							}
 						}
 					}
 					.results-outro {

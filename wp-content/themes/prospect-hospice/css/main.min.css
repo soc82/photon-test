@@ -10583,14 +10583,18 @@ body.single-shop .shop-details {
         margin-bottom: 10px; }
       .volunteering-skills-search form .accordion.results .accordion-body .result {
         display: block;
-        width: 100%;
+        max-width: 80%;
         font-weight: bold;
         text-decoration: underline; }
         @media (min-width: 768px) {
           .volunteering-skills-search form .accordion.results .accordion-body .result {
             width: 50%; } }
         .volunteering-skills-search form .accordion.results .accordion-body .result .score {
-          float: right; }
+          float: right;
+          margin-right: -20%; }
+          @media (min-width: 768px) {
+            .volunteering-skills-search form .accordion.results .accordion-body .result .score {
+              margin-right: 0; } }
       .volunteering-skills-search form .accordion.results .accordion-body .results-outro {
         margin-top: 10px; }
 
