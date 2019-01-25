@@ -175,6 +175,49 @@ function wpse28782_remove_menu_items() {
 add_action( 'admin_menu', 'wpse28782_remove_menu_items' );
 
 
+function ph_admin_acf_permissions( $capability ) {
+    return 'edit_pages';
+}
+add_filter('acf/settings/capability', __NAMESPACE__ . '\\ph_admin_acf_permissions');
+
+
+
+function ph_admin_acf_notice(){
+    global $pagenow;
+		$screen = get_current_screen();
+    if ( $pagenow == 'edit.php' && $screen->post_type == 'acf-field-group') {
+			$user = wp_get_current_user();
+	 		if ( in_array( 'administrator', (array) $user->roles ) ) {
+
+         echo '<div class="notice notice-error ">
+             <h2>NOTICE: Any custom fields should be added in code for this website, due to the client having access to this area and it being used for event forms.</h2>
+         </div>';
+
+			 }
+
+			 echo '<div class="notice notice-warning">
+			 <h3>Instructions for adding new event forms</h3>
+			 <p>For every form, there should be 2 instances of it - one for the  form which holds the lead booker information (lead form), and one for the attendee form (attendee form).</p>
+			 <ol>
+			 	<li>First find a form which you want to duplicate. This should be a form which is as close as possible to the new one you want to create.</li>
+				<li>Hover over that item and click "Duplicate" (not "Duplicate field group"). You will need to duplicate both the lead and attendee form.</li>
+				<li>Once that is done, you should see those 2 new items in the list with "Copy" appended to the end. Hover over the attendee form and click "Edit".</li>
+				<li>When you are at the editing screen for the attendee form, rename the title to something relevant. We would recommend something like: "{Event Name} - Attendee form".</li>
+				<li>You should see the fields listed below where you can click into and edit/delete exisitng fields or click the "Add field" button at the bottom to append a new field to the bottom. Once that is added you should give it a name, select the field type etc.<br/>
+				<strong>NOTE: Personal fields such as name & email address should never be changed as the attendee emails and user creation is reliant on this.</strong></li>
+				<li>Once you have finished editing these field, click the "Update" button and return back to the previous "Custom Fields" screen.</li>
+				<li>You will then need to click "Edit" on the lead form version (should be the other item with "copy" on the end).</li>
+				<li>Repeat the same changes you previously made so with the attendee form. We recommend renaming the title to: "{Event Name} - Lead form", and edit/add any new fields you added for the attendee.</li>
+				<li>Before clicking "Update", you should see a field called "Additional Attendees". Click on that to expand it and then click on the "Fields" item beneath that. Once that is expanded you should again see a section labeled "Fields" with a little "x" to the right of the box. Click the "x" and then start typing in what you named your attendee form (eg "Event Name - Attendee Form"). It should popup and allow you to click it, which links the 2 forms together.</li>
+				<li>You can now click "Update" and you are done creating your new forms.</li>
+				<li>The final step is to go to your event "Woocommerce" > "Products" and you should see a field called "Event Form" which will allow you to pick the event form you want to use. You want to select the lead form you have just created (eg "Event Name - Lead Form").</li>
+			 </ol>
+			 </div>';
+    }
+}
+add_action('admin_notices', 'ph_admin_acf_notice');
+
+
 add_action( 'editable_roles' , 'prospect_hide_unused_roles' );
 function prospect_hide_unused_roles( $roles ){
     if (current_user_can('administrator')) {

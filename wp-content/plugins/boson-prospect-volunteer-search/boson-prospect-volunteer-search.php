@@ -10,7 +10,7 @@
    */
 
 require_once('inc/Prospect_volunteer_search.php');
-// require_once('acf-fields.php');
+require_once('acf-fields.php');
 
 add_shortcode('volunteer-search', array('Prospect_volunteer_search', 'shortcode'));
 
