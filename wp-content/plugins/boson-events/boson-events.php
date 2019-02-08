@@ -464,10 +464,13 @@ function process_admin_attendee_email($attendee) {
     "Content-Type: text/html;charset=utf-8"
   );
 
-  $admin_email = get_field('event_email_adress', 'options');
+  $admin_email = 'fundraising&events@prospect-hospice.net';
+
   $mail = wp_mail( $admin_email, $subject, $message, implode("\r\n", $headers) );
 
 }
+
+
 
 function process_attendee_email($message, $attendee) {
   $user = get_field('lead_user_id', $attendee->ID);
