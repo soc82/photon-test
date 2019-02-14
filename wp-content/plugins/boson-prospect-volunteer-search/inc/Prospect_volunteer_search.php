@@ -58,11 +58,27 @@ class Prospect_volunteer_search {
 										<?php echo $field['label']; ?>
 									</div>
 									<div class="accordion-body">
+										<?php // Add extra controls for availability section 
+										$availability_section = false;
+										?>
+										<?php if ($field['name'] == 'when_role_is_available') : ?>
+											<?php $availability_section = true; ?>
+											<div class="availability-controls">
+												<span class="skill-control btn btn-yellow" id="skills_available_all">Tick all</span>		
+												<span class="skill-control btn btn-yellow" id="skills_available_am">Tick all mornings</span>
+												<span class="skill-control btn btn-yellow" id="skills_available_pm">Tick all afternoons</span>
+												<span class="skill-control btn btn-yellow" id="skills_available_eve">Tick all evenings</span>
+												<span class="skill-control btn btn-yellow" id="skills_available_none">Untick all</span>
+											</div>
+										<?php endif; ?>
 										<div class="fields <?php echo strtolower(str_replace(' ', '_', $field['label'])); ?>">
 											<?php foreach ($field['sub_fields'] as $sub_field) : ?>
+												<?php if ($availability_section) : ?>
+													<?php $time = str_replace('_', '', substr($sub_field['name'], -3)); ?>
+												<?php endif; ?>
 												<div class="field_group">
-												<label><?php echo $sub_field['label']; ?></label>
-												<input type="checkbox" <?php if (isset($_GET[$sub_field['name']])) echo 'checked="checked"'; ?> name="<?php echo $sub_field['name'] ?>">
+												<label><?php echo $sub_field['label']; ?>
+												<input type="checkbox" <?php if (isset($time)) echo 'class="' . $time . '"'; ?> <?php if (isset($_GET[$sub_field['name']])) echo 'checked="checked"'; ?> name="<?php echo $sub_field['name'] ?>"></label>
 												</div>
 											<?php endforeach; ?>
 										</div>

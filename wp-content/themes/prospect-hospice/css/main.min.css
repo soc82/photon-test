@@ -10572,6 +10572,9 @@ body.single-shop .shop-details {
         @media (min-width: 768px) {
           .volunteering-skills-search form .accordion .accordion-body .controls .btn, .volunteering-skills-search form .accordion .accordion-body .controls .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .gform_button, .prospect_event .event-volunteering-block .gform_wrapper .gform_footer .volunteering-skills-search form .accordion .accordion-body .controls .gform_button {
             margin-top: 0; } }
+    .volunteering-skills-search form .accordion .accordion-body .availability-controls .skill-control {
+      padding: 2px 25px;
+      margin: 0 5px; }
   .volunteering-skills-search form .accordion.results {
     margin-top: 5px; }
     .volunteering-skills-search form .accordion.results .accordion-header {

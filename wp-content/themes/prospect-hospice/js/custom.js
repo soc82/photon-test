@@ -108,6 +108,29 @@ jQuery( document ).ready(function($) {
     }
   });
 
+  /*
+  ** Select buttons for availability section
+  */
+  jQuery('#skills_available_all').click(function() {
+    jQuery('.fields.when_role_is_available input:checkbox').prop('checked', true);
+  });
+  
+  jQuery('#skills_available_am').click(function() { 
+    jQuery('.fields.when_role_is_available input.am:checkbox').prop('checked', true);
+  });
+
+  jQuery('#skills_available_pm').click(function() {
+    jQuery('.fields.when_role_is_available input.pm:checkbox').prop('checked', true);
+  });
+
+  jQuery('#skills_available_eve').click(function() {
+    jQuery('.fields.when_role_is_available input.eve:checkbox').prop('checked', true);
+  });
+
+  jQuery('#skills_available_none').click(function() {
+    jQuery('.fields.when_role_is_available input:checkbox').prop('checked', false);
+  });
+
   // Scroll the user to the search results on form submission
   if (getUrlVars()['volunteer-search']) {
     jQuery('html, body').animate({scrollTop: jQuery('#volunteering-skills-search-form').offset().top - 50}, 250);
