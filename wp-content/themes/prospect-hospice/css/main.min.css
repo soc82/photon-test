@@ -10584,13 +10584,6 @@ body.single-shop .shop-details {
       .volunteering-skills-search form .accordion.results .accordion-body .results-intro {
         font-weight: bold;
         margin-bottom: 10px; }
-      .volunteering-skills-search form .accordion.results .accordion-body .results-score {
-        display: block;
-        width: 96%;
-        text-align: right; }
-        @media (min-width: 768px) {
-          .volunteering-skills-search form .accordion.results .accordion-body .results-score {
-            width: 50%; } }
       .volunteering-skills-search form .accordion.results .accordion-body .result {
         display: block;
         max-width: 80%;

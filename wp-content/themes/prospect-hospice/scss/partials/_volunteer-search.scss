@@ -100,14 +100,6 @@
 						font-weight: bold;
 						margin-bottom: 10px;
 					}
-					.results-score {
-						display: block;
-						width: 96%;
-						text-align: right;
-						@include media-breakpoint-up(md) {
-							width: 50%;
-						}
-					}
 					.result {
 						display: block;
 						max-width: 80%;

@@ -102,7 +102,6 @@ class Prospect_volunteer_search {
 									<div class="results-intro">
 										<?php echo get_field('search_text', 'options')['search_results_header']; ?>
 									</div>
-									<span class="results-score">Your percentage match</span>
 									<?php foreach ($this->search_results as $result) : ?>
 										<a href="<?php echo get_permalink($result['item']->ID); ?>" class="result"><?php echo $result['item']->post_title; ?><span class="score"><?php echo ceil($result['score']); ?>%</span></a>
 									<?php endforeach; ?>
