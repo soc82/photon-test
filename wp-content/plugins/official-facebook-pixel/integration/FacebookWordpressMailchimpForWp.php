@@ -20,27 +20,18 @@ namespace FacebookPixelPlugin\Integration;
 defined('ABSPATH') or die('Direct access not allowed');
 
 use FacebookPixelPlugin\Core\FacebookPixel;
+use FacebookPixelPlugin\Core\FacebookPluginUtils;
 
 class FacebookWordpressMailchimpForWp extends FacebookWordpressIntegrationBase {
   const PLUGIN_FILE = 'mailchimp-for-wp/mailchimp-for-wp.php';
   const TRACKING_NAME = 'mailchimp-for-wp';
 
   public static function injectPixelCode() {
-    add_action(
-      'mc4wp_form_subscribed',
-      array(__CLASS__, 'injectLeadEventHook'),
-      11);
-  }
-
-  public static function injectLeadEventHook() {
-    add_action(
-      'wp_footer',
-      array(__CLASS__, 'injectLeadEvent'),
-      11);
+    self::addPixelFireForHook('mc4wp_form_subscribed', 'injectLeadEvent');
   }
 
   public static function injectLeadEvent() {
-    if (is_admin()) {
+    if (FacebookPluginUtils::isAdmin()) {
       return;
     }
 

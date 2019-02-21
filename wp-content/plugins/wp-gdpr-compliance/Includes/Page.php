@@ -31,6 +31,10 @@ class Page {
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_modal_title');
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_modal_explanation_text');
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_explanation_text');
+	    register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_color', array('default' => '#000000'));
+	    register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_text_color', array('default' => '#FFFFFF'));
+	    register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary', array('default' => '#FFFFFF'));
+	    register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_secondary', array('default' => '#000000'));
     }
 
     public function addAdminMenu() {
@@ -299,6 +303,14 @@ class Page {
         $optionNameConsentsBarExplanationText = WP_GDPR_C_PREFIX . '_settings_consents_bar_explanation_text';
         $optionNameConsentsModalTitle = WP_GDPR_C_PREFIX . '_settings_consents_modal_title';
         $optionNameConsentsModalExplanationText = WP_GDPR_C_PREFIX . '_settings_consents_modal_explanation_text';
+        $optionNameBarColor = WP_GDPR_C_PREFIX . '_settings_consents_bar_color';
+        $optionNameBarTextColor = WP_GDPR_C_PREFIX . '_settings_consents_bar_text_color';
+        $optionNameBarButtonColorPrimary = WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary';
+        $optionNameBarButtonColorSecondary = WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_secondary';
+        $barColor = get_option($optionNameBarColor);
+	    $barTextColor = get_option($optionNameBarTextColor);
+	    $barButtonColorPrimary = get_option($optionNameBarButtonColorPrimary);
+	    $barButtonColorSecondary = get_option($optionNameBarButtonColorSecondary);
         $privacyPolicyPage = get_option($optionNamePrivacyPolicyPage);
         $privacyPolicyText = esc_html(Integration::getPrivacyPolicyText());
         $enablePrivacyPolicyExternal = Helper::isEnabled('enable_privacy_policy_extern', 'settings');
@@ -307,9 +319,9 @@ class Page {
         $accessRequestPage = get_option($optionNameAccessRequestPage);
         $accessRequestFormCheckboxText = Integration::getAccessRequestFormCheckboxText(false);
         $deleteRequestFormExplanationText = Integration::getDeleteRequestFormExplanationText(false);
-        $consentsBarExplanationText = Consent::getBarExplanationText(false);
-        $consentsModalTitle = Consent::getModalTitle(false);
-        $consentsModalExplanationText = Consent::getModalExplanationText(false);
+        $consentsBarExplanationText = Consent::getBarExplanationText();
+        $consentsModalTitle = Consent::getModalTitle();
+        $consentsModalExplanationText = Consent::getModalExplanationText();
         ?>
         <form method="post" action="<?php echo admin_url('options.php'); ?>" novalidate="novalidate">
             <?php settings_fields(WP_GDPR_C_SLUG . '_settings'); ?>
@@ -462,6 +474,30 @@ class Page {
                 </div>
             </div>
             <div class="wpgdprc-setting">
+                    <label for="<?php echo $optionNameBarColor; ?>"><?php _e('Bar Color', WP_GDPR_C_SLUG); ?></label>
+                    <div class="wpgdprc-options">
+                        <input type="color" name="<?php echo $optionNameBarColor; ?>" id="<?php echo $optionNameBarColor; ?>" value="<?php echo $barColor; ?>">
+                    </div>
+            </div>
+            <div class="wpgdprc-setting">
+                    <label for="<?php echo $optionNameBarTextColor; ?>"><?php _e('Bar Text Color', WP_GDPR_C_SLUG); ?></label>
+                    <div class="wpgdprc-options">
+                        <input type="color" name="<?php echo $optionNameBarTextColor; ?>" id="<?php echo $optionNameBarTextColor; ?>" value="<?php echo $barTextColor; ?>">
+                    </div>
+            </div>
+            <div class="wpgdprc-setting">
+                <label for="<?php echo $optionNameBarButtonColorPrimary; ?>"><?php _e('Button Color Primary', WP_GDPR_C_SLUG); ?></label>
+                <div class="wpgdprc-options">
+                    <input type="color" name="<?php echo $optionNameBarButtonColorPrimary; ?>" id="<?php echo $optionNameBarButtonColorPrimary; ?>" value="<?php echo $barButtonColorPrimary; ?>">
+                </div>
+            </div>
+            <div class="wpgdprc-setting">
+                <label for="<?php echo $optionNameBarButtonColorSecondary; ?>"><?php _e('Button Color Secondary', WP_GDPR_C_SLUG); ?></label>
+                <div class="wpgdprc-options">
+                    <input type="color" name="<?php echo $optionNameBarButtonColorSecondary; ?>" id="<?php echo $optionNameBarButtonColorSecondary; ?>" value="<?php echo $barButtonColorSecondary; ?>">
+                </div>
+            </div>
+            <div class="wpgdprc-setting">
                 <label for="<?php echo htmlspecialchars($optionNameConsentsModalTitle); ?>"><?php _e('Modal: Title', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
                     <input type="text" name="<?php echo htmlspecialchars($optionNameConsentsModalTitle); ?>" class="regular-text" id="<?php echo htmlspecialchars($optionNameConsentsModalTitle); ?>" placeholder="<?php echo htmlspecialchars($consentsModalTitle); ?>" value="<?php echo htmlspecialchars($consentsModalTitle); ?>" />
@@ -489,7 +525,7 @@ class Page {
         if (isset($_POST['submit']) && check_admin_referer('consent_create_or_update', 'consent_nonce')) {
             $active = (isset($_POST['active'])) ? 1 : 0;
             $title = (isset($_POST['title'])) ? stripslashes(esc_html($_POST['title'])) : $consent->getTitle();
-            $description = (isset($_POST['description'])) ? stripslashes(esc_html($_POST['description'])) : $consent->getDescription();
+            $description = (isset($_POST['description'])) ? stripslashes(wp_kses($_POST['description'], Helper::getAllowedHTMLTags(''))) : $consent->getDescription();
             $snippet = (isset($_POST['snippet'])) ? stripslashes($_POST['snippet']) : $consent->getSnippet();
             $wrap = (isset($_POST['wrap']) && array_key_exists($_POST['wrap'], Consent::getPossibleCodeWraps())) ? esc_html($_POST['wrap']) : $consent->getWrap();
             $placement = (isset($_POST['placement']) && array_key_exists($_POST['placement'], Consent::getPossiblePlacements())) ? esc_html($_POST['placement']) : $consent->getPlacement();
@@ -530,7 +566,7 @@ class Page {
                 <div class="wpgdprc-options">
                     <textarea name="description" id="wpgdprc_description" rows="5" autocomplete="false" autocorrect="false" autocapitalize="false" spellcheck="false"><?php echo $consent->getDescription(); ?></textarea>
                     <div class="wpgdprc-information">
-                        <p><?php _e('Describe your consent script as thoroughly as possible.', WP_GDPR_C_SLUG); ?></p>
+                        <p><?php _e('Describe your consent script as thoroughly as possible. %privacy_policy% will not work.', WP_GDPR_C_SLUG); ?></p>
                     </div>
                 </div>
             </div>

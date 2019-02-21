@@ -1,15 +1,15 @@
 <?php
 /*
-* Copyright (C) 2017-present, Facebook, Inc.
-*
-* This program is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; version 2 of the License.
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*/
+ * Copyright (C) 2017-present, Facebook, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; version 2 of the License.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
 
 /**
  * @package FacebookPixelPlugin
@@ -20,7 +20,7 @@ namespace FacebookPixelPlugin\Core;
 defined('ABSPATH') or die('Direct access not allowed');
 
 class FacebookPluginConfig {
-  const PLUGIN_VERSION = '1.7.21';
+  const PLUGIN_VERSION = '1.7.24';
   const SOURCE = 'wordpress';
   const TEXT_DOMAIN = 'official-facebook-pixel';
 
@@ -46,8 +46,11 @@ class FacebookPluginConfig {
   // integration config: INTEGRATION_KEY => PLUGIN_CLASS
   public static function integrationConfig() {
     return array(
+      'CALDERA_FORM' => 'FacebookWordpressCalderaForm',
       'CONTACT_FORM_7' => 'FacebookWordpressContactForm7',
       'EASY_DIGITAL_DOWNLOAD' => 'FacebookWordpressEasyDigitalDownloads',
+      'FORMIDABLE_FORM' => 'FacebookWordpressFormidableForm',
+      'GRAVITY_FORMS' => 'FacebookWordpressGravityForms',
       'MAILCHIMP_FOR_WP' => 'FacebookWordpressMailchimpForWp',
       'NINJA_FORMS' => 'FacebookWordpressNinjaForms',
       'WPFORMS' => 'FacebookWordpressWPForms',
