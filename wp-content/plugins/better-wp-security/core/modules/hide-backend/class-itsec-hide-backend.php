@@ -258,8 +258,10 @@ class ITSEC_Hide_Backend {
 			if ( false !== strpos( $path, 'action=postpass' ) ) {
 				// No special handling is needed for a password-protected post.
 				return $url;
-			} else if ( false !== strpos( $path, 'action=register' ) ) {
+			} elseif ( false !== strpos( $path, 'action=register' ) ) {
 				$url = $this->add_token_to_url( $url, 'register' );
+			} elseif ( false !== strpos( $path, 'action=rp' ) ) {
+				$url = $this->add_token_to_url( $url, 'login' );
 			} elseif ( 'wp-login.php' !== $request_path || empty( $_GET['action'] ) || 'register' !== $_GET['action'] ) {
 				$url = $this->add_token_to_url( $url, 'login' );
 			}

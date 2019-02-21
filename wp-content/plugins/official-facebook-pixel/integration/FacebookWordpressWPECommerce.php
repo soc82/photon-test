@@ -20,53 +20,19 @@ namespace FacebookPixelPlugin\Integration;
 defined('ABSPATH') or die('Direct access not allowed');
 
 use FacebookPixelPlugin\Core\FacebookPixel;
+use FacebookPixelPlugin\Core\FacebookPluginUtils;
 
 class FacebookWordpressWPECommerce extends FacebookWordpressIntegrationBase {
   const PLUGIN_FILE = 'wp-e-commerce/wp-e-commerce.php';
   const TRACKING_NAME = 'wp-e-commerce';
 
-  private static $addToCartJS = "
-jQuery(function($) {
-  $('.wpsc_buy_button').click(function() {
-    var item_group = $(this).parents('.group');
-    var form = item_group.find('.product_form');
-    var content_id = form[0].attributes['name'].value;
-
-    var prodtitle = item_group.find('.wpsc_product_title');
-    var content_name = prodtitle[0].innerText;
-
-    var current_price = item_group.find('.currentprice');
-    var value = current_price[0].innerText.slice(1);
-
-    var param = {
-      'content_ids': [content_id],
-      'content_name': content_name,
-      'content_type': 'product',
-      '%s': '%s',
-      'value': value
-    };
-    if (value) {
-        param['currency'] = 'USD';
-    }
-
-    %s
-  })
-})
-  ";
-
   public static function injectPixelCode() {
     // AddToCart
-    add_action(
-      'wpsc_product_form_fields_begin',
-      array(__CLASS__, 'injectAddToCartEventHook'),
-      11);
-
+    add_action('wpsc_add_to_cart_json_response',
+      array(__CLASS__, 'injectAddToCartEvent'), 11);
 
     // InitiateCheckout
-    add_action(
-      'wpsc_before_shopping_cart_page',
-      array(__CLASS__, 'injectInitiateCheckoutEventHook'),
-      11);
+    self::addPixelFireForHook('wpsc_before_shopping_cart_page', 'injectInitiateCheckoutEvent');
 
     // Purchase
     add_action(
@@ -75,45 +41,26 @@ jQuery(function($) {
   }
 
   // Event hook for AddToCart.
-  public static function injectAddToCartEventHook() {
-    add_action(
-      'wp_footer',
-      array(__CLASS__, 'injectAddToCartEvent'),
-      11);
-  }
-
-  public static function injectAddToCartEvent() {
-    if (is_admin()) {
-      return;
+  public static function injectAddToCartEvent($response) {
+    if (FacebookPluginUtils::isAdmin()) {
+      return $response;
     }
+    $product_id = $response['product_id'];
+    $params = static::getParametersForCart($product_id);
+    $code = FacebookPixel::getPixelAddToCartCode($params, self::TRACKING_NAME, true);
 
-    $pixel_code = FacebookPixel::getPixelAddToCartCode('param', self::TRACKING_NAME, false);
-    $listener_code = sprintf(
-      self::$addToCartJS,
-      FacebookPixel::FB_INTEGRATION_TRACKING_KEY,
-      self::TRACKING_NAME,
-      $pixel_code);
-
-    printf("
-<!-- Facebook Pixel Event Code -->
-<script>
-%s
-</script>
-<!-- End Facebook Pixel Event Code -->
-    ",
-      $listener_code);
-  }
-
-  // Event hook for InitiateCheckout.
-  public static function injectInitiateCheckoutEventHook() {
-    add_action(
-      'wp_footer',
-      array(__CLASS__, 'injectInitiateCheckoutEvent'),
-      11);
+    $code = sprintf("
+    <!-- Facebook Pixel Event Code -->
+    %s
+    <!-- End Facebook Pixel Event Code -->
+         ",
+      $code);
+    $response['widget_output'] .= $code;
+    return $response;
   }
 
   public static function injectInitiateCheckoutEvent() {
-    if (is_admin()) {
+    if (FacebookPluginUtils::isAdmin()) {
       return;
     }
 
@@ -129,11 +76,11 @@ jQuery(function($) {
   }
 
   public static function injectPurchaseEvent($purchase_log_object, $session_id, $display_to_screen) {
-    if (is_admin() || !$display_to_screen) {
+    if (FacebookPluginUtils::isAdmin() || !$display_to_screen) {
       return;
     }
 
-    $params = self::getParameters($purchase_log_object);
+    $params = static::getParametersForPurchase($purchase_log_object);
     $code = FacebookPixel::getPixelPurchaseCode($params, self::TRACKING_NAME, true);
 
     printf("
@@ -141,10 +88,10 @@ jQuery(function($) {
 %s
 <!-- End Facebook Pixel Event Code -->
      ",
-     $code);
+      $code);
   }
 
-  private static function getParameters($purchase_log_object) {
+  private static function getParametersForPurchase($purchase_log_object) {
     $cart_items = $purchase_log_object->get_items();
     $total_price = $purchase_log_object->get_total();
     $currency = function_exists('\wpsc_get_currency_code') ? \wpsc_get_currency_code() : 'Unknown';
@@ -157,12 +104,32 @@ jQuery(function($) {
     }
 
     $params = array(
-     'content_ids' => $item_ids,
-     'content_type' => 'product',
-     'currency' => $currency,
-     'value' => $total_price,
-   );
+      'content_ids' => $item_ids,
+      'content_type' => 'product',
+      'currency' => $currency,
+      'value' => $total_price,
+    );
 
-   return $params;
+    return $params;
+  }
+
+  private static function getParametersForCart($product_id) {
+    global $wpsc_cart;
+    $cart_items = $wpsc_cart->get_items();
+    foreach ($cart_items as $item) {
+      if ($item->product_id === $product_id) {
+        $unit_price = $item->unit_price;
+        break;
+      }
+    }
+
+    $params = array(
+      'content_ids' => array($product_id),
+      'content_type' => 'product',
+      'currency' => function_exists('\wpsc_get_currency_code') ? \wpsc_get_currency_code() : 'Unknown',
+      'value' => $unit_price,
+    );
+
+    return $params;
   }
 }

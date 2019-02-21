@@ -2,9 +2,9 @@
 Contributors: donnyoexman, jeffreyvisser, merijnmolenaar, michaelvt, van-ons
 Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protection, eu, avg, comments, woocommerce, wc, contact form 7, cf7
 Requires at least: 4.5
-Tested up to: 4.9.4
+Tested up to: 5.0.2
 Requires PHP: 5.3
-Stable tag: 1.4.7
+Stable tag: 1.4.8
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,6 +44,12 @@ You'll find answers to many of your questions on [https://www.wpgdprc.com/faq/](
 4. Control the link to your privacy policy, activate the request user data page and more.
 
 == Changelog ==
+
+= 1.4.8 =
+*Release date: January 8th, 2019*
+* The consent description now allows HTML.
+* Added ability to change the colors of the consent bar.
+* Fixed bug where post ID was null.
 
 = 1.4.7 =
 *Release date: December 17th, 2018*
