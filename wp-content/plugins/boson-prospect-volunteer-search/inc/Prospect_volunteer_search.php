@@ -103,7 +103,7 @@ class Prospect_volunteer_search {
 										<?php echo get_field('search_text', 'options')['search_results_header']; ?>
 									</div>
 									<?php foreach ($this->search_results as $result) : ?>
-										<a href="<?php echo get_permalink($result['item']->ID); ?>" class="result"><?php echo $result['item']->post_title; ?><span class="score"><?php echo ceil($result['score']); ?>%</span></a>
+										<a href="<?php echo get_permalink($result['item']->ID); ?>" class="result"><?php echo $result['item']->post_title; ?></a>
 									<?php endforeach; ?>
 									<div class="results-outro">
 										<?php echo get_field('search_text', 'options')['search_results_sub_text']; ?>
