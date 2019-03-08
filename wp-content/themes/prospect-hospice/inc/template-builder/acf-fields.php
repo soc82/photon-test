@@ -1715,7 +1715,6 @@ acf_add_local_field_group(array(
 								'id' => '',
 							),
 							'choices' => array(
-								'section' => 'Section',
 								'white' => 'White',
 								'#8dc63f' => 'Green',
 								'#f3cc30' => 'Yellow',
@@ -1726,6 +1725,7 @@ acf_add_local_field_group(array(
 								'#525c63' => 'Grey',
 							),
 							'default_value' => array(
+								'white' => 'White',
 							),
 							'allow_null' => 0,
 							'multiple' => 0,
