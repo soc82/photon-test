@@ -8,7 +8,7 @@
  * Author URI: http://www.patsatech.com
  * Contributors: patsatech
  * Requires at least: 3.5
- * Tested up to: 4.9.1
+ * Tested up to: 4.9.8
  *
  * Text Domain: gravityforms-sagepay-form
  * Domain Path: /lang/
@@ -21,7 +21,7 @@
  **
  */
 
-define( 'GF_SAGEPAY_FORM_VERSION', '1.1.0' );
+define( 'GF_SAGEPAY_FORM_VERSION', '1.1.5' );
 
 add_action( 'gform_loaded', array( 'GF_SagePay_Form_Bootstrap', 'load' ), 5 );
 

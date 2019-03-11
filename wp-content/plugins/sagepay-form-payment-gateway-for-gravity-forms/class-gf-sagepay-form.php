@@ -659,81 +659,82 @@ class GFSagePayForm extends GFPaymentAddOn {
 				break;*/
 		}
 
-        $time_stamp = date("ymdHis");
-        $orderid = $vendor_name . "-" . $time_stamp . "-" . $invoice;
+    $time_stamp = date("ymdHis");
+    $orderid = $vendor_name . "-" . $time_stamp . "-" . $invoice;
 
-        $custom_field = $entry["id"] . "-" . wp_hash($entry["id"]);
+    $custom_field =  $entry["id"] . "-" . $time_stamp;
 
-        $first_name = $customer_fields['first_name'];
-        $last_name = $customer_fields['last_name'];
-        $address = $customer_fields['address1'];
-        $address1 = $customer_fields['address2'];
-        $country = 'GB';
-        $city = $customer_fields['town'];
-        $state = $customer_fields['region'];
-        $postcode = $customer_fields['postcode'];
-        $phone = $customer_fields['phone'];
-        $email = $customer_fields['email'];
+    $first_name = $customer_fields['first_name'];
+    $last_name = $customer_fields['last_name'];
+    $address = $customer_fields['address1'];
+    $address1 = $customer_fields['address2'];
+    $country = $customer_fields['country'];
+    $city = $customer_fields['town'];
+    $state = $customer_fields['region'];
+    $postcode = $customer_fields['postcode'];
+    $phone = $customer_fields['phone'];
+    $email = $customer_fields['email'];
 
-		    $sagepay_arg['VendorData'] 			= $entry[$feed['meta']['billingInformation_vendor_data']];
-				$sagepay_arg['ReferrerID'] 			= 'CC923B06-40D5-4713-85C1-700D690550BF';
-        $sagepay_arg['Amount'] 				= $payment_amount;
+    $sagepay_arg['VendorData'] 			= $entry[$feed['meta']['billingInformation_vendor_data']];
+		$sagepay_arg['ReferrerID'] 			= 'CC923B06-40D5-4713-85C1-700D690550BF';
+    $sagepay_arg['Amount'] 				= $payment_amount;
 
-				$sagepay_arg['CustomerName']		= substr($first_name.' '.$last_name, 0, 100);
-        $sagepay_arg['CustomerEMail'] 		= substr($email, 0, 255);
+		$sagepay_arg['CustomerName']		= substr($first_name.' '.$last_name, 0, 100);
+    $sagepay_arg['CustomerEMail'] 		= substr($email, 0, 255);
 
-        $sagepay_arg['BillingSurname'] 		= substr($last_name, 0, 20);
-        $sagepay_arg['BillingFirstnames'] 	= substr($first_name, 0, 20);
-        $sagepay_arg['BillingAddress1'] 	= substr($address, 0, 100);
-        $sagepay_arg['BillingAddress2'] 	= substr($address1, 0, 100);
-        $sagepay_arg['BillingCity'] 		= substr($city, 0, 40);
+    $sagepay_arg['BillingSurname'] 		= substr($last_name, 0, 20);
+    $sagepay_arg['BillingFirstnames'] 	= substr($first_name, 0, 20);
+    $sagepay_arg['BillingAddress1'] 	= substr($address, 0, 100);
+    $sagepay_arg['BillingAddress2'] 	= substr($address1, 0, 100);
+    $sagepay_arg['BillingCity'] 		= substr($city, 0, 40);
 		if( $country == 'US' ){
-        	$sagepay_arg['BillingState'] 	= $state;
+		    	$sagepay_arg['BillingState'] 	= $state;
 		}else{
-        	$sagepay_arg['BillingState'] 	= '';
+		    	$sagepay_arg['BillingState'] 	= '';
 		}
-        $sagepay_arg['BillingPostCode'] 	= substr($postcode, 0, 10);
-        $sagepay_arg['BillingCountry'] 		= $country;
-        $sagepay_arg['BillingPhone'] 		= substr($phone, 0, 20);
+    $sagepay_arg['BillingPostCode'] 	= substr($postcode, 0, 10);
+    $sagepay_arg['BillingCountry'] 		= $country;
+    $sagepay_arg['BillingPhone'] 		= substr($phone, 0, 20);
 
-        $sagepay_arg['DeliverySurname'] 	= substr($last_name, 0, 20);
-        $sagepay_arg['DeliveryFirstnames'] 	= substr($first_name, 0, 20);
-        $sagepay_arg['DeliveryAddress1'] 	= substr($address, 0, 100);
-        $sagepay_arg['DeliveryAddress2'] 	= substr($address1, 0, 100);
-        $sagepay_arg['DeliveryCity'] 		= substr($city, 0, 40);
+    $sagepay_arg['DeliverySurname'] 	= substr($last_name, 0, 20);
+    $sagepay_arg['DeliveryFirstnames'] 	= substr($first_name, 0, 20);
+    $sagepay_arg['DeliveryAddress1'] 	= substr($address, 0, 100);
+    $sagepay_arg['DeliveryAddress2'] 	= substr($address1, 0, 100);
+    $sagepay_arg['DeliveryCity'] 		= substr($city, 0, 40);
 		if( $country == 'US' ){
-        	$sagepay_arg['DeliveryState'] 	= $state;
+		    	$sagepay_arg['DeliveryState'] 	= $state;
 		}else{
-        	$sagepay_arg['DeliveryState'] 	= '';
+		    	$sagepay_arg['DeliveryState'] 	= '';
 		}
-        $sagepay_arg['DeliveryPostCode'] 	= substr($postcode, 0, 10);
-        $sagepay_arg['DeliveryCountry'] 	= $country;
-        $sagepay_arg['DeliveryPhone'] 		= substr($phone, 0, 20);
+    $sagepay_arg['DeliveryPostCode'] 	= substr($postcode, 0, 10);
+    $sagepay_arg['DeliveryCountry'] 	= $country;
+    $sagepay_arg['DeliveryPhone'] 		= substr($phone, 0, 20);
 
-        $sagepay_arg['FailureURL'] 			= $ipn_url;
-        $sagepay_arg['SuccessURL'] 			= $ipn_url;
-        $sagepay_arg['Description'] 		= sprintf(__('Order #%s' , 'gravityforms'), ltrim( $invoice, '#' ));
-        $sagepay_arg['Currency'] 			= $currency;
-        $sagepay_arg['VendorTxCode'] 		= $custom_field;
-        $sagepay_arg['VendorEMail'] 		= $vendor_email;
-        $sagepay_arg['SendEMail'] 			= $send_emails;
+    $sagepay_arg['FailureURL'] 			= $ipn_url;
+    $sagepay_arg['SuccessURL'] 			= $ipn_url;
+    $sagepay_arg['Description'] 		= sprintf(__('Order #%s' , 'gravityforms'), ltrim( $invoice, '#' ));
+    $sagepay_arg['Currency'] 			= $currency;
+    $sagepay_arg['VendorTxCode'] 		= $custom_field;
+    $sagepay_arg['VendorEMail'] 		= $vendor_email;
+    $sagepay_arg['SendEMail'] 			= $send_emails;
+		if( $apply3d != 0 ){
+			$sagepay_arg['Apply3DSecure'] 		= $apply3d;
+		}
+    $sagepay_arg['Website'] 				= get_bloginfo( 'name' );
 		if( $country == 'US' ){
-        	$sagepay_arg['eMailMessage']	= $email_message;
+		    	$sagepay_arg['eMailMessage']	= $email_message;
 		}
-        $sagepay_arg['Apply3DSecure'] 		= $apply3d;
 
-        $post_values = "";
-        foreach( $sagepay_arg as $key => $value ) {
-            $post_values .= "$key=" . trim( $value ) . "&";
-        }
-      	$post_values = substr($post_values, 0, -1);
+    $post_values = "";
+    foreach( $sagepay_arg as $key => $value ) {
+        $post_values .= "$key=" . trim( $value ) . "&";
+    }
+  	$post_values = substr($post_values, 0, -1);
 
 		$params['VPSProtocol'] = '3.00';
 		$params['TxType'] = $trans_type;
 		$params['Vendor'] = $vendor_name;
 	  $params['Crypt'] = $this->encryptAndEncode($post_values);
-
-
 
   	$query_string = http_build_query($params);
 
@@ -751,20 +752,20 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 		$this->log_debug( "Sending to SagePay Form: {<pre>".print_r($params,TRUE)."</pre>}" );
 
-
 		return $url;
 	}
 
-/*
-** mcrypt_decrypt no longer supported, so new encrypt & decrypt functions below
-**
 	public function encryptAndEncode($strIn) {
 
 		$settings = $this->get_plugin_settings();
 		$vendorpass = $settings['vendor_password'];
-
 		$strIn = self::pkcs5_pad($strIn, 16);
-		return "@".bin2hex(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $vendorpass, $strIn, MCRYPT_MODE_CBC, $vendorpass));
+
+		if( PHP_VERSION >= 7 ){
+			return "@".bin2hex(openssl_encrypt($strIn, 'AES-128-CBC', $vendorpass, OPENSSL_RAW_DATA, $vendorpass));
+		}else{
+			return "@".bin2hex(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $vendorpass, $strIn, MCRYPT_MODE_CBC, $vendorpass));
+		}
 	}
 
 	public function decodeAndDecrypt($strIn) {
@@ -772,23 +773,12 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$vendorpass = $settings['vendor_password'];
 		$strIn = substr($strIn, 1);
 		$strIn = pack('H*', $strIn);
-		return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $vendorpass, $strIn, MCRYPT_MODE_CBC, $vendorpass);
-	}
-	*/
 
-	public function encryptAndEncode($strIn) {
-			$settings = $this->get_plugin_settings();
-			$vendorpass = $settings['vendor_password'];
-			return "@" . bin2hex(openssl_encrypt($strIn, 'AES-128-CBC', $vendorpass, OPENSSL_RAW_DATA, $vendorpass));
-	}
-
-
-	public function decodeAndDecrypt($strIn) {
-			$settings = $this->get_plugin_settings();
-			$vendorpass = $settings['vendor_password'];
-			$strIn = substr($strIn, 1);
-			$strIn = pack('H*', $strIn);
+		if( PHP_VERSION >= 7 ){
 			return openssl_decrypt($strIn, 'AES-128-CBC', $vendorpass, OPENSSL_RAW_DATA, $vendorpass);
+		}else{
+			return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $vendorpass, $strIn, MCRYPT_MODE_CBC, $vendorpass);
+		}
 	}
 
 
@@ -1212,6 +1202,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 	}
 
 
+	//------- PROCESSING WORLDPAY IPN (Callback) -----------//
 
 	public function callback() {
 
@@ -1258,14 +1249,15 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 		}
 
-
 		$this->log_debug( 'IPN request received. Starting to process...' );
 
 		$transaction_response = $this->decode(str_replace(' ', '+',$_REQUEST['crypt']));
 
 		$this->log_debug( print_r( $transaction_response, true ) );
 
-        list($entry_id, $hash) = explode("-", $transaction_response['VendorTxCode']);
+    list($entry_id, $hash) = explode("-", $transaction_response['VendorTxCode']);
+
+		$hash = wp_hash($entry_id);
 
 		//------ Getting entry related to this IPN ----------------------------------------------//
 		$entry = $this->get_entry( $entry_id . '|' . $hash );
@@ -1297,7 +1289,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( 'Processing IPN...' );
 		$action = $this->process_ipn( $feed, $entry, $transaction_response['Status'], $txn_type, $transaction_response['VendorTxCode'], $transaction_response['VendorTxCode'], rgpost( 'futurePayId' ), $transaction_response['Amount'], rgpost( 'pending_reason' ), rgpost( 'reason_code' ), $transaction_response['Amount'] );
 		$this->log_debug( 'IPN processing complete.' );
-
 
 		if ( rgempty( 'entry_id', $action ) ) {
 			return false;
@@ -1388,7 +1379,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$this->log_debug( "Payment status: {$status} - Transaction Type: {$transaction_type} - Transaction ID: {$transaction_id} - Parent Transaction: {$parent_transaction_id} - Subscriber ID: {$subscriber_id} - Amount: {$amount} - Pending reason: {$pending_reason} - Reason: {$reason}" );
 
 		$action = array();
-
 		//handles products and donation
 		switch ( $status ) {
 		    case "OK" :
@@ -1404,7 +1394,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 				$action['payment_method']	= 'SagePay Form';
 				$action['ready_to_fulfill'] = ! $entry['is_fulfilled'] ? true : false;
 
-
 				$this->fulfill_order( $entry, $transaction_id, $amount );
 
 				// Custom thank you email
@@ -1412,7 +1401,6 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 				//update lead, add a note
 				GFAPI::update_entry( $entry );
-
 
 				if ( ! $this->is_valid_initial_payment_amount( $entry['id'], $amount ) ){
 					//create note and transaction
@@ -1426,10 +1414,9 @@ class GFSagePayForm extends GFPaymentAddOn {
 					GFPaymentAddOn::insert_transaction( $entry['id'], 'payment', $transaction_id, $amount );
 				}
 
-
 				$this->complete_payment( $entry, $action );
 
-		    $redirect_url = !empty($config["meta"]["successUrl"]) ? $config["meta"]["successUrl"] : home_url();
+		       	$redirect_url = !empty($config["meta"]["successUrl"]) ? $config["meta"]["successUrl"] : home_url();
 				wp_redirect($redirect_url);
 				exit;
 
@@ -1477,7 +1464,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 
 				}
 
-			  $redirect_url = !empty($config["meta"]["cancelUrl"]) ? $config["meta"]["cancelUrl"] : home_url();
+			   	$redirect_url = !empty($config["meta"]["cancelUrl"]) ? $config["meta"]["cancelUrl"] : home_url();
 				wp_redirect($redirect_url);
 				exit;
 
@@ -1913,14 +1900,12 @@ class GFSagePayForm extends GFPaymentAddOn {
 		if ( rgars( $feed, 'meta/delayNotification' ) ) {
 			//sending delayed notifications
 			$notifications = rgars( $feed, 'meta/selectedNotifications' );
-			// Commented out as using custom mail instead
-			//GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
+			GFCommon::send_notifications( $notifications, $form, $entry, true, 'form_submission' );
 		}
 
 		$this->log_debug( 'Before gform_sagepay_form_fulfillment.' );
 		do_action( 'gform_sagepay_form_fulfillment', $entry, $feed, $transaction_id, $amount );
 		$this->log_debug( 'After gform_sagepay_form_fulfillment.' );
-
 
 	}
 
