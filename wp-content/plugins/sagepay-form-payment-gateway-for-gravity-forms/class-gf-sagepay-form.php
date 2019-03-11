@@ -756,29 +756,18 @@ class GFSagePayForm extends GFPaymentAddOn {
 	}
 
 	public function encryptAndEncode($strIn) {
-
-		$settings = $this->get_plugin_settings();
-		$vendorpass = $settings['vendor_password'];
-		$strIn = self::pkcs5_pad($strIn, 16);
-
-		if( PHP_VERSION >= 7 ){
-			return "@".bin2hex(openssl_encrypt($strIn, 'AES-128-CBC', $vendorpass, OPENSSL_RAW_DATA, $vendorpass));
-		}else{
-			return "@".bin2hex(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $vendorpass, $strIn, MCRYPT_MODE_CBC, $vendorpass));
-		}
+			$settings = $this->get_plugin_settings();
+			$vendorpass = $settings['vendor_password'];
+			return "@" . bin2hex(openssl_encrypt($strIn, 'AES-128-CBC', $vendorpass, OPENSSL_RAW_DATA, $vendorpass));
 	}
 
-	public function decodeAndDecrypt($strIn) {
-		$settings = $this->get_plugin_settings();
-		$vendorpass = $settings['vendor_password'];
-		$strIn = substr($strIn, 1);
-		$strIn = pack('H*', $strIn);
 
-		if( PHP_VERSION >= 7 ){
+	public function decodeAndDecrypt($strIn) {
+			$settings = $this->get_plugin_settings();
+			$vendorpass = $settings['vendor_password'];
+			$strIn = substr($strIn, 1);
+			$strIn = pack('H*', $strIn);
 			return openssl_decrypt($strIn, 'AES-128-CBC', $vendorpass, OPENSSL_RAW_DATA, $vendorpass);
-		}else{
-			return mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $vendorpass, $strIn, MCRYPT_MODE_CBC, $vendorpass);
-		}
 	}
 
 
