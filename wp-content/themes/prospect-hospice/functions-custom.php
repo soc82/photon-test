@@ -98,6 +98,15 @@ function prospect_sender_name( $original_email_from ) {
 add_filter( 'wp_mail_from', 'prospect_sender_email' );
 add_filter( 'wp_mail_from_name', 'prospect_sender_name' );
 
+/*
+** Allow iframes in tiny MCE
+*/
+function prospect_tiny_mce_settings($initArray) {
+	$initArray['extended_valid_elements'] = "iframe[id|class|title|style|align|frameborder|height|longdesc|marginheight|marginwidth|name|scrolling|src|width]";
+	return $initArray;
+}
+add_filter('tiny_mce_before_init', 'prospect_tiny_mce_settings');
+
 
 /*
 ** Stop GF anchor scrolling on form submission
