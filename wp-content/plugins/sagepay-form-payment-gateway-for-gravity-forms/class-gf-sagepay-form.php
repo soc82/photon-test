@@ -2082,7 +2082,7 @@ class GFSagePayForm extends GFPaymentAddOn {
 					'billingInformation_city'      => rgar( $customer_fields, 'city' ),
 					'billingInformation_state'     => rgar( $customer_fields, 'state' ),
 					'billingInformation_zip'       => rgar( $customer_fields, 'zip' ),
-					'billingInformation_country'   => rgar( $customer_fields, 'country' ),
+					'billingInformation_country'   => 'GB',
 					'billingInformation_phone'     => rgar( $customer_fields, 'phone' ),
 
 				);
