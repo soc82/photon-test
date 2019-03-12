@@ -143,9 +143,9 @@ class Helper {
                     $type = 'error';
                     $message = __('Couldn\'t find this consent.', WP_GDPR_C_SLUG);
                     break;
-	            case 'wpgdprc-cookie-bar-reset' :
-	            	$message = __('The cookie bar has been reset', WP_GDPR_C_SLUG);
-	            	break;
+                case 'wpgdprc-cookie-bar-reset' :
+                    $message = __('The consent bar has been reset.', WP_GDPR_C_SLUG);
+                    break;
             }
             if (!empty($message)) {
                 printf(
@@ -316,8 +316,8 @@ class Helper {
      * @return bool
      */
     public static function hasMailPluginInstalled() {
-        foreach(self::getActivePlugins() as $activePlugin) {
-            if(strpos(strtolower($activePlugin), 'mail') !== false) {
+        foreach (self::getActivePlugins() as $activePlugin) {
+            if (strpos(strtolower($activePlugin), 'mail') !== false) {
                 return true;
             }
         }
@@ -563,14 +563,13 @@ class Helper {
         return $output;
     }
 
-        /**
-         * Function resets the cookie bar for all users, this will happen on button trigger & when new Consent has been added.
-         */
+    /**
+     * Function resets the cookie bar for all users, this will happen on button trigger & when new Consent has been added.
+     */
     public static function resetCookieBar() {
-    	    $consentVersion = get_option('wpgdprc_consent_version');
-            $consentVersion += 1;
-            update_option('wpgdprc_consent_version', $consentVersion);
-
+        $consentVersion = get_option('wpgdprc_consent_version');
+        $consentVersion += 1;
+        update_option('wpgdprc_consent_version', $consentVersion);
     }
 
     /**
@@ -608,7 +607,13 @@ class Helper {
             )
         ));
         $consentVersion = get_option('wpgdprc_consent_version');
-        $consents = (!empty($_COOKIE['wpgdprc-consent-' . $consentVersion])) ? esc_html($_COOKIE['wpgdprc-consent-' . $consentVersion]) : '';
+        $multiSite = is_multisite();
+        if ($multiSite) {
+            $blogId = get_current_blog_id();
+            $consents = (!empty($_COOKIE[$blogId . '-wpgdprc-consent-' . $consentVersion])) ? esc_html($_COOKIE[$blogId . '-wpgdprc-consent-' . $consentVersion]) : '';
+        } else {
+            $consents = (!empty($_COOKIE['wpgdprc-consent-' . $consentVersion])) ? esc_html($_COOKIE['wpgdprc-consent-' . $consentVersion]) : '';
+        }
         if (!empty($requiredConsents)) {
             foreach ($requiredConsents as $requiredConsent) {
                 $output[] = intval($requiredConsent->getId());
@@ -714,63 +719,59 @@ class Helper {
         return $output;
     }
 
-	/**
-	 * @param $email
-	 *
-	 * @return null|string
-	 */
-	public static function anonymizeEmail($email) {
+    /**
+     * @param $email
+     *
+     * @return null|string
+     */
+    public static function anonymizeEmail($email) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailParts = explode('@', $email);
+            $localPart = $emailParts[0];
+            if (strlen($localPart) > 1 && strlen($localPart) < 4) {
+                $localPart = substr_replace($localPart, '*', strlen($localPart) - 1);
+            } else if (strlen($localPart) > 3 && strlen($localPart) < 6) {
+                $localPart = substr_replace($localPart, '**', strlen($localPart) - 2);
+            } else if (strlen($localPart) > 5) {
+                $localPart = substr_replace($localPart, '***', strlen($localPart) - 3);
+            } else {
+                $domain = $emailParts[1];
+                $domainName = explode('.', $domain);
+                $anonymisedDomain = str_replace($domainName[0], '***', $domainName[0]);
+            }
 
-		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            if (isset($domainName) && isset($anonymisedDomain)) {
+                return $localPart . '@' . $anonymisedDomain . '.' . $domainName[1];
+            } else {
+                return $localPart . '@' . $emailParts[1];
+            }
+        } else {
+            return NULL;
+        }
+    }
 
-			$emailParts = explode('@', $email);
-			$localPart = $emailParts[0];
-			if (strlen($localPart) > 1 && strlen($localPart) < 4) {
-				$localPart = substr_replace($localPart, '*', strlen($localPart) - 1);
-			} else if (strlen($localPart) > 3 && strlen($localPart) < 6) {
-				$localPart = substr_replace($localPart, '**', strlen($localPart) - 2);
-			} else if (strlen($localPart) > 5) {
-				$localPart = substr_replace($localPart, '***', strlen($localPart) - 3);
-			} else {
-				$domain = $emailParts[1];
-				$domainName = explode('.', $domain);
-				$anonymisedDomain = str_replace($domainName[0], '***', $domainName[0]);
-			}
-
-			if (isset($domainName) && isset($anonymisedDomain)) {
-				return $localPart . '@' . $anonymisedDomain . '.' . $domainName[1];
-			} else {
-				return $localPart . '@' . $emailParts[1];
-			}
-		} else {
-			return NULL;
-		}
-
-	}
-
-	/**
-	 * @param $ip
-	 *
-	 * @return null|string
-	 */
-	public static function anonymizeIP($ip) {
-
-		if (filter_var($ip, FILTER_VALIDATE_IP)) {
-			if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-				$lastDot = strrpos($ip, '.') + 1;
-				return substr($ip, 0, $lastDot)
-				       . str_repeat('*', strlen($ip) - $lastDot);
-			} else if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
-				$lastColon = strrpos($ip, ':') + 1;
-				return substr($ip, 0, $lastColon)
-				       . str_repeat('*', strlen($ip) - $lastColon);
-			} else {
-				return NULL;
-			}
-		} else {
-			return NULL;
-		}
-	}
+    /**
+     * @param $ip
+     *
+     * @return null|string
+     */
+    public static function anonymizeIP($ip) {
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                $lastDot = strrpos($ip, '.') + 1;
+                return substr($ip, 0, $lastDot)
+                    . str_repeat('*', strlen($ip) - $lastDot);
+            } else if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $lastColon = strrpos($ip, ':') + 1;
+                return substr($ip, 0, $lastColon)
+                    . str_repeat('*', strlen($ip) - $lastColon);
+            } else {
+                return NULL;
+            }
+        } else {
+            return NULL;
+        }
+    }
 
     /**
      * @return null|Helper

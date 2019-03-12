@@ -1,4 +1,4 @@
-(function (window, document, undefined) {
+(function (window, document, MicroModal, postscribe, undefined) {
     'use strict';
 
     /**
@@ -9,6 +9,11 @@
     var ajaxLoading = false,
         ajaxURL = wpgdprcData.ajaxURL,
         ajaxSecurity = wpgdprcData.ajaxSecurity,
+        consentVersion = wpgdprcData.consentVersion,
+        path = wpgdprcData.path,
+        isMultisite = wpgdprcData.isMultisite,
+        blogId = wpgdprcData.blogId,
+        consentStatus = wpgdprcData.consentStatus,
         _objectToParametersString = function (data) {
             return Object.keys(data).map(function (key) {
                 var value = data[key];
@@ -84,11 +89,12 @@
          * @private
          */
         _saveCookie = function (data, days) {
+            var date = new Date(),
+                cookieName = (isMultisite) ? blogId + '-wpgdprc-consent-' : 'wpgdprc-consent-';
             data = (data) ? data : '';
             days = (days) ? days : 365;
-            var date = new Date();
             date.setTime(date.getTime() + 24 * days * 60 * 60 * 1e3);
-            document.cookie = 'wpgdprc-consent-' + wpgdprcData.consentVersion +'=' + encodeURIComponent(data) + '; expires=' + date.toGMTString() + '; path=/';
+            document.cookie = cookieName + consentVersion + '=' + encodeURIComponent(data) + '; expires=' + date.toGMTString() + '; path=' + path;
         },
         /**
          * @param name
@@ -212,6 +218,35 @@
                 });
             }
         },
+        initLoadConsents = function () {
+            var data = {
+                    action: 'wpgdprc_load_consents',
+                    security: ajaxSecurity
+                },
+                request = new XMLHttpRequest();
+
+            data = _objectToParametersString(data);
+            request.open('POST', ajaxURL, true);
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.send(data);
+            request.addEventListener('load', function () {
+                if (request.response) {
+                    var response = JSON.parse(request.response);
+                    if (response.head) {
+                        postscribe(document.head, response.head);
+                    }
+                    if (response.body) {
+                        var bodyElement = document.createElement('div');
+                        bodyElement.id = 'wpgdprc-consent-body';
+                        document.body.prepend(bodyElement);
+                        postscribe('#' + bodyElement.id, response.body);
+                    }
+                    if (response.footer) {
+                        postscribe(document.body, response.footer);
+                    }
+                }
+            });
+        },
         initFormAccessRequest = function () {
             var $formAccessRequest = document.querySelector('.wpgdprc-form--access-request');
             if ($formAccessRequest === null) {
@@ -307,11 +342,15 @@
         };
 
     document.addEventListener('DOMContentLoaded', function () {
-        if (_readCookie('wpgdprc-consent-' + wpgdprcData.consentVersion) === null) {
-            initConsentBar();
+        if (consentStatus) {
+            var cookieName = (isMultisite) ? blogId + '-wpgdprc-consent-' : 'wpgdprc-consent-';
+            if (_readCookie(cookieName + consentVersion) === null) {
+                initConsentBar();
+            }
+            initConsentModal();
+            initLoadConsents();
         }
-        initConsentModal();
         initFormAccessRequest();
         initFormDeleteRequest();
     });
-})(window, document);
+})(window, document, MicroModal, postscribe);

@@ -825,4 +825,6 @@
 	Bug Fix: Notification Center - Only send notifications to users with an exact role match of selected roles instead of a fuzzy match based on selected capabilities.
 	Bug Fix: Error when trying to edit reusable blocks with per-post SSL enabled.
 	Bug Fix: Resolve warnings on PHP 5.2.
-
+7.3.1 - 2019-02-21 - Chris Jean & Timothy Jacobs
+	Enhancement: When ITSEC_DISABLE_MODULES is set, prevent hide backend from running.
+	Bug Fix: Tabnapping: Apply noopener to links instead of using blankshield script when available to prevent new pop-up blocker behavior from killing the links.

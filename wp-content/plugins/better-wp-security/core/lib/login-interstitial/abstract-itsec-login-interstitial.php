@@ -39,6 +39,13 @@ abstract class ITSEC_Login_Interstitial {
 	abstract public function render( ITSEC_Login_Interstitial_Session $session, array $args );
 
 	/**
+	 * Run code before any HTML it outputted for rendering an interstitial.
+	 *
+	 * @param ITSEC_Login_Interstitial_Session $session
+	 */
+	public function pre_render( ITSEC_Login_Interstitial_Session $session ) { }
+
+	/**
 	 * Must this interstitial be completed by the given user.
 	 *
 	 * @param ITSEC_Login_Interstitial_Session $session

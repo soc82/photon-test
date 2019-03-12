@@ -2,9 +2,9 @@
 Contributors: micropat, addtoany
 Tags: buttons, share, icons, social media, share buttons, sharing, share button, media, social, marketing, links, email, seo, woocommerce, google, linkedin, reddit, facebook, twitter, pinterest, whatsapp, instagram, youtube, share this, sharethis, feed
 Requires at least: 3.7
-Tested up to: 5.0
+Tested up to: 5.1
 Requires PHP: 5.2
-Stable tag: 1.7.33
+Stable tag: 1.7.34
 
 Share buttons for WordPress including the AddToAny sharing button, Facebook, Twitter, Google+, Pinterest, WhatsApp, many more, and follow icons too.
 
@@ -63,7 +63,7 @@ AddToAny is the home of universal sharing, and the AddToAny plugin is the most p
 = Wide Support =
 
 * Over 10 years of development
-* Over 9 million downloads
+* Over 10 million downloads
 * Translated into dozens of languages
 * Ongoing support from the community
 
@@ -129,7 +129,7 @@ Customize the shared URL like so:
 
 Display specific share buttons by specifying comma-separated <a href="https://www.addtoany.com/services/">service codes</a>:
 
-`[addtoany buttons="facebook,twitter,google_plus"]`
+`[addtoany buttons="facebook,twitter,email"]`
 
 Share a specific image or video to certain services that accept arbitrary media (Pinterest, Yummly, Houzz):
 
@@ -167,7 +167,7 @@ You can specify [AddToAny service code(s)](https://www.addtoany.com/services/) t
 
 `<?php if ( function_exists( 'ADDTOANY_SHARE_SAVE_KIT' ) ) { 
 	ADDTOANY_SHARE_SAVE_KIT( array( 
-		'buttons' => array( 'facebook', 'twitter', 'google_plus', 'whatsapp' ),
+		'buttons' => array( 'facebook', 'twitter', 'email', 'whatsapp' ),
 	) );
 } ?>`
 
@@ -349,6 +349,11 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 5. Settings for Floating Share Bars
 
 == Changelog ==
+
+= 1.7.34 =
+* Add MeWe
+* Update Evernote icon color
+* Replace Google+ with Email as a default share button
 
 = 1.7.33 =
 * New translatable strings for the optional [post-share modal](https://www.addtoany.com/buttons/customize/wordpress/thanks)
@@ -587,7 +592,7 @@ Upload (or move) the `add-to-any` plugin directory into the `/wp-content/mu-plug
 
 = 1.6.11 =
 * Update `[addtoany]` shortcode to accept specific share buttons
- * Specify [AddToAny service codes](https://www.addtoany.com/services/) in the `buttons` attribute like: `[addtoany buttons="facebook,twitter,google_plus"]`
+ * Specify [AddToAny service codes](https://www.addtoany.com/services/) in the `buttons` attribute like: `[addtoany buttons="facebook,twitter,email"]`
 * Add SMS share button
 * Add Telegram share button
 * Add Google Classroom share button

@@ -17,7 +17,7 @@ class ITSEC_Hide_Backend {
 		add_filter( 'itsec_notifications', array( $this, 'register_notification' ) );
 		add_filter( 'itsec_hide-backend_notification_strings', array( $this, 'notification_strings' ) );
 
-		if ( ! $this->settings['enabled'] ) {
+		if ( ! $this->settings['enabled'] || ITSEC_Core::is_temp_disable_modules_set() ) {
 			return;
 		}
 

@@ -249,6 +249,13 @@ class Consent {
     }
 
     /**
+     * @return bool
+     */
+    public static function isActive() {
+        return (Consent::databaseTableExists() && Consent::getInstance()->getTotal(array('active' => array('value' => 1))) > 0);
+    }
+
+    /**
      * @param int $id
      * @param string $action
      * @return string
@@ -279,6 +286,7 @@ class Consent {
     public static function getPossiblePlacements() {
         return array(
             'head' => __('Head', WP_GDPR_C_SLUG),
+            'body' => __('Body', WP_GDPR_C_SLUG),
             'footer' => __('Footer', WP_GDPR_C_SLUG)
         );
     }

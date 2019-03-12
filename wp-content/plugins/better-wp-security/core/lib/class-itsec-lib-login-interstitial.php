@@ -588,6 +588,8 @@ class ITSEC_Lib_Login_Interstitial {
 		$wp_login_url = $this->get_base_wp_login_url();
 		$wp_login_url = add_query_arg( 'action', "itsec-{$action}", $wp_login_url );
 
+		$interstitial->pre_render( $session );
+
 		// Prevent JetPack from attempting to SSO the update password form.
 		add_filter( 'jetpack_sso_allowed_actions', '__return_empty_array' );
 

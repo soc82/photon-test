@@ -786,3 +786,7 @@
 	Enhancement: Improve redirecting after processing a login interstitial from a front-end login form.
 	Tweak: Add display description for log when safe guarding against an empty config file write.
 	Bug Fix: Include Hide Backend token when emailing a password reset URL.
+5.1.1 - 2019-02-19 - Chris Jean & Timothy Jacobs
+	Bug Fix: Tabnapping: Apply noopener to links instead of using blankshield script when available to prevent new pop-up blocker behavior from killing the links.
+5.1.2 - 2019-02-20 - Chris Jean & Timothy Jacobs
+	Enhancement: When ITSEC_DISABLE_MODULES is set, prevent hide backend from running.

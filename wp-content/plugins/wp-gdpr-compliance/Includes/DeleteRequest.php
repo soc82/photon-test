@@ -105,7 +105,7 @@ class DeleteRequest {
     public function getList($filters = array(), $limit = 0, $offset = 0) {
         global $wpdb;
         $output = array();
-        $query  = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE 1";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE 1";
         $query .= Helper::getQueryByFilters($filters);
         $query .= sprintf(" AND `site_id` = '%d'", get_current_blog_id());
         $query .= " ORDER BY `date_created` DESC";

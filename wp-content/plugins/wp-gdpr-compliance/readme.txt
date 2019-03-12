@@ -2,16 +2,15 @@
 Contributors: donnyoexman, jeffreyvisser, merijnmolenaar, michaelvt, van-ons
 Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protection, eu, avg, comments, woocommerce, wc, contact form 7, cf7
 Requires at least: 4.5
-Tested up to: 5.0.2
+Tested up to: 5.1
 Requires PHP: 5.3
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 This plugin assists website owners to comply with European privacy regulations (GDPR).
 
 == Description ==
-
 
 This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. Activating this plugin does not guarantee your site fully complies with GDPR.
 
@@ -44,6 +43,15 @@ You'll find answers to many of your questions on [https://www.wpgdprc.com/faq/](
 4. Control the link to your privacy policy, activate the request user data page and more.
 
 == Changelog ==
+
+= 1.4.9 =
+*Release date: March 12th, 2019*
+* Load accepted consents with AJAX so we can bypass any caching.
+* Added consent placement 'Body'. This will add code snippets directly AFTER the <body> tag.
+* Show a message for the administrators when using the [wpgdprc_consents_settings_link] and no active consents are added.
+* Show the descriptions tab in the consents modal.
+* Bugfix: Get correct charset collate when adding the 'Log' database table.
+* Bugfix: Correctly handle cookies in multisite environments.
 
 = 1.4.8 =
 *Release date: January 8th, 2019*
