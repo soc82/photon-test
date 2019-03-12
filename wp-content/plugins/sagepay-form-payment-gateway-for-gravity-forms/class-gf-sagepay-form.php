@@ -1264,12 +1264,14 @@ class GFSagePayForm extends GFPaymentAddOn {
 		$feed = $this->get_payment_feed( $entry );
 
 		//Ignore IPN messages from forms that are no longer configured with the SagePay Form add-on
+		/*
+		Commenting this out as looks to be the cause of problems (unsure why not getting past this check)
 		if ( ! $feed || ! rgar( $feed, 'is_active' ) ) {
 			$this->log_error( "Form no longer is configured with SagePay Form Addon. Form ID: {$entry['form_id']}. Aborting." );
 
 			return false;
 		}
-
+		*/
 		$this->log_debug( "Form {$entry['form_id']} is properly configured." );
 
 		$txn_type = 'normal';
