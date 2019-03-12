@@ -2,8 +2,8 @@
 Contributors: patsatech
 Tags: ecommerce, payment gateway, wordpress, gravity forms,sagepay server,sagepay go
 Requires at least: 3.5
-Tested up to: 4.9.1
-Stable tag: 1.1.3
+Tested up to: 4.9.8
+Stable tag: 1.1.5
 License: GPLv2 or later
 
 SagePay Server Gateway for accepting payments on your Gravity Forms Store.
@@ -12,7 +12,7 @@ SagePay Server Gateway for accepting payments on your Gravity Forms Store.
 
 The Sage Pay Payment system provides a secure, simple means of authorizing credit and debit card transactions from your website.
 
-The Sage Pay system provides a straightforward payment interface for the customer, and takes complete responsibility for the online transaction, including the collection and encrypted storage of credit and debit card details, eliminating the security implications of holding such sensitive information on your own servers. 
+The Sage Pay system provides a straightforward payment interface for the customer, and takes complete responsibility for the online transaction, including the collection and encrypted storage of credit and debit card details, eliminating the security implications of holding such sensitive information on your own servers.
 
 So this plugin helps you to accept payments with Gravity Forms using SagePay Accounts.
 Send us your ideas and feedback here: https://www.patsatech.com/contact-us
@@ -41,3 +41,9 @@ Send us your ideas and feedback here: https://www.patsatech.com/contact-us
 
 = 1.1.3 =
 * Updated the tested upto for Wordpress.
+
+= 1.1.4 =
+* Updated to support the PHP version 7.0 and above.
+
+= 1.1.5 =
+* Updated to resolve issue with Apply3DSecure flag.
