@@ -109,6 +109,78 @@ add_filter('tiny_mce_before_init', 'prospect_tiny_mce_settings');
 
 
 /*
+** Removes job application form from form listing
+*/
+add_filter('gform_form_list_forms', 'prospect_gform_list_filter', 10, 6);
+
+function prospect_gform_list_filter( $forms, $search_query, $active, $sort_column, $sort_direction, $trash ) {
+	// Form IDs to be excluded
+	$excluded_form_ids = array( 2 );
+	// Role that the exclusion applies to
+	$excluded_role = 'fundraising';
+
+	$user = wp_get_current_user();
+	$roles = $user->roles;
+
+	if ( in_array($excluded_role, $roles) ) {
+		foreach ($forms as $key => $form) {
+			if ( in_array($form->id, $excluded_form_ids) ) {
+				unset($forms[$key]);
+			}
+		}
+	}
+	return $forms;
+}
+
+/*
+** Remove job application form from export options
+*/
+add_action( 'admin_print_footer_scripts', 'prospect_form_switcher_restriction');
+
+function prospect_form_switcher_restriction() {
+	$excluded_role = 'fundraising';
+	$user = wp_get_current_user();
+	$roles = $user->roles;
+
+	if ( in_array($excluded_role, $roles) ) {
+		$screen = get_current_screen();
+		if ( $screen->base == 'forms_page_gf_export' ) { ?>
+		<script type='text/javascript'>
+			jQuery(document).ready(function () {
+				jQuery('#gform_export #export_form option[value="2"]').remove();
+				jQuery('#gf_form_id_2').parent('li').remove();
+			});
+		</script>
+		<?php
+		}
+	}
+}
+
+/*
+** Final check to make sure fundraising users can't see the job application form
+*/
+add_action('admin_notices', 'prospect_form_restriction');
+
+function prospect_form_restriction() {
+	// Form IDs to be excluded
+	$excluded_form_ids = array( 2 );
+	// Role that the exclusion applies to
+	$excluded_role = 'fundraising';
+
+	$user = wp_get_current_user();
+	$roles = $user->roles;
+
+	if ( in_array($excluded_role, $roles) ) {
+		if ( isset($_GET['id']) && in_array($_GET['id'], $excluded_form_ids) ) {
+			$screen = get_current_screen();
+			if ( $screen->base == 'toplevel_page_gf_edit_forms' || $screen->base == 'forms_page_gf_entries' ) {
+				wp_die( __( 'Sorry, you are not allowed to access this form.' ), 403 );
+			}
+		}
+	}
+}
+
+/*
 ** Stop GF anchor scrolling on form submission
 */
 add_filter( 'gform_confirmation_anchor', '__return_true' );
