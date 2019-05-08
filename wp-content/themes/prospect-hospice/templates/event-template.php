@@ -81,6 +81,14 @@ if($banner): ?>
 
         <?php echo get_template_part('inc/template-builder/image-gallery'); ?>
 
+    <?php elseif( get_row_layout() == 'latest_news' ): ?>
+        
+        <?php echo get_template_part('inc/template-builder/latest-news'); ?>
+
+    <?php elseif( get_row_layout() == 'related_team' ): ?>
+        
+        <?php echo get_template_part('inc/template-builder/related-team'); ?>
+
     <?php elseif( get_row_layout() == 'sponsorship' ): ?>
 
         <div class="event-sponsorship-block block">
