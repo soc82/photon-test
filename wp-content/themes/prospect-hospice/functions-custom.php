@@ -217,21 +217,15 @@ function wpse28782_remove_menu_items() {
         remove_menu_page('users.php'); // Users
         remove_menu_page('tools.php'); // Tools
         remove_menu_page('options-general.php'); // Settings
-        remove_menu_page('edit.php?post_type=downloads'); // Downloads
         remove_menu_page('edit.php?post_type=courses'); // Courses
-        remove_menu_page('edit.php?post_type=faqs'); // FAQs
         remove_menu_page('edit.php?post_type=shop'); // Shops
         remove_menu_page('edit.php?post_type=team'); // Team
-        remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
     endif;
 
     if (current_user_can('fundraising')):
-        remove_menu_page('edit.php?post_type=downloads'); // Downloads
         remove_menu_page('edit.php?post_type=courses'); // Courses
-        remove_menu_page('edit.php?post_type=faqs'); // FAQs
         remove_menu_page('edit.php?post_type=shop'); // Shops
         remove_menu_page('edit.php?post_type=team'); // Team
-        remove_menu_page('edit.php?post_type=testimonials'); // Testimonials
         remove_menu_page('edit.php'); // Newss
         remove_menu_page('tools.php'); // Tools
         remove_menu_page('wc-reports'); // Sales Reports
