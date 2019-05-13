@@ -601,9 +601,13 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 
 
-add_action( 'gform_after_submission_52', 'opt_out_handler', 10, 2);
+add_action( 'gform_after_submission', 'opt_out_handler', 10, 2);
 
 function opt_out_handler($entry, $form) {
+
+  if ($form['title'] != 'Group Registration Opt-Out') {
+    return;
+  }
 
   $email = $entry[1];
   $event_entry = $entry[2];
