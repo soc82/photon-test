@@ -257,7 +257,9 @@ add_filter('acf/prepare_field/name=ticket_type', function($field){
 
 function prospect_get_attendee_form() {
   if (isset($_GET['event_entry'])) {
+
 	$event_entry = check_event_entry();
+
 	if (!$event_entry) return;
 
 	$event_id = get_post_meta($event_entry, 'event_id', true);
@@ -366,9 +368,11 @@ function check_event_entry()
 {
 	$entry_id = false;
 	if (isset($_GET['event_entry'])) {
+
 		if (get_post_status($_GET['event_entry'])!= 'publish') {
 			return false;
 		}
+
 		$entry_user_id = get_post_meta($_GET['event_entry'], 'event_user_id', true);
 		if ($entry_user_id == get_current_user_id()) {
 			$entry_id = $_GET['event_entry'];
@@ -377,8 +381,13 @@ function check_event_entry()
 		if ($lead_user_id == get_current_user_id()) {
 			$entry_id = $_GET['event_entry'];
 		}
+    // Check for opted-out entries
+    $entry_email_address = get_post_meta($_GET['event_entry'], 'email_address', true );
+    $lead_entry_email_address = get_post_meta(get_lead_booking_id($_GET['event_entry']), 'email_address', true );
+    if ($entry_email_address == $lead_entry_email_address ) {
+      $entry_id = $_GET['event_entry'];
+    }
 	}
-
 	return $entry_id;
 }
 
