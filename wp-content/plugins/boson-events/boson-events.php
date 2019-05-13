@@ -478,6 +478,7 @@ function process_attendee_email($message, $attendee) {
 	  $user = new WP_User($user);
 	  $message = str_replace('{booker_name}', $user->display_name, $message);
   }
+
   $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
   $message = str_replace('{attendee_full_name}', get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
   $message = str_replace('{event_name}', get_the_title(get_field('event_id', $attendee->ID)), $message);
@@ -602,12 +603,10 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 	}
 }, 10, 1 );
 
-
-
 add_action( 'gform_after_submission', 'opt_out_handler', 10, 2);
 
 function opt_out_handler($entry, $form) {
-
+  // Make sure we're on the right form
   if ($form['title'] != 'Group Registration Opt-Out') {
     return;
   }
@@ -618,22 +617,22 @@ function opt_out_handler($entry, $form) {
 
   // Check the user exists as well as the event entry ID
   if ($user && get_post_status($event_entry)) {
+    $parent_booking = get_lead_booking_id($event_entry);
+    $lead_booking_email = get_field('email_address', $parent_booking);
+
     $user_already_existed = user_already_existed($user);
+
     if ($user_already_existed) {
       // Reset the attendee email address to the lead booking email
-      $parent_booking = get_lead_booking_id($event_entry);
-      $lead_booking_email = get_field('email_address', $parent_booking);
       update_field('email_address', $lead_booking_email, $event_entry);
-      opt_out_email_notification($lead_booking_email, $event_entry);
+      opt_out_email_notification($parent_booking, $event_entry);
     } else {
       // Reset the attendee email address to the lead booking email
-      $parent_booking = get_lead_booking_id($event_entry);
-      $lead_booking_email = get_field('email_address', $parent_booking);
       update_field('email_address', $lead_booking_email, $event_entry);
       // Delete the user
       require_once(ABSPATH.'wp-admin/includes/user.php' );
       wp_delete_user($user->ID);
-      opt_out_email_notification($lead_booking_email, $event_entry);
+      opt_out_email_notification($parent_booking, $event_entry);
     }
   }
 }
@@ -651,7 +650,6 @@ function user_already_existed($user) {
     'post_status' => array_keys(wc_get_order_statuses()),
   ));
 
-
   $users_applications = get_field('applications', 'user_' . $user->ID);
   
   if ($users_orders || $users_applications) {
@@ -663,22 +661,32 @@ function user_already_existed($user) {
 
 // Returns the ID of the lead booking
 function get_lead_booking_id($id) {
+
   $parent_id = wp_get_post_parent_id( $id );
+
   if ($parent_id) {
     return $parent_id;
   }
+
   return false;
 }
 
-function opt_out_email_notification($email, $event_entry_id) {
-  $to = $email;
+function opt_out_email_notification($parent_booking, $event_entry_id) {
+
+  $lead_booking_email = get_field('email_address', $parent_booking);
+  $lead_booking_name = get_field('first_name', $parent_booking);
+
+  $to = $lead_booking_email;
   $subject = get_field('opted_out_email_subject', 'options');
   $link_text = get_field('opted_out_email_link_text', 'options');
 
   $message = get_field('opted_out_email_content', 'options');
 
   $message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $event_entry_id . '">' . $link_text . '</a><br /><br />';
-  
+
+  // Replace this here to avoid modifying process_attendee_email
+  $message = str_replace('{booker_name}', $lead_booking_name, $message);
+
   $headers = array(
     "MIME-Version: 1.0",
     "Content-Type: text/html;charset=utf-8"
