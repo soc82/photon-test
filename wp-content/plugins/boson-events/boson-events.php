@@ -543,28 +543,31 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 			foreach ($attendee as $k=>$v) {
 				update_post_meta($new_attendee, $k, $v);
 			}
+      // Skip account creation if email address isn't set (only possible if under 16/no email is checked)
+      if ($attendee['email_address']) {
+  			$user = get_user_by( 'email', $attendee['email_address']);
+  			$new_user = false;
+  			if (!$user) {
+  				$user_data = [
+  					'user_login' => strtolower(preg_replace('|[^a-z0-9_]|i', '', $attendee['first_name'] . '_' . $attendee['last_name'])),
+  					'user_name'  => preg_replace('|[^a-z0-9_]|i', '', $attendee['first_name'] . '_' . $attendee['last_name']),
+  					'user_email' => $attendee['email_address'],
+  					'user_pass'  => null,
+  				];
+  				$user = wp_insert_user($user_data);
+  				$user = get_user_by('ID', $user);
+  				$new_user = true;
+  			}
+  			update_post_meta($new_attendee, 'event_user_id', $user->ID);
+  			update_post_meta($new_attendee, '_last_notified', time());
+      }
 
-			$user = get_user_by( 'email', $attendee['email_address']);
-			$new_user = false;
-			if (!$user) {
-				$user_data = [
-					'user_login' => strtolower(preg_replace('|[^a-z0-9_]|i', '', $attendee['first_name'] . '_' . $attendee['last_name'])),
-					'user_name'  => preg_replace('|[^a-z0-9_]|i', '', $attendee['first_name'] . '_' . $attendee['last_name']),
-					'user_email' => $attendee['email_address'],
-					'user_pass'  => null,
-				];
-				$user = wp_insert_user($user_data);
-				$user = get_user_by('ID', $user);
-				$new_user = true;
-			}
-			update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
-			update_post_meta($new_attendee, 'lead_user_id', $lead_user_id);
-			update_post_meta($new_attendee, 'event_user_id', $user->ID);
-			update_post_meta($new_attendee, '_last_notified', time());
+      update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
+      update_post_meta($new_attendee, 'lead_user_id', $lead_user_id);
 
 			$form_complete = get_field('other_attendee_details', $new_attendee);
 			// Check to make sure the lead booker hasn't filled out all of the attendee fields before emailing
-			if (!is_attendee_complete($new_attendee)) {
+			if (!is_attendee_complete($new_attendee) && $attendee['email_address']) {
 				$to = get_field('email_address', $new_attendee);
 				$subject = get_field('new_attendee_email_subject', 'options');
 				$link_text = get_field('new_attendee_email_link_text', 'options');
@@ -613,14 +616,9 @@ function opt_out_handler($entry, $form) {
   $event_entry = $entry[2];
   $user = get_user_by( 'email', $email);
 
-
-
   // Check the user exists as well as the event entry ID
   if ($user && get_post_status($event_entry)) {
     $user_already_existed = user_already_existed($user);
-    // We don't want to delete existing users that have orders/applications against them
-     
-
     if ($user_already_existed) {
       // Reset the attendee email address to the lead booking email
       $parent_booking = get_lead_booking_id($event_entry);
