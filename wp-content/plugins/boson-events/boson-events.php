@@ -568,13 +568,16 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				$to = get_field('email_address', $new_attendee);
 				$subject = get_field('new_attendee_email_subject', 'options');
 				$link_text = get_field('new_attendee_email_link_text', 'options');
+        $opt_out_link_text = get_field('new_attendee_email_opt_out_link_text', 'options');
 
 				$message = get_field('new_attendee_email_content', 'options');
 				if ($new_user) {
 					$adt_rp_key = get_password_reset_key( $user );
 					$message .= '<a href="' . home_url() . '/my-account/lost-password/?key=' . $adt_rp_key . '&id=' . $user->ID . '">Set Password</a><br /><br />';
 				}
-				$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $new_attendee . '">' . $link_text . '</a>';
+				$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $new_attendee . '">' . $link_text . '</a><br /><br />';
+        
+        $message .= '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $attendee['email_address']) . '&event_entry=' . $new_attendee . '">' . $opt_out_link_text . '</a>';
 
 				$headers = array(
 					"MIME-Version: 1.0",
@@ -597,6 +600,92 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 }, 10, 1 );
 
 
+
+add_action( 'gform_after_submission_52', 'opt_out_handler', 10, 2);
+
+function opt_out_handler($entry, $form) {
+
+  $email = $entry[1];
+  $event_entry = $entry[2];
+  $user = get_user_by( 'email', $email);
+
+
+
+  // Check the user exists as well as the event entry ID
+  if ($user && get_post_status($event_entry)) {
+    $user_already_existed = user_already_existed($user);
+    // We don't want to delete existing users that have orders/applications against them
+     
+
+    if ($user_already_existed) {
+      // Reset the attendee email address to the lead booking email
+      $parent_booking = get_lead_booking_id($event_entry);
+      $lead_booking_email = get_field('email_address', $parent_booking);
+      update_field('email_address', $lead_booking_email, $event_entry);
+      opt_out_email_notification($lead_booking_email, $event_entry);
+    } else {
+      // Reset the attendee email address to the lead booking email
+      $parent_booking = get_lead_booking_id($event_entry);
+      $lead_booking_email = get_field('email_address', $parent_booking);
+      update_field('email_address', $lead_booking_email, $event_entry);
+      // Delete the user
+      require_once(ABSPATH.'wp-admin/includes/user.php' );
+      wp_delete_user($user->ID);
+      opt_out_email_notification($lead_booking_email, $event_entry);
+    }
+  }
+}
+
+// Return true/false if the user in question already has orders/applications in the system - used for GDPR opt outs in group reg
+function user_already_existed($user) {
+
+  $existed = false;
+
+  $users_orders = get_posts(array(
+    'numberposts' => -1,
+    'meta_key'  => '_customer_user',
+    'meta_value' => $user->ID,
+    'post_type' => wc_get_order_types(),
+    'post_status' => array_keys(wc_get_order_statuses()),
+  ));
+
+
+  $users_applications = get_field('applications', 'user_' . $user->ID);
+  
+  if ($users_orders || $users_applications) {
+    $existed = true;
+  }
+
+  return $existed;
+}
+
+// Returns the ID of the lead booking
+function get_lead_booking_id($id) {
+  $parent_id = wp_get_post_parent_id( $id );
+  if ($parent_id) {
+    return $parent_id;
+  }
+  return false;
+}
+
+function opt_out_email_notification($email, $event_entry_id) {
+  $to = $email;
+  $subject = get_field('opted_out_email_subject', 'options');
+  $link_text = get_field('opted_out_email_link_text', 'options');
+
+  $message = get_field('opted_out_email_content', 'options');
+
+  $message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $event_entry_id . '">' . $link_text . '</a><br /><br />';
+  
+  $headers = array(
+    "MIME-Version: 1.0",
+    "Content-Type: text/html;charset=utf-8"
+  );
+
+  $event_entry = get_post($event_entry_id);
+
+  $mail = wp_mail( $to, $subject, process_attendee_email($message, $event_entry ), implode("\r\n", $headers) );
+}
 
 
 // Save event entry post id to cart item when added to cart
