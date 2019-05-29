@@ -464,3 +464,38 @@ add_action( 'phpmailer_init', 'ph_phpmailer_return_path' );
 function ph_phpmailer_return_path( $phpmailer ) {
     $phpmailer->Sender = $phpmailer->From;
 }
+
+
+
+
+
+// If user is not logged in, redirect to woocommerce login screen
+add_filter('template_redirect', function() {
+
+	if(is_page_template('templates/page-booking-form.php')) {
+		if(!is_user_logged_in()) {
+			$event_id = $_GET['event'];
+
+			wp_redirect(get_permalink( get_option('woocommerce_myaccount_page_id')) . '?event_redirect=' . $event_id );
+			exit;
+		}
+	}
+
+});
+
+
+
+// Redirect the user back to the event form after login/register
+add_filter( 'woocommerce_login_redirect', 'prospect_woocommerce_event_login_reg_redirect', 10, 1 );
+add_filter( 'woocommerce_registration_redirect', 'prospect_woocommerce_event_login_reg_redirect', 10, 1 );
+
+function prospect_woocommerce_event_login_reg_redirect( $redirect ) {
+	if (isset($_GET['event_redirect'])) {
+			if(!$form_page){
+				$form_page = site_url('booking-form/');
+			}
+	    $event_id = $_GET['event_redirect'];
+	    $redirect = $form_page . '?event=' . $event_id;
+	}
+    return $redirect;
+};
