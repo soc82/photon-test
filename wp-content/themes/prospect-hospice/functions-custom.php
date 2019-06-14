@@ -371,7 +371,7 @@ function ph_send_donation_email($status, $trans_id, $entry, $amount) {
 	}
 
 	$to = $entry[3] . ', fundraising&events@prospect-hospice.net';
-
+	$name = $entry[1] . ' ' . $entry[2];
 	if ($entry['form_id'] == 54) {
 		$name = $entry[14] . ' ' . $entry[1];
 	}
