@@ -371,6 +371,11 @@ function ph_send_donation_email($status, $trans_id, $entry, $amount) {
 	}
 
 	$to = $entry[3] . ', fundraising&events@prospect-hospice.net';
+
+	if ($entry['form_id'] == 54) {
+		$name = $entry[14] . ' ' . $entry[1];
+	}
+
 	$body = '
 	<body style="background:#EEEEEE; font-size: 16px; line-height:22px; color:#151515; font-family: Arial, sans-serif;">
 		<table style="background:#EEEEEE;" width="600" cellpadding="0" cellspacing="0" align="center" style="margin: 0 auto 0 auto; width: 600px;">
@@ -404,7 +409,7 @@ function ph_send_donation_email($status, $trans_id, $entry, $amount) {
 						<tr>
 							<td width="25"></td>
 							<td width="550" ><p style="color:#151515; font-size: 15px; line-height:21px;">
-							Dear ' . $entry[1] . ' ' . $entry[2] . ',<br/>
+							Dear ' . $name . ',<br/>
 							<br/>
 							On behalf of everyone at Prospect Hospice, thank you, we have received your payment for your online donation.<br/>
 							<br/>
