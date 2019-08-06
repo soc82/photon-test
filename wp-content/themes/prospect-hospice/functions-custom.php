@@ -484,6 +484,11 @@ add_filter('template_redirect', function() {
 			wp_redirect(get_permalink( get_option('woocommerce_myaccount_page_id')) . '?event_redirect=' . $event_id );
 			exit;
 		}
+	} elseif (is_page_template('templates/page-attendee-form.php')) {
+		if(!is_user_logged_in()) {
+			$event_entry = $_GET['event_entry'];
+			wp_redirect(get_permalink( get_option('woocommerce_myaccount_page_id')) . '?event_attendee_redirect=' . $event_entry );
+		}
 	}
 
 });
@@ -501,6 +506,10 @@ function prospect_woocommerce_event_login_reg_redirect( $redirect ) {
 			}
 	    $event_id = $_GET['event_redirect'];
 	    $redirect = $form_page . '?event=' . $event_id;
+	} elseif (isset($_GET['event_attendee_redirect'])) {
+		$form_page = site_url('attendee-form/');
+		$entry_id = $_GET['event_attendee_redirect'];
+	    $redirect = $form_page . '?event_entry=' . $entry_id;
 	}
     return $redirect;
 };
