@@ -53,4 +53,47 @@ get_header(); ?>
     <?php } ?>
 
 
+
+    // TODO: Need to look at removing out any 'parent consent' ticket options from the first attendee, as this shouldn't be possible
+
+
+    function parent_consent_logic() {
+
+        var $child_added = false;
+
+        // Hide the child form initially
+        jQuery('.acf-field-clone[data-name="child"]').hide();
+
+        var $field_group = jQuery('.acf-fields:visible');
+
+        // Loop through field groups (excluding the first one as child option not able on first)
+        jQuery.each($field_group.slice(1), function (i) {
+            $this = jQuery(this);
+            var $ticket_types = jQuery('[data-name=ticket_type] select:visible', $this);
+            var $ticket_consent = $ticket_types.first().closest('.acf-field').data('parent-consent');
+
+            // If child ticket selected, hide the default fields & show the child clone group
+            if($ticket_consent[$ticket_types.val()] == true) {
+                jQuery('.acf-field-clone[data-name="child"]', $this).removeClass('acf-hidden').show();
+                jQuery('.acf-field:not(.acf-field-clone, .acf-field[data-name=ticket_type], .acf-field[data-name=child] .acf-field)', $this).addClass('acf-hidden');
+                $child_added = true;
+            } else {
+                jQuery('.acf-field-clone[data-name="child"]', $this).addClass('acf-hidden').hide();
+                jQuery('.acf-field:not(.acf-field-clone, .acf-field[data-name=ticket_type], .acf-field[data-name=child] .acf-field)', $this).removeClass('acf-hidden');
+            }
+        });
+
+
+        // Show code of conduct content if there is a child ticket added
+        if(jQuery('.acf-field-clone[data-name="child"]:visible').length) {
+            jQuery('#code-of-conduct-content').removeClass('d-none');
+        } else {
+            jQuery('#code-of-conduct-content').addClass('d-none');
+        }
+
+    }
+    jQuery('.acf-repeater').on('change', parent_consent_logic);
+    jQuery(document).on('change', '[data-name=ticket_type] select', parent_consent_logic);
+    parent_consent_logic();
+
 </script>

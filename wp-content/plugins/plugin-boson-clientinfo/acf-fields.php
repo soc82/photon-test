@@ -942,7 +942,7 @@ There are 2 attributes which need to be used in the shortcode. These are explain
 			'placement' => 'top',
 			'endpoint' => 0,
 		),
-		
+
 		array(
 			'key' => 'field_5b9b9fb45e4bf',
 			'label' => 'New attendee email subject',
@@ -1209,7 +1209,46 @@ There are 2 attributes which need to be used in the shortcode. These are explain
 			'append' => '',
 			'maxlength' => '',
 		),
-
+		array(
+			'key' => 'field_5b1c2fb453dbb',
+			'label' => 'Generic event terms',
+			'name' => 'generic_event_terms',
+			'type' => 'wysiwyg',
+			'instructions' => 'Generic event terms and conditions if not set sepecifically on the event.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'hide_admin' => 0,
+			'default_value' => '',
+			'tabs' => 'visual',
+			'toolbar' => 'full',
+			'media_upload' => 0,
+			'delay' => 0,
+		),
+		array(
+			'key' => 'field_5b9b1fb908dba',
+			'label' => 'Event behaviour code content',
+			'name' => 'event_behaviour_code_content',
+			'type' => 'wysiwyg',
+			'instructions' => 'Generic event behaviour code content that is displayed when a child ticket is added to the booking form.',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'hide_admin' => 0,
+			'default_value' => '',
+			'tabs' => 'visual',
+			'toolbar' => 'full',
+			'media_upload' => 0,
+			'delay' => 0,
+		),
 		array(
 			'key' => 'field_5b128c000cc12',
 			'label' => 'Job Settings',

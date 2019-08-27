@@ -194,6 +194,7 @@ function create_event_type_taxonomies() {
 
 }
 
+
 // load ticket types
 add_filter('acf/load_field/name=ticket_type', function ( $field ) {
 
@@ -210,11 +211,15 @@ add_filter('acf/load_field/name=ticket_type', function ( $field ) {
 	// loop through array and add to field 'choices'
 	if( is_array($choices) ) {
 		$prices = [];
+        $content = [];
 		foreach( $choices as $choice ) {
 			$field['choices'][ $choice['name'] ] = $choice['name'] . ' - &pound;' . $choice['price'];
 			$prices[$choice['name']] = $choice['price'];
+            $consent[$choice['name']] = $choice['parent_consent_required'];
 		}
 		$field['wrapper']['data-pricing'] = json_encode($prices);
+        $field['wrapper']['data-parent-consent'] = json_encode($consent);
+
 	}
 
 	// return the field
@@ -255,6 +260,8 @@ add_filter('acf/prepare_field/name=ticket_type', function($field){
 	return $field;
 });
 
+
+
 function prospect_get_attendee_form() {
   if (isset($_GET['event_entry'])) {
 
@@ -293,7 +300,11 @@ function prospect_get_event_form( ) {
 	  'post_title'  => $post_title,
 	);
 
-	  $fields_id = get_event_booking_fieldset_id($_GET['event']);
+    $fields_id = get_event_booking_fieldset_id($_GET['event']);
+
+    $code_of_conduct = get_field('event_behaviour_code_content', 'options');
+    $event_terms = get_field('event_terms_conditions', $_GET['event']);
+    $generic_terms = get_field('generic_event_terms', 'option');
 
     echo '<h2>Event: ' . get_the_title($event) . '</h2>';
 
@@ -312,6 +323,17 @@ function prospect_get_event_form( ) {
         echo '<div class="event-total-attendees"></div>';
         echo '<div class="event-total-price"></div>';
       echo '</div>';
+
+      if($code_of_conduct):
+            echo '<div id="code-of-conduct-content" class="d-none">' . $code_of_conduct . '</div>';
+       endif;
+
+       if($event_terms):
+           echo '<div id="event-terms-modal" class="modal">' . $event_terms . '</div>';
+       elseif($generic_terms):
+           echo '<div id="event-terms-modal" class="modal">' . $generic_terms . '</div>';
+       endif;
+
     else:
       echo '<p>Event not found.</p>';
     endif;
@@ -589,7 +611,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 					$message .= '<a href="' . home_url() . '/my-account/lost-password/?key=' . $adt_rp_key . '&id=' . $user->ID . '">Set Password</a><br /><br />';
 				}
 				$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $new_attendee . '">' . $link_text . '</a><br /><br />';
-        
+
         $message .= '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $attendee['email_address']) . '&event_entry=' . $new_attendee . '">' . $opt_out_link_text . '</a>';
 
 				$headers = array(
@@ -660,7 +682,7 @@ function user_already_existed($user) {
   ));
 
   $users_applications = get_field('applications', 'user_' . $user->ID);
-  
+
   if ($users_orders || $users_applications) {
     $existed = true;
   }
