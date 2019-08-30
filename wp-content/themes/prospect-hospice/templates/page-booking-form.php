@@ -66,11 +66,14 @@ get_header(); ?>
 
         var $field_group = jQuery('.acf-fields:visible');
 
+
         // Loop through field groups (excluding the first one as child option not able on first)
         jQuery.each($field_group.slice(1), function (i) {
             $this = jQuery(this);
+            ;
             var $ticket_types = jQuery('[data-name=ticket_type] select:visible', $this);
             var $ticket_consent = $ticket_types.first().closest('.acf-field').data('parent-consent');
+
 
             // If child ticket selected, hide the default fields & show the child clone group
             if($ticket_consent[$ticket_types.val()] == true) {
@@ -92,8 +95,8 @@ get_header(); ?>
         }
 
     }
-    jQuery('.acf-repeater').on('change', parent_consent_logic);
-    jQuery(document).on('change', '[data-name=ticket_type] select', parent_consent_logic);
-    parent_consent_logic();
+    //jQuery('.acf-repeater').on('change', parent_consent_logic);
+    //jQuery(document).on('change', '[data-name=ticket_type] select', parent_consent_logic);
+    //parent_consent_logic();
 
 </script>

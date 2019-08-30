@@ -277,7 +277,7 @@ function prospect_get_attendee_form() {
     acf_form(array(
       'post_id' 	  => $event_entry,
       'post_title'    => false,
-	  'field_groups'  => array($fieldset),
+	    'field_groups'  => array($fieldset),
       'return'		  => '/my-account/attendingevents/',
       'submit_value'  => 'Save'
     ));
@@ -848,9 +848,20 @@ function is_attendee_complete($entry) {
 
 add_action('acf/save_post', function ($post_id) {
 
+
+  if (get_post_type($post_id) != 'draft-event-entry') return; // soc notes - not entirely sure what the draft-entry us but to get the parental consent emails aworking, adding this work around
+
+  if($_POST['acf']['field_5c58637174a1f']['5d67e14e7b550']['field_5d6514437cf07']['field_5d67c692c352d'] == 'no'){
+      send_attendee_parental_consent_mail($post_id, $_POST['acf']['field_5c58637174a1f']['5d67e14e7b550']['field_5d6514437cf07']['field_5d650fc9700b4']);
+  }
+
+
 	if (get_post_type($post_id) != 'event-entry') return;
+
+  
   if (!(is_attendee_complete($post_id))) return;
   //	if (get_post_meta($post_id, '_attendee_complete_email_sent', true)) return;
+  
 
   $attendee_meta = get_attendee_post_meta($post_id);
   unset($attendee_meta['_last_emailed_hash']);
@@ -866,8 +877,18 @@ add_action('acf/save_post', function ($post_id) {
   	send_attendee_complete_mail($post_id);
   }
 
+  // If attendee completed hasn't already been sent, send to lead booker
+  if (!get_post_meta($post_id, '_attendee_parental_consent_email_sent', true)) {
+    //if( isset($_POST['acf']['field_5d650fc9700b4']) ) { // if the person says they are NOT a parent or guardian
+        //send_attendee_parental_consent_mail($post_id, $_POST['acf']['field_5d650fc9700b4']);
+    //}
+  }
+
+  
+
   update_post_meta($post_id, '_attendee_complete', 1);
 	update_post_meta($post_id, '_attendee_complete_email_sent', 1);
+  update_post_meta($post_id, '_attendee_parental_consent_email_sent', 1);
 
 }, 20);
 
@@ -888,6 +909,26 @@ function send_attendee_complete_mail($post_id) {
 	if (!$user) $user = get_field('event_user_id', $post_id);
 	$user = new WP_User($user);
 	$mail = wp_mail( $user->user_email, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
+
+}
+
+function send_attendee_parental_consent_mail($post_id, $email) {
+  
+  $subject = get_field('attendee_parental_consent_email_subject', 'options');
+  $link_text = get_field('attendee_parental_consent_email_link_text', 'options');
+
+  $string = urldecode("?event_entry=" . $post_id . "");
+
+  $message = get_field('attendee_parental_consent_email_content', 'options');
+  $message .= '<a href="' . get_site_url() . '/attendee-form/'.$string.'>oi oi' . $link_text . '</a>';
+
+  $headers = array(
+    "MIME-Version: 1.0",
+    "Content-Type: text/html;charset=utf-8"
+  );
+  
+  wp_mail( $email, $subject, $message, implode("\r\n", $headers) );
+  
 
 }
 
@@ -1049,6 +1090,12 @@ function days_to_event($event_id) {
 	$interval = $datetime1->diff($datetime2);
 	return $interval->format("%r%a");
 }
+
+function url_encode($string){
+    return urlencode(utf8_encode($string));
+}
+    
+
 
 //add_action('wp', 'do_clear_passed_event_data');
 //add_action('wp', function () { send_attendee_complete_mail(1249); } );
