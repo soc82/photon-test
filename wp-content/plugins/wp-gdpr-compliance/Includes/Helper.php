@@ -659,6 +659,7 @@ class Helper {
             `email_address` varchar(100) NOT NULL,
             `session_id` varchar(255) NOT NULL,
             `ip_address` varchar(100) NOT NULL,
+            `token` text NOT NULL,
             `expired` tinyint(1) DEFAULT '0' NOT NULL,
             `date_created` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
             PRIMARY KEY (`ID`)

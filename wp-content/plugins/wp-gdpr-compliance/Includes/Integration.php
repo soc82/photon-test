@@ -45,9 +45,16 @@ class Integration {
                 case WPRegistration::ID :
                     $users_can_register = get_option('users_can_register');
                     if ($users_can_register) {
-                        add_action('register_form', array(WPRegistration::getInstance(), 'addField'), 999);
-                        add_filter('registration_errors', array(WPRegistration::getInstance(), 'validateGDPRCheckbox'), 10, 3);
-                        add_action('user_register', array(WPRegistration::getInstance(), 'logGivenGDPRConsent'), 10, 1);
+	                    $addFieldAction = (is_multisite() ? 'signup_extra_fields' : 'register_form');
+	                    $addFieldFunction = (is_multisite() ? 'addFieldMultiSite' : 'addField');
+	                    $validationAction = (is_multisite() ? 'wpmu_validate_user_signup' : 'registration_errors');
+	                    $registerUserAction = (is_multisite() ? 'wpmu_new_user' : 'user_register');
+	                    $validateFunction = (is_multisite() ? 'validateGDPRCheckboxMultisite' : 'validateGDPRCheckbox' );
+	                    $logFunction = 'logGivenGDPRConsent';
+	                    $validationArguments  = (is_multisite() ? 1 : 3);
+                        add_action($addFieldAction, array(WPRegistration::getInstance(), $addFieldFunction), 10, 1);
+                        add_filter( $validationAction, array(WPRegistration::getInstance(), $validateFunction), 10, $validationArguments );
+                        add_action($registerUserAction, array(WPRegistration::getInstance(), $logFunction), 10, 1);
                     }
                     break;
                 case WC::ID :

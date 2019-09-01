@@ -426,37 +426,6 @@ class Ajax {
         die();
     }
 
-    public function loadConsents() {
-        check_ajax_referer('wpgdprc', 'security');
-
-        $output = array();
-        $consentIds = Helper::getConsentIdsByCookie();
-
-        if (!empty($consentIds)) {
-            foreach (Consent::getPossiblePlacements() as $placement => $label) {
-                $consents = Consent::getInstance()->getList(array(
-                    'placement' => array(
-                        'value' => $placement
-                    ),
-                    'active' => array(
-                        'value' => 1
-                    ),
-                    'ID' => array(
-                        'value' => $consentIds,
-                        'compare' => 'IN'
-                    )
-                ));
-                if (!empty($consents)) {
-                    $output[$placement] = Consent::output($consents);
-                }
-            }
-        }
-
-        header('Content-type: application/json');
-        echo json_encode($output);
-        die();
-    }
-
     /**
      * @param $value
      * @return mixed

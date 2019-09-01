@@ -85,24 +85,42 @@ class Consent {
     }
 
     /**
-     * @param array $consents
-     * @return string
+     * @return array
      */
-    public static function output($consents = array()) {
-        $output = '';
+    public function getListByPlacements() {
+        $output = array();
+        $consents = self::getInstance()->getList(array(
+            'active' => array(
+                'value' => 1
+            ),
+        ));
         if (!empty($consents)) {
             /** @var Consent $consent */
             foreach ($consents as $consent) {
-                if ($consent->getWrap()) {
-                    $output .= sprintf(
-                        '<script type="text/javascript">%s</script>',
-                        $consent->getSnippet()
-                    );
-                } else {
-                    $output .= sprintf('%s', $consent->getSnippet());
-                }
+                $content = ($consent->getWrap()) ? sprintf(
+                    '<script type="text/javascript">%s</script>',
+                    $consent->getSnippet()
+                ) : sprintf(
+                    '%s',
+                    $consent->getSnippet()
+                );
+                $output[] = array(
+                    'id' => $consent->getId(),
+                    'required' => ($consent->getRequired() == 1),
+                    'placement' => $consent->getPlacement(),
+                    'content' => $content,
+                );
             }
         }
+        return $output;
+    }
+
+    /**
+     * @param array $consents
+     * @return array
+     */
+    public static function output($consents = array()) {
+        $output = array();
         return $output;
     }
 

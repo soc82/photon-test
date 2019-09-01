@@ -790,3 +790,24 @@
 	Bug Fix: Tabnapping: Apply noopener to links instead of using blankshield script when available to prevent new pop-up blocker behavior from killing the links.
 5.1.2 - 2019-02-20 - Chris Jean & Timothy Jacobs
 	Enhancement: When ITSEC_DISABLE_MODULES is set, prevent hide backend from running.
+5.1.3 - 2019-03-12 - Chris Jean & Timothy Jacobs
+	Tweak: Allow the log description column to word break for URLs or other strings with no spaces.
+	Bug Fix: Hide Backend bypass on certain Apache configurations.
+	Bug Fix: Properly return error that occurs during a backup.
+	Bug Fix: Regex warning on PHP 7.3 in the File Change module.
+	Bug Fix: Resolve warning when a user is set to "No Role".
+5.1.4 - 2019-03-22 - Chris Jean & Timothy Jacobs
+	Bug Fix: Hide backend bypass.
+5.2.0 - 2019-05-30 - Chris Jean & Timothy Jacobs
+	New: iThemes Security Admin Notices are now conveniently located in the new Security Messages Menu. Check your notices in the Security menu on the WordPress Admin Bar.
+	Tweak: Remove 'DELETE' method from "System Tweaks -> Filter Request Methods"
+5.2.1 - 2019-06-06 - Chris Jean & Timothy Jacobs
+	Enhancement: Add Security Message when a Notification Center email fails to send.
+	Enhancement: Replace Trace IP with IP Tracker Online.
+5.2.2 - 2019-06-28 - Chris Jean & Timothy Jacobs
+	Enhancement: New iThemes Sync Verb support for File Change.
+	Tweak: Add additional information about the login attempt when calling the Network Brute Force API.
+5.2.3 - 2019-08-12 - Chris Jean & Timothy Jacobs
+	Bug Fix: Hide Backend Bypass.
+	Bug Fix: Strict Standards error during Sync request.
+	Bug Fix: wp_die() if a login interstitial session fails to be created instead of throwing a fatal error.

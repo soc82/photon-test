@@ -2,9 +2,9 @@
 Contributors: donnyoexman, jeffreyvisser, merijnmolenaar, michaelvt, van-ons
 Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protection, eu, avg, comments, woocommerce, wc, contact form 7, cf7
 Requires at least: 4.5
-Tested up to: 5.1
+Tested up to: 5.2
 Requires PHP: 5.3
-Stable tag: 1.4.9
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,6 +43,23 @@ You'll find answers to many of your questions on [https://www.wpgdprc.com/faq/](
 4. Control the link to your privacy policy, activate the request user data page and more.
 
 == Changelog ==
+
+= 1.5.2 =
+*Release date: 21th May, 2019*
+* Tested with WordPress 5.2.
+* Load accepted consents with JavaScript to improve performance.
+* Use different text when all consent is required.
+* When standard Consent bar/button colors are used, no empty attributes will be added to the elements.
+* Bugfix: WP Registration integration now also works on MultiSite, accepted consent on registering gets added to the 'wpgdprc_log' table.
+* Bugfix: Error shown in the WooCommerce Order page is removed.
+
+= 1.5.1 =
+*Release date: April 30th, 2019*
+* Bugfix: 'token' column not being added to access_request table for new users.
+
+= 1.5.0 =
+*Release date: March 13th, 2019*
+* Bugfix: JavaScript error when no active consents are added.
 
 = 1.4.9 =
 *Release date: March 12th, 2019*
