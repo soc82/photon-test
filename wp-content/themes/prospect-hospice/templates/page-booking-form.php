@@ -57,32 +57,32 @@ get_header(); ?>
     // TODO: Need to look at removing out any 'parent consent' ticket options from the first attendee, as this shouldn't be possible
 
 
-    function parent_consent_logic() {
+    function acf_conditional_attendee_group() {
 
         var $child_added = false;
 
         // Hide the child form initially
         jQuery('.acf-field-clone[data-name="child"]').hide();
 
-        var $field_group = jQuery('.acf-fields:visible');
+        var $field_group = jQuery('.acf-row:visible');
 
 
-        // Loop through field groups (excluding the first one as child option not able on first)
-        jQuery.each($field_group.slice(1), function (i) {
-            $this = jQuery(this);
-            ;
+        // Loop through field groups
+        jQuery.each($field_group, function (i) {
+
+            var $this = jQuery(this);
             var $ticket_types = jQuery('[data-name=ticket_type] select:visible', $this);
             var $ticket_consent = $ticket_types.first().closest('.acf-field').data('parent-consent');
 
 
             // If child ticket selected, hide the default fields & show the child clone group
             if($ticket_consent[$ticket_types.val()] == true) {
-                jQuery('.acf-field-clone[data-name="child"]', $this).removeClass('acf-hidden').show();
-                jQuery('.acf-field:not(.acf-field-clone, .acf-field[data-name=ticket_type], .acf-field[data-name=child] .acf-field)', $this).addClass('acf-hidden');
+                jQuery('.acf-field-clone[data-name="child"]', $this).show();
+                jQuery('.acf-field-clone[data-name="adult"]', $this).hide();
                 $child_added = true;
             } else {
-                jQuery('.acf-field-clone[data-name="child"]', $this).addClass('acf-hidden').hide();
-                jQuery('.acf-field:not(.acf-field-clone, .acf-field[data-name=ticket_type], .acf-field[data-name=child] .acf-field)', $this).removeClass('acf-hidden');
+                jQuery('.acf-field-clone[data-name="child"]', $this).hide();
+                jQuery('.acf-field-clone[data-name="adult"]', $this).show();
             }
         });
 
@@ -95,8 +95,27 @@ get_header(); ?>
         }
 
     }
-    //jQuery('.acf-repeater').on('change', parent_consent_logic);
-    //jQuery(document).on('change', '[data-name=ticket_type] select', parent_consent_logic);
-    //parent_consent_logic();
+    jQuery('.acf-repeater').on('change', acf_conditional_attendee_group);
+    jQuery(document).on('change', '[data-name=ticket_type] select', acf_conditional_attendee_group);
+    acf_conditional_attendee_group();
+
+
+    /*
+    function acf_clear_unused_fields() {
+
+    }
+
+    if ( 'undefined' !== typeof acf ) {
+    	acf.add_filter( 'validation_complete', function( json, $form ) {
+    		if ( json.valid && ! json.errors ) {
+    	          acf_clear_unused_fields();
+    		}
+
+    		return json;
+    	});
+    }
+    */
+
+
 
 </script>

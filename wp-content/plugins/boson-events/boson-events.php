@@ -277,8 +277,8 @@ function prospect_get_attendee_form() {
     acf_form(array(
       'post_id' 	  => $event_entry,
       'post_title'    => false,
-	    'field_groups'  => array($fieldset),
-      'return'		  => '/my-account/attendingevents/',
+	  'field_groups'  => array($fieldset),
+      'return'		  => site_url('/my-account/attendingevents/'),
       'submit_value'  => 'Save'
     ));
 
@@ -315,7 +315,7 @@ function prospect_get_event_form( ) {
 		  'new_post'          => $post_data,
 		  'post_id'           => $entry_id ?: 'new_post',
 		  'submit_value'      => 'Save',
-		  'return'		  	  => '/my-account/savedbookings/',
+		  'return'		  	  => site_url('/my-account/savedbookings/'),
 		  'html_after_fields' => '<input type="submit" name="save_and_add" class="button" value="Save &amp; Checkout">'
       );
       acf_form($form_args);
@@ -359,13 +359,50 @@ function get_event_booking_fieldset_id($id)
 function get_event_attendee_fieldset_id($id)
 {
 	$fields_id = get_event_booking_fieldset_id($id);
-
 	if (!$fields_id) return false;
-
 	global $wpdb;
 	$data = $wpdb->get_var("SELECT p2.post_content FROM {$wpdb->prefix}posts p1 LEFT JOIN {$wpdb->prefix}posts p2 ON p1.ID = p2.post_parent WHERE p1.post_parent = $fields_id AND p1.post_excerpt = 'additional_attendees'");
 	$data = unserialize($data);
+
+    // Returns acf field key for attendee clone field
 	return $data['clone'][0];
+}
+
+
+function get_event_attendee_fieldset_id_conditional($id, $attendee)
+{
+
+    $child_fields = '';
+    $adult_fields = '';
+	$fields_id = get_event_booking_fieldset_id($id);
+	if (!$fields_id) return false;
+
+    // Get the fields from group id
+    $fields = acf_get_fields_by_id($fields_id);
+    global $wpdb;
+    // Return sub-fields of 'additional_attendees'
+    $sub_fields = $wpdb->get_results("SELECT p2.post_excerpt, p2.post_content FROM {$wpdb->prefix}posts p1 LEFT JOIN {$wpdb->prefix}posts p2 ON p1.ID = p2.post_parent WHERE p1.post_parent = $fields_id AND p1.post_excerpt = 'additional_attendees'");
+
+    if($sub_fields) {
+        foreach($sub_fields as $field) {
+            //$field = unserialize($field->post_content);
+            if($field->post_excerpt == 'adult') {
+                $adult_fields = unserialize($field->post_content);
+            }
+            if($field->post_excerpt == 'child') {
+                $child_fields = unserialize($field->post_content);
+            }
+        }
+    }
+
+    $attendee_type = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = 'attendee_type' AND post_id = {$attendee->ID}");
+
+    if($attendee_type == 'child') {
+        return $child_fields['clone'][0];
+    } else {
+        return $adult_fields['clone'][0];
+    }
+
 }
 
 
@@ -419,13 +456,14 @@ add_action('acf/submit_form', function ($form, $post_id) {
 			update_post_meta($post_id, 'event_user_id', get_current_user_id());
 			update_post_meta($post_id, 'event_id', $_GET['event']);
 		}
+
 	}
 }, 10, 2);
 
 add_filter('acf/pre_submit_form', function ($form) {
 	if ($form['id'] == 'event-registration') {
 		if (isset($_POST['save_and_add'])) {
-			$form['return'] = wc_get_cart_url('') . '?add-to-cart=' . $_GET['event'] . '&event_entry=%post_id%';
+            $form['return'] = wc_get_cart_url('') . '?add-to-cart=' . $_GET['event'] . '&event_entry=%post_id%';
 		}
 	}
 	return $form;
@@ -449,11 +487,11 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 			$type = get_field('ticket_type', $cart_item['event_entry']);
 			$price = $prices[$type];
 			$additional_attendees = get_field( 'additional_attendees', $cart_item['event_entry']);
-      if($additional_attendees){
-  			foreach ($additional_attendees as $additional_attendee) {
-  				$price += $prices[$additional_attendee['ticket_type']];
-  			}
-      }
+              if($additional_attendees){
+          			foreach ($additional_attendees as $additional_attendee) {
+          				$price += $prices[$additional_attendee['ticket_type']];
+          			}
+              }
 			$cart_item['data']->set_price($price);
 		}
 	}
@@ -495,7 +533,7 @@ function process_admin_attendee_email($attendee) {
     "Content-Type: text/html;charset=utf-8"
   );
 
-  $admin_email = 'fundraising&events@prospect-hospice.net';
+  $admin_email = 'will.lawrence@bosonweb.net';
 
   $mail = wp_mail( $admin_email, $subject, $message, implode("\r\n", $headers) );
 
@@ -505,13 +543,16 @@ function process_admin_attendee_email($attendee) {
 
 function process_attendee_email($message, $attendee) {
   $user = get_field('lead_user_id', $attendee->ID);
+
+  $name = get_attendee_name($attendee);
+
   if ($user) {
 	  $user = new WP_User($user);
 	  $message = str_replace('{booker_name}', $user->display_name, $message);
   }
 
-  $message = str_replace('{attendee_name}', get_field('first_name', $attendee->ID), $message);
-  $message = str_replace('{attendee_full_name}', get_field('first_name', $attendee->ID) . ' ' . get_field('last_name', $attendee->ID), $message);
+  $message = str_replace('{attendee_name}', $name['first_name'], $message);
+  $message = str_replace('{attendee_full_name}', $name['first_name'] . ' ' . $name['last_name'], $message);
   $message = str_replace('{event_name}', get_the_title(get_field('event_id', $attendee->ID)), $message);
   return $message;
 }
@@ -567,43 +608,73 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 		$post_data['post_parent'] = $lead;
 
-    // Send Prospect email with lead booker details
-    process_admin_attendee_email(get_post($lead));
+        // Send Prospect email with lead booker details
+        process_admin_attendee_email(get_post($lead));
 
 		foreach ($additional_attendees as $ak=>$attendee) {
-			$new_attendee = wp_insert_post($post_data);
-			foreach ($attendee as $k=>$v) {
-				update_post_meta($new_attendee, $k, $v);
-			}
-      // Skip account creation if email address isn't set (only possible if under 16/no email is checked)
-      if ($attendee['email_address']) {
-  			$user = get_user_by( 'email', $attendee['email_address']);
-  			$new_user = false;
-  			if (!$user) {
-  				$user_data = [
-  					'user_login' => strtolower(preg_replace('|[^a-z0-9_]|i', '', $attendee['first_name'] . '_' . $attendee['last_name'])),
-  					'user_name'  => preg_replace('|[^a-z0-9_]|i', '', $attendee['first_name'] . '_' . $attendee['last_name']),
-  					'user_email' => $attendee['email_address'],
-  					'user_pass'  => null,
-  				];
-  				$user = wp_insert_user($user_data);
-  				$user = get_user_by('ID', $user);
-  				$new_user = true;
-  			}
-  			update_post_meta($new_attendee, 'event_user_id', $user->ID);
-  			update_post_meta($new_attendee, '_last_notified', time());
-      }
+            // Check whether adult or child attendee (by email field), and remove other unecessary fields
+            if($attendee['adult']['email_address_adult_attendee']) {
+                unset($attendee['child']);
+            } else if($attendee['child']['email_address_child_attendee']) {
+                unset($attendee['adult']);
+            }
 
-      update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
-      update_post_meta($new_attendee, 'lead_user_id', $lead_user_id);
+            // Flatten multidimensional array so easier to work with
+            $attendee = array_flatten($attendee);
+
+            $new_attendee = wp_insert_post($post_data);
+
+            foreach ($attendee as $k => $v) {
+
+                // Manually set post meta for what type of attendee this is (used for ongoing logic).
+                // Then manually set the key back to 'email_address' to match up with the lead booker logic
+                if($k == 'email_address_adult_attendee' || $k == 'email_address_child_attendee') {
+
+                    if($k == 'email_address_adult_attendee' ) {
+                        update_post_meta($new_attendee, 'attendee_type', 'adult');
+                    } else {
+                        update_post_meta($new_attendee, 'attendee_type', 'child');
+                    }
+
+                    $k == 'email_address';
+
+                }
+
+                update_post_meta($new_attendee, $k, $v);
+
+            }
+
+            $name = get_attendee_name($new_attendee);
+
+            // Skip account creation if email address isn't set (only possible if under 16/no email is checked)
+            if ($attendee['email_address']) {
+      			$user = get_user_by( 'email', $attendee['email_address']);
+      			$new_user = false;
+      			if (!$user) {
+      				$user_data = [
+      					'user_login' => strtolower(preg_replace('|[^a-z0-9_]|i', '', $name['first_name'] . '_' . $name['last_name'])),
+      					'user_name'  => preg_replace('|[^a-z0-9_]|i', '', $name['first_name'] . '_' . $name['last_name']),
+      					'user_email' => $attendee['email_address'],
+      					'user_pass'  => null,
+      				];
+      				$user = wp_insert_user($user_data);
+      				$user = get_user_by('ID', $user);
+      				$new_user = true;
+      			}
+      			update_post_meta($new_attendee, 'event_user_id', $user->ID);
+      			update_post_meta($new_attendee, '_last_notified', time());
+            }
+
+            update_post_meta($new_attendee, 'event_id', $order_item->get_product()->get_id());
+            update_post_meta($new_attendee, 'lead_user_id', $lead_user_id);
 
 			$form_complete = get_field('other_attendee_details', $new_attendee);
 			// Check to make sure the lead booker hasn't filled out all of the attendee fields before emailing
 			if (!is_attendee_complete($new_attendee) && $attendee['email_address']) {
-				$to = get_field('email_address', $new_attendee);
+				$to = get_post_meta($new_attendee, 'email_address', true);
 				$subject = get_field('new_attendee_email_subject', 'options');
 				$link_text = get_field('new_attendee_email_link_text', 'options');
-        $opt_out_link_text = get_field('new_attendee_email_opt_out_link_text', 'options');
+                $opt_out_link_text = get_field('new_attendee_email_opt_out_link_text', 'options');
 
 				$message = get_field('new_attendee_email_content', 'options');
 				if ($new_user) {
@@ -612,7 +683,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				}
 				$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $new_attendee . '">' . $link_text . '</a><br /><br />';
 
-        $message .= '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $attendee['email_address']) . '&event_entry=' . $new_attendee . '">' . $opt_out_link_text . '</a>';
+                $message .= '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $attendee['email_address']) . '&event_entry=' . $new_attendee . '">' . $opt_out_link_text . '</a>';
 
 				$headers = array(
 					"MIME-Version: 1.0",
@@ -620,17 +691,21 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				);
 
 				$mail = wp_mail( $to, $subject, process_attendee_email($message, get_post($new_attendee) ), implode("\r\n", $headers) );
-      // If attendee is completed, send admin
+
+            // If attendee is completed, send admin
 			} else {
 
-        process_admin_attendee_email(get_post($new_attendee) );
+                process_admin_attendee_email(get_post($new_attendee) );
 
-      }
-			$order_item->add_meta_data('_entry_' . $ak, $new_attendee);
+            }
+
+            $order_item->add_meta_data('_entry_' . $ak, $new_attendee);
 
 		}
 		wp_trash_post($event_entry_id);
 		$order_item->save_meta_data();
+
+
 	}
 }, 10, 1 );
 
@@ -649,17 +724,17 @@ function opt_out_handler($entry, $form) {
   // Check the user exists as well as the event entry ID
   if ($user && get_post_status($event_entry)) {
     $parent_booking = get_lead_booking_id($event_entry);
-    $lead_booking_email = get_field('email_address', $parent_booking);
+    $lead_booking_email = get_post_meta($parent_booking, 'email_address', true );
 
     $user_already_existed = user_already_existed($user);
 
     if ($user_already_existed) {
       // Reset the attendee email address to the lead booking email
-      update_field('email_address', $lead_booking_email, $event_entry);
+      update_post_meta($event_entry, 'email_address', $lead_booking_email);
       opt_out_email_notification($parent_booking, $event_entry);
     } else {
       // Reset the attendee email address to the lead booking email
-      update_field('email_address', $lead_booking_email, $event_entry);
+      update_post_meta($event_entry, 'email_address', $lead_booking_email);
       // Delete the user
       require_once(ABSPATH.'wp-admin/includes/user.php' );
       wp_delete_user($user->ID);
@@ -704,8 +779,10 @@ function get_lead_booking_id($id) {
 
 function opt_out_email_notification($parent_booking, $event_entry_id) {
 
-  $lead_booking_email = get_field('email_address', $parent_booking);
-  $lead_booking_name = get_field('first_name', $parent_booking);
+  $name = get_attendee_name($parent_booking);
+
+  $lead_booking_email = get_post_meta($parent_booking, 'email_address', true);
+  $lead_booking_name = $name['first_name'];
 
   $to = $lead_booking_email;
   $subject = get_field('opted_out_email_subject', 'options');
@@ -732,6 +809,7 @@ function opt_out_email_notification($parent_booking, $event_entry_id) {
 // Save event entry post id to cart item when added to cart
 add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $product_id, $variation_id ) {
 	$entry_id = check_event_entry();
+
 	if( ! $entry_id ) return $cart_item_data;
 
 	$event_id = get_post_meta($entry_id, 'event_id', true);
@@ -770,6 +848,7 @@ add_action( 'woocommerce_checkout_create_order_line_item', function ( $item, $ca
 
 add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
 	foreach ($meta as $k=>$m) {
+        $name = get_attendee_name($m->value);
 		if ($m->key == '_event_entry') {
 			unset($meta[$k]);
 			continue;
@@ -777,14 +856,14 @@ add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
 			$m->display_key = 'Event';
 		} else if ($m->key == '_lead_entry') {
 			$m->display_key = 'Lead Entry';
-			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, get_field('first_name', $m->value), get_field('last_name', $m->value));
+			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, $name['first_name'], $name['last_name']);
 		} elseif (strpos($m->key, '_entry_') !== false) {
 			$m->display_key = 'Entry';
-			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, get_field('first_name', $m->value), get_field('last_name', $m->value));
+			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, $name['first_name'], $name['last_name']);
 		}
 		$meta[$k] = $m;
-
 	}
+    die();
 	return $meta;
 }, 99, 1);
 
@@ -849,19 +928,12 @@ function is_attendee_complete($entry) {
 add_action('acf/save_post', function ($post_id) {
 
 
-  if (get_post_type($post_id) != 'draft-event-entry') return; // soc notes - not entirely sure what the draft-entry us but to get the parental consent emails aworking, adding this work around
-
-  if($_POST['acf']['field_5c58637174a1f']['5d67e14e7b550']['field_5d6514437cf07']['field_5d67c692c352d'] == 'no'){
-      send_attendee_parental_consent_mail($post_id, $_POST['acf']['field_5c58637174a1f']['5d67e14e7b550']['field_5d6514437cf07']['field_5d650fc9700b4']);
-  }
+  if (get_post_type($post_id) != 'event-entry') return;
 
 
-	if (get_post_type($post_id) != 'event-entry') return;
-
-  
   if (!(is_attendee_complete($post_id))) return;
   //	if (get_post_meta($post_id, '_attendee_complete_email_sent', true)) return;
-  
+
 
   $attendee_meta = get_attendee_post_meta($post_id);
   unset($attendee_meta['_last_emailed_hash']);
@@ -877,18 +949,10 @@ add_action('acf/save_post', function ($post_id) {
   	send_attendee_complete_mail($post_id);
   }
 
-  // If attendee completed hasn't already been sent, send to lead booker
-  if (!get_post_meta($post_id, '_attendee_parental_consent_email_sent', true)) {
-    //if( isset($_POST['acf']['field_5d650fc9700b4']) ) { // if the person says they are NOT a parent or guardian
-        //send_attendee_parental_consent_mail($post_id, $_POST['acf']['field_5d650fc9700b4']);
-    //}
-  }
 
-  
 
   update_post_meta($post_id, '_attendee_complete', 1);
 	update_post_meta($post_id, '_attendee_complete_email_sent', 1);
-  update_post_meta($post_id, '_attendee_parental_consent_email_sent', 1);
 
 }, 20);
 
@@ -909,26 +973,6 @@ function send_attendee_complete_mail($post_id) {
 	if (!$user) $user = get_field('event_user_id', $post_id);
 	$user = new WP_User($user);
 	$mail = wp_mail( $user->user_email, $subject, process_attendee_email($message, get_post($post_id) ), implode("\r\n", $headers) );
-
-}
-
-function send_attendee_parental_consent_mail($post_id, $email) {
-  
-  $subject = get_field('attendee_parental_consent_email_subject', 'options');
-  $link_text = get_field('attendee_parental_consent_email_link_text', 'options');
-
-  $string = urldecode("?event_entry=" . $post_id . "");
-
-  $message = get_field('attendee_parental_consent_email_content', 'options');
-  $message .= '<a href="' . get_site_url() . '/attendee-form/'.$string.'>oi oi' . $link_text . '</a>';
-
-  $headers = array(
-    "MIME-Version: 1.0",
-    "Content-Type: text/html;charset=utf-8"
-  );
-  
-  wp_mail( $email, $subject, $message, implode("\r\n", $headers) );
-  
 
 }
 
@@ -981,7 +1025,7 @@ function do_send_event_reminder_emails() {
 }
 
 function send_attendee_reminder_mail($post_id) {
-	$to = get_field('email_address', $post_id);
+	$to = get_post_meta($post_id, 'email_address', true);
 	$subject = get_field('attendee_reminder_email_subject', 'options');
 	$link_text = get_field('attendee_reminder_email_link_text', 'options');
 
@@ -1007,8 +1051,7 @@ add_filter('acf/get_field_group', function ($group) {
 		$get_current_screen = get_current_screen();
 		if ($get_current_screen->post_type == 'event-entry') {
 			$entry_id = $_GET['post'];
-			$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry_id, 'event_id', true));
-
+			$fieldset = get_event_attendee_fieldset_id_conditional(get_post_meta($entry_id, 'event_id', true), get_post($entry_id));
 			if (
 				$group['key'] == $fieldset
 			) {
@@ -1025,6 +1068,7 @@ add_filter('acf/get_field_group', function ($group) {
 
 		}
 		unset($filtering[$group['key']]);
+
 	}
 
 	return $group;
@@ -1091,11 +1135,45 @@ function days_to_event($event_id) {
 	return $interval->format("%r%a");
 }
 
-function url_encode($string){
-    return urlencode(utf8_encode($string));
-}
-    
-
 
 //add_action('wp', 'do_clear_passed_event_data');
 //add_action('wp', function () { send_attendee_complete_mail(1249); } );
+
+
+
+function array_flatten($array) {
+  if (!is_array($array)) {
+    return false;
+  }
+  $result = array();
+  foreach ($array as $key => $value) {
+    if (is_array($value)) {
+      $result = array_merge($result, array_flatten($value));
+    } else {
+      $result[$key] = $value;
+    }
+  }
+  return $result;
+}
+
+
+
+function get_attendee_name($attendee) {
+
+    $name = array();
+
+    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult') {
+
+        $name['first_name'] = get_post_meta($attendee, 'first_name', true);
+        $name['last_name'] = get_post_meta($attendee, 'last_name', true);
+
+    } else {
+
+        $name['first_name'] = get_post_meta($attendee, 'guardian_first_name', true);
+        $name['last_name'] = get_post_meta($attendee, 'guardian_last_name', true);
+
+    }
+
+    return $name;
+
+}
