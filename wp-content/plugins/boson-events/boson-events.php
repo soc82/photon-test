@@ -440,12 +440,13 @@ function check_event_entry()
 		if ($lead_user_id == get_current_user_id()) {
 			$entry_id = $_GET['event_entry'];
 		}
-    // Check for opted-out entries
-    $entry_email_address = get_post_meta($_GET['event_entry'], 'email_address', true );
-    $lead_entry_email_address = get_post_meta(get_lead_booking_id($_GET['event_entry']), 'email_address', true );
-    if ($entry_email_address == $lead_entry_email_address ) {
-      $entry_id = $_GET['event_entry'];
-    }
+
+        // Check for opted-out entries
+        $details = get_conditional_attendee_details(get_post($_GET['event_entry']));
+        $lead_details = get_conditional_attendee_details(get_post(get_lead_booking_id($_GET['event_entry'])));
+        if ($details['email_address'] == $lead_details['email_address'] ) {
+            $entry_id = $_GET['event_entry'];
+        }
 	}
 	return $entry_id;
 }
@@ -544,15 +545,15 @@ function process_admin_attendee_email($attendee) {
 function process_attendee_email($message, $attendee) {
   $user = get_field('lead_user_id', $attendee->ID);
 
-  $name = get_attendee_name($attendee);
+  $details = get_conditional_attendee_details($attendee);
 
   if ($user) {
 	  $user = new WP_User($user);
 	  $message = str_replace('{booker_name}', $user->display_name, $message);
   }
 
-  $message = str_replace('{attendee_name}', $name['first_name'], $message);
-  $message = str_replace('{attendee_full_name}', $name['first_name'] . ' ' . $name['last_name'], $message);
+  $message = str_replace('{attendee_name}', $details['first_name'], $message);
+  $message = str_replace('{attendee_full_name}', $details['first_name'] . ' ' . $details['last_name'], $message);
   $message = str_replace('{event_name}', get_the_title(get_field('event_id', $attendee->ID)), $message);
   return $message;
 }
@@ -627,7 +628,6 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
             foreach ($attendee as $k => $v) {
 
                 // Manually set post meta for what type of attendee this is (used for ongoing logic).
-                // Then manually set the key back to 'email_address' to match up with the lead booker logic
                 if($k == 'email_address_adult_attendee' || $k == 'email_address_child_attendee') {
 
                     if($k == 'email_address_adult_attendee' ) {
@@ -636,25 +636,21 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
                         update_post_meta($new_attendee, 'attendee_type', 'child');
                     }
 
-                    $k == 'email_address';
-
                 }
-
-                update_post_meta($new_attendee, $k, $v);
 
             }
 
-            $name = get_attendee_name($new_attendee);
+            $details = get_conditional_attendee_details($new_attendee);
 
             // Skip account creation if email address isn't set (only possible if under 16/no email is checked)
-            if ($attendee['email_address']) {
-      			$user = get_user_by( 'email', $attendee['email_address']);
+            if ($details['email_address']) {
+      			$user = get_user_by( 'email', $details['email_address']);
       			$new_user = false;
       			if (!$user) {
       				$user_data = [
-      					'user_login' => strtolower(preg_replace('|[^a-z0-9_]|i', '', $name['first_name'] . '_' . $name['last_name'])),
-      					'user_name'  => preg_replace('|[^a-z0-9_]|i', '', $name['first_name'] . '_' . $name['last_name']),
-      					'user_email' => $attendee['email_address'],
+      					'user_login' => strtolower(preg_replace('|[^a-z0-9_]|i', '', $details['first_name'] . '_' . $details['last_name'])),
+      					'user_name'  => preg_replace('|[^a-z0-9_]|i', '', $details['first_name'] . '_' . $details['last_name']),
+      					'user_email' => $details['email_address'],
       					'user_pass'  => null,
       				];
       				$user = wp_insert_user($user_data);
@@ -670,8 +666,8 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 			$form_complete = get_field('other_attendee_details', $new_attendee);
 			// Check to make sure the lead booker hasn't filled out all of the attendee fields before emailing
-			if (!is_attendee_complete($new_attendee) && $attendee['email_address']) {
-				$to = get_post_meta($new_attendee, 'email_address', true);
+			if (!is_attendee_complete($new_attendee) && $details['email_address']) {
+				$to = $details['email_address'];
 				$subject = get_field('new_attendee_email_subject', 'options');
 				$link_text = get_field('new_attendee_email_link_text', 'options');
                 $opt_out_link_text = get_field('new_attendee_email_opt_out_link_text', 'options');
@@ -683,7 +679,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 				}
 				$message .= '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $new_attendee . '">' . $link_text . '</a><br /><br />';
 
-                $message .= '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $attendee['email_address']) . '&event_entry=' . $new_attendee . '">' . $opt_out_link_text . '</a>';
+                $message .= '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $details['email_address']) . '&event_entry=' . $new_attendee . '">' . $opt_out_link_text . '</a>';
 
 				$headers = array(
 					"MIME-Version: 1.0",
@@ -724,17 +720,18 @@ function opt_out_handler($entry, $form) {
   // Check the user exists as well as the event entry ID
   if ($user && get_post_status($event_entry)) {
     $parent_booking = get_lead_booking_id($event_entry);
-    $lead_booking_email = get_post_meta($parent_booking, 'email_address', true );
+    $details = get_conditional_attendee_details($event_entry);
+    $lead_details = get_conditional_attendee_details($parent_booking);
 
     $user_already_existed = user_already_existed($user);
 
     if ($user_already_existed) {
       // Reset the attendee email address to the lead booking email
-      update_post_meta($event_entry, 'email_address', $lead_booking_email);
+      update_post_meta($event_entry, $details['email_address_field'], $lead_details['email_address']);
       opt_out_email_notification($parent_booking, $event_entry);
     } else {
       // Reset the attendee email address to the lead booking email
-      update_post_meta($event_entry, 'email_address', $lead_booking_email);
+      update_post_meta($event_entry, $details['email_address_field'], $lead_details['email_address']);
       // Delete the user
       require_once(ABSPATH.'wp-admin/includes/user.php' );
       wp_delete_user($user->ID);
@@ -779,10 +776,10 @@ function get_lead_booking_id($id) {
 
 function opt_out_email_notification($parent_booking, $event_entry_id) {
 
-  $name = get_attendee_name($parent_booking);
+  $details = get_conditional_attendee_details($parent_booking);
 
-  $lead_booking_email = get_post_meta($parent_booking, 'email_address', true);
-  $lead_booking_name = $name['first_name'];
+  $lead_booking_email = $details['email_address'];
+  $lead_booking_name = $details['first_name'];
 
   $to = $lead_booking_email;
   $subject = get_field('opted_out_email_subject', 'options');
@@ -848,7 +845,7 @@ add_action( 'woocommerce_checkout_create_order_line_item', function ( $item, $ca
 
 add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
 	foreach ($meta as $k=>$m) {
-        $name = get_attendee_name($m->value);
+        $details = get_conditional_attendee_details($m->value);
 		if ($m->key == '_event_entry') {
 			unset($meta[$k]);
 			continue;
@@ -856,10 +853,10 @@ add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
 			$m->display_key = 'Event';
 		} else if ($m->key == '_lead_entry') {
 			$m->display_key = 'Lead Entry';
-			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, $name['first_name'], $name['last_name']);
+			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, $details['first_name'], $details['last_name']);
 		} elseif (strpos($m->key, '_entry_') !== false) {
 			$m->display_key = 'Entry';
-			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, $name['first_name'], $name['last_name']);
+			$m->display_value = sprintf('<a href="/wp-admin/post.php?post=%s&action=edit">%s %s</a>', $m->value, $details['first_name'], $details['last_name']);
 		}
 		$meta[$k] = $m;
 	}
@@ -1025,7 +1022,10 @@ function do_send_event_reminder_emails() {
 }
 
 function send_attendee_reminder_mail($post_id) {
-	$to = get_post_meta($post_id, 'email_address', true);
+
+    $details = get_conditional_attendee_details($post_id);
+
+	$to = $details['email_address'];
 	$subject = get_field('attendee_reminder_email_subject', 'options');
 	$link_text = get_field('attendee_reminder_email_link_text', 'options');
 
@@ -1158,22 +1158,33 @@ function array_flatten($array) {
 
 
 
-function get_attendee_name($attendee) {
+function get_conditional_attendee_details($attendee) {
 
-    $name = array();
+    if (!is_object($attendee)) {
+        $attendee = get_post($attendee);
+        if(!$attendee) {
+            return false;
+        }
+    }
+
+    $details = array();
 
     if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult') {
 
-        $name['first_name'] = get_post_meta($attendee, 'first_name', true);
-        $name['last_name'] = get_post_meta($attendee, 'last_name', true);
+        $details['first_name'] = get_post_meta($attendee, 'first_name', true);
+        $details['last_name'] = get_post_meta($attendee, 'last_name', true);
+        $details['email_address'] = get_post_meta($attendee, 'email_address_adult_attendee', true);
+        $details['email_address_field'] = 'email_address_adult_attendee';
 
     } else {
 
-        $name['first_name'] = get_post_meta($attendee, 'guardian_first_name', true);
-        $name['last_name'] = get_post_meta($attendee, 'guardian_last_name', true);
+        $details['first_name'] = get_post_meta($attendee, 'guardian_first_name', true);
+        $details['last_name'] = get_post_meta($attendee, 'guardian_last_name', true);
+        $details['email_address'] = get_post_meta($attendee, 'email_address_child_attendee', true);
+        $details['email_address_field'] = 'email_address_child_attendee';
 
     }
 
-    return $name;
+    return $details;
 
 }
