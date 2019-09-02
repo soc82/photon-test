@@ -4,7 +4,7 @@
 #event-calendar {
   .fc-header-toolbar {
     button {
-      box-shadow: none; 
+      box-shadow: none;
       border:none;
       background: $green;
       color:#FFFFFF;
@@ -499,4 +499,8 @@
       }
     }
   }
+}
+
+#event-terms-modal {
+    max-width: 800px;
 }

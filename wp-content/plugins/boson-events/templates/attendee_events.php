@@ -32,23 +32,22 @@ $users_events = new WP_Query($args);
         </tr>
         </thead>
         <tbody>
-		<?php foreach ($users_events->posts as $event) : //print_r($event);?>
+		<?php foreach ($users_events->posts as $attendee) : //print_r($event);?>
 
 			<?php
-			$event_id = get_post_meta($event->ID, 'event_id', true);
+			$event_id = get_post_meta($attendee->ID, 'event_id', true);
 			$event_title = get_the_title($event_id);
-
 			$editable = event_are_attendees_editable($event_id);
-
+			$details = get_conditional_attendee_details($attendee);
 			?>
 
             <tr>
                 <th scope="row"><?php echo $event_title; ?></th>
-                <td><?php echo get_field('first_name', $event->ID) . ' ' . get_field('last_name', $event->ID) ?></td>
-                <td><?php echo is_attendee_complete($event) ? 'Yes' : 'No' ?></td>
+                <td><?php echo $details['first_name'] . ' ' . $details['last_name']; ?></td>
+                <td><?php echo is_attendee_complete($attendee) ? 'Yes' : 'No' ?></td>
                 <td>
 					<?php if($editable) :?>
-                        <a class="woocommerce-button button view" href="/attendee-form/?event_entry=<?php echo $event->ID; ?>">Edit details</a>
+						<a class="woocommerce-button button view" href="<?php echo site_url('/attendee-form/?event_entry=' . $attendee->ID); ?>">Edit details</a>
 					<?php else : ?>
                         Can't edit details as the event is <?php echo days_to_event($event_id);?> days away
 					<?php endif;?>
@@ -61,6 +60,3 @@ $users_events = new WP_Query($args);
 <?php else: ?>
     You aren't attending any events yet.
 <?php endif; ?>
-
-
-

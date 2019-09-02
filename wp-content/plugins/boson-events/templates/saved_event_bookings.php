@@ -21,10 +21,11 @@ $users_events = new WP_Query($args);
       	</tr>
     	</thead>
     	<tbody>
-      <?php foreach ($users_events->posts as $event) : ?>
-        <?php 
-        $event_id = get_post_meta($event->ID, 'event_id', true);
+      <?php foreach ($users_events->posts as $attendee) : ?>
+        <?php
+        $event_id = get_post_meta($attendee->ID, 'event_id', true);
         $event_title = get_the_title($event_id);
+        // Need to think about past events?
         ?>
   		  <tr>
   	      	<th scope="row"><?php echo $event_title; ?></th>
@@ -36,6 +37,3 @@ $users_events = new WP_Query($args);
 <?php else: ?>
     You aren't attending any events yet.
 <?php endif; ?>
-
-
-

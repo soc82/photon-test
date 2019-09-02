@@ -10059,6 +10059,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       vertical-align: middle;
       color: #84BD00; }
 
+#event-terms-modal {
+  max-width: 800px; }
+
 /* NEWS _detail */
 .single-post h1 {
   margin-bottom: 10px; }

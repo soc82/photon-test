@@ -9,7 +9,7 @@
 <?php prospect_events_calendar_query(); ?>
 <div class="inner-page-wrapper">
 
-  <?php  
+  <?php
   $args = array(
       'post_type'      => 'product',
       'posts_per_page' => 3,
@@ -32,7 +32,7 @@
         <div class="featured-events">
           <div class="row no-gutters">
 
-            <?php while ( $loop->have_posts() ) : $loop->the_post(); 
+            <?php while ( $loop->have_posts() ) : $loop->the_post();
               global $product;?>
               <?php $event = prospect_get_event_info();?>
               <?php // Hides if date is in past! Left in as may want flexibility to show previous events if(date('Y-m-d', strtotime($event['start']->format('Y-m-d'))) > date("Y-m-d")) : ?>
@@ -46,12 +46,12 @@
                 </div>
               <?php // endif;?>
             <?php endwhile; ?>
-            
+
           </div>
         </div>
       </div>
     </div>
-  
+
   <?php endif;
   wp_reset_query();?>
 
@@ -134,7 +134,6 @@ jQuery(document).ready(function() {
 
     var $filters =
     jQuery('[name^=calendar_event_types]').on('change', function () {
-console.log('d');
         jQuery('#event-calendar').fullCalendar('rerenderEvents');
     });
 

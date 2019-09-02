@@ -54,10 +54,34 @@ get_header(); ?>
 
 
 
-    // TODO: Need to look at removing out any 'parent consent' ticket options from the first attendee, as this shouldn't be possible
+    // For lead booker, remove any child/under ticket options as lead booker should always be an adult
+    function lead_attendee_remove_child_tickets() {
+
+        // Target lead booker only
+        var $lead_group = jQuery('.acf-fields:visible').first();
+        var $ticket_types = jQuery('[data-name=ticket_type] select:visible', $lead_group);
+        var $ticket_consent = $ticket_types.closest('.acf-field').data('parent-consent');
+
+        // Build array of ticket consents from 'parent-consent' data attribute
+        var $consents = new Array();
+        jQuery.each($ticket_consent, function(i, e) {
+            $consents.push(e);
+        });
 
 
-    function acf_conditional_attendee_group() {
+        // Loop through ticket options (alongside $consents array), and remove any child tickets
+        var $options = jQuery('[data-name=ticket_type] select:visible option', $lead_group);
+        jQuery.each($options, function(i, item) {
+            if($consents[i] == true) {
+                jQuery($options[i]).hide();
+            }
+        });
+    }
+    lead_attendee_remove_child_tickets();
+
+    
+
+    function conditional_attendee_group() {
 
         var $child_added = false;
 
@@ -74,7 +98,6 @@ get_header(); ?>
             var $ticket_types = jQuery('[data-name=ticket_type] select:visible', $this);
             var $ticket_consent = $ticket_types.first().closest('.acf-field').data('parent-consent');
 
-
             // If child ticket selected, hide the default fields & show the child clone group
             if($ticket_consent[$ticket_types.val()] == true) {
                 jQuery('.acf-field-clone[data-name="child"]', $this).show();
@@ -84,20 +107,18 @@ get_header(); ?>
                 jQuery('.acf-field-clone[data-name="child"]', $this).hide();
                 jQuery('.acf-field-clone[data-name="adult"]', $this).show();
             }
+
+            if(!jQuery('.acf-field-clone[data-name="child"] .acf-clone-fields .code-of-conduct-link', $this).length && jQuery('#code-of-conduct-content').length) {
+                jQuery('.acf-field-clone[data-name="child"] .acf-clone-fields', $this).append('<a href="#code-of-conduct-content" rel="modal:open" class="acf-field d-block code-of-conduct-link">Click here to read our behaviour code.<br/></a>');
+            }
+
         });
 
 
-        // Show code of conduct content if there is a child ticket added
-        if(jQuery('.acf-field-clone[data-name="child"]:visible').length) {
-            jQuery('#code-of-conduct-content').removeClass('d-none');
-        } else {
-            jQuery('#code-of-conduct-content').addClass('d-none');
-        }
-
     }
-    jQuery('.acf-repeater').on('change', acf_conditional_attendee_group);
-    jQuery(document).on('change', '[data-name=ticket_type] select', acf_conditional_attendee_group);
-    acf_conditional_attendee_group();
+    jQuery('.acf-repeater').on('change', conditional_attendee_group);
+    jQuery(document).on('change', '[data-name=ticket_type] select', conditional_attendee_group);
+    conditional_attendee_group();
 
 
     /*
