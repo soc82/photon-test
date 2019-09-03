@@ -564,7 +564,7 @@ function process_admin_attendee_email($attendee) {
     "Content-Type: text/html;charset=utf-8"
   );
 
-  $admin_email = 'will.lawrence@bosonweb.net';
+  $admin_email = 'fundraising&events@prospect-hospice.net';
 
   $mail = wp_mail( $admin_email, $subject, $message, implode("\r\n", $headers) );
 
