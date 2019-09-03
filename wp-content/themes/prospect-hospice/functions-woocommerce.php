@@ -896,6 +896,7 @@ function woocommerce_event_recipient_email( $recipient, $order ) {
 
     }
 
+    /*
     if($events && $standard){
       $recipient .= ', fundraising&events@prospect-hospice.net';
     } else if($events) {
@@ -903,6 +904,7 @@ function woocommerce_event_recipient_email( $recipient, $order ) {
     } else {
       $recipient = 'alisonmoore@prospect-hospice.net';
     }
+    */
 
 
     return $recipient;

@@ -378,11 +378,28 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
 
     $child_fields = '';
     $adult_fields = '';
+    $lead_fields = '';
 	$fields_id = get_event_booking_fieldset_id($id);
 	if (!$fields_id) return false;
 
     // Get the fields from group id
     $fields = acf_get_fields_by_id($fields_id);
+
+    /*
+    ** @TODO leaving this here as at the moment it will use the 'adult' clone group fields, however lead should really be using the acutal lead booker fields
+
+    // Build array of lead booker fields
+    $lead_fields = [];
+    if($fields) {
+        foreach($fields as $acf_field) {
+            if($acf_field['_name'] != 'additional_attendees') {
+                $lead_fields[] = $acf_field;
+            }
+        }
+    }
+
+    */
+
     global $wpdb;
     // Return sub-fields of 'additional_attendees'
     $sub_fields = $wpdb->get_results("SELECT p2.post_excerpt, p2.post_content FROM {$wpdb->prefix}posts p1 LEFT JOIN {$wpdb->prefix}posts p2 ON p1.ID = p2.post_parent WHERE p1.post_parent = $fields_id AND p1.post_excerpt = 'additional_attendees'");
@@ -390,7 +407,7 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
     if($sub_fields) {
         foreach($sub_fields as $field) {
             //$field = unserialize($field->post_content);
-            if($field->post_excerpt == 'adult') {
+            if($field->post_excerpt == 'adult' || $field->post_excerpt == 'lead') {
                 $adult_fields = unserialize($field->post_content);
             }
             if($field->post_excerpt == 'child') {
@@ -402,11 +419,14 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
     $attendee_type = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = 'attendee_type' AND post_id = {$attendee->ID}");
 
     if(!$attendee_type) return false;
-    
+
     if($attendee_type == 'child') {
         return $child_fields['clone'][0];
-    } else {
+    } else if($attendee_type == 'adult' || $attendee_type == 'lead') {
         return $adult_fields['clone'][0];
+    } else {
+        // Fallback to old function which returns the first clone group if finds
+        get_event_attendee_fieldset_id($id);
     }
 
 }
@@ -453,6 +473,7 @@ function check_event_entry()
         if ($details['email_address'] == $lead_details['email_address'] ) {
             $entry_id = $_GET['event_entry'];
         }
+
 	}
 	return $entry_id;
 }
@@ -483,9 +504,12 @@ add_action( 'woocommerce_before_calculate_totals', function ( $wc_cart ) {
 		return;
 	}
 
+
 	// First loop to check if product 11 is in cart
 	foreach ( $wc_cart->get_cart() as $cart_item ){
+
 		if ($cart_item['data'] instanceof WC_Product_Event) {
+
 			$_prices = get_field('ticket_types', $cart_item['data']->get_id(), true);
 			$prices = [];
 			foreach ($_prices as $price) {
@@ -621,6 +645,8 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
 		update_post_meta($lead, 'event_user_id', $lead_user_id);
 		update_post_meta($lead, '_last_notified', time());
+        update_post_meta($lead, 'attendee_type', 'lead');
+
 
 		$order_item->add_meta_data('_lead_entry', $lead);
 
@@ -655,6 +681,8 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
                 }
 
+                update_post_meta($new_attendee, $k, $v);
+
             }
 
             $details = get_conditional_attendee_details($new_attendee);
@@ -687,7 +715,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 				$to = $details['email_address'];
 
-                if(get_post_meta($new_attendee, 'attendee_type') == 'child') {
+                if(get_post_meta($new_attendee, 'attendee_type', true) == 'child') {
 
                     $subject = get_field('new_attendee_email_subject_child', 'options');
                     $message = get_field('new_attendee_email_content_child', 'options');
@@ -821,7 +849,6 @@ add_filter( 'woocommerce_add_cart_item_data', function( $cart_item_data, $produc
 	if( ! $entry_id ) return $cart_item_data;
 
 	$event_id = get_post_meta($entry_id, 'event_id', true);
-
     $cart_item_data['event_entry'] = intval( $entry_id );
 
 	$event = get_post($event_id);
@@ -871,7 +898,6 @@ add_filter('woocommerce_order_item_get_formatted_meta_data', function ($meta) {
 		}
 		$meta[$k] = $m;
 	}
-    die();
 	return $meta;
 }, 99, 1);
 
@@ -1060,6 +1086,7 @@ add_filter('acf/get_field_group', function ($group) {
 		if ($get_current_screen->post_type == 'event-entry') {
 			$entry_id = $_GET['post'];
 			$fieldset = get_event_attendee_fieldset_id_conditional(get_post_meta($entry_id, 'event_id', true), get_post($entry_id));
+            //$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry_id, 'event_id', true));
 			if (
 				$group['key'] == $fieldset
 			) {
@@ -1187,19 +1214,26 @@ function get_conditional_attendee_details($attendee) {
 
     $details = array();
 
-    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult') {
+    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult' || get_post_meta($attendee->ID, 'attendee_type', true) == 'lead') {
 
         $details['first_name'] = get_post_meta($attendee->ID, 'first_name', true);
         $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
         $details['email_address'] = get_post_meta($attendee->ID, 'email_address_adult_attendee', true);
         $details['email_address_field'] = 'email_address_adult_attendee';
 
-    } else {
+    } else if(get_post_meta($attendee->ID, 'attendee_type', true) == 'child') {
 
         $details['first_name'] = get_post_meta($attendee->ID, 'guardian_first_name', true);
         $details['last_name'] = get_post_meta($attendee->ID, 'guardian_last_name', true);
         $details['email_address'] = get_post_meta($attendee->ID, 'email_address_child_attendee', true);
         $details['email_address_field'] = 'email_address_child_attendee';
+
+    } else { // Need to think of a better solution for lead to use the top-level fields
+
+        $details['first_name'] = get_post_meta($attendee->ID, 'first_name', true);
+        $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
+        $details['email_address'] = get_post_meta($attendee->ID, 'email_address', true);
+        $details['email_address_field'] = 'email_address';
 
     }
 

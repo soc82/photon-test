@@ -55,7 +55,7 @@ get_header(); ?>
 
 
     // For lead booker, remove any child/under ticket options as lead booker should always be an adult
-    function lead_attendee_remove_child_tickets() {
+    function lead_attendee_remove_child_tickets($this = 'test') {
 
         // Target lead booker only
         var $lead_group = jQuery('.acf-fields:visible').first();
@@ -79,17 +79,18 @@ get_header(); ?>
     }
     lead_attendee_remove_child_tickets();
 
-    
 
-    function conditional_attendee_group() {
+
+    function conditional_attendee_group($el = false) {
 
         var $child_added = false;
+        var $children = 0;
+        var $adults = 1; // Starting at 1 as the lead booker has already been added
 
         // Hide the child form initially
         jQuery('.acf-field-clone[data-name="child"]').hide();
 
         var $field_group = jQuery('.acf-row:visible');
-
 
         // Loop through field groups
         jQuery.each($field_group, function (i) {
@@ -102,10 +103,16 @@ get_header(); ?>
             if($ticket_consent[$ticket_types.val()] == true) {
                 jQuery('.acf-field-clone[data-name="child"]', $this).show();
                 jQuery('.acf-field-clone[data-name="adult"]', $this).hide();
+                //jQuery('.acf-field-clone[data-name="child"] .acf-field', $this).not($hidden_child_fields).removeClass('acf-hidden').removeAttr('hidden');
+                //jQuery('.acf-field-clone[data-name="adult"] .acf-field', $this).not($hidden_adult_fields).addClass('acf-hidden').attr('hidden');
+                $children++;
                 $child_added = true;
             } else {
                 jQuery('.acf-field-clone[data-name="child"]', $this).hide();
+                //jQuery('.acf-field-clone[data-name="child"] .acf-field', $this).not($hidden_child_fields).addClass('acf-hidden').attr('hidden');
+                //jQuery('.acf-field-clone[data-name="adult"] .acf-field', $this).not($hidden_adult_fields).removeClass('acf-hidden').removeAttr('hidden');
                 jQuery('.acf-field-clone[data-name="adult"]', $this).show();
+                $adults++;
             }
 
             if(!jQuery('.acf-field-clone[data-name="child"] .acf-clone-fields .code-of-conduct-link', $this).length && jQuery('#code-of-conduct-content').length) {
@@ -115,9 +122,20 @@ get_header(); ?>
         });
 
 
+        // If more than 4 children for adult, flag up message and revert the ticket select to default
+        if( ($adults + 3) < $children) {
+            alert('**Please note, for every lead booker (supervising adult), only four children can be registered. For larger groups please contact us directly on 01793 816161**');
+            jQuery($el.target).val(false);
+        }
+
+
     }
+
+
     jQuery('.acf-repeater').on('change', conditional_attendee_group);
-    jQuery(document).on('change', '[data-name=ticket_type] select', conditional_attendee_group);
+    jQuery(document).on('change', '[data-name=ticket_type] select', function($el) {
+        conditional_attendee_group($el);
+    });
     conditional_attendee_group();
 
 

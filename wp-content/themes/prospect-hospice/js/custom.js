@@ -114,8 +114,8 @@ jQuery( document ).ready(function($) {
   jQuery('#skills_available_all').click(function() {
     jQuery('.fields.when_role_is_available input:checkbox').prop('checked', true);
   });
-  
-  jQuery('#skills_available_am').click(function() { 
+
+  jQuery('#skills_available_am').click(function() {
     jQuery('.fields.when_role_is_available input.am:checkbox').prop('checked', true);
   });
 
