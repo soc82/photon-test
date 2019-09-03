@@ -103,12 +103,16 @@ get_header(); ?>
             if($ticket_consent[$ticket_types.val()] == true) {
                 jQuery('.acf-field-clone[data-name="child"]', $this).show();
                 jQuery('.acf-field-clone[data-name="adult"]', $this).hide();
+                jQuery('.acf-field-clone[data-name="adult"]', $this).find(':input').prop('disabled', true);
+                jQuery('.acf-field-clone[data-name="child"]', $this).find(':input:visible').prop('disabled', false);
                 //jQuery('.acf-field-clone[data-name="child"] .acf-field', $this).not($hidden_child_fields).removeClass('acf-hidden').removeAttr('hidden');
                 //jQuery('.acf-field-clone[data-name="adult"] .acf-field', $this).not($hidden_adult_fields).addClass('acf-hidden').attr('hidden');
                 $children++;
                 $child_added = true;
             } else {
                 jQuery('.acf-field-clone[data-name="child"]', $this).hide();
+                jQuery('.acf-field-clone[data-name="child"]', $this).find(':input').prop('disabled', true);
+                jQuery('.acf-field-clone[data-name="adult"]', $this).find(':input:visible').prop('disabled', false);
                 //jQuery('.acf-field-clone[data-name="child"] .acf-field', $this).not($hidden_child_fields).addClass('acf-hidden').attr('hidden');
                 //jQuery('.acf-field-clone[data-name="adult"] .acf-field', $this).not($hidden_adult_fields).removeClass('acf-hidden').removeAttr('hidden');
                 jQuery('.acf-field-clone[data-name="adult"]', $this).show();
@@ -123,7 +127,7 @@ get_header(); ?>
 
 
         // If more than 4 children for adult, flag up message and revert the ticket select to default
-        if( ($adults + 3) < $children) {
+        if( $children > ($adults * 4) ) {
             alert('**Please note, for every lead booker (supervising adult), only four children can be registered. For larger groups please contact us directly on 01793 816161**');
             jQuery($el.target).val(false);
         }
