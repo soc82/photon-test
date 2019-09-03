@@ -407,7 +407,7 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
     if($sub_fields) {
         foreach($sub_fields as $field) {
             //$field = unserialize($field->post_content);
-            if($field->post_excerpt == 'adult' || $field->post_excerpt == 'lead') {
+            if($field->post_excerpt == 'adult') {
                 $adult_fields = unserialize($field->post_content);
             }
             if($field->post_excerpt == 'child') {
@@ -422,11 +422,11 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
 
     if($attendee_type == 'child') {
         return $child_fields['clone'][0];
-    } else if($attendee_type == 'adult' || $attendee_type == 'lead') {
+    } else if($attendee_type == 'adult') {
         return $adult_fields['clone'][0];
     } else {
         // Fallback to old function which returns the first clone group if finds
-        get_event_attendee_fieldset_id($id);
+        return get_event_attendee_fieldset_id($id);
     }
 
 }
@@ -640,12 +640,15 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		$lead = wp_insert_post($post_data);
 		foreach ($fields as $k=>$v) {
 			update_post_meta($lead, $k, $v);
+			if ($k === 'email_address') {
+				update_post_meta($lead, 'email_address_adult_attendee', $v);
+			}
 		}
 		$lead_user_id = get_post_meta($event_entry_id, 'event_user_id', true);
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
 		update_post_meta($lead, 'event_user_id', $lead_user_id);
 		update_post_meta($lead, '_last_notified', time());
-        update_post_meta($lead, 'attendee_type', 'lead');
+        update_post_meta($lead, 'attendee_type', 'adult');
 
 
 		$order_item->add_meta_data('_lead_entry', $lead);
@@ -1214,7 +1217,7 @@ function get_conditional_attendee_details($attendee) {
 
     $details = array();
 
-    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult' || get_post_meta($attendee->ID, 'attendee_type', true) == 'lead') {
+    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult') {
 
         $details['first_name'] = get_post_meta($attendee->ID, 'first_name', true);
         $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
