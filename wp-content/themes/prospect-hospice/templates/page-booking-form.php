@@ -105,16 +105,12 @@ get_header(); ?>
                 jQuery('.acf-field-clone[data-name="adult"]', $this).hide();
                 jQuery('.acf-field-clone[data-name="adult"]', $this).find(':input').prop('disabled', true);
                 jQuery('.acf-field-clone[data-name="child"]', $this).find(':input:visible').prop('disabled', false);
-                //jQuery('.acf-field-clone[data-name="child"] .acf-field', $this).not($hidden_child_fields).removeClass('acf-hidden').removeAttr('hidden');
-                //jQuery('.acf-field-clone[data-name="adult"] .acf-field', $this).not($hidden_adult_fields).addClass('acf-hidden').attr('hidden');
                 $children++;
                 $child_added = true;
             } else {
                 jQuery('.acf-field-clone[data-name="child"]', $this).hide();
                 jQuery('.acf-field-clone[data-name="child"]', $this).find(':input').prop('disabled', true);
                 jQuery('.acf-field-clone[data-name="adult"]', $this).find(':input:visible').prop('disabled', false);
-                //jQuery('.acf-field-clone[data-name="child"] .acf-field', $this).not($hidden_child_fields).addClass('acf-hidden').attr('hidden');
-                //jQuery('.acf-field-clone[data-name="adult"] .acf-field', $this).not($hidden_adult_fields).removeClass('acf-hidden').removeAttr('hidden');
                 jQuery('.acf-field-clone[data-name="adult"]', $this).show();
                 $adults++;
             }
@@ -141,23 +137,6 @@ get_header(); ?>
         conditional_attendee_group($el);
     });
     conditional_attendee_group();
-
-
-    /*
-    function acf_clear_unused_fields() {
-
-    }
-
-    if ( 'undefined' !== typeof acf ) {
-    	acf.add_filter( 'validation_complete', function( json, $form ) {
-    		if ( json.valid && ! json.errors ) {
-    	          acf_clear_unused_fields();
-    		}
-
-    		return json;
-    	});
-    }
-    */
 
 
 
