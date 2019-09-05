@@ -676,10 +676,10 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
                 // Manually set post meta for what type of attendee this is (used for ongoing logic).
                 if($k == 'email_address_adult_attendee' || $k == 'email_address_child_attendee') {
 
-                    if($k == 'email_address_adult_attendee' ) {
-                        update_post_meta($new_attendee, 'attendee_type', 'adult');
-                    } else {
+                    if($k == 'email_address_child_attendee' ) {
                         update_post_meta($new_attendee, 'attendee_type', 'child');
+                    } else {
+                        update_post_meta($new_attendee, 'attendee_type', 'adult');
                     }
 
                 }
