@@ -417,7 +417,7 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
     }
 
     $attendee_type = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = 'attendee_type' AND post_id = {$attendee->ID}");
-    
+
     if($attendee_type == 'child') {
         return $child_fields['clone'][0];
     } else if($attendee_type == 'adult') {
@@ -465,12 +465,14 @@ function check_event_entry()
 			$entry_id = $_GET['event_entry'];
 		}
 
+        /*
         // Check for opted-out entries
         $details = get_conditional_attendee_details(get_post($_GET['event_entry']));
         $lead_details = get_conditional_attendee_details(get_post(get_lead_booking_id($_GET['event_entry'])));
         if ($details['email_address'] == $lead_details['email_address'] ) {
             $entry_id = $_GET['event_entry'];
         }
+        */
 
 	}
 	return $entry_id;
