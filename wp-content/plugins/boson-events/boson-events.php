@@ -417,9 +417,7 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
     }
 
     $attendee_type = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = 'attendee_type' AND post_id = {$attendee->ID}");
-
-    if(!$attendee_type) return false;
-
+    
     if($attendee_type == 'child') {
         return $child_fields['clone'][0];
     } else if($attendee_type == 'adult') {
