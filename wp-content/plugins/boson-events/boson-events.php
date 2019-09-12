@@ -946,23 +946,25 @@ function is_attendee_complete($entry) {
 			$required[] = $v['name'];
 		}
         if(isset($v['sub_fields'])) {
-            foreach($v['sub_fields'] as $s_k => $s_v) {
-                if ($s_v['required']) {
-        			$required[] = $s_v['name'];
-        		}
+            if($v['name'] == 'attendee_details') {
+                foreach($v['sub_fields'] as $s_k => $s_v) {
+                    if ($s_v['required']) {
+            			$required[] = 'attendee_details_' . $s_v['name'];
+            		}
+                }
             }
         }
-
 	}
 
 	foreach ($required as $field ) {
-		if (empty(get_field($field, $entry))) {
-			return false;
+		if (empty(get_post_meta($entry, $field, true))) {
+            return false;
 		}
 	}
 
 	return true;
 }
+
 
 
 
