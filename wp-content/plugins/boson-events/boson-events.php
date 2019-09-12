@@ -768,10 +768,12 @@ function opt_out_handler($entry, $form) {
     if ($user_already_existed) {
       // Reset the attendee email address to the lead booking email
       update_post_meta($event_entry, $details['email_address_field'], $lead_details['email_address']);
+      update_post_meta($event_entry, 'event_entry_id', get_post_meta($event_entry, 'lead_user_id', true));
       opt_out_email_notification($parent_booking, $event_entry);
     } else {
       // Reset the attendee email address to the lead booking email
       update_post_meta($event_entry, $details['email_address_field'], $lead_details['email_address']);
+      update_post_meta($event_entry, 'event_entry_id', get_post_meta($event_entry, 'lead_user_id', true));
       // Delete the user
       require_once(ABSPATH.'wp-admin/includes/user.php' );
       wp_delete_user($user->ID);
