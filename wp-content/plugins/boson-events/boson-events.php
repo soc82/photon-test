@@ -576,8 +576,8 @@ function process_attendee_email($message, $attendee) {
   $message = str_replace('{attendee_full_name}', $details['first_name'] . ' ' . $details['last_name'], $message);
   $message = str_replace('{event_name}', get_the_title(get_field('event_id', $attendee->ID)), $message);
   $message = str_replace('{date}', attendee_details_cutoff_date(get_field('event_id', $attendee->ID)), $message);
-  $message = str_replace('{complete_link}', '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $attendee->ID . '">Click here</a>', $message);
-  $message = str_replace('{unsubscribe_link}', '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $details['email_address']) . '&event_entry=' . $attendee->ID . '">Click here</a>', $message);
+  $message = str_replace('{complete_link}', '<a href="' . home_url() . '/attendee-form/?event_entry=' . $attendee->ID . '">Click here</a>', $message);
+  $message = str_replace('{unsubscribe_link}', '<a href="' . home_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $details['email_address']) . '&event_entry=' . $attendee->ID . '">Click here</a>', $message);
   $message = str_replace('{password_reset}', '<a href="' . home_url() . '/my-account/lost-password/?key=' . $adt_rp_key . '&id=' . $attendee->ID . '">Set Password</a>', $message);
 
   return $message;
@@ -654,7 +654,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
             }
 
             // Flatten multidimensional array so easier to work with
-            $attendee = flatten_adult_fields($attendee);
+            $attendee = array_flatten($attendee);
 
             $new_attendee = wp_insert_post($post_data);
 
