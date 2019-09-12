@@ -278,6 +278,8 @@ function prospect_get_attendee_form() {
 
     	$fieldset = get_event_attendee_fieldset_id_conditional(get_post_meta($event_entry, 'event_id', true), get_post($event_entry));
 
+        echo '<h3>' . get_the_title($event_id) . '</h3>';
+
         acf_form(array(
           'post_id' 	  => $event_entry,
           'post_title'    => false,
@@ -306,7 +308,6 @@ function prospect_get_event_form( ) {
 
     $fields_id = get_event_booking_fieldset_id($_GET['event']);
 
-    $code_of_conduct = get_field('event_behaviour_code_content', 'options');
     $event_terms = get_field('event_terms_conditions', $_GET['event']);
     $generic_terms = get_field('generic_event_terms', 'option');
 
@@ -327,10 +328,6 @@ function prospect_get_event_form( ) {
         echo '<div class="event-total-attendees"></div>';
         echo '<div class="event-total-price"></div>';
       echo '</div>';
-
-      if($code_of_conduct):
-            echo '<div id="code-of-conduct-content" class="modal">' . $code_of_conduct . '</div>';
-       endif;
 
        if($event_terms):
            echo '<div id="event-terms-modal" class="modal">' . $event_terms . '</div>';
@@ -354,7 +351,7 @@ function get_event_booking_fieldset_id($id)
 	//$fields_id = get_post_meta($id, 'booking_form_post_id', true);
     $fields_id = get_field('event_form', $id);
     if($fields_id) {
-    $fields_id = $fields_id->ID;
+        $fields_id = $fields_id->ID;
     }
 
 	return $fields_id;
@@ -384,21 +381,8 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
 
     // Get the fields from group id
     $fields = acf_get_fields_by_id($fields_id);
+    $lead_group = get_post($fields_id);
 
-    /*
-    ** @TODO leaving this here as at the moment it will use the 'adult' clone group fields, however lead should really be using the acutal lead booker fields
-
-    // Build array of lead booker fields
-    $lead_fields = [];
-    if($fields) {
-        foreach($fields as $acf_field) {
-            if($acf_field['_name'] != 'additional_attendees') {
-                $lead_fields[] = $acf_field;
-            }
-        }
-    }
-
-    */
 
     global $wpdb;
     // Return sub-fields of 'additional_attendees'
@@ -418,7 +402,9 @@ function get_event_attendee_fieldset_id_conditional($id, $attendee)
 
     $attendee_type = $wpdb->get_var("SELECT meta_value FROM {$wpdb->prefix}postmeta WHERE meta_key = 'attendee_type' AND post_id = {$attendee->ID}");
 
-    if($attendee_type == 'child') {
+    if($attendee_type == 'lead') {
+        return $lead_group->post_name;
+    } else if($attendee_type == 'child') {
         return $child_fields['clone'][0];
     } else if($attendee_type == 'adult') {
         return $adult_fields['clone'][0];
@@ -647,7 +633,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		update_post_meta($lead, 'event_id', $order_item->get_product()->get_id());
 		update_post_meta($lead, 'event_user_id', $lead_user_id);
 		update_post_meta($lead, '_last_notified', time());
-        update_post_meta($lead, 'attendee_type', 'adult');
+        update_post_meta($lead, 'attendee_type', 'lead');
 
 
 		$order_item->add_meta_data('_lead_entry', $lead);
@@ -684,6 +670,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
                 }
 
                 update_post_meta($new_attendee, $k, $v);
+
 
             }
 
@@ -951,6 +938,14 @@ function is_attendee_complete($entry) {
 		if ($v['required']) {
 			$required[] = $v['name'];
 		}
+        if(isset($v['sub_fields'])) {
+            foreach($v['sub_fields'] as $s_k => $s_v) {
+                if ($s_v['required']) {
+        			$required[] = $s_v['name'];
+        		}
+            }
+        }
+
 	}
 
 	foreach ($required as $field ) {
@@ -963,6 +958,7 @@ function is_attendee_complete($entry) {
 }
 
 
+
 add_action('acf/save_post', function ($post_id) {
 
 
@@ -970,8 +966,6 @@ add_action('acf/save_post', function ($post_id) {
 
 
   if (!(is_attendee_complete($post_id))) return;
-  //	if (get_post_meta($post_id, '_attendee_complete_email_sent', true)) return;
-
 
   $attendee_meta = get_attendee_post_meta($post_id);
   unset($attendee_meta['_last_emailed_hash']);
@@ -990,7 +984,7 @@ add_action('acf/save_post', function ($post_id) {
 
 
   update_post_meta($post_id, '_attendee_complete', 1);
-	update_post_meta($post_id, '_attendee_complete_email_sent', 1);
+  update_post_meta($post_id, '_attendee_complete_email_sent', 1);
 
 }, 20);
 
@@ -1080,15 +1074,16 @@ add_filter( 'password_reset_expiration', function( $expiration ) {
 	return MONTH_IN_SECONDS;
 });
 
+
 add_filter('acf/get_field_group', function ($group) {
 	static $filtering = [];
 	if (!isset($filtering[$group['key']]) && is_admin() && function_exists('get_current_screen')) {
 		$filtering[$group['key']] = true;
 		$get_current_screen = get_current_screen();
 		if ($get_current_screen->post_type == 'event-entry') {
+
 			$entry_id = $_GET['post'];
 			$fieldset = get_event_attendee_fieldset_id_conditional(get_post_meta($entry_id, 'event_id', true), get_post($entry_id));
-            //$fieldset = get_event_attendee_fieldset_id(get_post_meta($entry_id, 'event_id', true));
 			if (
 				$group['key'] == $fieldset
 			) {
@@ -1107,9 +1102,26 @@ add_filter('acf/get_field_group', function ($group) {
 		unset($filtering[$group['key']]);
 
 	}
-
 	return $group;
 });
+
+
+
+// JS to remove the 'Additional attendee' repeater when editing the post in the CMS. Also a front-end version to do this.
+add_action('admin_footer', function() {
+
+    $current_screen = get_current_screen();
+    if( $current_screen->id === "event-entry" ) {
+        echo '
+        <script>jQuery(document).ready(function($) {
+            $(".acf-field[data-name=additional_attendees]").remove();
+        });
+        </script>';
+
+    }
+
+});
+
 
 function do_clear_passed_event_data() {
 	$args = array(
@@ -1216,7 +1228,16 @@ function get_conditional_attendee_details($attendee) {
 
     $details = array();
 
-    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult') {
+    if(get_post_meta($attendee->ID, 'attendee_type', true) == 'lead') {
+
+        $details['first_name'] = get_post_meta($attendee->ID, 'first_name', true);
+        $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
+        $details['email_address'] = get_post_meta($attendee->ID, 'email_address', true);
+        $details['email_address_field'] = 'email_address';
+        $details['user_id'] = $attendee->ID;
+
+
+    } else if(get_post_meta($attendee->ID, 'attendee_type', true) == 'adult') {
 
         $details['first_name'] = get_post_meta($attendee->ID, 'first_name', true);
         $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
@@ -1245,3 +1266,51 @@ function get_conditional_attendee_details($attendee) {
     return $details;
 
 }
+
+
+function behaviour_code_shortcode( ) {
+
+    $markup = '';
+
+    $code_of_conduct = get_field('event_behaviour_code_content', 'options');
+    if($code_of_conduct):
+          $markup = '<a href="#code-of-conduct-content" rel="modal:open" class="acf-field d-block code-of-conduct-link">Click here to read our behaviour code.<br/></a>
+          <div id="code-of-conduct-content" class="modal">' . $code_of_conduct . '</div>';
+     endif;
+
+	return $markup;
+}
+add_shortcode( 'bevaviour_code', 'behaviour_code_shortcode' );
+
+
+
+
+function event_terms_code_shortcode( ) {
+
+    $markup = '';
+    $markup = '<a href="#event-terms-modal" rel="modal:open">Click here to read our terms &amp; conditions</a>';
+
+	return $markup;
+}
+add_shortcode( 'terms_conditions', 'event_terms_code_shortcode' );
+
+
+
+// Allow for shortcodes in message field
+add_filter('acf/load_field/type=message', function ($field ) {
+    if(is_admin()) return $field;
+
+    $field['message'] = do_shortcode($field['message']);
+    return $field;
+
+}, 10, 3);
+
+
+function acf_load_field_allow_shortcode($field ) {
+    if(is_admin()) return $field;
+
+    $field['instructions'] = do_shortcode($field['instructions']);
+    return $field;
+}
+add_filter('acf/load_field/type=select', 'acf_load_field_allow_shortcode', 10, 3);
+add_filter('acf/load_field/type=true_false', 'acf_load_field_allow_shortcode', 10, 3);

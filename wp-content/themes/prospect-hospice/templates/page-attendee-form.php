@@ -18,16 +18,10 @@ get_header(); ?>
 <?php acf_enqueue_uploader(); ?>
 <?php get_footer(); ?>
 
-<?php
-if(false):
-  $product = wc_get_product($_GET['event']); ?>
-  <script>
-    jQuery('.acf-repeater').change(function(){
-      var repeaterRows = jQuery('.acf-repeater .acf-row').not('.acf-clone').length + 1;
-      jQuery('.event-total-attendees').text('Number of attendees: ' + repeaterRows);
-      jQuery('#total_number_attendees').val(repeaterRows);
-      jQuery('.event-total-price').text('Total price: ' + (repeaterRows * <?php echo $product->get_price(); ?>));
-    });
-    jQuery('.acf-repeater').change();
-  </script>
-<?php endif; ?>
+<script>
+// Remove the 'Are you parent guardian' field and set to yes by default
+jQuery(document).ready(function($) {
+    $('.acf-field[data-name="are_you_the_parent_or_guardian_of_this_child"]').find('select').val('Yes').trigger('change');
+    $('.acf-field[data-name="are_you_the_parent_or_guardian_of_this_child"]').hide();
+});
+</script>

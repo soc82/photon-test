@@ -18,9 +18,7 @@ get_header(); ?>
   </div>
 </div>
 <?php get_footer(); ?>
-<?php if(isset($_GET['event']) && $_GET['event']) {
-  $terms_conditions = get_field('terms_conditions', $_GET['event']);
-} ?>
+
 <script>
     function calculate() {
 
@@ -44,13 +42,6 @@ get_header(); ?>
     jQuery('.acf-repeater').on('change', calculate);
     jQuery(document).on('change', '[data-name=ticket_type] select', calculate);
     calculate();
-
-    <?php if($terms_conditions){ ?>
-      jQuery(document).ready(function($){
-        var newTerms = $('[data-name="terms_&_conditions"] span.message').text().replace("Terms and Conditions", '<a href="<?php echo $terms_conditions['url']; ?>" target="_blank">Terms and Conditions</a>');
-        jQuery('[data-name="terms_&_conditions"] span.message').html(newTerms);
-    });
-    <?php } ?>
 
 
 
@@ -112,11 +103,9 @@ get_header(); ?>
                 jQuery('.acf-field-clone[data-name="child"]', $this).find(':input').prop('disabled', true);
                 jQuery('.acf-field-clone[data-name="adult"]', $this).find(':input:visible').prop('disabled', false);
                 jQuery('.acf-field-clone[data-name="adult"]', $this).show();
+                // Manually removing the attendee details as that shouldn't be completed by the lead booker but by the attendee themselves
+                jQuery('.acf-field[data-name="adult"] .acf-field[data-name="attendee_details"]', $this).remove();
                 $adults++;
-            }
-
-            if(!jQuery('.acf-field-clone[data-name="child"] .acf-clone-fields .code-of-conduct-link', $this).length && jQuery('#code-of-conduct-content').length) {
-                jQuery('.acf-field-clone[data-name="child"] .acf-clone-fields', $this).append('<a href="#code-of-conduct-content" rel="modal:open" class="acf-field d-block code-of-conduct-link">Click here to read our behaviour code.<br/></a>');
             }
 
         });
