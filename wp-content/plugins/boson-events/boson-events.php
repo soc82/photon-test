@@ -574,14 +574,13 @@ function process_admin_attendee_email($attendee) {
 
 function process_attendee_email($message, $attendee) {
 
-  $user = get_field('lead_user_id', $attendee->ID);
   $details = get_conditional_attendee_details($attendee);
   $opt_out_link_text = get_field('new_attendee_email_opt_out_link_text', 'options');
   $link_text = get_field('new_attendee_email_link_text', 'options');
 
-  if ($user) {
-	  $user = new WP_User($user);
-	  $message = str_replace('{booker_name}', $user->display_name, $message);
+  if ($details) {
+	  $user = new WP_User($details['user_id']);
+	  $message = str_replace('{booker_name}', $details['first_name'] . ' ' . $details['last_name'], $message);
       $adt_rp_key = get_password_reset_key( $user );
   }
 
@@ -591,7 +590,7 @@ function process_attendee_email($message, $attendee) {
   $message = str_replace('{date}', attendee_details_cutoff_date(get_field('event_id', $attendee->ID)), $message);
   $message = str_replace('{complete_link}', '<a href="' . get_site_url() . '/attendee-form/?event_entry=' . $attendee->ID . '">' . $link_text . '</a>', $message);
   $message = str_replace('{unsubscribe_link}', '<a href="' . get_site_url() . '/group-registration-opt-out?attendee=' . str_replace('+', '%2B', $details['email_address']) . '&event_entry=' . $attendee->ID . '">' . $opt_out_link_text . '</a>', $message);
-  $message = str_replace('{password_reset}', '<a href="' . home_url() . '/my-account/lost-password/?key=' . $adt_rp_key . '&id=' . $user->ID . '">Set Password</a>', $message);
+  $message = str_replace('{password_reset}', '<a href="' . home_url() . '/my-account/lost-password/?key=' . $adt_rp_key . '&id=' . $attendee->ID . '">Set Password</a>', $message);
 
   return $message;
 
@@ -1223,6 +1222,7 @@ function get_conditional_attendee_details($attendee) {
         $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
         $details['email_address'] = get_post_meta($attendee->ID, 'email_address_adult_attendee', true);
         $details['email_address_field'] = 'email_address_adult_attendee';
+        $details['user_id'] = $attendee->ID;
 
     } else if(get_post_meta($attendee->ID, 'attendee_type', true) == 'child') {
 
@@ -1230,6 +1230,7 @@ function get_conditional_attendee_details($attendee) {
         $details['last_name'] = get_post_meta($attendee->ID, 'guardian_last_name', true);
         $details['email_address'] = get_post_meta($attendee->ID, 'email_address_child_attendee', true);
         $details['email_address_field'] = 'email_address_child_attendee';
+        $details['user_id'] = $attendee->ID;
 
     } else { // Need to think of a better solution for lead to use the top-level fields
 
@@ -1237,6 +1238,7 @@ function get_conditional_attendee_details($attendee) {
         $details['last_name'] = get_post_meta($attendee->ID, 'last_name', true);
         $details['email_address'] = get_post_meta($attendee->ID, 'email_address', true);
         $details['email_address_field'] = 'email_address';
+        $details['user_id'] = $attendee->ID;
 
     }
 
