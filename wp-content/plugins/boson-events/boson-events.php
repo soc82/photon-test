@@ -425,9 +425,11 @@ function get_attendee_post_meta($post_id) {
       $meta_array[$key] = $value[0];
     //}
   }
+
   return $meta_array;
 
 }
+
 
 
 /**
@@ -652,7 +654,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
             }
 
             // Flatten multidimensional array so easier to work with
-            $attendee = array_flatten($attendee);
+            $attendee = flatten_adult_fields($attendee);
 
             $new_attendee = wp_insert_post($post_data);
 
@@ -668,7 +670,7 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
                     }
 
                 }
-
+                // @TODO This is where we need to think about nested arrays like 'child_consent' as an example. Can we use update_field and pass the field name?
                 update_post_meta($new_attendee, $k, $v);
 
 
@@ -739,6 +741,9 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 	}
 }, 10, 1 );
+
+
+
 
 add_action( 'gform_after_submission', 'opt_out_handler', 10, 2);
 
@@ -1214,6 +1219,25 @@ function array_flatten($array) {
   }
   return $result;
 }
+
+
+// Flattens the adult fields so the attendee_details group is at the same level
+function flatten_adult_fields($array) {
+  if (!is_array($array)) {
+    return false;
+  }
+  $result = array();
+  foreach ($array as $key => $value) {
+      if($key == 'attendee_details') {
+          $result = array_merge($result, array_flatten($value));
+      } else {
+        $result[$key] = $value;
+      }
+  }
+  return $result;
+}
+
+
 
 
 
