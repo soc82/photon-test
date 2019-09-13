@@ -585,7 +585,6 @@ function process_attendee_email($message, $attendee) {
 }
 
 
-
 add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 	$order = wc_get_order( $order_id );
@@ -648,8 +647,10 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 		foreach ($additional_attendees as $ak=>$attendee) {
             // Check whether adult or child attendee (by email field), and remove other unecessary fields
             if($attendee['adult']['email_address_adult_attendee']) {
-                unset($attendee['child']);
+                $type = 'adult';
+            	unset($attendee['child']);
             } else if($attendee['child']['email_address_child_attendee']) {
+				$type = 'child';
                 unset($attendee['adult']);
             }
 
@@ -658,22 +659,11 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
             $new_attendee = wp_insert_post($post_data);
 
+			update_post_meta($new_attendee, 'attendee_type', $type);
+
             foreach ($attendee as $k => $v) {
-
-                // Manually set post meta for what type of attendee this is (used for ongoing logic).
-                if($k == 'email_address_adult_attendee' || $k == 'email_address_child_attendee') {
-
-                    if($k == 'email_address_child_attendee' ) {
-                        update_post_meta($new_attendee, 'attendee_type', 'child');
-                    } else {
-                        update_post_meta($new_attendee, 'attendee_type', 'adult');
-                    }
-
-                }
                 // @TODO This is where we need to think about nested arrays like 'child_consent' as an example. Can we use update_field and pass the field name?
-                update_post_meta($new_attendee, $k, $v);
-
-
+                update_field($k, $v, $new_attendee);
             }
 
             $details = get_conditional_attendee_details($new_attendee);
