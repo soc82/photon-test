@@ -745,6 +745,8 @@ add_action( 'woocommerce_order_status_processing', function ( $order_id ) {
 
 
 
+
+
 add_action( 'gform_after_submission', 'opt_out_handler', 10, 2);
 
 function opt_out_handler($entry, $form) {
@@ -945,11 +947,12 @@ function is_attendee_complete($entry) {
 		if ($v['required']) {
 			$required[] = $v['name'];
 		}
+
         if(isset($v['sub_fields'])) {
             if($v['name'] == 'attendee_details') {
                 foreach($v['sub_fields'] as $s_k => $s_v) {
                     if ($s_v['required']) {
-            			$required[] = 'attendee_details_' . $s_v['name'];
+            			$required[] =  $v['name'] . '_' . $s_v['name'];
             		}
                 }
             }
