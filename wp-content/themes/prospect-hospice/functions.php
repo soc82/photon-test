@@ -35,6 +35,10 @@ remove_action('wp_print_styles', 'print_emoji_styles');
 // Let WordPress manage the document title.
 add_theme_support('title-tag');
 
+/**********************************************
+** Custom Post Status for Jobs and Cron Job
+**********************************************/
+
 function my_custom_status_creation(){
         register_post_status( 'closed', array(
             'label'                     => _x( 'Job Closed', 'post' ),
@@ -73,6 +77,43 @@ function my_custom_status_creation(){
     }
     add_action('admin_footer-post.php', 'my_custom_status_add_in_post_page');
     add_action('admin_footer-post-new.php', 'my_custom_status_add_in_post_page');
+
+    if ( ! wp_next_scheduled( 'wpdocs_task_hook' ) ) {
+        wp_schedule_event( time(), 'daily', 'wpdocs_task_hook' );
+    }
+    add_action( 'wpdocs_task_hook', 'wpdocs_task_function' ); // 'wpdocs_task_hook` is registered when the event is scheduled
+     
+    /**
+     * Send an alert by email.
+     */
+    function wpdocs_task_function() {
+        $today = date('Ymd');
+        $query_args = array(
+          'post_type' => 'jobs',
+          'posts_per_page'  => -1,
+          'meta_key' => 'closing_date',
+          'order' => 'ASC',
+          'orderby' => 'meta_value',
+          'meta_key' => 'closing_date',
+          'post_status' => 'publish',
+          'meta_query' => array(
+            array(
+                    'key' => 'closing_date',
+                    'value' => $today,
+                    'compare' => '<='
+                )
+          ),
+        );
+        
+
+        $items = new WP_Query($query_args);
+        foreach($items as $item){
+          wp_update_post(array(
+            'ID'    =>  $item->ID,
+            'post_status'   =>  'closed'
+        ));
+        }
+    }
 
 
 /**********************************************
