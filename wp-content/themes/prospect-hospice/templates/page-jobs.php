@@ -11,6 +11,7 @@ $query_args = array(
 	'order' => 'ASC',
 	'orderby' => 'meta_value',
 	'meta_key' => 'closing_date',
+	'post_status' => 'publish',
 	'meta_query' => array(
 		array(
             'key' => 'closing_date',
@@ -40,6 +41,7 @@ $query_args['tax_query'][] = [
       	];
 
 $items = new WP_Query($query_args);
+
 
 $terms = prospect_get_jobs_filters('paid');
 

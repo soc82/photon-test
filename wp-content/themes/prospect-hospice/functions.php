@@ -35,6 +35,45 @@ remove_action('wp_print_styles', 'print_emoji_styles');
 // Let WordPress manage the document title.
 add_theme_support('title-tag');
 
+function my_custom_status_creation(){
+        register_post_status( 'closed', array(
+            'label'                     => _x( 'Job Closed', 'post' ),
+            'label_count'               => _n_noop( 'Job Closed <span class="count">(%s)</span>', 'Job Closed <span class="count">(%s)</span>'),
+            'public'                    => true,
+            'post_type'                 => array('jobs'),
+            'exclude_from_search'       => false,
+            'show_in_admin_all_list'    => true,
+            'show_in_admin_status_list' => true
+        ));
+    }
+    add_action( 'init', 'my_custom_status_creation' );
+
+    function my_custom_status_add_in_quick_edit() {
+        global $post;
+       
+        if ( $post->post_type == 'jobs' ) {
+        echo "<script>
+        jQuery(document).ready( function() {
+            jQuery( 'select[name=\"_status\"]' ).append( '<option value=\"closed\">Job Closed</option>' );      
+        }); 
+        </script>";
+      }
+    }
+    add_action('admin_footer-edit.php','my_custom_status_add_in_quick_edit');
+    function my_custom_status_add_in_post_page() {
+       global $post;
+       
+        if ( $post->post_type == 'jobs' ) {
+        echo "<script>
+        jQuery(document).ready( function() {        
+            jQuery( 'select[name=\"post_status\"]' ).append( '<option value=\"closed\">Job Closed</option>' );
+        });
+        </script>";
+      }
+    }
+    add_action('admin_footer-post.php', 'my_custom_status_add_in_post_page');
+    add_action('admin_footer-post-new.php', 'my_custom_status_add_in_post_page');
+
 
 /**********************************************
 ** Images

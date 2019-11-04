@@ -77,17 +77,19 @@ get_header(); ?>
 					<div class="section apply-job">
 						<?php if ($job_section !== 'volunteer') : ?>
 							<?php if (!$applied) : // If Applied ?>
-
+								<?php if($post->post_status != 'closed'): ?>
 								<?php if (is_user_logged_in()) : // If user logged in, apply ?>
 									<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 
 								<?php else : // else, explain they need to register / login ?>
 									<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
 								<?php endif; ?>
+								<?php endif; ?>
 
 							<?php else : // else, tell user they have already applied  ?>
 								<?php echo '<p>' . get_field('position_already_applied_for_text', 'option') . '</p>'; ?>
 							<?php endif; ?>
+
 						<?php endif; ?>
 						<a href="<?php echo get_permalink($vacancies_page); ?>" class="btn btn-light-grey"><i class="fa fa-angle-left"></i> Back to vacancies</a>
 
@@ -114,16 +116,17 @@ get_header(); ?>
 						<div>Closing Date:<br /><?php echo $closing_date; ?></div>
 
 						<?php if (!$applied) : // If Applied ?>
-
+							<?php if($post->post_status != 'closed'): ?>
 							<?php if (is_user_logged_in()) : // If user logged in, apply ?>
 								<a class="btn" href="<?php echo get_permalink($application_page); ?>?job_id=<?php echo the_ID(); ?>"><?php echo get_field('apply_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
-
+							<?php endif; ?>
 							<?php else : // else, explain they need to register / login ?>
-
+							<?php if($post->post_status != 'closed'): ?>
 								<?php $intro_text = get_field('registration_sign_in_intro_text', 'option');
 								if($intro_text) echo '<div class="register">' . $intro_text .'</div>';?>
 
 								<a class="btn" href="/my-account?job_id=<?php echo $job_id; ?>"><?php echo get_field('login_register_button_text', 'option'); ?> <i class="fa fa-angle-right"></i></a>
+							<?php endif; ?>
 							<?php endif; ?>
 
 						<?php else : // else, tell user they have already applied  ?>
