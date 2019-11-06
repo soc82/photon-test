@@ -7991,13 +7991,9 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
       color: #FFFFFF;
       border: none !important;
       box-shadow: none !important;
-      padding: 15px 30px;
+      padding: 8px 10px;
       border-radius: 50px; }
-      .mobile-menu ul li.donate a:before {
-        padding-right: 10px;
-        content: '\f004';
-        font-family: 'Font Awesome 5 Pro';
-        font-weight: 400; }
+     
       .mobile-menu ul li.donate a:hover {
         background: #f3cc30;
         cursor: default; }
