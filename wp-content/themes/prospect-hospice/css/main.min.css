@@ -8363,17 +8363,13 @@ html, body, .container, .event-hero-banner .hero-container, .scroller {
                 .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.donate a {
                   color: #fff !important;
                   background: #f50068;
-                  padding: 15px 25px;
+                  padding: 8px 10px;
                   border-radius: 50px;
                   color: #fff;
                   font-family: "Glypha LT Pro W01 Regular", "sans-serif";
                   font-weight: bold;
                   display: inline-block; }
-                  .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.donate a:before {
-                    padding-right: 10px;
-                    content: '\f004';
-                    font-family: 'Font Awesome 5 Pro';
-                    font-weight: 400; }
+                  
                 .site-header .desktop-navigation .main-navigation-wrapper ul.main-navigiation li.donate:hover a {
                   background: #f3cc30 !important;
                   cursor: default;
