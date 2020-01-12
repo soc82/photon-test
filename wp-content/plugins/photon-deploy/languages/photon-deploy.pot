@@ -1,0 +1,237 @@
+# Copyright (C) 2019 photon
+# This file is distributed under the same license as the photon package.
+msgid ""
+msgstr ""
+"Project-Id-Version: photon\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: photon.php:52
+msgid "In order to run photon, you need to have Javascript enabled in your browser."
+msgstr ""
+
+#: classes/class.load.php:130, classes/class.load.php:131
+msgctxt "photon"
+msgstr ""
+
+#: classes/class.load.php:132
+msgstr ""
+
+#: classes/class.load.php:133
+msgid "All Items"
+msgstr ""
+
+#: classes/class.load.php:134
+msgid "Parent Item"
+msgstr ""
+
+#: classes/class.load.php:135
+msgid "Parent Item:"
+msgstr ""
+
+#: classes/class.load.php:136
+msgid "New Item Name"
+msgstr ""
+
+#: classes/class.load.php:137
+msgid "Add New Item"
+msgstr ""
+
+#: classes/class.load.php:138
+msgid "Edit Item"
+msgstr ""
+
+#: classes/class.load.php:139
+msgid "Update Item"
+msgstr ""
+
+#: classes/class.load.php:140
+msgid "View Item"
+msgstr ""
+
+#: classes/class.load.php:141
+msgid "Separate items with commas"
+msgstr ""
+
+#: classes/class.load.php:142
+msgid "Add or remove items"
+msgstr ""
+
+#: classes/class.load.php:143
+msgid "Choose from the most used"
+msgstr ""
+
+#: classes/class.load.php:144
+msgid "Popular Items"
+msgstr ""
+
+#: classes/class.load.php:145
+msgid "Search Items"
+msgstr ""
+
+#: classes/class.load.php:146
+msgid "Not Found"
+msgstr ""
+
+#: classes/class.load.php:147
+msgid "No items"
+msgstr ""
+
+#: classes/class.load.php:148
+msgid "Items list"
+msgstr ""
+
+#: classes/class.load.php:149
+msgid "Items list navigation"
+msgstr ""
+
+#: classes/views/add-page.php:17, classes/views/list-page.php:10, classes/views/list-page.php:20
+msgid "Add New photon"
+msgstr ""
+
+#: classes/views/add-page.php:18, classes/views/list-page.php:11
+msgid "View photon"
+msgstr ""
+
+#: classes/views/add-page.php:19, classes/views/list-page.php:12
+msgid "Get Support"
+msgstr ""
+
+#: classes/views/add-page.php:36
+msgid "If you have some data, we will load your reports here!"
+msgstr ""
+
+#: classes/views/add-page.php:44
+msgid "Save your photon"
+msgstr ""
+
+#: classes/views/add-page.php:46, classes/views/list-page.php:41
+msgid "Name"
+msgstr ""
+
+#: classes/views/add-page.php:49
+msgid "URL you want to direct"
+msgstr ""
+
+#: classes/views/add-page.php:50
+msgid "Enter the full link here, i.e. http://maaike.co.uk"
+msgstr ""
+
+#: classes/views/add-page.php:51
+msgid "Url you wish to change. Add http://"
+msgstr ""
+
+#: classes/views/add-page.php:53
+msgid "How you want your redirect link to look"
+msgstr ""
+
+#: classes/views/add-page.php:54
+msgid "This will be an affix to your sites domain that when entered as an address will redirect to the Old URL"
+msgstr ""
+
+#: classes/views/add-page.php:55
+msgid "E.g. /new/url"
+msgstr ""
+
+#: classes/views/add-page.php:57
+msgid "Your Brand new photon"
+msgstr ""
+
+#: classes/views/list-page.php:21
+msgid "Welcome to"
+msgstr ""
+
+#: classes/views/list-page.php:21
+msgid "photon"
+msgstr ""
+
+#: classes/views/list-page.php:22
+msgid "Not all URLs are pretty, therefore we aim to make your website URLs all match."
+msgstr ""
+
+#: classes/views/list-page.php:23
+msgid "Create redirects through your own website url to external websites, or create short links for your internal links, the choice is yours!."
+msgstr ""
+
+#: classes/views/list-page.php:28
+msgid "Search for your photon and press enter"
+msgstr ""
+
+#: classes/views/list-page.php:42
+msgid "Original"
+msgstr ""
+
+#: classes/views/list-page.php:43
+msgid "New photon"
+msgstr ""
+
+#: classes/views/list-page.php:44
+msgid "Clicks"
+msgstr ""
+
+#: classes/views/report.php:2
+msgid "This Month vs Last Month"
+msgstr ""
+
+#: classes/views/report.php:7
+msgid "At a Glance"
+msgstr ""
+
+#: classes/views/report.php:9
+msgid "This Week"
+msgstr ""
+
+#: classes/views/report.php:21
+msgid "This Year"
+msgstr ""
+
+#: classes/views/report.php:27
+msgid "Clicks are based on users clicking the photon item and being transferred to the url"
+msgstr ""
+
+#: classes/views/report.php:33
+msgid "This week vs last week"
+msgstr ""
+
+#: classes/views/report.php:33, classes/views/report.php:38
+msgid "to"
+msgstr ""
+
+#: classes/views/report.php:38
+msgid "Where in the World"
+msgstr ""
+
+#: classes/views/report.php:52
+msgid "No recordings for this date range"
+msgstr ""
+
+#: classes/views/report.php:74
+msgid "Clicks this week"
+msgstr ""
+
+#: classes/views/report.php:149
+msgid "Clicks per Day"
+msgstr ""
+
+#: classes/views/search-results.php:21
+msgid "Oh No! You haven't created your first photon!"
+msgstr ""
+
+#: classes/views/search-results.php:22
+msgid "But thats ok! We can help you through it now!"
+msgstr ""
+
+#: classes/views/search-results.php:22
+msgid "Start by clicking the button below"
+msgstr ""
+
+#: classes/views/search-results.php:23
+msgid "Get Started Now"
+msgstr ""
